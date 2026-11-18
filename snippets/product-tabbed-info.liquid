@@ -1,0 +1,711 @@
+{% comment %}
+  Product Tabbed Information Section (Exact Figma Replica)
+  Tabs: WHY BUY THIS, HOW TO USE, PRODUCT DETAILS, DOCTORS RECOMMENDATION, FAQS
+{% endcomment %}
+
+{%- liquid
+  assign current_product = closest.product | default: product
+
+  assign tab_1_title = section.settings.tab_1_title | default: 'WHY BUY THIS'
+  assign tab_2_title = section.settings.tab_2_title | default: 'HOW TO USE'
+  assign tab_3_title = section.settings.tab_3_title | default: 'PRODUCT DETAILS'
+  assign tab_4_title = section.settings.tab_4_title | default: 'DOCTORS RECOMMENDATION'
+  assign tab_5_title = section.settings.tab_5_title | default: 'FAQS'
+
+  # Tab 1 settings
+  assign why_buy_heading = section.settings.why_buy_heading | default: 'Why Buy'
+  assign feat_1_title = section.settings.feat_1_title | default: 'Deep Penetration'
+  assign feat_1_desc = section.settings.feat_1_desc | default: 'Advanced formula provides up to 60 minutes of extended performance with just 3-5 sprays.'
+  assign feat_2_title = section.settings.feat_2_title | default: 'Safe & Tested'
+  assign feat_2_desc = section.settings.feat_2_desc | default: 'Clinically tested ingredients with pharmaceutical-grade benzocaine. No harmful side effects.'
+  assign feat_3_title = section.settings.feat_3_title | default: 'Ayurvedic Formula'
+  assign feat_3_desc = section.settings.feat_3_desc | default: 'Specially formulated to absorb quickly without transferring to your partner during intimacy.'
+  assign feat_4_title = section.settings.feat_4_title | default: 'Doctor Recommended'
+  assign feat_4_desc = section.settings.feat_4_desc | default: 'Trusted and recommended by healthcare professionals across India for male wellness.'
+
+  # Tab 2 settings
+  assign how_to_use_heading = section.settings.how_to_use_heading | default: 'How To Use For Best Results'
+  assign step_1_title = section.settings.step_1_title | default: 'Clean & Prepare'
+  assign step_1_desc = section.settings.step_1_desc | default: 'Wash the area with warm water and gently pat dry before application.'
+  assign step_2_title = section.settings.step_2_title | default: 'Apply Dosage'
+  assign step_2_desc = section.settings.step_2_desc | default: 'Apply 3-5 sprays or consume 1 capsule with water 15-20 minutes before activity.'
+  assign step_3_title = section.settings.step_3_title | default: 'Last & Enjoy'
+  assign step_3_desc = section.settings.step_3_desc | default: 'Allows deep absorption. Enjoy extended stamina, confidence, and peak performance.'
+
+  # Tab 3 settings
+  assign product_details_heading = section.settings.product_details_heading | default: 'Product Specifications'
+  assign detail_category = section.settings.detail_category | default: current_product.type | default: 'Male Wellness & Stamina'
+  assign detail_formulation = section.settings.detail_formulation | default: 'Ayurvedic, Clinically Tested & Safe Daily Use'
+  assign detail_packaging = section.settings.detail_packaging | default: '100% Discreet Plain Brown Box Delivery'
+  assign detail_shelf_life = section.settings.detail_shelf_life | default: '24 Months from manufacturing date'
+
+  # Tab 4 settings
+  assign doctor_heading = section.settings.doctor_heading | default: 'Doctor & Expert Endorsement'
+  assign doctor_badge = section.settings.doctor_badge | default: '🩺 Clinically Approved'
+  assign doctor_quote = section.settings.doctor_quote | default: 'Formulated with precision bio-actives and verified herbs, this product addresses stamina and performance concerns safely without causing dependency, skin irritation, or numbness.'
+  assign doctor_name = section.settings.doctor_name | default: 'Dr. A. Sharma, MD'
+  assign doctor_role = section.settings.doctor_role | default: 'Senior Wellness Specialist & Ayurvedic Consultant'
+
+  # Tab 5 settings
+  assign faq_heading = section.settings.faq_heading | default: 'Frequently Asked Questions'
+  assign faq_1_q = section.settings.faq_1_q | default: 'How soon does it start working?'
+  assign faq_1_a = section.settings.faq_1_a | default: 'It takes effect within 15 to 20 minutes of application and provides lasting confidence and stamina for up to 60 minutes.'
+  assign faq_2_q = section.settings.faq_2_q | default: 'Will this transfer to my partner?'
+  assign faq_2_a = section.settings.faq_2_a | default: 'No, once absorbed after 15 minutes, the formulation will not transfer to your partner and causes zero numbness.'
+  assign faq_3_q = section.settings.faq_3_q | default: 'Is the delivery packaging discreet?'
+  assign faq_3_a = section.settings.faq_3_a | default: 'Yes, all orders are shipped in 100% plain brown tamper-evident boxes with no mention of product name or brand anywhere on the exterior.'
+  assign faq_4_q = section.settings.faq_4_q | default: 'Are there any side effects?'
+  assign faq_4_a = section.settings.faq_4_a | default: 'Our formulation is dermatologically tested, non-comedogenic, and 100% safe for daily and regular use.'
+-%}
+
+<section class="p-tabs-section" id="p-tabs-{{ section.id }}">
+  <div class="p-tabs-container">
+    
+    <!-- Navigation Tabs Bar -->
+    <div class="p-tabs-nav-wrap">
+      <div class="p-tabs-nav" role="tablist" aria-label="Product Information Tabs">
+        <button type="button" class="p-tab-btn is-active" role="tab" aria-selected="true" data-tab="why-buy" id="tab-btn-why-buy-{{ section.id }}">
+          <span>{{ tab_1_title }}</span>
+        </button>
+        <button type="button" class="p-tab-btn" role="tab" aria-selected="false" data-tab="how-to-use" id="tab-btn-how-to-use-{{ section.id }}">
+          <span>{{ tab_2_title }}</span>
+        </button>
+        <button type="button" class="p-tab-btn" role="tab" aria-selected="false" data-tab="product-details" id="tab-btn-product-details-{{ section.id }}">
+          <span>{{ tab_3_title }}</span>
+        </button>
+        <button type="button" class="p-tab-btn" role="tab" aria-selected="false" data-tab="doctors-rec" id="tab-btn-doctors-rec-{{ section.id }}">
+          <span>{{ tab_4_title }}</span>
+        </button>
+        <button type="button" class="p-tab-btn" role="tab" aria-selected="false" data-tab="faqs" id="tab-btn-faqs-{{ section.id }}">
+          <span>{{ tab_5_title }}</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Tab 1: WHY BUY THIS (Default Active) -->
+    <div class="p-tab-pane is-active" id="pane-why-buy-{{ section.id }}" role="tabpanel" aria-labelledby="tab-btn-why-buy-{{ section.id }}">
+      <h2 class="p-tab-heading">
+        {{ why_buy_heading }} <span class="p-gold-text">{{ current_product.title }}</span>?
+      </h2>
+
+      <div class="p-features-grid">
+        
+        <!-- Card 1: Feature 1 -->
+        <div class="p-feature-card">
+          <div class="p-card-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <h3 class="p-card-title">{{ feat_1_title }}</h3>
+          <p class="p-card-desc">{{ feat_1_desc }}</p>
+        </div>
+
+        <!-- Card 2: Feature 2 -->
+        <div class="p-feature-card">
+          <div class="p-card-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </div>
+          <h3 class="p-card-title">{{ feat_2_title }}</h3>
+          <p class="p-card-desc">{{ feat_2_desc }}</p>
+        </div>
+
+        <!-- Card 3: Feature 3 -->
+        <div class="p-feature-card">
+          <div class="p-card-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+          </div>
+          <h3 class="p-card-title">{{ feat_3_title }}</h3>
+          <p class="p-card-desc">{{ feat_3_desc }}</p>
+        </div>
+
+        <!-- Card 4: Feature 4 -->
+        <div class="p-feature-card">
+          <div class="p-card-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="8" r="6"></circle>
+              <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+            </svg>
+          </div>
+          <h3 class="p-card-title">{{ feat_4_title }}</h3>
+          <p class="p-card-desc">{{ feat_4_desc }}</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Tab 2: HOW TO USE -->
+    <div class="p-tab-pane" id="pane-how-to-use-{{ section.id }}" role="tabpanel" aria-labelledby="tab-btn-how-to-use-{{ section.id }}">
+      <h2 class="p-tab-heading">{{ how_to_use_heading }}</h2>
+      
+      <div class="p-steps-grid">
+        <div class="p-step-card">
+          <div class="p-step-num">01</div>
+          <h3 class="p-step-title">{{ step_1_title }}</h3>
+          <p class="p-step-desc">{{ step_1_desc }}</p>
+        </div>
+        <div class="p-step-card">
+          <div class="p-step-num">02</div>
+          <h3 class="p-step-title">{{ step_2_title }}</h3>
+          <p class="p-step-desc">{{ step_2_desc }}</p>
+        </div>
+        <div class="p-step-card">
+          <div class="p-step-num">03</div>
+          <h3 class="p-step-title">{{ step_3_title }}</h3>
+          <p class="p-step-desc">{{ step_3_desc }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 3: PRODUCT DETAILS -->
+    <div class="p-tab-pane" id="pane-product-details-{{ section.id }}" role="tabpanel" aria-labelledby="tab-btn-product-details-{{ section.id }}">
+      <h2 class="p-tab-heading">{{ product_details_heading }}</h2>
+      
+      <div class="p-details-box">
+        <div class="p-detail-row">
+          <span class="p-detail-key">Product Name</span>
+          <span class="p-detail-val">{{ current_product.title }}</span>
+        </div>
+        <div class="p-detail-row">
+          <span class="p-detail-key">Category</span>
+          <span class="p-detail-val">{{ detail_category }}</span>
+        </div>
+        <div class="p-detail-row">
+          <span class="p-detail-key">Formulation</span>
+          <span class="p-detail-val">{{ detail_formulation }}</span>
+        </div>
+        <div class="p-detail-row">
+          <span class="p-detail-key">Packaging</span>
+          <span class="p-detail-val">{{ detail_packaging }}</span>
+        </div>
+        <div class="p-detail-row">
+          <span class="p-detail-key">Shelf Life</span>
+          <span class="p-detail-val">{{ detail_shelf_life }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 4: DOCTORS RECOMMENDATION -->
+    <div class="p-tab-pane" id="pane-doctors-rec-{{ section.id }}" role="tabpanel" aria-labelledby="tab-btn-doctors-rec-{{ section.id }}">
+      <h2 class="p-tab-heading">{{ doctor_heading }}</h2>
+      
+      <div class="p-doctor-card">
+        <div class="p-doc-badge">{{ doctor_badge }}</div>
+        <blockquote class="p-doc-quote">
+          “{{ doctor_quote }}”
+        </blockquote>
+        <div class="p-doc-author">
+          <span class="p-doc-name">{{ doctor_name }}</span>
+          <span class="p-doc-role">{{ doctor_role }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 5: FAQS -->
+    <div class="p-tab-pane" id="pane-faqs-{{ section.id }}" role="tabpanel" aria-labelledby="tab-btn-faqs-{{ section.id }}">
+      <h2 class="p-tab-heading">{{ faq_heading }}</h2>
+      
+      <div class="p-faq-list">
+        <div class="p-faq-item">
+          <button type="button" class="p-faq-q">
+            <span>{{ faq_1_q }}</span>
+            <span class="p-faq-toggle">+</span>
+          </button>
+          <div class="p-faq-a">
+            <p>{{ faq_1_a }}</p>
+          </div>
+        </div>
+
+        <div class="p-faq-item">
+          <button type="button" class="p-faq-q">
+            <span>{{ faq_2_q }}</span>
+            <span class="p-faq-toggle">+</span>
+          </button>
+          <div class="p-faq-a">
+            <p>{{ faq_2_a }}</p>
+          </div>
+        </div>
+
+        <div class="p-faq-item">
+          <button type="button" class="p-faq-q">
+            <span>{{ faq_3_q }}</span>
+            <span class="p-faq-toggle">+</span>
+          </button>
+          <div class="p-faq-a">
+            <p>{{ faq_3_a }}</p>
+          </div>
+        </div>
+
+        <div class="p-faq-item">
+          <button type="button" class="p-faq-q">
+            <span>{{ faq_4_q }}</span>
+            <span class="p-faq-toggle">+</span>
+          </button>
+          <div class="p-faq-a">
+            <p>{{ faq_4_a }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .p-tabs-section {
+    background-color: #ffffff;
+    color: #111827;
+    padding: 45px 20px 75px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .p-tabs-container {
+    max-width: 1340px;
+    margin: 0 auto;
+  }
+
+  /* ── TABS NAVIGATION BAR ────────────────────── */
+  .p-tabs-nav-wrap {
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 36px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .p-tabs-nav-wrap::-webkit-scrollbar {
+    display: none;
+  }
+
+  .p-tabs-nav {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    min-width: max-content;
+  }
+
+  .p-tab-btn {
+    background: transparent;
+    border: none;
+    padding: 12px 4px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #6b7280;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .p-tab-btn:hover {
+    color: #111827;
+  }
+
+  .p-tab-btn.is-active {
+    color: #111827;
+    font-weight: 800;
+  }
+
+  .p-tab-btn.is-active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #d4af37;
+    border-radius: 2px 2px 0 0;
+  }
+
+  /* ── TAB PANES ─────────────────────────────── */
+  .p-tab-pane {
+    display: none;
+  }
+
+  .p-tab-pane.is-active {
+    display: block;
+    animation: pFadeIn 0.3s ease;
+  }
+
+  @keyframes pFadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .p-tab-heading {
+    font-size: 34px;
+    font-weight: 800;
+    color: #111827;
+    margin: 0 0 34px;
+    letter-spacing: -0.6px;
+  }
+
+  .p-gold-text {
+    color: #d4af37;
+  }
+
+  /* ── 4-FEATURE GRID ────────────────────────── */
+  .p-features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+
+  .p-feature-card {
+    background: #ffffff;
+    border: 1px solid #eef0f2;
+    border-radius: 16px;
+    padding: 40px 26px 36px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
+    transition: transform 0.22s, box-shadow 0.22s;
+  }
+
+  .p-feature-card:hover {
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.07);
+    transform: translateY(-3px);
+  }
+
+  .p-card-icon-wrap {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #000000;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .p-card-title {
+    font-size: 19px;
+    font-weight: 800;
+    color: #111827;
+    margin: 0 0 10px;
+    letter-spacing: -0.2px;
+  }
+
+  .p-card-desc {
+    font-size: 13.5px;
+    color: #4b5563;
+    line-height: 1.55;
+    margin: 0;
+    max-width: 380px;
+  }
+
+  /* ── HOW TO USE STEPS ──────────────────────── */
+  .p-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .p-step-card {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 28px 20px;
+  }
+
+  .p-step-num {
+    font-size: 28px;
+    font-weight: 900;
+    color: #d4af37;
+    margin-bottom: 12px;
+  }
+
+  .p-step-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #111827;
+    margin: 0 0 8px;
+  }
+
+  .p-step-desc {
+    font-size: 13px;
+    color: #4b5563;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* ── PRODUCT DETAILS BOX ───────────────────── */
+  .p-details-box {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .p-detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+  }
+
+  .p-detail-row:last-child {
+    border-bottom: none;
+  }
+
+  .p-detail-key {
+    font-weight: 700;
+    color: #374151;
+  }
+
+  .p-detail-val {
+    color: #111827;
+    font-weight: 500;
+  }
+
+  /* ── DOCTOR RECOMMENDATION CARD ────────────── */
+  .p-doctor-card {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 32px 28px;
+  }
+
+  .p-doc-badge {
+    display: inline-block;
+    background: #d4af37;
+    color: #000000;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+
+  .p-doc-quote {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #1f2937;
+    font-style: italic;
+    margin: 0 0 20px;
+  }
+
+  .p-doc-author {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .p-doc-name {
+    font-size: 14px;
+    font-weight: 800;
+    color: #111827;
+  }
+
+  .p-doc-role {
+    font-size: 12.5px;
+    color: #6b7280;
+  }
+
+  /* ── FAQS ──────────────────────────────────── */
+  .p-faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .p-faq-item {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #ffffff;
+  }
+
+  .p-faq-q {
+    width: 100%;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: none;
+    border: none;
+    font-size: 15px;
+    font-weight: 700;
+    color: #111827;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .p-faq-toggle {
+    font-size: 20px;
+    font-weight: 400;
+    color: #6b7280;
+    transition: transform 0.2s;
+  }
+
+  .p-faq-item.is-open .p-faq-toggle {
+    transform: rotate(45deg);
+  }
+
+  .p-faq-a {
+    display: none;
+    padding: 0 20px 18px;
+    font-size: 13.5px;
+    color: #4b5563;
+    line-height: 1.55;
+  }
+
+  .p-faq-item.is-open .p-faq-a {
+    display: block;
+  }
+
+  /* Laptop Optimization */
+  @media screen and (min-width: 769px) and (max-width: 1100px) {
+    .p-tabs-container {
+      padding: 0 16px;
+    }
+    .p-features-grid {
+      gap: 16px;
+    }
+    .p-feature-card {
+      padding: 28px 18px 24px;
+    }
+    .p-card-title {
+      font-size: 17px;
+    }
+    .p-card-desc {
+      font-size: 13px;
+    }
+    .p-steps-grid {
+      gap: 14px;
+    }
+    .p-step-card {
+      padding: 20px 16px;
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .p-tabs-section {
+      padding: 30px 16px 44px;
+    }
+
+    .p-tabs-nav {
+      gap: 16px;
+    }
+
+    .p-tab-btn {
+      font-size: 12px;
+      padding: 10px 2px 12px;
+    }
+
+    .p-tab-heading {
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      margin-bottom: 18px;
+    }
+
+    .p-features-grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .p-feature-card {
+      padding: 18px 16px;
+    }
+
+    .p-feature-title {
+      font-size: 14.5px;
+      margin: 0 0 4px;
+    }
+
+    .p-feature-desc {
+      font-size: 12px;
+    }
+
+    .p-steps-grid {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .p-step-card {
+      padding: 14px 16px;
+    }
+
+    .p-step-num {
+      width: 28px;
+      height: 28px;
+      font-size: 12px;
+    }
+
+    .p-step-title {
+      font-size: 13.5px;
+    }
+
+    .p-step-desc {
+      font-size: 11.5px;
+    }
+
+    .p-faq-q {
+      padding: 13px 16px;
+      font-size: 13px;
+    }
+
+    .p-faq-a {
+      padding: 0 16px 13px;
+      font-size: 12px;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    const sId = {{ section.id | json }};
+    const rootEl = document.getElementById('p-tabs-' + sId);
+    if (!rootEl) return;
+
+    // Tabs switching
+    const tabButtons = rootEl.querySelectorAll('.p-tab-btn');
+    const tabPanes = rootEl.querySelectorAll('.p-tab-pane');
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const targetTab = this.getAttribute('data-tab');
+
+        tabButtons.forEach(b => {
+          b.classList.remove('is-active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        tabPanes.forEach(p => p.classList.remove('is-active'));
+
+        this.classList.add('is-active');
+        this.setAttribute('aria-selected', 'true');
+
+        const activePane = rootEl.querySelector('#pane-' + targetTab + '-' + sId);
+        if (activePane) {
+          activePane.classList.add('is-active');
+        }
+      });
+    });
+
+    // FAQ Accordion
+    const faqItems = rootEl.querySelectorAll('.p-faq-item');
+    faqItems.forEach(item => {
+      const qBtn = item.querySelector('.p-faq-q');
+      if (qBtn) {
+        qBtn.addEventListener('click', () => {
+          const isOpen = item.classList.contains('is-open');
+          faqItems.forEach(fi => fi.classList.remove('is-open'));
+          if (!isOpen) item.classList.add('is-open');
+        });
+      }
+    });
+
+  })();
+</script>

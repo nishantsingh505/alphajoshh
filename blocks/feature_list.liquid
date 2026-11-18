@@ -1,0 +1,62 @@
+
+{% liquid
+  assign features = block.settings.feature_list | newline_to_br | split: '<br />'
+  
+  # Dynamic sourcing from metafields
+  if product.metafields.custom.features != blank
+    assign features = product.metafields.custom.features.value
+  elsif product.metafields.custom.feature_list != blank
+    # Fallback for newline-separated list in a single text metafield
+    assign features = product.metafields.custom.feature_list | newline_to_br | split: '<br />'
+  endif
+%}
+
+<div style="padding-top: {{ block.settings.padding-block-start }}px; padding-bottom: {{ block.settings.padding-block-end }}px;">
+  {% render 'product-feature-list', features: features %}
+</div>
+
+{% schema %}
+{
+  "name": "Feature List",
+  "tag": null,
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "feature_list",
+      "label": "Features",
+      "default": "Laboratory-tested resin check\nSourced from ~18,000 ft Himalayan rocks\nEnhances energy, stamina & nutrient absorption\n100% natural resin with no additives\nFree from preservatives, gluten & artificial fillers",
+      "info": "One feature per line"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    }
+  ],
+  "presets": [
+    {
+      "name": "Feature List",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

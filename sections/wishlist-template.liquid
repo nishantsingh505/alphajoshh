@@ -1,0 +1,20 @@
+<div class="page-width">
+  <h1 class="main-page-title page-title h0">
+    {{ page.title | escape }}
+  </h1>
+  <div class="rte">
+    {{ page.content }}
+  </div>
+  <div class="wishlist-container">
+    <p class="text-center">Your wishlist is currently empty.</p>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Wishlist template",
+  "tag": "section",
+  "class": "section",
+  "settings": []
+}
+{% endschema %}

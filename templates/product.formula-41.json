@@ -1,0 +1,114 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "formula-product-hero",
+      "settings": {}
+    },
+    "fast_delivery": {
+      "type": "fast-delivery-comparison",
+      "settings": {}
+    },
+    "tabbed_info": {
+      "type": "product-tabbed-info",
+      "settings": {}
+    },
+    "how_to_use": {
+      "type": "product-how-to-use",
+      "settings": {}
+    },
+    "product_details": {
+      "type": "product-details-ingredients",
+      "settings": {}
+    },
+    "doctors_recommendation": {
+      "type": "recommended-by-doctors",
+      "settings": {}
+    },
+    "why_different": {
+      "type": "why-product-is-different",
+      "settings": {}
+    },
+    "you_may_also_like": {
+      "type": "product-you-may-also-like",
+      "settings": {}
+    },
+    "reviews_missions": {
+      "type": "product-reviews-missions",
+      "blocks": {
+        "review_1": {
+          "type": "video_testimonial",
+          "settings": {
+            "author_name": "Verified Customer",
+            "quote": "No more anxiety. Just pure confidence. This is exactly what I needed."
+          }
+        },
+        "review_2": {
+          "type": "video_testimonial",
+          "settings": {
+            "author_name": "Verified Customer",
+            "quote": "Noticeable improvement within 30 minutes. My partner and I couldn't be happier."
+          }
+        },
+        "review_3": {
+          "type": "video_testimonial",
+          "settings": {
+            "author_name": "Verified Customer",
+            "quote": "Zero side effects, clean absorption, and 100% discreet delivery. Highly recommend."
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ],
+      "settings": {
+        "mission_tag": "OUR MISSIONS",
+        "mission_title": "Prioritizing men’s health and wellness in India",
+        "point_1_text": "Clinically Validated",
+        "point_2_text": "Safe & Effective",
+        "point_3_text": "Discreet Delivery",
+        "testimonials_tag": "TESTIMONIALS",
+        "testimonials_title": "Bold Men. Bold Stories"
+      }
+    },
+    "faq_accordion": {
+      "type": "product-faq-accordion",
+      "settings": {
+        "heading": "Frequently Asked Questions",
+        "subtitle": "Get answers to common questions"
+      }
+    },
+    "support_banner": {
+      "type": "support-contact-banner",
+      "settings": {}
+    },
+    "privacy_guarantee": {
+      "type": "privacy-guarantee",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "fast_delivery",
+    "tabbed_info",
+    "how_to_use",
+    "product_details",
+    "doctors_recommendation",
+    "why_different",
+    "you_may_also_like",
+    "reviews_missions",
+    "faq_accordion",
+    "support_banner",
+    "privacy_guarantee"
+  ]
+}

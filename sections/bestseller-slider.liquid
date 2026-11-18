@@ -1,0 +1,397 @@
+
+{% comment %} Forced sync 2 {% endcomment %}
+{% liquid
+  assign max_items = section.settings.max_products
+%}
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  data-testid="bestseller-slider"
+  class="
+    section
+    section--{{ section.settings.section_width }}
+    color-{{ section.settings.color_scheme }}
+    section-resource-list
+    spacing-style
+    gap-style
+    bestseller-slider-section
+  "
+  style="
+    {% render 'spacing-style', settings: section.settings %}
+    {% render 'gap-style', value: section.settings.gap %}
+  "
+>
+  <style>
+     .bestseller-slider-section {
+        overflow: hidden;
+     }
+     .bestseller-slider-section h2 {
+        font-family: 'Aleo', serif; 
+        font-size: 2.5rem;
+        color: #003049;
+        margin-bottom: 0.5rem;
+        line-height: 1.2;
+     }
+     .bestseller-slider-section .product-card {
+        position: relative;
+     }
+
+     .bestseller-slider-section .product-card__content {
+        text-align: left;
+        padding-top: 0px;
+     }
+
+     /* Brand Name styling - Hidden as requested */
+     .bestseller-brand {
+        display: none;
+     }
+
+     /* Product Title styling */
+     .bestseller-slider-section .product-title {
+        font-weight: 700;
+        font-size: 1.1rem;
+        margin-bottom: 6px;
+        color: #003049;
+        font-family: var(--font-body-family);
+        line-height: 1.35;
+     }
+
+     /* Rating Styling */
+     .bestseller-slider-section .rating-wrapper {
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+     }
+
+     /* Price Styling */
+     .bestseller-slider-section .price {
+        font-weight: 700;
+        color: #000;
+        font-size: 1.1rem;
+        display: inline-block;
+     }
+     .bestseller-slider-section .compare-at-price {
+        text-decoration: line-through;
+        color: #999;
+        font-size: 0.9rem;
+        margin-left: 8px;
+        font-weight: 400;
+     }
+     
+     /* Add "Sale" text via CSS to avoid liquid complexity if standard snippets are used */
+     .bestseller-slider-section .price .price:not(.compare-at-price)::before {
+        content: "Sale ";
+        color: #D32F2F;
+        font-weight: 700;
+     }
+
+     .bestseller-slider-section .card-badge.card-badge--choice::before {
+        content: none;
+     }
+     
+     /* Badge Styling */
+     .bestseller-slider-section .card-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        left: auto;
+        background-color: #FFFFFF;
+        color: #000000;
+        padding: 5px 10px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        z-index: 10;
+        border-radius: 4px;
+        text-transform: uppercase;
+        line-height: 1;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+     }
+
+     /* Make badge smaller on mobile */
+     @media screen and (max-width: 749px) {
+       .bestseller-slider-section .card-badge {
+         padding: 3px 6px;
+         font-size: 0.5rem;
+         top: 6px;
+         right: 6px;
+       }
+     }
+
+     /* Navigation Icons */
+      .bestseller-slider-section .slideshow-control {
+          background: white;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+          border-radius: 50%;
+          color: #333;
+      }
+      
+      /* Ensure square/consistent aspect ratio for images if not enforced by settings */
+      .bestseller-slider-section .card-gallery__image {
+         aspect-ratio: 1 / 1;
+         object-fit: cover;
+      }
+     .bestseller-slider-section h4 {
+        font-family: var(--font-body-family);
+        font-size: 1rem;
+        text-transform: capitalize;
+        color: #003049;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        margin-top: 0;
+     }
+
+     .bestseller-slider-section h2 {
+        font-family: 'Aleo', serif; 
+        font-size: 2.5rem;
+        color: #003049;
+        line-height: 1.2;
+     }
+
+     /* Add MRP prefix */
+     .bestseller-slider-section .compare-at-price::before {
+        content: "MRP ";
+        font-size: 0.8em;
+     }
+
+     /* Ensure stars are gold/orange */
+     .bestseller-slider-section .rating-wrapper {
+        --star-fill-color: #FFD700;
+        --color: #FFD700;
+     }
+     
+     .bestseller-slider-section .quantity-selector {
+        display: none;
+     }
+  </style>
+
+  <div class="section-resource-list__header">
+    {%- content_for 'block', type: '_product-list-content', id: 'static-header' -%}
+  </div>
+
+  {% capture list_items %}
+    {% if section.settings.collection != blank and shop.products_count != 0 %}
+      {% paginate section.settings.collection.products by max_items %}
+        {% for product in section.settings.collection.products limit: max_items %}
+          <div
+            class="resource-list__item"
+          >
+            {% # theme-check-disable UniqueStaticBlockId %}
+              {% content_for 'block', type: '_product-card', id: 'static-product-card', closest.product: product %}
+            {% # theme-check-enable UniqueStaticBlockId %}
+          </div>
+
+          {% unless forloop.last %}
+            <!--@list/split-->
+          {% endunless %}
+        {% endfor %}
+      {% endpaginate %}
+    {% else %}
+      {% for i in (1..max_items) %}
+        <div
+          class="resource-list__item"
+        >
+          {% # theme-check-disable UniqueStaticBlockId %}
+            {% content_for 'block', type: '_product-card', id: 'static-product-card', closest.product: null %}
+          {% # theme-check-enable UniqueStaticBlockId %}
+        </div>
+
+        {% unless forloop.last %}
+          <!--@list/split-->
+        {% endunless %}
+      {% endfor %}
+    {% endif %}
+  {% endcapture %}
+
+  {% liquid
+    assign list_items_array = list_items | strip | split: '<!--@list/split-->'
+  %}
+
+  {% render 'resource-list',
+    list_items: list_items,
+    list_items_array: list_items_array,
+    settings: section.settings,
+    slide_count: max_items,
+    content_type: 'products',
+    test_id: 'resource-list-grid'
+  %}
+
+  <div
+    class="section-resource-list__content"
+    style="--horizontal-alignment: {{ section.settings.horizontal_alignment }};"
+  >
+    {%- content_for 'blocks' -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Bestseller Slider",
+  "class": "ui-test-bestseller-slider",
+  "blocks": [
+    { "type": "_product-card" },
+    { "type": "_product-list-content" }
+  ],
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "t:settings.collection"
+    },
+    {
+       "type": "header",
+       "content": "Layout"
+    },
+    {
+       "type": "range",
+       "id": "max_products",
+       "label": "Max Products",
+       "default": 8,
+       "min": 4,
+       "max": 12
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "t:settings.columns",
+      "min": 1,
+      "max": 5,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "columns_gap",
+      "label": "Gap",
+      "default": 24,
+      "min": 0,
+      "max": 50
+    },
+    {
+        "type": "select",
+        "id": "icons_style",
+        "label": "Arrows",
+        "options": [
+            {"value": "chevron", "label": "Chevron"},
+            {"value": "arrow", "label": "Arrow"}
+        ],
+        "default": "chevron"
+    },
+    {
+        "type": "select",
+        "id": "icons_shape",
+        "label": "Arrow Shape",
+        "options": [
+            {"value": "circle", "label": "Circle"},
+            {"value": "none", "label": "None"}
+        ],
+        "default": "circle"
+    },
+    {
+       "type": "select",
+       "id": "layout_type",
+       "label": "Layout Type",
+       "options": [
+          {"value": "carousel", "label": "Carousel"}
+       ],
+       "default": "carousel"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top Padding",
+      "default": 48,
+      "min": 0,
+      "max": 100
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom Padding",
+      "default": 48,
+      "min": 0,
+      "max": 100
+    },
+    {
+       "type": "color_scheme",
+       "id": "color_scheme",
+       "default": "scheme-1",
+       "label": "Color Scheme"
+    },
+    {
+        "type": "select",
+        "id": "section_width",
+        "label": "Width",
+        "default": "page-width",
+        "options": [
+            {"value": "page-width", "label": "Page Width"},
+            {"value": "full-width", "label": "Full Width"}
+        ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bestseller Slider",
+      "settings": {
+        "max_products": 6,
+        "columns": 3
+      },
+      "blocks": {
+        "static-header": {
+          "type": "_product-list-content",
+          "static": true,
+          "blocks": {
+             "title": {
+               "type": "_product-list-text",
+               "settings": {
+                  "text": "<h2>Ayurveda for your everyday wellbeing</h2>",
+                  "alignment": "left"
+               }
+             }
+          },
+          "block_order": ["title"]
+        },
+        "static-product-card": {
+          "type": "_product-card",
+          "static": true,
+          "blocks": {
+             "media": {
+                "type": "_bestseller-card-gallery",
+                "settings": {
+                   "image_ratio": "square"
+                }
+             },
+             "vendor": {
+                 "type": "custom-liquid",
+                 "settings": {
+                     "custom_liquid": "<div class='bestseller-brand'>{{ shop.name }}</div>"
+                 }
+             },
+             "title": {
+                 "type": "product-title",
+                 "settings": {
+                     "font_size": "1.1rem"
+                 }
+             },
+             "review": {
+                 "type": "review",
+                 "settings": {
+                    "stars_style": "shaded",
+                    "rating_color": "warning"
+                 }
+             },
+             "buy_buttons": {
+                "type": "buy-buttons"
+             },
+             "price": {
+                 "type": "price",
+                 "settings": {
+                   "show_sale_price_first": true
+                 }
+             }
+          },
+          "block_order": ["media", "vendor", "title", "review", "price", "buy_buttons"]
+        }
+      }
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,99 @@
+{% comment %}
+  Section: Product FAQ Accordion
+{% endcomment %}
+
+{% render 'product-faq-accordion' %}
+
+{% schema %}
+{
+  "name": "Product FAQ Accordion",
+  "tag": "section",
+  "class": "section-product-faq-accordion",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge",
+      "default": "FAQ"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Get answers to common questions"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How soon will I start seeing results?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Most men report noticeable improvements in vitality, stamina, and energy within 15 to 30 minutes of application, with optimal cumulative benefits achieved through consistent daily use over 2 to 4 weeks.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product FAQ Accordion",
+      "settings": {
+        "heading": "Frequently Asked Questions",
+        "subtitle": "Get answers to common questions"
+      },
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How soon will I start seeing results?",
+            "answer": "<p>Most men report noticeable improvements in vitality, stamina, and energy within 15 to 30 minutes of application, with optimal cumulative benefits achieved through consistent daily use over 2 to 4 weeks.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Are there any side effects?",
+            "answer": "<p>No. Our formula is 100% Ayurvedic, clinically tested, toxin-free, and dermatologically approved with zero known harmful side effects.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How discreet is the packaging and delivery?",
+            "answer": "<p>All shipments are 100% discreet in plain, unbranded brown packaging. There is zero mention of the brand, product type, or contents on the outer shipping label.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Will this transfer to my partner during intimacy?",
+            "answer": "<p>No. Once absorbed after 15 minutes, the formulation will not transfer to your partner and causes zero numbness.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I consume or apply this daily?",
+            "answer": "<p>Yes, all Alpha Joshhwellness products are formulated with pharmaceutical and Ayurvedic safety standards, making them completely safe for daily use as part of your regular health routine.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

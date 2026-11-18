@@ -1,0 +1,345 @@
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="
+    section
+    section--{{ section.settings.section_width }}
+    color-{{ section.settings.color_scheme }}
+    section-testimonials
+    spacing-style
+    gap-style
+  "
+  style="
+    {% render 'spacing-style', settings: section.settings %}
+    {% render 'gap-style', value: 12 %}
+  "
+  data-testid="testimonials-section"
+>
+  {% content_for 'block', type: 'group', id: 'static-header' %}
+
+  {% content_for 'block', type: '_carousel-content', id: 'static-carousel-content', closest.product: null %}
+</div>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "t:settings.columns",
+      "min": 1,
+      "max": 8,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "select",
+      "id": "mobile_columns",
+      "label": "t:settings.mobile_columns",
+      "options": [
+        {
+          "value": "1",
+          "label": "t:options.one_number"
+        },
+        {
+          "value": "2",
+          "label": "t:options.two_number"
+        }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:settings.width",
+      "options": [
+        {
+          "value": "page-width",
+          "label": "t:options.page"
+        },
+        {
+          "value": "full-width",
+          "label": "t:options.full"
+        }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "range",
+      "id": "columns_gap",
+      "label": "t:settings.horizontal_gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:content.navigation"
+    },
+    {
+      "type": "select",
+      "id": "icons_style",
+      "label": "t:settings.icon",
+      "options": [
+        {
+          "value": "arrow",
+          "label": "t:options.arrows"
+        },
+        {
+          "value": "chevron",
+          "label": "t:options.chevrons"
+        },
+        {
+          "value": "arrows_large",
+          "label": "t:options.arrows_large"
+        },
+        {
+          "value": "chevron_large",
+          "label": "t:options.chevron_large"
+        },
+        {
+          "value": "none",
+          "label": "t:options.none"
+        }
+      ],
+      "default": "arrow"
+    },
+    {
+      "type": "select",
+      "id": "icons_shape",
+      "label": "t:settings.icon_background",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:options.none"
+        },
+        {
+          "value": "circle",
+          "label": "t:options.circle"
+        },
+        {
+          "value": "square",
+          "label": "t:options.square"
+        }
+      ],
+      "default": "circle",
+      "visible_if": "{{ section.settings.icons_style != 'none' }}"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "category": "t:categories.storytelling",
+      "settings": {
+        "columns": 3,
+        "columns_gap": 24,
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      },
+      "blocks": {
+        "static-header": {
+          "type": "group",
+          "name": "t:names.header",
+          "static": true,
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "center",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 32,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "heading": {
+              "type": "text",
+              "name": "t:names.header",
+              "settings": {
+                "text": "<h3>What our customers say</h3>",
+                "type_preset": "h2",
+                "font": "var(--font-heading-family)",
+                "wrap": "pretty",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "center"
+              }
+            }
+          },
+          "block_order": ["heading"]
+        },
+        "static-carousel-content": {
+          "type": "_carousel-content",
+          "name": "t:names.carousel_content",
+          "static": true,
+          "settings": {
+            "inherit_color_scheme": true,
+            "color_scheme": "scheme-2",
+            "position": "top",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 24,
+            "padding-block-end": 24,
+            "padding-inline-start": 24,
+            "padding-inline-end": 24,
+            "height": "fit"
+          },
+          "blocks": {
+            "testimonial_1": {
+              "type": "_card",
+              "name": "Testimonial",
+              "blocks": {
+                "stars_1": {
+                  "type": "text",
+                  "name": "Stars",
+                  "settings": {
+                    "text": "<p>★★★★★</p>",
+                    "type_preset": "body",
+                    "color": "#FFC107"
+                  }
+                },
+                "text_1": {
+                  "type": "text",
+                  "name": "Review",
+                  "settings": {
+                    "text": "<p>\"Love the products! Truly authentic and effective.\"</p>"
+                  }
+                },
+                "author_1": {
+                  "type": "text",
+                  "name": "Author",
+                  "settings": {
+                    "text": "<p><strong>- Sarah J.</strong></p>",
+                     "type_preset": "body-small"
+                  }
+                }
+              },
+              "block_order": ["stars_1", "text_1", "author_1"]
+            },
+            "testimonial_2": {
+              "type": "_card",
+              "name": "Testimonial",
+              "blocks": {
+                 "stars_2": {
+                  "type": "text",
+                  "name": "Stars",
+                  "settings": {
+                    "text": "<p>★★★★★</p>",
+                    "type_preset": "body",
+                    "color": "#FFC107"
+                  }
+                },
+                "text_2": {
+                  "type": "text",
+                  "name": "Review",
+                  "settings": {
+                    "text": "<p>\"High quality shilajit. Will buy again.\"</p>"
+                  }
+                },
+                "author_2": {
+                     "type": "text",
+                  "name": "Author",
+                  "settings": {
+                    "text": "<p><strong>- Mike T.</strong></p>",
+                    "type_preset": "body-small"
+                  }
+                }
+              },
+              "block_order": ["stars_2", "text_2", "author_2"]
+            },
+             "testimonial_3": {
+              "type": "_card",
+              "name": "Testimonial",
+              "blocks": {
+                 "stars_3": {
+                  "type": "text",
+                  "name": "Stars",
+                  "settings": {
+                    "text": "<p>★★★★★</p>",
+                    "type_preset": "body",
+                    "color": "#FFC107"
+                  }
+                },
+                "text_3": {
+                  "type": "text",
+                  "name": "Review",
+                  "settings": {
+                    "text": "<p>\"Fast delivery and great packaging.\"</p>"
+                  }
+                },
+                "author_3": {
+                     "type": "text",
+                  "name": "Author",
+                  "settings": {
+                    "text": "<p><strong>- Priya K.</strong></p>",
+                     "type_preset": "body-small"
+                  }
+                }
+              },
+              "block_order": ["stars_3", "text_3", "author_3"]
+            }
+          },
+          "block_order": ["testimonial_1", "testimonial_2", "testimonial_3"]
+        }
+      }
+    }
+  ]
+}
+{% endschema %}

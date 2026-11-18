@@ -1,0 +1,390 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "formula-product-hero",
+      "settings": {
+        "show_floating_badges": true,
+        "badge_1_text": "Discreet Packaging",
+        "badge_2_text": "100% Ayurvedic & Pure",
+        "badge_3_text": "Quality Assured",
+        "show_trust_card": true,
+        "trust_pill_text": "Clinically Tested Formula",
+        "trust_feat_1": "Cash on Delivery",
+        "trust_feat_2": "Expertly Formulated",
+        "trust_feat_3": "Top Quality Ingredients",
+        "privacy_box_title": "Privacy Guarantee",
+        "privacy_line_1": "Plain Brown Box",
+        "privacy_line_2": "No Product Names",
+        "privacy_line_3": "Free Shipping",
+        "subtitle_override": "",
+        "tagline_override": "",
+        "rating_override": "",
+        "review_count_override": "",
+        "benefits_title": "Benefits:",
+        "tax_shipping_note": "Inclusive of all taxes • Free express discreet shipping",
+        "show_coupon_box": true,
+        "coupon_code": "SAVE10",
+        "coupon_text": "Get flat 10% off + FREE Gift on orders above ₹999",
+        "coupon_button_label": "Copy",
+        "buynow_button_label": "BUY NOW",
+        "atc_button_label": "ADD TO CART – DISCREET DELIVERY",
+        "show_trust_strip": true,
+        "trust_strip_1": "Cash on Delivery",
+        "trust_strip_2": "Free Shipping",
+        "trust_strip_3": "Easy Returns",
+        "show_upsell_section": true,
+        "upsell_heading": "PAIR IT WITH:",
+        "upsell_products": []
+      }
+    },
+    "video_reels_7Lptpm": {
+      "type": "video-reels",
+      "blocks": {
+        "video_reel_ryPgH6": {
+          "type": "video_reel",
+          "settings": {
+            "video": "shopify://files/videos/1_6bf132fd-ea00-4981-96ad-7e2c117f439f.mp4",
+            "product": "",
+            "link": ""
+          }
+        },
+        "video_reel_tEJ8Qp": {
+          "type": "video_reel",
+          "settings": {
+            "video": "shopify://files/videos/4_5dbddce4-a2e6-4e2b-83ec-40c3a8b237cc.mp4",
+            "product": "",
+            "link": ""
+          }
+        },
+        "video_reel_mtKenW": {
+          "type": "video_reel",
+          "settings": {
+            "video": "shopify://files/videos/Shilajit 4 UGC video.mp4",
+            "product": "",
+            "link": ""
+          }
+        },
+        "video_reel_aGKHiV": {
+          "type": "video_reel",
+          "settings": {
+            "video": "shopify://files/videos/5.mp4",
+            "product": "",
+            "link": ""
+          }
+        },
+        "video_reel_YYPjcc": {
+          "type": "video_reel",
+          "settings": {
+            "video": "shopify://files/videos/2_e70525a7-afb9-489e-9f10-04a411c9982e.mp4",
+            "product": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "video_reel_ryPgH6",
+        "video_reel_tEJ8Qp",
+        "video_reel_mtKenW",
+        "video_reel_aGKHiV",
+        "video_reel_YYPjcc"
+      ],
+      "name": "Video Reels",
+      "settings": {
+        "heading": "Watch & Shop",
+        "subheading": "Real customer stories and how-to guides",
+        "heading_size": "h1",
+        "section_width": "page-width",
+        "columns_desktop": 5,
+        "enable_desktop_slider": true,
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "fast_delivery": {
+      "type": "fast-delivery-comparison",
+      "settings": {
+        "show_bonus_bar": false,
+        "bonus_gift_icon": "🎁",
+        "bonus_title": "Limited-Time Bonus",
+        "bonus_subtext": "Buy 2 or more & get FREE Premium Intimate Essentials Pack (Tissues / Condoms / Care wipes — no extra cost)",
+        "heading": "Fast Delivery on Prepaid Orders",
+        "prepaid_badge": "PREPAID",
+        "prepaid_days": "1-3 Days",
+        "prepaid_delivery_type": "Express Delivery",
+        "prepaid_point_1": "Instant payment confirmation & order processing",
+        "prepaid_point_2": "Priority handling with verified payment",
+        "prepaid_point_3": "No waiting for cash collection verification",
+        "cod_badge": "COD",
+        "cod_days": "4-7 Days",
+        "cod_delivery_type": "Standard Delivery",
+        "cod_point_1": "Additional verification steps required",
+        "cod_point_2": "Cash collection logistics add time",
+        "cod_point_3": "Standard processing queue",
+        "padding_top": 50,
+        "padding_bottom": 70
+      }
+    },
+    "tabbed_info": {
+      "type": "product-tabbed-info",
+      "settings": {
+        "tab_1_title": "WHY BUY THIS",
+        "tab_2_title": "HOW TO USE",
+        "tab_3_title": "PRODUCT DETAILS",
+        "tab_4_title": "DOCTORS RECOMMENDATION",
+        "tab_5_title": "FAQS",
+        "why_buy_heading": "Why Buy",
+        "feat_1_title": "💪 Build Strength & Stamina",
+        "feat_1_desc": "Support your body with natural strength and stamina for better daily performance.",
+        "feat_2_title": "⚡ Feel More Energetic",
+        "feat_2_desc": "Helps support energy and reduce everyday tiredness, so you can stay active throughout the day.",
+        "feat_3_title": "🌿 Pure Shilajit Power",
+        "feat_3_desc": "Premium Shilajit Resin made for men who want natural support for strength, energy and vitality.",
+        "feat_4_title": "🧬 Support Men’s Vitality",
+        "feat_4_desc": "Traditionally used in Ayurveda to support male vitality, strength and overall wellness.",
+        "how_to_use_heading": "How To Use For Best Results",
+        "step_1_title": "Take a Small Amount",
+        "step_1_desc": "Take a small, pea-sized amount of Shilajit Resin.",
+        "step_2_title": "Mix With Warm Water",
+        "step_2_desc": "Add it to warm water or milk and mix well.",
+        "step_3_title": "Take It Regularly",
+        "step_3_desc": "Use it daily as directed for natural energy, strength and stamina.",
+        "product_details_heading": "Product Specifications",
+        "detail_category": "Male Wellness & Stamina",
+        "detail_formulation": "Ayurvedic, Clinically Tested & Safe Daily Use",
+        "detail_packaging": "100% Discreet Plain Brown Box Delivery",
+        "detail_shelf_life": "24 Months from manufacturing date",
+        "doctor_heading": "Doctor & Expert Endorsement",
+        "doctor_badge": "🩺 Clinically Approved",
+        "doctor_quote": "Formulated with precision bio-actives and verified herbs, this product addresses stamina and performance concerns safely without causing dependency, skin irritation, or numbness.",
+        "doctor_name": "Dr. A. Sharma, MD",
+        "doctor_role": "Senior Wellness Specialist & Ayurvedic Consultant",
+        "faq_heading": "Frequently Asked Questions",
+        "faq_1_q": "How soon does it start working?",
+        "faq_1_a": "It takes effect within 15 to 20 minutes of application and provides lasting confidence and stamina for up to 60 minutes.",
+        "faq_2_q": "Will this transfer to my partner?",
+        "faq_2_a": "No, once absorbed after 15 minutes, the formulation will not transfer to your partner and causes zero numbness.",
+        "faq_3_q": "Is the delivery packaging discreet?",
+        "faq_3_a": "Yes, all orders are shipped in 100% plain brown tamper-evident boxes with no mention of product name or brand anywhere on the exterior.",
+        "faq_4_q": "Are there any side effects?",
+        "faq_4_a": "Our formulation is dermatologically tested, non-comedogenic, and 100% safe for daily and regular use."
+      }
+    },
+    "how_to_use": {
+      "type": "product-how-to-use",
+      "settings": {
+        "heading": "How To Use",
+        "step_1_title": "Take a Small Amount",
+        "step_1_desc": "Take a small, pea-sized amount of Shilajit Resin.",
+        "step_2_title": "Mix With Warm Water",
+        "step_2_desc": "Add it to warm water or milk and mix well.",
+        "step_3_title": "Take It Regularly",
+        "step_3_desc": "Use it daily as directed for natural energy, strength and stamina."
+      }
+    },
+    "product_details": {
+      "type": "product-details-ingredients",
+      "settings": {
+        "heading": "Product Details",
+        "info_title": "PRODUCT INFO",
+        "active_ingredient": "Asphaltum Punjabianum",
+        "volume": "20 Grams",
+        "application": "Shilajit Resin",
+        "duration": "30-35 Minutes",
+        "recommended_use": "Take a pea-sized amount once daily with warm water or milk.",
+        "storage_instructions": "Store in a cool, dry place away from direct sunlight. Keep out of reach of children.",
+        "ingredients_title": "INGREDIENTS",
+        "ing_1_name": "Pure Shilajit Resin",
+        "ing_1_desc": "Natural Shilajit resin, rich in fulvic acid and naturally occurring minerals.",
+        "ing_2_name": "Fulvic Acid",
+        "ing_2_desc": "Naturally present in Shilajit and known for its antioxidant properties.",
+        "ing_3_name": "Essential Minerals",
+        "ing_3_desc": "Contains naturally occurring minerals that support daily energy and overall wellness.",
+        "ing_4_name": "Ashwagandha",
+        "ing_4_desc": "Traditionally used to support strength, energy and stamina."
+      }
+    },
+    "doctors_recommendation": {
+      "type": "recommended-by-doctors",
+      "settings": {
+        "heading": "Recommended by Healthcare Professionals",
+        "show_consult_bar": true,
+        "consult_title": "Need Expert Advice?",
+        "consult_subtitle": "Consult our certified doctors for free - 100% confidential",
+        "consult_button_text": "Book Consultation",
+        "consult_button_link": ""
+      }
+    },
+    "why_different": {
+      "type": "why-product-is-different",
+      "settings": {
+        "heading_prefix": "Why",
+        "heading_suffix": "is Different",
+        "subtitle": "Not all products are created equal. Here’s what sets [product] apart from the competition.",
+        "feat_1_title": "Pharmaceutical-Grade Formula",
+        "feat_1_desc": "Made with FDA-approved ingredients in certified facilities",
+        "feat_2_title": "Trusted by 50,000+ Men",
+        "feat_2_desc": "Join thousands of satisfied customers across India",
+        "feat_3_title": "Clinically Tested",
+        "feat_3_desc": "Backed by scientific research and clinical studies",
+        "feat_4_title": "No Side Effects",
+        "feat_4_desc": "Safe formulation with natural ingredients and no harmful chemicals"
+      }
+    },
+    "you_may_also_like": {
+      "type": "product-you-may-also-like",
+      "settings": {
+        "heading": "You May Also Like",
+        "product_list": [],
+        "collection": "",
+        "products_to_show": 3
+      }
+    },
+    "reviews_missions": {
+      "type": "product-reviews-missions",
+      "blocks": {
+        "review_1": {
+          "type": "video_testimonial",
+          "settings": {
+            "cover_image": "shopify://shop_images/WhatsApp_Image_2026-09-04_at_18.14.14_3.jpg",
+            "author_name": "Verified Customer",
+            "quote": "No more anxiety. Just pure confidence. This is exactly what I needed."
+          }
+        },
+        "review_2": {
+          "type": "video_testimonial",
+          "settings": {
+            "cover_image": "shopify://shop_images/WhatsApp_Image_2026-09-04_at_18.14.14_4.jpg",
+            "author_name": "Verified Customer",
+            "quote": "Noticeable improvement within 7-10 Days. My partner and I couldn't be happier."
+          }
+        },
+        "review_3": {
+          "type": "video_testimonial",
+          "settings": {
+            "cover_image": "shopify://shop_images/WhatsApp_Image_2026-09-04_at_18.14.13_2.jpg",
+            "author_name": "Verified Customer",
+            "quote": "Zero side effects, clean absorption, and 100% discreet delivery. Highly recommend."
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ],
+      "settings": {
+        "mission_tag": "OUR AYURVEDIC MISSION",
+        "mission_title": "Empowering Men's Vitality, Stamina & Peak Performance",
+        "point_1_text": "100% Pure Himalayan Herbs",
+        "point_2_text": "Doctor Formulated & Tested",
+        "point_3_text": "100% Confidential Delivery",
+        "mission_video": "shopify://files/videos/male shilajit UGC 6 video.mp4",
+        "testimonials_tag": "REAL REVIEWS",
+        "testimonials_title": "Real Men. Real Transformations.",
+        "padding_top": 45,
+        "padding_bottom": 45
+      }
+    },
+    "faq_accordion": {
+      "type": "product-faq-accordion",
+      "blocks": {
+        "faq_item_rKwxjE": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I take Shilajit with water?",
+            "answer": "<p>Yes. Mix the recommended amount with warm water and consume.<br/><br/></p>"
+          }
+        },
+        "faq_item_3cYGXf": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Does Shilajit support men's wellness?",
+            "answer": "<p>Shilajit has traditionally been used in Ayurveda to support male vitality, energy and overall wellness.</p><p></p>"
+          }
+        },
+        "faq_item_qN9dzm": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Who should avoid Shilajit?",
+            "answer": "<p>If you are pregnant, have a medical condition, take regular medicines, or have concerns about using Shilajit, consult a healthcare professional before use.<br/><br/></p>"
+          }
+        },
+        "faq_item_eeBzkW": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I take Shilajit before a workout?",
+            "answer": "<p>Yes, it can be included in your daily routine, including around your workout, as directed.</p><p></p>"
+          }
+        },
+        "faq_item_DVF8WM": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What are the benefits of Shilajit?",
+            "answer": "<p>It may support daily energy, stamina, strength and overall men's wellness.<br/><br/></p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_rKwxjE",
+        "faq_item_3cYGXf",
+        "faq_item_qN9dzm",
+        "faq_item_eeBzkW",
+        "faq_item_DVF8WM"
+      ],
+      "settings": {
+        "badge": "FAQ",
+        "heading": "Frequently Asked Questions",
+        "subtitle": "Get answers to common questions"
+      }
+    },
+    "support_banner": {
+      "type": "support-contact-banner",
+      "settings": {
+        "heading": "Still Have Questions?",
+        "subtitle": "Our customer support team is here to help you 24/7",
+        "show_email_button": true,
+        "email_label": "Email Support",
+        "email_address": "support@alphajoshh.com",
+        "show_call_button": true,
+        "call_label": "Call Us",
+        "phone_number": "+919876543210"
+      }
+    },
+    "privacy_guarantee": {
+      "type": "privacy-guarantee",
+      "settings": {
+        "heading": "Your Privacy Is Guaranteed",
+        "pillar_1": "Plain brown box",
+        "pillar_2": "No product name",
+        "pillar_3": "No brand mentioned",
+        "pillar_4": "Delivery partner won't know",
+        "tagline": "We respect your privacy as much as your performance."
+      }
+    }
+  },
+  "order": [
+    "main",
+    "video_reels_7Lptpm",
+    "fast_delivery",
+    "tabbed_info",
+    "how_to_use",
+    "product_details",
+    "doctors_recommendation",
+    "why_different",
+    "you_may_also_like",
+    "reviews_missions",
+    "faq_accordion",
+    "support_banner",
+    "privacy_guarantee"
+  ]
+}

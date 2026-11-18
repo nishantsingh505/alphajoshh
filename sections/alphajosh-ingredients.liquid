@@ -1,0 +1,198 @@
+{% schema %}
+{
+  "name": "Alphajosh Ingredients",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "PURE & NATURAL"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Powered by Trusted Ayurvedic Oils"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Every ingredient is carefully selected from ancient Ayurvedic texts, combining centuries of wisdom with modern quality standards."
+    },
+    {
+    "type": "image_picker",
+    "id": "center_image",
+    "label": "Center Bottle Image"
+    },
+    {
+      "type": "text",
+      "id": "center_text",
+      "label": "Center Infographic Text",
+      "default": "100% Natural"
+    },
+    {
+      "type": "text",
+      "id": "center_subtext",
+      "label": "Center Infographic Subtext",
+      "default": "No synthetic additives"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient Card",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Ingredient Name",
+          "default": "Ashwagandha"
+        },
+        {
+          "type": "text",
+          "id": "info",
+          "label": "Benefit Text",
+          "default": "Reduces stress & supports muscle strength"
+        },
+        {
+          "type": "textarea",
+          "id": "svg_icon",
+          "label": "SVG Icon Code",
+          "info": "Paste SVG code for the icon"
+        },
+        {
+          "type": "image_picker",
+          "id": "block_image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Alphajosh Ingredients",
+      "blocks": [
+        { "type": "ingredient" },
+        { "type": "ingredient" },
+        { "type": "ingredient" },
+        { "type": "ingredient" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<section class="aj-ing-section">
+  <div class="aj-ing-container">
+    
+    <div class="aj-ing-left">
+      <span class="alpha-badge">{{ section.settings.subheading }}</span>
+      <h2 class="aj-ing-title">{{ section.settings.heading }}</h2>
+      <p class="aj-ing-desc">{{ section.settings.description }}</p>
+
+      <div class="aj-ing-grid">
+        {% for block in section.blocks %}
+          <div class="aj-ing-card{% if block.settings.block_image != blank %} block-image{% endif %}" {{ block.shopify_attributes }}>
+            {% if block.settings.block_image != blank %}
+            <div class="aj-ing-image">
+                <img src="{{ block.settings.block_image | img_url: '400x200' }}">
+            </div>
+            {% else %}
+            <div class="aj-ing-icon">
+              {% if block.settings.svg_icon != blank %}
+                {{ block.settings.svg_icon }}
+              {% else %}
+                <span class="dot-icon"></span>
+              {% endif %}
+            </div>
+            {% endif %}
+            <div class="aj-ing-text">
+              <h3>{{ block.settings.title }}</h3>
+              <p>{{ block.settings.info }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="aj-ing-right">
+      <div class="aj-circle-wrap">
+        <div class="aj-main-circle">
+          <div class="aj-center-content">
+            <div class="aj-bottle-image-wrap">
+                {% if section.settings.center_image != blank %}
+                <img src="{{ section.settings.center_image | img_url: '300x' }}" 
+                    alt="{{ section.settings.center_image.alt }}" 
+                    class="aj-center-img">
+                {% else %}
+                <div class="aj-bottle-icon">🧴</div> {% endif %}
+            </div>
+            <p class="aj-gold-text">{{ section.settings.center_text }}</p>
+            <p class="aj-small-text">{{ section.settings.center_subtext }}</p>
+            </div>
+          
+          <div class="orbit-icon t">🌿</div>
+          <div class="orbit-icon r">⚡</div>
+          <div class="orbit-icon b">📋</div>
+          <div class="orbit-icon l">🍃</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .aj-ing-section { background-color:#f8f9fa; color: #fff; padding: 80px 20px; overflow: hidden; }
+  .aj-ing-container { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 50px; flex-wrap: wrap; }
+  
+  .aj-ing-left { flex: 1; min-width: 350px; }
+  .aj-ing-badge { color: #f3ae4b; font-size: 12px; font-weight: bold; letter-spacing: 1px; }
+  .aj-ing-title { font-size: 36px; margin: 15px 0 20px; font-weight: bold; line-height: 1.2; color:#000;}
+  .aj-ing-desc { color: #000; font-size: 16px; margin-bottom: 40px; line-height: 1.6; }
+
+  /* Cards Grid */
+  .aj-ing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .aj-ing-card { background: rgba(255,255,255,0.03); border: 1px solid #222; padding: 20px; border-radius: 12px; display: flex; align-items: flex-start; gap: 15px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);}
+  .aj-ing-icon { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; }
+  .aj-ing-text h3 { font-size: 16px !important; margin: 0 0 5px; font-weight: 600; color:#000;}
+  .aj-ing-text p { font-size: 13px; color: #666; margin: 0; line-height: 1.4; }
+  .aj-ing-card.block-image {flex-direction: column;}
+  .aj-ing-image{padding-bottom:10px;}
+
+  /* Circular Infographic */
+  .aj-ing-right { flex: 1; display: flex; justify-content: center; align-items: center; min-width: 350px; }
+  .aj-circle-wrap { position: relative; width: 350px; height: 350px; }
+  .aj-main-circle { 
+    width: 100%; height: 100%; border: 1px solid #333; border-radius: 50%; 
+    display: flex; align-items: center; justify-content: center; position: relative;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+  }
+  
+  .aj-center-content { text-align: center; z-index: 2; }
+  .aj-gold-text { color: #f3ae4b; font-weight: bold; margin: 10px 0 5px; font-size: 18px; line-height: 10px;}
+  .aj-small-text { color: #666; font-size: 12px; }
+  .aj-bottle-icon { font-size: 40px; margin-bottom: 10px; }
+  .aj-bottle-image-wrap{
+    max-width:140px;
+    margin:0px auto;
+    }
+
+  .orbit-icon {
+    position: absolute; width: 40px; height: 40px; background: #121417; 
+    border: 1px solid #444; border-radius: 50%; display: flex; 
+    align-items: center; justify-content: center; font-size: 16px;
+  }
+  .orbit-icon.t { top: -20px; left: 50%; transform: translateX(-50%); }
+  .orbit-icon.r { right: -20px; top: 50%; transform: translateY(-50%); }
+  .orbit-icon.b { bottom: -20px; left: 50%; transform: translateX(-50%); }
+  .orbit-icon.l { left: -20px; top: 50%; transform: translateY(-50%); }
+
+  @media (max-width: 768px) {
+    .aj-ing-container { flex-direction: column; text-align: center; }
+    .aj-ing-card { text-align: left; }
+    .aj-circle-wrap { width: 280px; height: 280px; margin-top: 50px; }
+  }
+</style>

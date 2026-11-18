@@ -1,0 +1,245 @@
+<section class="faq-section" id="faqs">
+  <div class="page-width">
+    <div class="header-panel">
+      {% if section.settings.badge != blank %}
+        <span class="alpha-badge-faq">{{ section.settings.badge }}</span>
+      {% endif %}
+      {% if section.settings.heading != blank %}
+        <h2 class="faq-heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.subheading != blank %}
+        <p class="alpha-subheading">
+          {{ section.settings.subheading }}
+        </p>
+      {% endif %}
+    </div>
+
+    <div class="faq-wrapper">
+      {% for block in section.blocks %}
+        <div class="faq-item">
+          <button class="faq-question" type="button">
+            <span class="faq-question-text">{{ block.settings.question }}</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            {{ block.settings.answer }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    {% if section.settings.have_que != blank %}
+    <div class="still-que">
+      {% if section.settings.have_que != blank %}
+        <h5>{{ section.settings.have_que }}</h5>
+      {% endif %}
+      <ul>
+        {% if section.settings.contact_text != blank %}
+          <li>{{ section.settings.contact_text }}</li>
+        {% endif %}
+        {% if section.settings.phone_number != blank %}
+          <li>
+            <a href="tel:{{ section.settings.phone_number }}">
+                Phone: {{ section.settings.phone_number }}
+            </a>            
+          </li>
+        {% endif %}
+        {% if section.settings.email_address != blank %}
+          <li>
+            <a href="mailto:{{ section.settings.email_address }}">
+                Email: {{ section.settings.email_address }}
+            </a>            
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+.alpha-badge-faq{      
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 20px;
+    background: #ffc85026;
+    color: #000;
+    font-size: 23px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    border: 1px solid #7cb342;
+}
+.faq-section {
+  padding: 60px 20px;
+  width: 80%;
+  margin: 0px auto;
+}
+.faq-heading {
+  text-align: center;
+  font-size: 32px;
+  margin: 15px 0;
+  color:#000;
+}
+.faq-wrapper{
+  margin-top:20px;
+}
+.faq-item {
+  border-bottom: 1px solid #ddd;
+}
+.faq-question {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 18px 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: #111111;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  cursor: pointer;
+  gap: 16px;
+}
+.faq-question-text {
+  text-align: left;
+  flex: 1;
+  color: #111111;
+  line-height: 1.35;
+}
+.faq-icon {
+  font-size: 20px;
+  font-weight: 400;
+  color: #111111;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+.faq-answer {
+  display: none;
+  padding-bottom: 18px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #555;
+  text-align: left;
+}
+.faq-item.active .faq-answer {
+  display: block;
+}
+.faq-item.active .faq-icon {
+  transform: rotate(45deg);
+}
+.still-que{
+  text-align:center;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+  position: relative;
+  border: 1px solid #7cb342;
+  color: #000000;
+  background: #ffffff;
+  margin:40px auto 0px;
+  max-width:460px;
+}
+.still-que h5{
+  font-size: 20px;
+  margin-bottom:10px;
+}
+.still-que ul{
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+.still-que ul li{
+  padding-bottom:5px;
+}
+@media(max-width: 992px){
+    .faq-section {
+        width: 90%;
+    }
+}
+@media(max-width: 768px){
+    .faq-section {
+        width: 100%;
+    }
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".faq-question").forEach(button => {
+    button.addEventListener("click", () => {
+      const item = button.parentElement;
+      item.classList.toggle("active");
+    });
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "FAQ Section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Top Badge"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "text",
+      "id": "have_que",
+      "label": "Still have questions"
+    },
+    {
+      "type": "text",
+      "id": "contact_text",
+      "label": "Contact Our Team"
+    },
+    {
+      "type": "text",
+      "id": "phone_number",
+      "label": "Phone"
+    },
+    {
+      "type": "text",
+      "id": "email_address",
+      "label": "Email"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Your question here?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "Your answer goes here."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Section"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,64 @@
+{{ 'about-us-premium.css' | asset_url | stylesheet_tag }}
+
+<div class="about-values-premium">
+  <div class="about-values-header">
+    <h2 class="animate-fade-up">{{ section.settings.heading }}</h2>
+  </div>
+  <div class="about-values-grid">
+    {% for block in section.blocks %}
+      <div class="about-value-card animate-fade-up delay-{{ forloop.index }}00">
+        <div class="about-value-icon">
+          {{ block.settings.custom_icon_svg }}
+        </div>
+        <h3 class="about-value-title">{{ block.settings.title }}</h3>
+        <p class="about-value-description">{{ block.settings.description }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "About Values Premium",
+  "max_blocks": 6,
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Our Value"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Description of this value."
+        },
+        {
+          "type": "html",
+          "id": "custom_icon_svg",
+          "label": "Custom Icon SVG",
+          "info": "Paste your SVG code here for a custom icon."
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Why Choose Alpha Joshh?"
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Values Premium"
+    }
+  ]
+}
+{% endschema %}

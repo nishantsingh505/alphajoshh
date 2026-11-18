@@ -1,0 +1,519 @@
+{% comment %}
+  Fast Delivery on Prepaid Orders - Comparison Section (Updated with Limited-Time Bonus banner)
+{% endcomment %}
+
+{%- liquid
+  assign show_bonus_bar = true
+  if section.settings.show_bonus_bar == false
+    assign show_bonus_bar = false
+  endif
+
+  assign bonus_gift_icon = section.settings.bonus_gift_icon | default: '🎁'
+  assign bonus_title = section.settings.bonus_title | default: 'Limited-Time Bonus'
+  assign bonus_subtext = section.settings.bonus_subtext | default: 'Buy 2 or more & get FREE Premium Intimate Essentials Pack (Tissues / Condoms / Care wipes — no extra cost)'
+
+  assign main_title = section.settings.heading | default: 'Fast Delivery on Prepaid Orders'
+
+  assign prepaid_badge = section.settings.prepaid_badge | default: 'PREPAID'
+  assign prepaid_days = section.settings.prepaid_days | default: '1-3 Days'
+  assign prepaid_delivery_type = section.settings.prepaid_delivery_type | default: 'Express Delivery'
+  assign prepaid_point_1 = section.settings.prepaid_point_1 | default: 'Instant payment confirmation & order processing'
+  assign prepaid_point_2 = section.settings.prepaid_point_2 | default: 'Priority handling with verified payment'
+  assign prepaid_point_3 = section.settings.prepaid_point_3 | default: 'No waiting for cash collection verification'
+
+  assign cod_badge = section.settings.cod_badge | default: 'COD'
+  assign cod_days = section.settings.cod_days | default: '4-7 Days'
+  assign cod_delivery_type = section.settings.cod_delivery_type | default: 'Standard Delivery'
+  assign cod_point_1 = section.settings.cod_point_1 | default: 'Additional verification steps required'
+  assign cod_point_2 = section.settings.cod_point_2 | default: 'Cash collection logistics add time'
+  assign cod_point_3 = section.settings.cod_point_3 | default: 'Standard processing queue'
+
+  assign pad_top = section.settings.padding_top | default: 50
+  assign pad_bottom = section.settings.padding_bottom | default: 70
+-%}
+
+{%- if show_bonus_bar -%}
+<div class="fd-bonus-top-bar">
+  <div class="fd-bonus-container">
+    <div class="fd-bonus-heading">
+      {%- if bonus_gift_icon != blank -%}
+        <span class="fd-bonus-gift-icon">{{ bonus_gift_icon }}</span>
+      {%- endif -%}
+      {%- if bonus_title != blank -%}
+        <span class="fd-bonus-title">{{ bonus_title }}</span>
+      {%- endif -%}
+    </div>
+    {%- if bonus_subtext != blank -%}
+      <div class="fd-bonus-subtext">
+        {{ bonus_subtext }}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+{%- endif -%}
+
+<section class="fd-compare-section" style="padding-top: {{ pad_top }}px; padding-bottom: {{ pad_bottom }}px;">
+  <div class="fd-container">
+    {%- if main_title != blank -%}
+      <h2 class="fd-main-title">{{ main_title }}</h2>
+    {%- endif -%}
+
+    <div class="fd-grid">
+      
+      <!-- ================= LEFT: PREPAID CARD ================= -->
+      <div class="fd-card fd-card--prepaid">
+        
+        <!-- Header -->
+        <div class="fd-card-header">
+          <span class="fd-badge fd-badge--prepaid">{{ prepaid_badge }}</span>
+          <span class="fd-days fd-days--prepaid">{{ prepaid_days }}</span>
+        </div>
+
+        <!-- Progress Timeline Bar -->
+        <div class="fd-timeline">
+          <div class="fd-node fd-node--black">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+              <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+          </div>
+          <div class="fd-line fd-line--solid"></div>
+          <div class="fd-node fd-node--green">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+            </svg>
+          </div>
+          <div class="fd-line fd-line--solid"></div>
+          <div class="fd-node fd-node--green">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Subtitle Type -->
+        <div class="fd-delivery-type fd-delivery-type--prepaid">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+          <span>{{ prepaid_delivery_type }}</span>
+        </div>
+
+        <!-- Benefits List -->
+        <ul class="fd-list fd-list--prepaid">
+          {%- if prepaid_point_1 != blank -%}
+            <li>
+              <span class="fd-icon-check">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </span>
+              <span>{{ prepaid_point_1 }}</span>
+            </li>
+          {%- endif -%}
+          {%- if prepaid_point_2 != blank -%}
+            <li>
+              <span class="fd-icon-check">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </span>
+              <span>{{ prepaid_point_2 }}</span>
+            </li>
+          {%- endif -%}
+          {%- if prepaid_point_3 != blank -%}
+            <li>
+              <span class="fd-icon-check">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </span>
+              <span>{{ prepaid_point_3 }}</span>
+            </li>
+          {%- endif -%}
+        </ul>
+
+      </div>
+
+      <!-- ================= RIGHT: COD CARD ================= -->
+      <div class="fd-card fd-card--cod">
+        
+        <!-- Header -->
+        <div class="fd-card-header">
+          <span class="fd-badge fd-badge--cod">{{ cod_badge }}</span>
+          <span class="fd-days fd-days--cod">{{ cod_days }}</span>
+        </div>
+
+        <!-- Progress Timeline Bar -->
+        <div class="fd-timeline">
+          <div class="fd-node fd-node--grey">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+              <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+          </div>
+          <div class="fd-line fd-line--muted"></div>
+          <div class="fd-node fd-node--red">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20 8h-3V4H1v13h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+            </svg>
+          </div>
+          <div class="fd-line fd-line--muted"></div>
+          <div class="fd-node fd-node--red">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Subtitle Type -->
+        <div class="fd-delivery-type fd-delivery-type--cod">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span>{{ cod_delivery_type }}</span>
+        </div>
+
+        <!-- Drawbacks List -->
+        <ul class="fd-list fd-list--cod">
+          {%- if cod_point_1 != blank -%}
+            <li>
+              <span class="fd-icon-warn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+              </span>
+              <span>{{ cod_point_1 }}</span>
+            </li>
+          {%- endif -%}
+          {%- if cod_point_2 != blank -%}
+            <li>
+              <span class="fd-icon-warn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+              </span>
+              <span>{{ cod_point_2 }}</span>
+            </li>
+          {%- endif -%}
+          {%- if cod_point_3 != blank -%}
+            <li>
+              <span class="fd-icon-warn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+              </span>
+              <span>{{ cod_point_3 }}</span>
+            </li>
+          {%- endif -%}
+        </ul>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ── BONUS TOP BAR ─────────────────────────── */
+  .fd-bonus-top-bar {
+    background-color: #ffffff;
+    color: #111827;
+    padding: 16px 20px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .fd-bonus-container {
+    max-width: 980px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .fd-bonus-heading {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .fd-bonus-gift-icon {
+    font-size: 15px;
+  }
+
+  .fd-bonus-title {
+    font-size: 14.5px;
+    font-weight: 800;
+    color: #111827;
+    letter-spacing: -0.2px;
+  }
+
+  .fd-bonus-subtext {
+    font-size: 13px;
+    color: #4b5563;
+    line-height: 1.4;
+  }
+
+  /* ── COMPARE SECTION ───────────────────────── */
+  .fd-compare-section {
+    background-color: #0c0c0c;
+    color: #ffffff;
+    padding: 50px 20px 70px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .fd-container {
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  .fd-main-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 36px;
+    letter-spacing: -0.3px;
+  }
+
+  .fd-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: stretch;
+  }
+
+  /* ── COMMON CARD STYLES ────────────────────── */
+  .fd-card {
+    border-radius: 20px;
+    padding: 28px 24px 26px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .fd-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+
+  .fd-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    line-height: 1;
+  }
+
+  .fd-days {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+  }
+
+  /* Timeline */
+  .fd-timeline {
+    display: flex;
+    align-items: center;
+    margin-bottom: 22px;
+    width: 100%;
+  }
+
+  .fd-node {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .fd-line {
+    flex: 1;
+    height: 2px;
+    margin: 0 4px;
+  }
+
+  .fd-delivery-type {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13.5px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .fd-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+  }
+
+  .fd-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  .fd-icon-check, .fd-icon-warn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* ── PREPAID CARD (WHITE) ──────────────────── */
+  .fd-card--prepaid {
+    background: #e7b964ff;
+    color: #0a0a0a;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  .fd-badge--prepaid {
+    background: #000000;
+    color: #ffffff;
+  }
+
+  .fd-days--prepaid {
+    color: #000000;
+  }
+
+  .fd-node--black {
+    background: #000000;
+  }
+
+  .fd-node--green {
+    background: #059669;
+    color: #ffffff;
+  }
+
+  .fd-line--solid {
+    background: #000000;
+  }
+
+  .fd-delivery-type--prepaid {
+    color: #000000;
+  }
+
+  .fd-delivery-type--prepaid svg {
+    color: #000000;
+  }
+
+  .fd-list--prepaid li span:last-child {
+    color: #374151;
+    font-weight: 500;
+  }
+
+  /* ── COD CARD (DARK) ───────────────────────── */
+  .fd-card--cod {
+    background: #ffffffff;
+    border: 1px solid #262626;
+    color: #ffffff;
+  }
+
+  .fd-badge--cod {
+    background: #252830;
+    color: #ffffffff;
+  }
+
+  .fd-days--cod {
+    color: #000000;
+  }
+
+  .fd-node--grey {
+    background: #202020;
+    border: 1px solid #333333;
+  }
+
+  .fd-node--red {
+    background: #dc2626;
+    color: #ffffff;
+  }
+
+  .fd-line--muted {
+    background: #333333;
+    height: 1px;
+  }
+
+  .fd-delivery-type--cod {
+    color: #000;
+  }
+
+  .fd-list--cod li span:last-child {
+    color: #000;
+    font-weight: 400;
+  }
+
+  /* Laptop Optimization */
+  @media screen and (min-width: 769px) and (max-width: 1100px) {
+    .fd-container {
+      padding: 0 16px;
+    }
+    .fd-grid {
+      gap: 16px;
+    }
+    .fd-card {
+      padding: 24px 20px;
+    }
+    .fd-main-title {
+      font-size: 24px;
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .fd-bonus-top-bar {
+      padding: 12px 14px;
+    }
+
+    .fd-bonus-title {
+      font-size: 13.5px;
+    }
+
+    .fd-bonus-subtext {
+      font-size: 12px;
+    }
+
+    .fd-compare-section {
+      padding: 35px 16px 50px;
+    }
+
+    .fd-main-title {
+      font-size: 22px;
+      margin-bottom: 24px;
+    }
+
+    .fd-grid {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .fd-card {
+      padding: 22px 18px;
+    }
+  }
+</style>

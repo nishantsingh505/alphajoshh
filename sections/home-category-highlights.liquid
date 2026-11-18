@@ -1,0 +1,896 @@
+<section class="home-category-highlights" id="cat-highlights-{{ section.id }}" style="background-color: {{ section.settings.bg_color | default: '#ffffff' }}; padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="category-highlights-container" style="max-width: {{ section.settings.container_max_width | default: 1320 }}px;">
+    
+    {% if section.settings.heading != blank %}
+      <div class="category-header-title-wrap">
+        <h2 class="category-section-title" style="color: {{ section.settings.heading_color | default: '#111827' }};">{{ section.settings.heading }}</h2>
+        {% if section.settings.subheading != blank %}
+          <p class="category-section-subtitle">{{ section.settings.subheading }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="category-slider-outer">
+      {% if section.blocks.size > 2 %}
+        <button class="cat-nav-btn cat-prev" id="catPrev-{{ section.id }}" aria-label="Previous card">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button class="cat-nav-btn cat-next" id="catNext-{{ section.id }}" aria-label="Next card">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      {% endif %}
+
+      <div class="category-slider-wrapper" id="catSlider-{{ section.id }}">
+        <div class="category-cards-track" id="catTrack-{{ section.id }}">
+          {% for block in section.blocks %}
+            {% assign card_bg = block.settings.card_bg_color | default: '#0d4b45' %}
+            {% assign card_bg_2 = block.settings.card_bg_color_end %}
+            {% assign card_grad = block.settings.card_bg_gradient %}
+            
+            {% assign target_link = block.settings.button_link %}
+            {% if target_link == blank and block.settings.product != blank %}
+              {% assign target_link = block.settings.product.url %}
+            {% endif %}
+
+            {% assign has_full_image = false %}
+            {% if block.settings.card_image_desktop != blank or block.settings.card_image_mobile != blank %}
+              {% assign has_full_image = true %}
+            {% endif %}
+
+            {% if has_full_image %}
+              <!-- FULL IMAGE CARD (Supports distinct Desktop & Mobile Images) -->
+              <div class="category-highlight-card cat-full-image-card" 
+                   {{ block.shopify_attributes }} 
+                   data-card-index="{{ forloop.index0 }}">
+                {% if target_link != blank %}
+                  <a href="{{ target_link }}" class="cat-full-card-link" aria-label="{{ block.settings.title | default: 'Offer' | escape }}">
+                {% else %}
+                  <div class="cat-full-card-link">
+                {% endif %}
+
+                  <picture class="cat-full-card-picture">
+                    {% if block.settings.card_image_mobile != blank %}
+                      <source media="(max-width: 768px)" srcset="{{ block.settings.card_image_mobile | image_url: width: 900 }}">
+                    {% endif %}
+                    {% if block.settings.card_image_desktop != blank %}
+                      <img src="{{ block.settings.card_image_desktop | image_url: width: 1200 }}" 
+                           alt="{{ block.settings.title | default: 'Offer' | escape }}" 
+                           class="cat-full-banner-img"
+                           loading="lazy">
+                    {% elsif block.settings.card_image_mobile != blank %}
+                      <img src="{{ block.settings.card_image_mobile | image_url: width: 900 }}" 
+                           alt="{{ block.settings.title | default: 'Offer' | escape }}" 
+                           class="cat-full-banner-img"
+                           loading="lazy">
+                    {% endif %}
+                  </picture>
+
+                  {% if block.settings.enable_overlay_content %}
+                    <div class="cat-card-overlay-content">
+                      {% if block.settings.badge_text != blank %}
+                        <div class="cat-badge-wrap">
+                          <span class="cat-card-badge" style="{% if block.settings.badge_bg != blank and block.settings.badge_bg != 'rgba(0,0,0,0)' %}background: {{ block.settings.badge_bg }};{% endif %}{% if block.settings.badge_text_color != blank %}color: {{ block.settings.badge_text_color }};{% endif %}">
+                            {{ block.settings.badge_text }}
+                          </span>
+                        </div>
+                      {% endif %}
+                      {% if block.settings.title != blank %}
+                        <h3 class="cat-card-title">{{ block.settings.title }}</h3>
+                      {% endif %}
+                      {% if block.settings.description != blank %}
+                        <p class="cat-card-desc">{{ block.settings.description }}</p>
+                      {% endif %}
+                      {% if block.settings.button_text != blank %}
+                        <div class="cat-btn-wrap">
+                          <span class="cat-card-btn">
+                            <span>{{ block.settings.button_text }}</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                          </span>
+                        </div>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+
+                {% if target_link != blank %}
+                  </a>
+                {% else %}
+                  </div>
+                {% endif %}
+              </div>
+
+            {% else %}
+              <!-- SPLIT CARD (Custom Background Color + Transparent Product PNG) -->
+              <div class="category-highlight-card" 
+                   {{ block.shopify_attributes }} 
+                   data-card-index="{{ forloop.index0 }}"
+                   style="
+                     {% if card_grad != blank %}
+                       background: {{ card_grad }};
+                     {% elsif card_bg_2 != blank and card_bg_2 != 'rgba(0,0,0,0)' and card_bg_2 != '' %}
+                       background: linear-gradient(135deg, {{ card_bg }} 0%, {{ card_bg_2 }} 100%);
+                     {% else %}
+                       background: {{ card_bg }};
+                     {% endif %}
+                   ">
+                <div class="cat-card-inner">
+                  <div class="cat-card-content">
+                    {% if block.settings.badge_text != blank %}
+                      <div class="cat-badge-wrap">
+                        <span class="cat-card-badge" style="{% if block.settings.badge_bg != blank and block.settings.badge_bg != 'rgba(0,0,0,0)' %}background: {{ block.settings.badge_bg }};{% endif %}{% if block.settings.badge_text_color != blank %}color: {{ block.settings.badge_text_color }};{% endif %}">
+                          {{ block.settings.badge_text }}
+                        </span>
+                      </div>
+                    {% endif %}
+                    
+                    <h3 class="cat-card-title">{{ block.settings.title }}</h3>
+                    
+                    {% if block.settings.description != blank %}
+                      <p class="cat-card-desc">{{ block.settings.description }}</p>
+                    {% endif %}
+
+                    {% if block.settings.button_text != blank %}
+                      <div class="cat-btn-wrap">
+                        <a href="{{ target_link | default: '/collections/all' }}" class="cat-card-btn">
+                          <span>{{ block.settings.button_text }}</span>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                      </div>
+                    {% endif %}
+                  </div>
+
+                  <div class="cat-card-image-wrap">
+                    {% if block.settings.image != blank %}
+                      <img src="{{ block.settings.image | image_url: width: 800 }}" 
+                           alt="{{ block.settings.title | escape }}" 
+                           class="cat-transparent-img"
+                           loading="lazy">
+                    {% elsif block.settings.product != blank and block.settings.product.featured_image != blank %}
+                      <img src="{{ block.settings.product.featured_image | image_url: width: 800 }}" 
+                           alt="{{ block.settings.title | default: block.settings.product.title | escape }}" 
+                           class="cat-transparent-img"
+                           loading="lazy">
+                    {% else %}
+                      <div class="cat-image-placeholder">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    {% if section.blocks.size > 1 %}
+      <!-- Capsule & Circle Pagination Dots -->
+      <div class="cat-pagination-dots" id="catDots-{{ section.id }}">
+        {% for block in section.blocks %}
+          <button class="cat-dot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}" aria-label="Go to slide {{ forloop.index }}"></button>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<style>
+.home-category-highlights {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.category-highlights-container {
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+.category-header-title-wrap {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.category-section-title {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.category-section-subtitle {
+  font-size: 1rem;
+  color: #6b7280;
+  margin: 8px 0 0 0;
+}
+
+/* Slider Outer with Floating Arrows */
+.category-slider-outer {
+  position: relative;
+  width: 100%;
+}
+
+.cat-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  color: #111827;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 15;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.14);
+  transition: all 0.25s ease;
+}
+
+.cat-nav-btn:hover {
+  background: #ffffff;
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
+}
+
+.cat-prev {
+  left: -20px;
+}
+
+.cat-next {
+  right: -20px;
+}
+
+.category-slider-wrapper {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 8px 2px 14px 2px;
+}
+
+.category-slider-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.category-cards-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  cursor: grab;
+  align-items: stretch;
+}
+
+.category-cards-track:active {
+  cursor: grabbing;
+}
+
+.category-highlight-card {
+  flex: 0 0 470px;
+  width: 470px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  scroll-snap-align: start;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.category-highlight-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.18);
+}
+
+/* Full Image Card Styling */
+.cat-full-image-card {
+  background: transparent;
+  padding: 0;
+}
+
+.cat-full-card-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.cat-full-card-picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cat-full-banner-img {
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+  display: block;
+  object-fit: cover;
+  border-radius: 20px;
+  transition: transform 0.4s ease;
+}
+
+.cat-full-image-card:hover .cat-full-banner-img {
+  transform: scale(1.03);
+}
+
+.cat-card-overlay-content {
+  position: absolute;
+  inset: 0;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 70%, transparent 100%);
+  z-index: 2;
+}
+
+/* Split Card Inner Styling */
+.cat-card-inner {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  padding: 32px 24px 32px 32px;
+  gap: 16px;
+  min-height: 260px;
+  height: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.cat-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  justify-content: center;
+  z-index: 2;
+}
+
+.cat-badge-wrap {
+  margin-bottom: 12px;
+}
+
+.cat-card-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 30px;
+}
+
+.cat-card-title {
+  font-size: clamp(1.4rem, 2vw, 1.85rem);
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  margin: 0 0 8px 0;
+  line-height: 1.18;
+}
+
+.cat-card-desc {
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 0 20px 0;
+  line-height: 1.35;
+  font-weight: 400;
+}
+
+.cat-btn-wrap {
+  margin-top: auto;
+}
+
+.cat-card-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  color: #111827;
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.2px;
+  padding: 9px 20px;
+  border-radius: 9999px;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  transition: all 0.25s ease;
+}
+
+.cat-card-btn svg {
+  transition: transform 0.2s ease;
+}
+
+.cat-card-btn:hover {
+  background: #f9fafb;
+  transform: translateY(-2px);
+  color: #000000;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.26);
+}
+
+.cat-card-btn:hover svg {
+  transform: translateX(3px);
+}
+
+.cat-card-image-wrap {
+  width: 100%;
+  height: 220px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.cat-transparent-img {
+  max-width: 100%;
+  max-height: 220px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  object-position: bottom center;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.28));
+  transition: transform 0.35s ease;
+}
+
+.category-highlight-card:hover .cat-transparent-img {
+  transform: scale(1.04) translateY(-2px);
+}
+
+.cat-image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* Bottom Capsule/Circle Pagination Dots */
+.cat-pagination-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 24px;
+}
+
+.cat-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #111827;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  opacity: 0.85;
+}
+
+.cat-dot.active {
+  width: 24px;
+  height: 6px;
+  border-radius: 4px;
+  background: #0070f3;
+  opacity: 1;
+}
+
+/* Mobile & Tablet Optimizations */
+@media (max-width: 1024px) {
+  .cat-nav-btn {
+    display: none;
+  }
+  
+  .category-highlight-card {
+    flex: 0 0 380px;
+    width: 380px;
+  }
+}
+
+@media (max-width: 768px) {
+  .category-highlights-container {
+    padding: 0 16px;
+  }
+
+  .category-header-title-wrap {
+    margin-bottom: 20px;
+  }
+
+  .category-section-title {
+    font-size: 1.45rem;
+  }
+
+  .category-cards-track {
+    gap: 14px;
+  }
+
+  .category-highlight-card {
+    flex: 0 0 86vw;
+    width: 86vw;
+    border-radius: 16px;
+  }
+
+  .cat-full-card-link,
+  .cat-full-banner-img {
+    border-radius: 16px;
+    min-height: 195px;
+  }
+
+  .cat-card-overlay-content {
+    padding: 20px 16px;
+  }
+
+  .cat-card-inner {
+    grid-template-columns: 1.15fr 0.85fr;
+    padding: 22px 16px 22px 20px;
+    gap: 10px;
+    min-height: 195px;
+  }
+
+  .cat-badge-wrap {
+    margin-bottom: 8px;
+  }
+
+  .cat-card-badge {
+    font-size: 0.6rem;
+    padding: 3px 9px;
+  }
+
+  .cat-card-title {
+    font-size: 1.18rem;
+    margin-bottom: 4px;
+  }
+
+  .cat-card-desc {
+    font-size: 0.78rem;
+    margin-bottom: 14px;
+  }
+
+  .cat-card-btn {
+    font-size: 0.78rem;
+    padding: 7px 15px;
+    gap: 4px;
+  }
+
+  .cat-card-image-wrap {
+    height: 155px;
+  }
+
+  .cat-transparent-img {
+    max-height: 155px;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const sectionEl = document.getElementById('cat-highlights-{{ section.id }}');
+  if (!sectionEl) return;
+
+  const slider = sectionEl.querySelector('#catSlider-{{ section.id }}');
+  const track = sectionEl.querySelector('#catTrack-{{ section.id }}');
+  const prevBtn = sectionEl.querySelector('#catPrev-{{ section.id }}');
+  const nextBtn = sectionEl.querySelector('#catNext-{{ section.id }}');
+  const dots = sectionEl.querySelectorAll('#catDots-{{ section.id }} .cat-dot');
+  const cards = track ? track.querySelectorAll('.category-highlight-card') : [];
+
+  if (!slider || cards.length === 0) return;
+
+  function getCardWidth() {
+    const firstCard = cards[0];
+    if (!firstCard) return 300;
+    const gap = window.innerWidth <= 768 ? 14 : 20;
+    return firstCard.offsetWidth + gap;
+  }
+
+  function updateActiveDot() {
+    if (dots.length === 0) return;
+    const scrollLeft = slider.scrollLeft;
+    const cardWidth = getCardWidth();
+    const activeIndex = Math.round(scrollLeft / cardWidth);
+    const clampedIndex = Math.max(0, Math.min(activeIndex, dots.length - 1));
+
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === clampedIndex);
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      slider.scrollBy({ left: -getCardWidth(), behavior: 'smooth' });
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      slider.scrollBy({ left: getCardWidth(), behavior: 'smooth' });
+    });
+  }
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', function() {
+      const idx = parseInt(this.dataset.index, 10);
+      const targetScroll = idx * getCardWidth();
+      slider.scrollTo({ left: targetScroll, behavior: 'smooth' });
+    });
+  });
+
+  let scrollTimeout;
+  slider.addEventListener('scroll', () => {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(updateActiveDot, 50);
+  }, { passive: true });
+
+  // Mouse Drag to Scroll for Desktop
+  let isDown = false;
+  let startX;
+  let scrollLeftPos;
+
+  slider.addEventListener('mousedown', (e) => {
+    isDown = true;
+    slider.style.cursor = 'grabbing';
+    slider.style.scrollBehavior = 'auto';
+    startX = e.pageX - slider.offsetLeft;
+    scrollLeftPos = slider.scrollLeft;
+  });
+
+  slider.addEventListener('mouseleave', () => {
+    if (!isDown) return;
+    isDown = false;
+    slider.style.cursor = 'grab';
+    slider.style.scrollBehavior = 'smooth';
+  });
+
+  slider.addEventListener('mouseup', () => {
+    if (!isDown) return;
+    isDown = false;
+    slider.style.cursor = 'grab';
+    slider.style.scrollBehavior = 'smooth';
+  });
+
+  slider.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - slider.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    slider.scrollLeft = scrollLeftPos - walk;
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "New Launches & Offers",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#111827"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "New Launches & Offers"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Section Subheading"
+    },
+    {
+      "type": "range",
+      "id": "container_max_width",
+      "min": 900,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "label": "Container Max Width",
+      "default": 1320
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 45
+    }
+  ],
+  "blocks": [
+    {
+      "type": "highlight_card",
+      "name": "Offer Card",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Full Card Image (Desktop & Mobile)"
+        },
+        {
+          "type": "image_picker",
+          "id": "card_image_desktop",
+          "label": "Full Card Image (Desktop View)",
+          "info": "Upload a full graphic banner for desktop. Overrides split layout when provided."
+        },
+        {
+          "type": "image_picker",
+          "id": "card_image_mobile",
+          "label": "Full Card Image (Mobile View)",
+          "info": "Upload a separate graphic banner optimized for mobile view."
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_overlay_content",
+          "label": "Show text & button overlay on top of full image",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Card Colors (If No Full Image)"
+        },
+        {
+          "type": "color",
+          "id": "card_bg_color",
+          "label": "Card Background Color",
+          "default": "#0d4b45",
+          "info": "Set different colors for each card (e.g., Teal #0d4b45, Royal Blue #113f8c, Burgundy #68253b)"
+        },
+        {
+          "type": "color",
+          "id": "card_bg_color_end",
+          "label": "Gradient End Color (Optional)",
+          "info": "If set, creates a smooth gradient from Background Color to this color"
+        },
+        {
+          "type": "text",
+          "id": "card_bg_gradient",
+          "label": "Custom CSS Gradient (Optional)",
+          "info": "e.g., linear-gradient(135deg, #0d4b45 0%, #062b29 100%)"
+        },
+        {
+          "type": "header",
+          "content": "Card Content & Link"
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Badge Text",
+          "default": "NEW LAUNCH"
+        },
+        {
+          "type": "color",
+          "id": "badge_bg",
+          "label": "Badge Background (Optional)",
+          "default": "rgba(255,255,255,0.16)"
+        },
+        {
+          "type": "color",
+          "id": "badge_text_color",
+          "label": "Badge Text Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Card Title",
+          "default": "Natural Delay Spray"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description / Subtitle",
+          "default": "Botanical Formula to Last Longer"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Order Now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Card / Button Link"
+        },
+        {
+          "type": "header",
+          "content": "Transparent Product Image (For Split Layout)"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Transparent Product PNG Image",
+          "info": "Upload PNG with transparent background. It will blend directly with the card background."
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Or Select Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "New Launches & Offers",
+      "blocks": [
+        {
+          "type": "highlight_card",
+          "settings": {
+            "card_bg_color": "#094943",
+            "card_bg_color_end": "#052e2a",
+            "badge_text": "NEW LAUNCH",
+            "title": "Natural Delay Spray",
+            "description": "Botanical Formula to Last Longer",
+            "button_text": "Order Now"
+          }
+        },
+        {
+          "type": "highlight_card",
+          "settings": {
+            "card_bg_color": "#113f8c",
+            "card_bg_color_end": "#0a295c",
+            "badge_text": "NEW LAUNCH",
+            "title": "Hair Removal Spray",
+            "description": "Removes Body Hair In 3-5 Mins",
+            "button_text": "Order Now"
+          }
+        },
+        {
+          "type": "highlight_card",
+          "settings": {
+            "card_bg_color": "#68253b",
+            "card_bg_color_end": "#451424",
+            "badge_text": "NEW LAUNCH",
+            "title": "New Flavors",
+            "description": "Strawberry & Chocolate Lube",
+            "button_text": "Order Now"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

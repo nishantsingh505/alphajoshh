@@ -1,0 +1,138 @@
+{% comment %} Pure. Potent. Authentic. Section {% endcomment %}
+<section class="pure-authentic-section">
+  <div class="alpha-container">
+    <div class="pure-grid">
+      <div class="pure-image" style="background-image:url('{{ section.settings.image | img_url: '2000x' }}');">
+        <div class="lab-box">
+          <h4>Lab Test Results</h4>
+          <ul>
+            <li>✔ Heavy Metal Analysis: PASS</li>
+            <li>✔ Fulvic Acid Content: 85%+</li>
+            <li>✔ Microbial Testing: PASS</li>
+            <li>✔ Purity Certification: Verified</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pure-content">
+        <span class="alpha-badge">{{ section.settings.badge }}</span>
+        <h2 class="alpha-heading">{{ section.settings.heading }}</h2>
+        <p class="description">{{ section.settings.text }}</p>
+
+        <div class="features">
+          {% for block in section.blocks %}
+            <div class="feature">
+              <div class="icon">{{ block.settings.icon }}</div>
+              <div class="pure-content">
+                <h4>{{ block.settings.title }}</h4>
+                <p>{{ block.settings.desc }}</p>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="quote">
+          <p>“{{ section.settings.quote }}”</p>
+          <strong>— {{ section.settings.author }}</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.pure-authentic-section{
+    color:#fff;
+    padding:80px 20px;
+    background: #f8f9fa;
+}
+.description{
+    color:#000;
+}
+.lab-box h4{
+    color:#fff;
+    margin-bottom: 8px;
+}
+.features h4{
+    margin-bottom:10px;
+}
+.features p{
+    margin-top:8px;
+}
+.pure-image{
+    background-position: center center;
+    background-size: cover;
+    height: 100%;
+    border-radius: 10px;
+    position: relative;
+}
+.pure-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center; color:#000;}
+.pure-image img{width:100%;border-radius:20px}
+.lab-box{
+    position:absolute;
+    bottom:10px;
+    left:10px;
+    background:#111;
+    padding:20px;
+    border-radius:10px;
+    width: calc(100% - 20px);
+}
+.lab-box ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+.lab-box li {
+    margin: 6px 0;
+    color: #f4c15d;
+    width: 50%;
+}
+.features{margin:30px 0}
+.feature{display:flex;gap:16px;margin-bottom:20px; flex-wrap: wrap;}
+.icon{background:#2a1c00;color:#f4c15d;width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center; font-size: 24px;}
+.quote{margin-top:30px;padding:20px;border:1px solid #2a2a2a;border-radius:14px;}
+.pure-content{
+    width:calc(100% - 60px);
+}
+@media(max-width:900px){
+  .pure-grid{grid-template-columns:1fr}.lab-box{margin-top:20px}
+  .pure-image{
+    height:600px;
+  }
+  .lab-box li {
+    margin: 6px 0 0px;
+    width: 100%;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Pure Authentic Shilajit",
+  "settings": [
+    {"type":"image_picker","id":"image","label":"Left Image"},
+    {"type":"text","id":"badge","label":"Top Badge","default":"Authenticity Guaranteed"},
+    {"type":"text","id":"heading","label":"Heading","default":"Pure. Potent. Authentic."},
+    {"type":"textarea","id":"text","label":"Description","default":"Every batch is third‑party tested and verified for absolute purity."},
+    {"type":"textarea","id":"quote","label":"Quote","default":"We reject over 70% of raw Shilajit that doesn't meet our purity standards."},
+    {"type":"text","id":"author","label":"Quote Author","default":"Alphajoshh Quality Team"}
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {"type":"text","id":"icon","label":"Icon (emoji/SVG)","default":"★"},
+        {"type":"text","id":"title","label":"Title"},
+        {"type":"textarea","id":"desc","label":"Description"}
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {"name":"Alpha Pure Authentic Shilajit"}
+  ]
+}
+{% endschema %}

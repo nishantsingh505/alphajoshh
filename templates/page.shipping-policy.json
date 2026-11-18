@@ -1,0 +1,30 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "padding-block-start": 36,
+        "padding-block-end": 36
+      }
+    },
+    "shipping_content": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<div class='page-width rte'><h2>Shipping Policy</h2><p>At AlphaJoshh, we are committed to delivering your wellness products safely and efficiently. Please review our detailed shipping policy below.</p><hr><h3>📦 Order Processing Time</h3><p>All orders are carefully processed and dispatched within <strong>24-48 hours</strong> of order confirmation (excluding Sundays and public holidays). During festive seasons or sales events, processing may take up to 2-3 business days due to high order volumes.</p><h3>🚚 Shipping Methods & Delivery Timeline</h3><h4>Domestic Shipping (India)</h4><ul><li><strong>Standard Delivery:</strong> 4-7 business days</li><li><strong>Express Delivery:</strong> 2-4 business days (select metro cities)</li><li><strong>Remote Areas:</strong> 7-10 business days</li></ul><p><em>Note: Delivery timelines are estimated and may vary based on your location, weather conditions, and courier partner capacity. We partner with trusted courier services including Delhivery, Blue Dart, and India Post.</em></p><h3>💰 Shipping Charges</h3><ul><li><strong>Free Shipping:</strong> On all prepaid orders above ₹499</li><li><strong>COD Orders:</strong> ₹40 shipping charge applicable (+ ₹50 COD handling fee)</li><li><strong>Orders below ₹499:</strong> ₹60 shipping charge</li></ul><p><strong>💡 Pro Tip:</strong> Save up to 15% by choosing prepaid payment options!</p><h3>📍 Serviceable Areas</h3><p>We proudly ship across all states and union territories of India, including:</p><ul><li>All major metro cities (Delhi, Mumbai, Bangalore, Hyderabad, etc.)</li><li>Tier 2 & Tier 3 cities</li><li>Remote and rural areas (extended delivery time applies)</li></ul><p><em>Currently, we do not ship to international destinations. We are working to expand our reach soon!</em></p><h3>📧 Order Tracking & Updates</h3><p>Once your order is shipped, you will receive:</p><ol><li><strong>Shipment Confirmation Email</strong> with tracking details</li><li><strong>SMS Updates</strong> with tracking number and delivery status</li><li><strong>Real-time Tracking</strong> via courier partner's website/app</li></ol><p>Your tracking number will be active within 24 hours of dispatch. You can track your order anytime from our <a href='/account'>My Orders</a> page.</p><h3>📦 Packaging</h3><p>We use secure, eco-friendly packaging to ensure your products reach you in perfect condition. All products are:</p><ul><li>Sealed and tamper-proof</li><li>Bubble-wrapped for extra protection</li><li>Labeled with care instructions</li><li>Packaged discreetly for your privacy</li></ul><h3>🔄 Undelivered or Returned Shipments</h3><p>If a shipment is returned to us due to:</p><ul><li>Incorrect address provided by customer</li><li>Refusal to accept delivery</li><li>Customer unavailable after multiple delivery attempts</li><li>Unclaimed package</li></ul><p>In such cases, reshipping charges (₹100) will be applicable. Please ensure your shipping address and contact details are accurate at checkout.</p><h3>📱 Customer Support</h3><p>For any shipping-related queries, our customer support team is here to help:</p><ul><li><strong>Email:</strong> krayurveda2020@gmail.com</li><li><strong>Phone:</strong> +91 86199 52808</li><li><strong>Support Hours:</strong> Monday to Saturday, 10 AM - 6 PM IST</li></ul><h3>⚠️ Important Notes</h3><ul><li>Orders are not processed or shipped on Sundays and national holidays</li><li>PO Box addresses are not accepted for delivery</li><li>Please inspect your package upon delivery. Report any damage within 24 hours with unboxing video/photos</li><li>AlphaJoshh is not responsible for delays caused by courier partners, natural calamities, or government restrictions</li></ul><p><em>For our complete Returns & Exchange policy, please visit our <a href='/policies/return-refund-policy'>Return & Refund Policy</a> page.</em></p><hr><p style='text-align: center; color: #666; font-size: 0.9em;'>Last Updated: January 2026</p></div>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "shipping_content"
+  ]
+}

@@ -1,0 +1,481 @@
+<section class="platform-availability-section" style="background-color: {{ section.settings.bg_color | default: '#ffffff' }}; padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="platform-availability-container">
+    {% if section.settings.heading != blank %}
+      <h2 class="platform-availability-heading" style="color: {{ section.settings.heading_color | default: '#2b2b2b' }}; font-size: {{ section.settings.heading_size }}px;">
+        {{ section.settings.heading }}
+      </h2>
+    {% endif %}
+
+    <div class="platform-availability-marquee {% if section.settings.pause_on_hover %}pause-on-hover{% endif %}" style="--marquee-speed: {{ section.settings.speed }}s; --marquee-gap: {{ section.settings.gap }}px;">
+      {% for track_idx in (1..2) %}
+        <div class="platform-availability-track" aria-hidden="{% if track_idx == 2 %}true{% else %}false{% endif %}">
+          {% for repeat in (1..5) %}
+            {% for block in section.blocks %}
+              <div class="platform-item" {{ block.shopify_attributes }}>
+                {% if block.settings.link != blank %}
+                  <a href="{{ block.settings.link }}" target="_blank" rel="noopener noreferrer" class="platform-item-link" title="{{ block.settings.title | default: 'Partner' }}">
+                {% endif %}
+
+                {% if block.settings.custom_image != blank %}
+                  <img
+                    src="{{ block.settings.custom_image | image_url: height: 80 }}"
+                    alt="{{ block.settings.title | default: 'Platform' }}"
+                    class="platform-logo-img"
+                    style="height: {{ section.settings.logo_height }}px; width: auto;"
+                    loading="lazy"
+                  >
+                {% else %}
+                  {% case block.type %}
+                    {% when 'flipkart' %}
+                      <div class="platform-logo-svg-wrap" style="height: {{ section.settings.logo_height }}px;">
+                        <svg class="platform-svg flipkart-svg" viewBox="0 0 126 32" height="{{ section.settings.logo_height }}" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <text x="0" y="23" font-family="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="800" font-style="italic" font-size="22" fill="#2874F0" letter-spacing="-0.3">Flipkart</text>
+                          <g transform="translate(90, 4)">
+                            <rect x="2" y="4" width="22" height="22" rx="3.5" fill="#FFE11B"/>
+                            <path d="M7 4.5V3C7 1.9 7.9 1 9 1H17C18.1 1 19 1.9 19 3V4.5" stroke="#2874F0" stroke-width="1.6" stroke-linecap="round"/>
+                            <path d="M11.5 9H17.5M11.5 13H15.5M11.5 9V20" stroke="#2874F0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <!-- speed lines -->
+                            <path d="M-0.5 7.5L1.5 9M-0.5 12L1.5 13M-0.5 16.5L1.5 17" stroke="#2874F0" stroke-width="1.3" stroke-linecap="round"/>
+                          </g>
+                        </svg>
+                      </div>
+
+                    {% when 'tata_1mg' %}
+                      <div class="platform-logo-svg-wrap" style="height: {{ section.settings.logo_height }}px;">
+                        <svg class="platform-svg tata1mg-svg" viewBox="0 0 135 32" height="{{ section.settings.logo_height }}" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <text x="2" y="23" font-family="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="21" fill="#111111" letter-spacing="1">TATA</text>
+                          <text x="70" y="23" font-family="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="800" font-size="21" fill="#111111" letter-spacing="-0.5">1mg</text>
+                          <line x1="70" y1="27" x2="114" y2="27" stroke="#111111" stroke-width="2.5" stroke-linecap="round"/>
+                        </svg>
+                      </div>
+
+                    {% when 'amazon' %}
+                      <div class="platform-logo-svg-wrap" style="height: {{ section.settings.logo_height }}px;">
+                        <svg class="platform-svg amazon-svg" viewBox="0 0 115 32" height="{{ section.settings.logo_height }}" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <text x="2" y="20" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-weight="800" font-size="23" fill="#111111" letter-spacing="-0.8">amazon</text>
+                          <path d="M12 24C38 31.5 76 30.5 89 23.5" stroke="#FF9900" stroke-width="2.8" stroke-linecap="round"/>
+                          <path d="M85 20.8L91.5 24L87 27.5C87.8 25.5 87 23.5 85 20.8Z" fill="#FF9900"/>
+                        </svg>
+                      </div>
+
+                    {% when 'blinkit' %}
+                      <div class="platform-logo-svg-wrap" style="height: {{ section.settings.logo_height }}px;">
+                        <div class="platform-blinkit-badge">
+                          <span class="blink-yellow">blink</span><span class="blink-green">it</span>
+                        </div>
+                      </div>
+
+                    {% when 'jiomart' %}
+                      <div class="platform-logo-svg-wrap" style="height: {{ section.settings.logo_height }}px;">
+                        <div class="platform-jiomart-badge">
+                          <span class="jio-circle">Jio</span>
+                          <span class="jio-text">Mart</span>
+                        </div>
+                      </div>
+
+                    {% else %}
+                      <span class="platform-custom-text">{{ block.settings.title }}</span>
+                  {% endcase %}
+                {% endif %}
+
+                {% if block.settings.link != blank %}
+                  </a>
+                {% endif %}
+              </div>
+            {% endfor %}
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+.platform-availability-section {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.platform-availability-container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.platform-availability-heading {
+  font-family: inherit;
+  text-align: center;
+  font-weight: 700;
+  margin: 0 0 24px 0;
+  padding: 0 16px;
+  letter-spacing: -0.2px;
+  line-height: 1.2;
+}
+
+.platform-availability-marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  user-select: none;
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+.platform-availability-track {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: var(--marquee-gap, 65px);
+  padding-right: var(--marquee-gap, 65px);
+  width: max-content;
+  will-change: transform;
+  animation: platformMarqueeLoop var(--marquee-speed, 25s) linear infinite;
+}
+
+.platform-availability-marquee.pause-on-hover:hover .platform-availability-track {
+  animation-play-state: paused;
+}
+
+.platform-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.platform-item:hover {
+  transform: translateY(-1px);
+}
+
+.platform-item-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.platform-logo-svg-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.platform-svg {
+  display: block;
+  width: auto;
+  overflow: visible;
+}
+
+.platform-logo-img {
+  display: block;
+  object-fit: contain;
+}
+
+.platform-blinkit-badge {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+.blink-yellow { color: #f7b731; }
+.blink-green { color: #0c9e54; }
+
+.platform-jiomart-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Inter', sans-serif;
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1;
+}
+.jio-circle {
+  background: #008ecc;
+  color: #fff;
+  border-radius: 50%;
+  padding: 2px 5px;
+  font-size: 13px;
+  font-weight: 900;
+}
+.jio-text {
+  color: #008ecc;
+}
+
+.platform-custom-text {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+@keyframes platformMarqueeLoop {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@media (max-width: 768px) {
+  .platform-availability-heading {
+    font-size: 18px !important;
+    margin-bottom: 18px;
+  }
+  .platform-availability-track {
+    gap: calc(var(--marquee-gap, 65px) * 0.7);
+    padding-right: calc(var(--marquee-gap, 65px) * 0.7);
+  }
+  .platform-availability-marquee {
+    mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Platform Availability",
+  "tag": "section",
+  "class": "section-platform-availability",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Also Available On"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 16,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading Font Size",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#2b2b2b"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "min": 20,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Logo Height",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 30,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Space Between Logos",
+      "default": 65
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "s",
+      "label": "Animation Duration (Speed)",
+      "default": 25
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause Scrolling on Hover",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 28
+    }
+  ],
+  "blocks": [
+    {
+      "type": "flipkart",
+      "name": "Flipkart",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Platform Name",
+          "default": "Flipkart"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Platform Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image",
+          "label": "Custom Logo Image (Overrides default)"
+        }
+      ]
+    },
+    {
+      "type": "tata_1mg",
+      "name": "TATA 1mg",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Platform Name",
+          "default": "TATA 1mg"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Platform Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image",
+          "label": "Custom Logo Image (Overrides default)"
+        }
+      ]
+    },
+    {
+      "type": "amazon",
+      "name": "Amazon",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Platform Name",
+          "default": "Amazon"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Platform Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image",
+          "label": "Custom Logo Image (Overrides default)"
+        }
+      ]
+    },
+    {
+      "type": "blinkit",
+      "name": "Blinkit",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Platform Name",
+          "default": "Blinkit"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Platform Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image",
+          "label": "Custom Logo Image (Overrides default)"
+        }
+      ]
+    },
+    {
+      "type": "jiomart",
+      "name": "JioMart",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Platform Name",
+          "default": "JioMart"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Platform Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image",
+          "label": "Custom Logo Image (Overrides default)"
+        }
+      ]
+    },
+    {
+      "type": "custom",
+      "name": "Custom Platform",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Platform Name",
+          "default": "Platform"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Platform Link"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image",
+          "label": "Logo Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Platform Availability",
+      "blocks": [
+        {
+          "type": "flipkart"
+        },
+        {
+          "type": "tata_1mg"
+        },
+        {
+          "type": "amazon"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

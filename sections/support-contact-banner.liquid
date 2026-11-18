@@ -1,0 +1,77 @@
+{% comment %}
+  Section 10: Still Have Questions Section
+{% endcomment %}
+
+{% render 'support-contact-banner' %}
+
+{% schema %}
+{
+  "name": "Support Contact Banner",
+  "tag": "section",
+  "class": "section-support-banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Banner Heading",
+      "default": "Still Have Questions?"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Banner Subtitle",
+      "default": "Our customer support team is here to help you 24/7"
+    },
+    {
+      "type": "header",
+      "content": "Email Support Button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_email_button",
+      "label": "Show Email Button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "Email Button Label",
+      "default": "Email Support"
+    },
+    {
+      "type": "text",
+      "id": "email_address",
+      "label": "Support Email Address",
+      "default": "support@alphajoshh.com"
+    },
+    {
+      "type": "header",
+      "content": "Phone / Call Support Button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_call_button",
+      "label": "Show Call Button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "call_label",
+      "label": "Call Button Label",
+      "default": "Call Us"
+    },
+    {
+      "type": "text",
+      "id": "phone_number",
+      "label": "Support Phone Number",
+      "default": "+919876543210"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Support Contact Banner"
+    }
+  ]
+}
+{% endschema %}
+

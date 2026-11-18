@@ -1,0 +1,571 @@
+{% comment %}
+  Section 6: Recommended by Healthcare Professionals
+  Doctor Carousel & Free Expert Consultation Banner
+{% endcomment %}
+
+{%- liquid
+  assign current_product = closest.product | default: product
+  assign heading = section.settings.heading | default: 'Recommended by Healthcare Professionals'
+  
+  assign show_consult_bar = true
+  if section.settings.show_consult_bar == false
+    assign show_consult_bar = false
+  endif
+
+  assign consult_title = section.settings.consult_title | default: 'Need Expert Advice?'
+  assign consult_subtitle = section.settings.consult_subtitle | default: 'Consult our certified doctors for free - 100% confidential'
+  assign consult_button_text = section.settings.consult_button_text | default: 'Book Consultation'
+  assign consult_button_link = section.settings.consult_button_link | default: '#book-consultation'
+-%}
+
+<section class="p-doc-rec-section" id="p-doc-rec-{{ section.id }}">
+  <div class="p-doc-rec-container">
+    
+    <!-- Section Header -->
+    {%- if heading != blank -%}
+      <div class="p-doc-rec-header">
+        <h2 class="p-doc-rec-title">{{ heading }}</h2>
+        <div class="p-doc-rec-gold-line"></div>
+      </div>
+    {%- endif -%}
+
+    <!-- Doctor Carousel Card Container -->
+    <div class="p-doc-carousel-card">
+      
+      <!-- Slide Left Arrow -->
+      <button type="button" class="p-doc-nav-btn p-doc-nav-prev" id="doc-prev-btn-{{ section.id }}" aria-label="Previous Doctor">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+
+      <!-- Doctor Slides Track -->
+      <div class="p-doc-slides-wrap" id="doc-track-{{ section.id }}">
+        {%- if section.blocks.size > 0 -%}
+          {%- for block in section.blocks -%}
+            <div class="p-doc-slide {% if forloop.first %}is-active{% endif %}" {{ block.shopify_attributes }}>
+              <div class="p-doc-avatar-wrap">
+                {%- if block.settings.image != blank -%}
+                  <img src="{{ block.settings.image | image_url: width: 480 }}" alt="{{ block.settings.name }}" class="p-doc-avatar" loading="lazy" width="240" height="240">
+                {%- else -%}
+                  <img src="{{ 'doctor-portrait.jpg' | asset_url }}" alt="{{ block.settings.name }}" class="p-doc-avatar" loading="lazy" width="240" height="240">
+                {%- endif -%}
+              </div>
+
+              <div class="p-doc-info">
+                <h3 class="p-doc-name">{{ block.settings.name }}</h3>
+                {%- if block.settings.specialty != blank -%}
+                  <div class="p-doc-specialty">{{ block.settings.specialty }}</div>
+                {%- endif -%}
+                
+                <div class="p-doc-stars">
+                  {{ block.settings.stars | default: '★★★★★' }}
+                </div>
+
+                <div class="p-doc-quote-box">
+                  <p>
+                    “{{ block.settings.quote | replace: '[product]', current_product.title }}”
+                  </p>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          <!-- Doctor Slide 1 (Active) -->
+          <div class="p-doc-slide is-active">
+            <div class="p-doc-avatar-wrap">
+              <img src="{{ 'doctor-portrait.jpg' | asset_url }}" alt="Dr. Rajesh Kumar" class="p-doc-avatar" loading="lazy" width="240" height="240">
+            </div>
+
+            <div class="p-doc-info">
+              <h3 class="p-doc-name">Dr. Rajesh Kumar</h3>
+              <div class="p-doc-specialty">MD, Sexual Health Specialist</div>
+              
+              <div class="p-doc-stars">
+                ★★★★★
+              </div>
+
+              <div class="p-doc-quote-box">
+                <p>
+                  “{{ current_product.title }} is one of the most effective solutions that supports natural circulation and confidence without harsh side effects. Formulated with clinical precision and verified ingredients, it offers safe and dependable performance enhancement.”
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Doctor Slide 2 -->
+          <div class="p-doc-slide">
+            <div class="p-doc-avatar-wrap">
+              <img src="{{ 'doctor-portrait.jpg' | asset_url }}" alt="Dr. Ananya Roy" class="p-doc-avatar" loading="lazy" width="240" height="240">
+            </div>
+
+            <div class="p-doc-info">
+              <h3 class="p-doc-name">Dr. Ananya Roy</h3>
+              <div class="p-doc-specialty">BAMS, Consultant Andrologist</div>
+              
+              <div class="p-doc-stars">
+                ★★★★★
+              </div>
+
+              <div class="p-doc-quote-box">
+                <p>
+                  “What makes this formula stand out is its non-transferable nature and quick absorption. It provides proven control while preserving natural sensitivity for both partners.”
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Doctor Slide 3 -->
+          <div class="p-doc-slide">
+            <div class="p-doc-avatar-wrap">
+              <img src="{{ 'doctor-portrait.jpg' | asset_url }}" alt="Dr. Vikram Sen" class="p-doc-avatar" loading="lazy" width="240" height="240">
+            </div>
+
+            <div class="p-doc-info">
+              <h3 class="p-doc-name">Dr. Vikram Sen</h3>
+              <div class="p-doc-specialty">Senior Ayurvedic Physician</div>
+              
+              <div class="p-doc-stars">
+                ★★★★★
+              </div>
+
+              <div class="p-doc-quote-box">
+                <p>
+                  “Tested thoroughly under laboratory conditions, this formulation combines time-tested herbs with modern extraction techniques for maximum vitality and stamina.”
+                </p>
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- Slide Right Arrow -->
+      <button type="button" class="p-doc-nav-btn p-doc-nav-next" id="doc-next-btn-{{ section.id }}" aria-label="Next Doctor">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+
+      <!-- Carousel Pagination Dots -->
+      <div class="p-doc-dots" id="doc-dots-wrap-{{ section.id }}">
+        {%- if section.blocks.size > 0 -%}
+          {%- for block in section.blocks -%}
+            <span class="p-doc-dot {% if forloop.first %}is-active{% endif %}" data-slide="{{ forloop.index0 }}"></span>
+          {%- endfor -%}
+        {%- else -%}
+          <span class="p-doc-dot is-active" data-slide="0"></span>
+          <span class="p-doc-dot" data-slide="1"></span>
+          <span class="p-doc-dot" data-slide="2"></span>
+        {%- endif -%}
+      </div>
+
+    </div>
+
+    <!-- Need Expert Advice Consultation Banner -->
+    {%- if show_consult_bar -%}
+      <div class="p-consult-bar">
+        <div class="p-consult-left">
+          <div class="p-consult-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"></path>
+              <path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"></path>
+              <circle cx="20" cy="10" r="2"></circle>
+            </svg>
+          </div>
+          <div class="p-consult-text">
+            {%- if consult_title != blank -%}
+              <h4 class="p-consult-title">{{ consult_title }}</h4>
+            {%- endif -%}
+            {%- if consult_subtitle != blank -%}
+              <p class="p-consult-sub">{{ consult_subtitle }}</p>
+            {%- endif -%}
+          </div>
+        </div>
+
+        <div class="p-consult-right">
+          <a href="{{ consult_button_link }}" class="p-consult-btn" id="p-consult-btn-{{ section.id }}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/>
+            </svg>
+            <span>{{ consult_button_text }}</span>
+          </a>
+        </div>
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+<style>
+  .p-doc-rec-section {
+    background-color: #0c0c0c;
+    color: #ffffff;
+    padding: 65px 20px 75px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .p-doc-rec-container {
+    max-width: 1040px;
+    margin: 0 auto;
+  }
+
+  .p-doc-rec-header {
+    text-align: center;
+    margin-bottom: 44px;
+  }
+
+  .p-doc-rec-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: -0.5px;
+  }
+
+  .p-doc-rec-gold-line {
+    width: 60px;
+    height: 3px;
+    background: #d4af37;
+    margin: 12px auto 0;
+    border-radius: 2px;
+  }
+
+  /* ── CAROUSEL CARD ─────────────────────────── */
+  .p-doc-carousel-card {
+    position: relative;
+    background: #141414;
+    border: 1px solid #222222;
+    border-radius: 20px;
+    padding: 44px 60px 48px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  .p-doc-slides-wrap {
+    position: relative;
+    width: 100%;
+  }
+
+  .p-doc-slide {
+    display: none;
+    grid-template-columns: 240px 1fr;
+    gap: 44px;
+    align-items: center;
+  }
+
+  .p-doc-slide.is-active {
+    display: grid;
+    animation: docFadeIn 0.35s ease;
+  }
+
+  @keyframes docFadeIn {
+    from { opacity: 0; transform: translateX(8px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .p-doc-avatar-wrap {
+    width: 230px;
+    height: 230px;
+    border-radius: 50%;
+    border: 2.5px solid #d4af37;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+    flex-shrink: 0;
+    margin: 0 auto;
+  }
+
+  .p-doc-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .p-doc-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .p-doc-name {
+    font-size: 26px;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 4px;
+    letter-spacing: -0.3px;
+  }
+
+  .p-doc-specialty {
+    font-size: 14px;
+    font-weight: 600;
+    color: #e5a93b;
+    margin-bottom: 10px;
+  }
+
+  .p-doc-stars {
+    color: #f59e0b;
+    font-size: 16px;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+  }
+
+  .p-doc-quote-box {
+    border-left: 3px solid #d4af37;
+    padding-left: 18px;
+    margin-top: 4px;
+  }
+
+  .p-doc-quote-box p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #d1d5db;
+    font-style: italic;
+  }
+
+  /* Navigation Buttons */
+  .p-doc-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(30, 30, 30, 0.9);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 5;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .p-doc-nav-btn:hover {
+    background: #000000;
+    transform: translateY(-50%) scale(1.08);
+  }
+
+  .p-doc-nav-prev { left: 14px; }
+  .p-doc-nav-next { right: 14px; }
+
+  /* Dots */
+  .p-doc-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  .p-doc-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #333333;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .p-doc-dot.is-active {
+    width: 24px;
+    border-radius: 10px;
+    background: #d4af37;
+  }
+
+  /* ── CONSULTATION BANNER ─────────────────────── */
+  .p-consult-bar {
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 16px;
+    padding: 18px 26px;
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .p-consult-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .p-consult-icon-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #f97316;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .p-consult-title {
+    font-size: 15.5px;
+    font-weight: 800;
+    color: #111827;
+    margin: 0 0 3px;
+  }
+
+  .p-consult-sub {
+    font-size: 13px;
+    color: #4b5563;
+    margin: 0;
+  }
+
+  .p-consult-btn {
+    background: #ea580c;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 10px;
+    padding: 12px 22px;
+    font-size: 13.5px;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(234, 88, 12, 0.3);
+    transition: background 0.2s, transform 0.15s;
+    white-space: nowrap;
+  }
+
+  .p-consult-btn:hover {
+    background: #c2410c;
+    transform: translateY(-1px);
+  }
+
+  /* Laptop Optimization */
+  @media screen and (min-width: 841px) and (max-width: 1150px) {
+    .p-doc-rec-container {
+      padding: 0 16px;
+    }
+    .p-doc-carousel-card {
+      padding: 32px 28px 36px;
+    }
+    .p-doc-slide {
+      gap: 24px;
+    }
+    .p-doc-avatar-wrap {
+      width: 180px;
+      height: 180px;
+    }
+    .p-doc-quote-box {
+      font-size: 13.5px;
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 840px) {
+    .p-doc-rec-section {
+      padding: 36px 16px 44px;
+    }
+
+    .p-doc-rec-title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .p-doc-gold-line {
+      width: 44px;
+      height: 2.5px;
+      margin: 8px auto 0;
+    }
+
+    .p-doc-carousel-card {
+      padding: 24px 16px 28px;
+    }
+
+    .p-doc-slide {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .p-doc-avatar-wrap {
+      width: 140px;
+      height: 140px;
+      margin: 0 auto;
+    }
+
+    .p-doc-name {
+      font-size: 16px;
+      margin: 0 0 2px;
+    }
+
+    .p-doc-specialty {
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    .p-doc-stars {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .p-doc-quote-box {
+      border-left: none;
+      border-top: 1.5px solid #d4af37;
+      padding-left: 0;
+      padding-top: 12px;
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
+
+    .p-consult-bar {
+      padding: 14px 16px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .p-consult-title {
+      font-size: 14px;
+    }
+
+    .p-consult-sub {
+      font-size: 11.5px;
+    }
+
+    .p-consult-btn {
+      width: 100%;
+      justify-content: center;
+      padding: 10px 16px;
+      font-size: 12.5px;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    const secEl = document.getElementById('p-doc-rec-{{ section.id }}') || document;
+    const prevBtn = document.getElementById('doc-prev-btn-{{ section.id }}') || secEl.querySelector('.p-doc-nav-prev');
+    const nextBtn = document.getElementById('doc-next-btn-{{ section.id }}') || secEl.querySelector('.p-doc-nav-next');
+    const slides = secEl.querySelectorAll('.p-doc-slide');
+    const dots = secEl.querySelectorAll('.p-doc-dot');
+    let curIndex = 0;
+
+    if (!slides.length) return;
+
+    function showDocSlide(idx) {
+      if (idx < 0) idx = slides.length - 1;
+      if (idx >= slides.length) idx = 0;
+      curIndex = idx;
+
+      slides.forEach((s, i) => s.classList.toggle('is-active', i === curIndex));
+      dots.forEach((d, i) => d.classList.toggle('is-active', i === curIndex));
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', () => showDocSlide(curIndex - 1));
+    if (nextBtn) nextBtn.addEventListener('click', () => showDocSlide(curIndex + 1));
+
+    dots.forEach((dot, idx) => {
+      dot.addEventListener('click', () => showDocSlide(idx));
+    });
+  })();
+</script>

@@ -1,0 +1,417 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "alpha_hero_banner_dMMFAi": {
+      "type": "alpha-hero-banner",
+      "blocks": {
+        "badge_79PckN": {
+          "type": "badge",
+          "settings": {
+            "text": "100% Ayurvedic"
+          }
+        },
+        "badge_CaGtzJ": {
+          "type": "badge",
+          "settings": {
+            "text": "Lab Tested"
+          }
+        },
+        "badge_XKTY67": {
+          "type": "badge",
+          "settings": {
+            "text": "GMP Certified"
+          }
+        },
+        "badge_KTQtVX": {
+          "type": "badge",
+          "settings": {
+            "text": "Trusted by 10 Lakh+ Peoples"
+          }
+        }
+      },
+      "block_order": [
+        "badge_79PckN",
+        "badge_CaGtzJ",
+        "badge_XKTY67",
+        "badge_KTQtVX"
+      ],
+      "name": "Alpha – Hero Banner",
+      "settings": {
+        "bg_image": "shopify://shop_images/about-us-page-banner.jpg",
+        "brand": "ALPHAJOSHH",
+        "heading": "Unleash Your Alpha",
+        "highlight": "— Naturally.",
+        "subheading": "Premium Ayurvedic wellness solutions crafted for strength, stamina, and confidence."
+      }
+    },
+    "hero": {
+      "type": "about-hero-premium",
+      "disabled": true,
+      "settings": {
+        "heading": "Unleash Your Alpha",
+        "subheading": "Premium Ayurvedic Wellness for Peak Performance"
+      }
+    },
+    "alpha_origin_XaACye": {
+      "type": "alpha-origin",
+      "name": "Alpha – Our Origin Section",
+      "settings": {
+        "image": "shopify://shop_images/our-origin-about-us.png",
+        "label": "OUR ORIGIN",
+        "heading": "Reviving Ancient Wisdom for the Modern Man",
+        "text": "<p>We started AlphaJoshh with a simple observation: the supplement industry had become cluttered with synthetic formulas, misleading claims, and products that prioritized marketing over results.</p><p>Our mission was clear — bring back the authentic power of Ayurveda. We source the finest herbs from the Himalayan foothills, working directly with farmers who have cultivated these potent botanicals for generations.</p><p>Every AlphaJoshh product represents the perfect balance of ancient wisdom and modern science.</p>",
+        "quote": "True strength comes from nature, refined by tradition."
+      }
+    },
+    "story": {
+      "type": "about-story-premium",
+      "disabled": true,
+      "settings": {
+        "heading": "Our Origin",
+        "text": "<p>Alpha Joshh was born from a desire to bridge the gap between ancient Ayurvedic wisdom and the demands of modern life. We observed a market flooded with generic supplements and felt a calling to provide men with authentic, potent, and pure solutions.</p><p>We traveled to the foothills of the Himalayas to source the purest Shilajit and collaborated with expert Vaidyas to craft formulations that truly work. Our mission is simple: to help you reclaim your vigor, vitality, and inner strength.</p>",
+        "image": "shopify://shop_images/Gemini_Generated_Image_wn4jmwn4jmwn4jmw.png",
+        "layout": "image_right"
+      }
+    },
+    "values": {
+      "type": "about-values-premium",
+      "blocks": {
+        "value_1": {
+          "type": "value",
+          "settings": {
+            "title": "100% Pure & Natural",
+            "description": "Sourced directly from nature, free from heavy metals and harmful synthetics.",
+            "custom_icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\" fill=\"currentColor\" width=\"48\" height=\"48\"><path d=\"M12 2L9.19 8.63L2 12L9.19 15.37L12 22L14.81 15.37L22 12L14.81 8.63L12 2Z\"></path></svg>"
+          }
+        },
+        "value_2": {
+          "type": "value",
+          "settings": {
+            "title": "Lab Tested Potency",
+            "description": "Every batch is rigorously tested to ensure maximum efficacy and safety.",
+            "custom_icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\" fill=\"currentColor\" width=\"48\" height=\"48\"><path d=\"M9 2H15V4H9V2ZM11 6V11H13V6H11ZM6 12C6 16.4183 9.58172 20 14 20C18.4183 20 22 16.4183 22 12H6ZM4 12C4 17.5228 8.47715 22 14 22C19.5228 22 24 17.5228 24 12H19C19 9.23858 16.7614 7 14 7C11.2386 7 9 9.23858 9 12H4Z\"></path></svg>"
+          }
+        },
+        "value_3": {
+          "type": "value",
+          "settings": {
+            "title": "Customer First",
+            "description": "We are dedicated to your journey, offering support and guidance every step of the way.",
+            "custom_icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\" fill=\"currentColor\" width=\"48\" height=\"48\"><path d=\"M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z\"></path></svg>"
+          }
+        }
+      },
+      "block_order": [
+        "value_1",
+        "value_2",
+        "value_3"
+      ],
+      "disabled": true,
+      "settings": {
+        "heading": "Why Choose Alpha Joshh?"
+      }
+    },
+    "stats": {
+      "type": "about-stats-premium",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "number": "10k+",
+            "label": "Happy Customers"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "number": "4.8/5",
+            "label": "Average Rating"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "number": "100%",
+            "label": "Natural Ingredients"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3"
+      ],
+      "disabled": true,
+      "settings": {
+        "bg_color": "#111111",
+        "text_color": "#ffffff",
+        "accent_color": "#ffd700"
+      }
+    },
+    "alpha_core_values_64QNMq": {
+      "type": "alpha-core-values",
+      "blocks": {
+        "value_PHRDwR": {
+          "type": "value",
+          "settings": {
+            "icon": "<svg viewbox=\"0 0 24 24\"><path d=\"M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7z\"></path></svg>",
+            "title": "Purity First",
+            "text": "Every ingredient is carefully sourced from trusted cultivators. No fillers, no synthetic additives — just nature's finest."
+          }
+        },
+        "value_98jwfW": {
+          "type": "value",
+          "settings": {
+            "icon": "<svg viewbox=\"0 0 24 24\"><path d=\"M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7z\"></path></svg>",
+            "title": "Ayurveda + Science",
+            "text": "We honor 5,000 years of traditional wisdom while validating efficacy through rigorous third-party lab testing."
+          }
+        },
+        "value_mNGN9n": {
+          "type": "value",
+          "settings": {
+            "icon": "<svg viewbox=\"0 0 24 24\"><path d=\"M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7z\"></path></svg>",
+            "title": "Men's Wellness Focus",
+            "text": "Formulated specifically for male vitality — enhancing performance, stamina, and overall well-being naturally."
+          }
+        },
+        "value_PpRJxe": {
+          "type": "value",
+          "settings": {
+            "icon": "<svg viewbox=\"0 0 24 24\"><path d=\"M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7z\"></path></svg>",
+            "title": "Customer Trust",
+            "text": "Complete transparency in sourcing, manufacturing, and results. Your trust is the foundation of everything we do."
+          }
+        }
+      },
+      "block_order": [
+        "value_PHRDwR",
+        "value_98jwfW",
+        "value_mNGN9n",
+        "value_PpRJxe"
+      ],
+      "name": "Alpha – Our Core Values",
+      "settings": {
+        "top_label": "WHAT WE STAND FOR",
+        "heading": "Our Core Values"
+      }
+    },
+    "alpha_quality_trust_zr76qa": {
+      "type": "alpha-quality-trust",
+      "blocks": {
+        "item_3wgcUJ": {
+          "type": "item",
+          "settings": {
+            "icon": "<svg viewbox=\"0 0 24 24\"><path d=\"M12 2l7 4v6c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-4z\"></path></svg>",
+            "text": "100% Natural Ingredients"
+          }
+        },
+        "item_KheAiq": {
+          "type": "item",
+          "settings": {
+            "icon": "<svg viewbox=\"0 0 24 24\"><path d=\"M12 2l7 4v6c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-4z\"></path></svg>",
+            "text": "Lab-Tested Formulations"
+          }
+        },
+        "item_xCGX7V": {
+          "type": "item",
+          "settings": {
+            "icon": "<svg viewbox=\"0 0 24 24\"><path d=\"M12 2l7 4v6c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-4z\"></path></svg>",
+            "text": "No Harmful Chemicals"
+          }
+        },
+        "item_8qtkTK": {
+          "type": "item",
+          "settings": {
+            "icon": "<svg viewbox=\"0 0 24 24\"><path d=\"M12 2l7 4v6c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-4z\"></path></svg>",
+            "text": "GMP Manufacturing"
+          }
+        },
+        "item_rk6Biw": {
+          "type": "item",
+          "settings": {
+            "icon": "<svg viewbox=\"0 0 24 24\"><path d=\"M12 2l7 4v6c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-4z\"></path></svg>",
+            "text": "Discreet Delivery"
+          }
+        },
+        "item_nB9ebV": {
+          "type": "item",
+          "settings": {
+            "icon": "<svg viewbox=\"0 0 24 24\"><path d=\"M12 2l7 4v6c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-4z\"></path></svg>",
+            "text": "Customer-First Support"
+          }
+        }
+      },
+      "block_order": [
+        "item_3wgcUJ",
+        "item_KheAiq",
+        "item_xCGX7V",
+        "item_8qtkTK",
+        "item_rk6Biw",
+        "item_nB9ebV"
+      ],
+      "name": "Alpha Quality You Can Trust",
+      "settings": {
+        "top_label": "WHY CHOOSE ALPHAJOSHH",
+        "heading": "Quality You Can Trust"
+      }
+    },
+    "alpha_stats_strip_HAYaBL": {
+      "type": "alpha-stats-strip",
+      "blocks": {
+        "stat_HGKb9z": {
+          "type": "stat",
+          "settings": {
+            "number": "10 Lakh+",
+            "label": "HAPPY CUSTOMERS"
+          }
+        },
+        "stat_W6bzPQ": {
+          "type": "stat",
+          "settings": {
+            "number": "4.8/5",
+            "label": "AVERAGE RATING"
+          }
+        },
+        "stat_qYEywU": {
+          "type": "stat",
+          "settings": {
+            "number": "100%",
+            "label": "NATURAL FORMULATIONS"
+          }
+        }
+      },
+      "block_order": [
+        "stat_HGKb9z",
+        "stat_W6bzPQ",
+        "stat_qYEywU"
+      ],
+      "name": "Alpha – Stats Strip",
+      "settings": {}
+    },
+    "alpha_holistic_wellness_YRyYzk": {
+      "type": "alpha-holistic-wellness",
+      "blocks": {
+        "feature_c7qtQ3": {
+          "type": "feature",
+          "settings": {
+            "icon": "⛰️",
+            "title": "Shilajit - Core Energy, Stamina & Recovery",
+            "text": "Pure Himalayan resin packed with 75%+ Fulvic Acid to fuel strength and endurance."
+          }
+        },
+        "feature_GDFMJG": {
+          "type": "feature",
+          "settings": {
+            "icon": "💊",
+            "title": "Capsules → Internal Energy, Stamina & Performance",
+            "text": "Targeted Ayurvedic blends for energy, timing & confidence from within."
+          }
+        },
+        "feature_GwBfLA": {
+          "type": "feature",
+          "settings": {
+            "icon": "🧴",
+            "title": "Massage Oil → Increases Hardness, Size & Long-time",
+            "text": "Traditional herbal oils crafted to support blood flow, firmness, and lasting performance."
+          }
+        }
+      },
+      "block_order": [
+        "feature_c7qtQ3",
+        "feature_GDFMJG",
+        "feature_GwBfLA"
+      ],
+      "name": "Alpha – Holistic Wellness",
+      "settings": {
+        "eyebrow": "A COMPLETE PERFORMANCE SYSTEM",
+        "heading": "Holistic Wellness, Not Just Supplements",
+        "description": "AlphaJoshh isn't a single product. It's a complete wellness ecosystem designed to support every pillar of male vitality — from internal strength to external readiness.",
+        "image": "shopify://shop_images/combo.png",
+        "bottom_text": "We don't sell supplements — we deliver performance.",
+        "button_text": "EXPLORE OUR PRODUCTS",
+        "button_link": "https://www.alphajoshh.com/collections/all"
+      }
+    },
+    "alpha_joshh_promise_Ky9dx8": {
+      "type": "alpha-joshh-promise",
+      "blocks": {
+        "promise_xHEzc8": {
+          "type": "promise",
+          "settings": {
+            "title": "Quality Assurance",
+            "text": "Every batch undergoes rigorous testing for purity, potency, and safety before reaching you."
+          }
+        },
+        "promise_HYG9Jy": {
+          "type": "promise",
+          "settings": {
+            "title": "Ingredient Transparency",
+            "text": "Full disclosure of every ingredient, its source, and its purpose. No proprietary blends."
+          }
+        },
+        "promise_W9fkFP": {
+          "type": "promise",
+          "settings": {
+            "title": "30-Day Money-Back Guarantee",
+            "text": "Not satisfied? Return within 30 days for a full refund. No questions, no hassle."
+          }
+        },
+        "promise_ehVkDC": {
+          "type": "promise",
+          "settings": {
+            "title": "Responsive Support",
+            "text": "Real people, real answers. Our team is here to help with any questions or concerns."
+          }
+        }
+      },
+      "block_order": [
+        "promise_xHEzc8",
+        "promise_HYG9Jy",
+        "promise_W9fkFP",
+        "promise_ehVkDC"
+      ],
+      "name": "AlphaJoshh Promise",
+      "settings": {
+        "top_label": "OUR COMMITMENT TO YOU",
+        "heading": "The Alpha Joshh Promise",
+        "subtext": "Your wellness journey deserves a brand that stands behind its products — and its people."
+      }
+    },
+    "alpha_joshh_cta_cnYKtn": {
+      "type": "alpha-joshh-cta",
+      "name": "AlphaJoshh CTA Section",
+      "settings": {
+        "heading": "Ready to Unleash Your Alpha?",
+        "subheading": "Join millions of men & women who've discovered the power of authentic Ayurvedic wellness.",
+        "primary_btn_text": "Shop AlphaJoshh",
+        "primary_btn_link": "shopify://collections/men-s-health",
+        "secondary_btn_text": "Contact Us",
+        "secondary_btn_link": "shopify://pages/contact",
+        "trust_text": "✓ Free Shipping  ✓ Discreet Packaging  ✓ 30-Day Guarantee"
+      }
+    }
+  },
+  "order": [
+    "alpha_hero_banner_dMMFAi",
+    "hero",
+    "alpha_origin_XaACye",
+    "story",
+    "values",
+    "stats",
+    "alpha_core_values_64QNMq",
+    "alpha_quality_trust_zr76qa",
+    "alpha_stats_strip_HAYaBL",
+    "alpha_holistic_wellness_YRyYzk",
+    "alpha_joshh_promise_Ky9dx8",
+    "alpha_joshh_cta_cnYKtn"
+  ]
+}

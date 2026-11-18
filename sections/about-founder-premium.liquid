@@ -1,0 +1,57 @@
+<div class="about-premium-wrapper about-founder-premium">
+  <div class="about-founder-container">
+    <div class="about-founder-quote animate-fade-up">
+      {{ section.settings.quote }}
+    </div>
+    
+    <div class="about-founder-profile animate-fade-up delay-200">
+      <div class="about-founder-image">
+        {% if section.settings.image != blank %}
+          {{ section.settings.image | image_url: width: 300 | image_tag: loading: 'lazy' }}
+        {% else %}
+          {{ 'image' | placeholder_svg_tag }}
+        {% endif %}
+      </div>
+      <div class="about-founder-details">
+        <div class="about-founder-name">{{ section.settings.name }}</div>
+        <div class="about-founder-role">{{ section.settings.role }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "About Founder Premium",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Quote",
+      "default": "We believe in the power of nature to heal and restore."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Founder Image"
+    },
+    {
+      "type": "text",
+      "id": "name",
+      "label": "Name",
+      "default": "John Doe"
+    },
+    {
+      "type": "text",
+      "id": "role",
+      "label": "Role",
+      "default": "Founder & CEO"
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Founder Premium"
+    }
+  ]
+}
+{% endschema %}

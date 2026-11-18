@@ -1,0 +1,55 @@
+{% comment %}
+  Renders a list of product features with checkmarks.
+  
+  Accepts:
+  - features: {String} Newline separated list of features
+{% endcomment %}
+
+<div class="product-features-list">
+  <ul class="product-features-list__items">
+    {%- for feature in features -%}
+      <li class="product-features-list__item">
+        <span class="product-features-list__icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10" cy="10" r="10" fill="#4CAF50"/>
+            <path d="M6 10L9 13L14 8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="product-features-list__text">{{ feature }}</span>
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>
+
+<style>
+  .product-features-list {
+    margin: 0;
+  }
+
+  .product-features-list__items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .product-features-list__item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.4;
+  }
+
+  .product-features-list__icon {
+    margin-right: 12px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    margin-top: 1px;
+  }
+
+  .product-features-list__text {
+    flex: 1;
+  }
+</style>

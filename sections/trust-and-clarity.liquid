@@ -1,0 +1,181 @@
+<section class="trust-clarity">
+  <div class="page-width">
+    <div class="heading-panel">
+        <div class="trust-item">
+            <div class="heading">{{ section.settings.heading }}</div>
+            <div class="sub-heading">{{ section.settings.subheading }}</div>
+        </div>
+    </div>
+
+    <div class="trust-grid">
+    {% for block in section.blocks %}
+        <div class="trust-item">
+
+        {% if block.settings.icon_image != blank %}
+            <img 
+            src="{{ block.settings.icon_image | image_url: width: 40 }}" 
+            alt="icon" 
+            class="trust-icon-img">
+        {% else %}
+            <span class="trust-icon">✔</span>
+        {% endif %}
+        <p>{{ block.settings.text }}</p>
+        {% if block.settings.subtext != blank %}
+          <span>{{ block.settings.subtext }}</span>
+        {% endif %}
+
+        </div>
+    {% endfor %}
+    </div>
+    <div class="swiper mobileSlider">
+      <div class="swiper-wrapper">
+
+        {% for block in section.blocks %}
+          <div class="swiper-slide">
+              <div class="trust-item">
+
+              {% if block.settings.icon_image != blank %}
+                  <img 
+                  src="{{ block.settings.icon_image | image_url: width: 40 }}" 
+                  alt="icon" 
+                  class="trust-icon-img">
+              {% else %}
+                  <span class="trust-icon">✔</span>
+              {% endif %}
+              <p>{{ block.settings.text }}</p>
+              {% if block.settings.subtext != blank %}
+                <span>{{ block.settings.subtext }}</span>
+              {% endif %}
+
+              </div>
+          </div>
+        {% endfor %}
+
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+.heading-panel{
+  max-width: 1000px;
+  margin:0px auto 20px;
+}
+.heading-panel .heading{
+    font-size:24px;
+}
+.heading-panel .sub-heading{
+    font-size: 16px;
+}
+.trust-clarity {
+  background: #f8f9fa;
+  padding: 50px 20px;
+}
+
+.trust-title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 35px;
+}
+
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.trust-item {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+
+.trust-item:hover {
+  transform: translateY(-5px);
+}
+
+.trust-icon {
+  font-size: 24px;
+  color: #2ecc71;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.trust-item p {
+  font-size: 15px;
+  font-weight: 500;
+  margin: 0;
+}
+.trust-icon-img {
+  width: 50px;
+  height: 50px;
+  border-radius:50%;
+  object-fit: contain;
+  margin:0px auto 10px;
+}
+</style>
+
+{% schema %}
+{
+  "name": "Trust and Clarity",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Main Title",
+      "default": "Trust and Clarity"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Sub Heading"
+    }
+  ],
+  "blocks": [
+    {
+        "type": "point",
+        "name": "Trust Point",
+        "settings": [
+        {
+            "type": "image_picker",
+            "id": "icon_image",
+            "label": "Icon Image (Optional)"
+        },
+        {
+            "type": "text",
+            "id": "text",
+            "label": "Text",
+            "default": "Lab-Tested Purity"
+        },
+        {
+            "type": "text",
+            "id": "subtext",
+            "label": "Text"
+        }
+        ]
+    }
+    ],
+  "presets": [
+    {
+      "name": "Trust and Clarity",
+      "blocks": [
+        { "type": "point", "settings": { "text": "Lab-Tested Purity" } },
+        { "type": "point", "settings": { "text": "COD Available" } },
+        { "type": "point", "settings": { "text": "Easy Refund" } },
+        { "type": "point", "settings": { "text": "Made in India" } },
+        { "type": "point", "settings": { "text": "Free Discreet & Fast Delivery" } },
+        { "type": "point", "settings": { "text": "Secured Payment" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

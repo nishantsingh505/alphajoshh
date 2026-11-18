@@ -1,0 +1,1672 @@
+{% comment %}
+  Alpha Joshh- Premium Luxury Contact Us Page Section
+{% endcomment %}
+
+<section class="alpha-contact-page alpha-contact-page--{{ section.settings.color_scheme_mode | default: 'light' }}" id="alpha-contact-{{ section.id }}">
+  <div class="alpha-contact-container">
+    
+    <!-- ================= 1. HERO HEADER ================= -->
+    <div class="alpha-contact-hero">
+      {%- if section.settings.badge_text != blank -%}
+        <div class="alpha-contact-badge">
+          <span class="alpha-badge-dot"></span>
+          <span>{{ section.settings.badge_text }}</span>
+        </div>
+      {%- endif -%}
+
+      <h1 class="alpha-contact-title">
+        {{ section.settings.heading | default: 'Get in Touch with Alpha Josh' }}
+      </h1>
+
+      {%- if section.settings.subheading != blank -%}
+        <p class="alpha-contact-subtitle">
+          {{ section.settings.subheading }}
+        </p>
+      {%- endif -%}
+
+      <!-- Value / Trust Bar -->
+      <div class="alpha-contact-trust-bar">
+        <div class="alpha-trust-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          <span>Quick 24-Hr Response</span>
+        </div>
+        <div class="alpha-trust-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          <span>100% Confidential & Discreet</span>
+        </div>
+        <div class="alpha-trust-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          <span>Pan-India Order Support</span>
+        </div>
+        <div class="alpha-trust-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          <span>Certified Ayurvedic Guidance</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 2. QUICK CONTACT CHANNELS (4 CARDS) ================= -->
+    <div class="alpha-contact-grid-top">
+      
+      <!-- Card 1: WhatsApp -->
+      {%- if section.settings.whatsapp_enabled -%}
+        <a href="{{ section.settings.whatsapp_link | default: 'https://wa.me/919650081651?text=Hi%20Alpha%20Josh%2C%20I%20have%20an%20inquiry' }}" 
+           target="_blank" rel="noopener noreferrer" class="alpha-channel-card alpha-channel--whatsapp">
+          <div class="alpha-channel-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12.031 2C6.5 2 2 6.5 2 12.031c0 1.954.563 3.774 1.531 5.313L2.25 22l4.844-1.281A9.972 9.972 0 0 0 12.03 22c5.531 0 10.031-4.5 10.031-10.031C22.062 6.5 17.562 2 12.03 2zm0 18.281c-1.688 0-3.25-.438-4.625-1.219l-.344-.188-2.906.75.781-2.812-.219-.344a8.16 8.16 0 0 1-1.25-4.438C3.468 7.313 7.312 3.469 12.03 3.469c4.719 0 8.563 3.844 8.563 8.562 0 4.719-3.844 8.563-8.563 8.563zm4.719-6.375c-.25-.125-1.5-.75-1.719-.844-.219-.094-.375-.125-.531.125-.156.25-.625.844-.781 1.031-.156.188-.281.219-.531.094-.25-.125-1.062-.391-2.031-1.25-.75-.688-1.25-1.531-1.406-1.781-.156-.25-.031-.375.094-.5.125-.125.25-.281.375-.438.125-.156.156-.25.25-.406.094-.156.031-.313-.031-.438s-.531-1.281-.719-1.75c-.188-.469-.375-.406-.531-.406h-.438c-.156 0-.438.063-.656.313-.219.25-.875.844-.875 2.063s.875 2.375 1.031 2.563c.156.188 1.719 2.656 4.188 3.719.594.25 1.063.406 1.406.531.594.188 1.125.156 1.563.094.469-.063 1.5-.625 1.719-1.219.219-.594.219-1.094.156-1.219-.063-.125-.219-.188-.469-.313z"/>
+            </svg>
+            <span class="alpha-online-dot" title="Online for instant replies"></span>
+          </div>
+          <div class="alpha-channel-info">
+            <span class="alpha-channel-label">{{ section.settings.whatsapp_label | default: 'Chat on WhatsApp' }}</span>
+            <span class="alpha-channel-value">{{ section.settings.whatsapp_number | default: '+91 9650081651' }}</span>
+            <span class="alpha-channel-sub">{{ section.settings.whatsapp_subtext | default: 'Fastest response • Online now' }}</span>
+          </div>
+          <div class="alpha-channel-arrow">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+        </a>
+      {%- endif -%}
+
+      <!-- Card 2: Phone Helpline -->
+      {%- if section.settings.phone_enabled -%}
+        <a href="tel:{{ section.settings.phone_number | default: '+919650081651' | replace: ' ', '' }}" class="alpha-channel-card alpha-channel--call">
+          <div class="alpha-channel-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+          </div>
+          <div class="alpha-channel-info">
+            <span class="alpha-channel-label">{{ section.settings.phone_label | default: 'Call Our Helpline' }}</span>
+            <span class="alpha-channel-value">{{ section.settings.phone_number | default: '+91 9650081651' }}</span>
+            <span class="alpha-channel-sub">{{ section.settings.phone_subtext | default: 'Mon – Sat: 9:00 AM – 7:00 PM' }}</span>
+          </div>
+          <div class="alpha-channel-arrow">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+        </a>
+      {%- endif -%}
+
+      <!-- Card 3: Email Support -->
+      {%- if section.settings.email_enabled -%}
+        <a href="mailto:{{ section.settings.email_address | default: 'support@alphajoshh.com' }}" class="alpha-channel-card alpha-channel--email">
+          <div class="alpha-channel-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+            </svg>
+          </div>
+          <div class="alpha-channel-info">
+            <span class="alpha-channel-label">{{ section.settings.email_label | default: 'Email Support' }}</span>
+            <span class="alpha-channel-value">{{ section.settings.email_address | default: 'support@alphajoshh.com' }}</span>
+            <span class="alpha-channel-sub">{{ section.settings.email_subtext | default: 'Response within 12–24 hours' }}</span>
+          </div>
+          <div class="alpha-channel-arrow">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+        </a>
+      {%- endif -%}
+
+      <!-- Card 4: Corporate Headquarters -->
+      {%- if section.settings.address_enabled -%}
+        <a href="{{ section.settings.address_maps_link | default: 'https://maps.google.com/?q=ITL+Twin+Tower+Pitampura+Delhi' }}" target="_blank" rel="noopener noreferrer" class="alpha-channel-card alpha-channel--address">
+          <div class="alpha-channel-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+          </div>
+          <div class="alpha-channel-info">
+            <span class="alpha-channel-label">{{ section.settings.address_label | default: 'Headquarters' }}</span>
+            <span class="alpha-channel-value">{{ section.settings.address_company | default: 'Loire Pharmaceuticals LLP' }}</span>
+            <span class="alpha-channel-sub">ITL Twin Tower, Pitampura, New Delhi</span>
+          </div>
+          <div class="alpha-channel-arrow">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+        </a>
+      {%- endif -%}
+
+    </div>
+
+    <!-- ================= 3. TWO-COLUMN INTERACTIVE BODY ================= -->
+    <div class="alpha-contact-main-grid">
+      
+      <!-- LEFT COLUMN: LUXURY CONTACT FORM -->
+      <div class="alpha-contact-form-column">
+        <div class="alpha-card alpha-form-card">
+          <div class="alpha-card-header">
+            <h2 class="alpha-card-title">{{ section.settings.form_title | default: 'Send Us a Message' }}</h2>
+            <p class="alpha-card-desc">{{ section.settings.form_subtitle | default: 'Fill out the form below and an Alpha Joshhwellness specialist will get back to you shortly.' }}</p>
+          </div>
+
+          {%- form 'contact', id: 'AlphaContactForm', class: 'alpha-contact-form' -%}
+            
+            {%- if form.posted_successfully? -%}
+              <div class="alpha-form-alert alpha-form-alert--success" tabindex="-1" autofocus>
+                <div class="alpha-alert-icon">✓</div>
+                <div class="alpha-alert-body">
+                  <strong>Thank You! Your message has been sent successfully.</strong>
+                  <p>Our wellness support team will review your inquiry and get back to you within 24 hours.</p>
+                </div>
+              </div>
+            {%- endif -%}
+
+            {%- if form.errors -%}
+              <div class="alpha-form-alert alpha-form-alert--error" tabindex="-1" autofocus>
+                <div class="alpha-alert-icon">!</div>
+                <div class="alpha-alert-body">
+                  <strong>Please correct the following errors:</strong>
+                  <ul>
+                    {%- for field in form.errors -%}
+                      <li>
+                        {%- if field == 'form' -%}
+                          {{ form.errors.messages[field] }}
+                        {%- else -%}
+                          {{ form.errors.translated_fields[field] }} {{ form.errors.messages[field] }}
+                        {%- endif -%}
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                </div>
+              </div>
+            {%- endif -%}
+
+            <div class="alpha-form-fields">
+              
+              <!-- Row 1: Name & Email -->
+              <div class="alpha-form-row alpha-form-row--2cols">
+                <div class="alpha-form-group">
+                  <label for="AlphaContact-name" class="alpha-form-label">
+                    Full Name <span class="alpha-required">*</span>
+                  </label>
+                  <div class="alpha-input-wrap">
+                    <input 
+                      type="text" 
+                      id="AlphaContact-name" 
+                      name="contact[name]" 
+                      class="alpha-form-input" 
+                      placeholder="e.g. Rahul Sharma" 
+                      value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}" 
+                      required
+                    >
+                  </div>
+                </div>
+
+                <div class="alpha-form-group">
+                  <label for="AlphaContact-email" class="alpha-form-label">
+                    Email Address <span class="alpha-required">*</span>
+                  </label>
+                  <div class="alpha-input-wrap">
+                    <input 
+                      type="email" 
+                      id="AlphaContact-email" 
+                      name="contact[email]" 
+                      class="alpha-form-input" 
+                      placeholder="e.g. rahul@example.com" 
+                      value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" 
+                      spellcheck="false" 
+                      autocomplete="email" 
+                      autocapitalize="off" 
+                      required
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <!-- Row 2: Phone & Reason -->
+              <div class="alpha-form-row alpha-form-row--2cols">
+                <div class="alpha-form-group">
+                  <label for="AlphaContact-phone" class="alpha-form-label">
+                    Phone / WhatsApp Number
+                  </label>
+                  <div class="alpha-input-wrap alpha-phone-wrap">
+                    <span class="alpha-phone-prefix">🇮🇳 +91</span>
+                    <input 
+                      type="tel" 
+                      id="AlphaContact-phone" 
+                      name="contact[phone]" 
+                      class="alpha-form-input alpha-phone-input" 
+                      placeholder="98765 43210" 
+                      value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+                    >
+                  </div>
+                </div>
+
+                <div class="alpha-form-group">
+                  <label for="AlphaContact-subject" class="alpha-form-label">
+                    Subject / Topic <span class="alpha-required">*</span>
+                  </label>
+                  <div class="alpha-input-wrap alpha-select-wrap">
+                    <select id="AlphaContact-subject" name="contact[Subject]" class="alpha-form-select" required>
+                      <option value="" disabled selected>Select an inquiry topic...</option>
+                      <option value="Order Tracking & Shipping">📦 Order Tracking & Shipping</option>
+                      <option value="Product & Dosage Guidance">🌿 Product & Dosage Guidance</option>
+                      <option value="Payment & Cash on Delivery (COD)">💳 Payment & Cash on Delivery (COD)</option>
+                      <option value="Returns, Refund & Cancellation">🔄 Returns, Refund & Cancellation</option>
+                      <option value="Bulk Order & Distribution">🤝 Bulk Order & Distribution</option>
+                      <option value="Other / General Inquiry">💬 Other / General Inquiry</option>
+                    </select>
+                    <svg class="alpha-select-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Row 3: Order ID (Optional) -->
+              <div class="alpha-form-group">
+                <label for="AlphaContact-order" class="alpha-form-label">
+                  Order Number <span class="alpha-label-hint">(Optional, helps us resolve faster)</span>
+                </label>
+                <div class="alpha-input-wrap">
+                  <input 
+                    type="text" 
+                    id="AlphaContact-order" 
+                    name="contact[Order ID]" 
+                    class="alpha-form-input" 
+                    placeholder="e.g. #AJ1045 or phone used during checkout"
+                  >
+                </div>
+              </div>
+
+              <!-- Row 4: Message -->
+              <div class="alpha-form-group">
+                <label for="AlphaContact-message" class="alpha-form-label">
+                  How can we help you? <span class="alpha-required">*</span>
+                </label>
+                <div class="alpha-input-wrap">
+                  <textarea 
+                    rows="5" 
+                    id="AlphaContact-message" 
+                    name="contact[body]" 
+                    class="alpha-form-textarea" 
+                    placeholder="Please write your questions or details here..." 
+                    required
+                  >{{ form.body }}</textarea>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="alpha-form-actions">
+                <button type="submit" class="alpha-submit-btn">
+                  <span>{{ section.settings.form_button_label | default: 'SEND MESSAGE' }}</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Privacy Reassurance note -->
+              <div class="alpha-privacy-note">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <span>{{ section.settings.privacy_note | default: '100% Confidential. Your details will never be shared with third parties.' }}</span>
+              </div>
+
+            </div>
+          {%- endform -%}
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: BUSINESS HOURS, OFFICE & FAQ ACCORDION -->
+      <div class="alpha-contact-sidebar-column">
+        
+        <!-- Operating Hours Card -->
+        {%- if section.settings.show_business_hours -%}
+          <div class="alpha-card alpha-sidebar-card alpha-hours-card">
+            <div class="alpha-sidebar-header">
+              <div class="alpha-sidebar-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              </div>
+              <div>
+                <h3 class="alpha-sidebar-title">Support Hours & Availability</h3>
+                <span class="alpha-sidebar-subtitle">Indian Standard Time (IST)</span>
+              </div>
+            </div>
+            
+            <div class="alpha-hours-list">
+              <div class="alpha-hour-row">
+                <span class="alpha-day">Monday – Saturday</span>
+                <span class="alpha-time">9:00 AM – 7:00 PM</span>
+              </div>
+              <div class="alpha-hour-row">
+                <span class="alpha-day">Sunday</span>
+                <span class="alpha-time alpha-time--highlight">Priority WhatsApp & Email</span>
+              </div>
+            </div>
+
+            <div class="alpha-hours-discreet-strip">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+              <div>
+                <strong>100% Discreet Packaging Guaranteed</strong>
+                <span>Plain unmarked boxes • Zero product names on label</span>
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+
+        <!-- Interactive FAQ Accordion Card -->
+        <div class="alpha-card alpha-sidebar-card alpha-faq-card">
+          <div class="alpha-sidebar-header">
+            <div class="alpha-sidebar-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            </div>
+            <div>
+              <h3 class="alpha-sidebar-title">{{ section.settings.sidebar_title | default: 'Frequently Asked Questions' }}</h3>
+              <span class="alpha-sidebar-subtitle">{{ section.settings.sidebar_subtitle | default: 'Quick answers to common questions' }}</span>
+            </div>
+          </div>
+
+          <div class="alpha-faq-accordion">
+            {%- if section.blocks.size > 0 -%}
+              {%- for block in section.blocks -%}
+                <div class="alpha-faq-item {% if forloop.first %}is-open{% endif %}" {{ block.shopify_attributes }}>
+                  <button type="button" class="alpha-faq-trigger" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}">
+                    <span class="alpha-faq-q">{{ block.settings.question }}</span>
+                    <span class="alpha-faq-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    </span>
+                  </button>
+                  <div class="alpha-faq-answer">
+                    <div class="alpha-faq-answer-inner">
+                      {{ block.settings.answer }}
+                    </div>
+                  </div>
+                </div>
+              {%- endfor -%}
+            {%- else -%}
+              <!-- Default Fallback FAQs -->
+              <div class="alpha-faq-item is-open">
+                <button type="button" class="alpha-faq-trigger" aria-expanded="true">
+                  <span class="alpha-faq-q">How long does shipping take?</span>
+                  <span class="alpha-faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></span>
+                </button>
+                <div class="alpha-faq-answer">
+                  <div class="alpha-faq-answer-inner">
+                    Orders are dispatched within 24 hours. Metro cities typically arrive in 2–3 business days, while the rest of India takes 3–5 business days. You will receive real-time SMS & WhatsApp tracking.
+                  </div>
+                </div>
+              </div>
+
+              <div class="alpha-faq-item">
+                <button type="button" class="alpha-faq-trigger" aria-expanded="false">
+                  <span class="alpha-faq-q">Is the packaging 100% discreet?</span>
+                  <span class="alpha-faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></span>
+                </button>
+                <div class="alpha-faq-answer">
+                  <div class="alpha-faq-answer-inner">
+                    Yes. All orders are packed in plain brown boxes with zero brand category names, product titles, or sensitive markings on the label. Only you will know what is inside.
+                  </div>
+                </div>
+              </div>
+
+              <div class="alpha-faq-item">
+                <button type="button" class="alpha-faq-trigger" aria-expanded="false">
+                  <span class="alpha-faq-q">Can I pay Cash on Delivery (COD)?</span>
+                  <span class="alpha-faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></span>
+                </button>
+                <div class="alpha-faq-answer">
+                  <div class="alpha-faq-answer-inner">
+                    Yes, Cash on Delivery (COD) is available across 26,000+ pin codes in India. We also offer extra prepaid discounts for UPI, Cards, and Net Banking.
+                  </div>
+                </div>
+              </div>
+
+              <div class="alpha-faq-item">
+                <button type="button" class="alpha-faq-trigger" aria-expanded="false">
+                  <span class="alpha-faq-q">Are all products authentic & Ayurvedic?</span>
+                  <span class="alpha-faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></span>
+                </button>
+                <div class="alpha-faq-answer">
+                  <div class="alpha-faq-answer-inner">
+                    Yes. Every Alpha Joshhformulation is 100% Ayurvedic, Ayush-approved, GMP certified, and lab-tested for heavy metals and purity.
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ================= 4. CORPORATE DISPATCH & ASSURANCE ================= -->
+    <div class="alpha-contact-footer-card">
+      <div class="alpha-footer-card-inner">
+        <div class="alpha-footer-brand">
+          <span class="alpha-footer-logo">ALPHA JOSHH</span>
+          <span class="alpha-footer-sub">A unit of Loire Pharmaceuticals LLP</span>
+        </div>
+        <div class="alpha-footer-detail">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          <span>500, 5th Floor, Plot NP-B-9, ITL Twin Tower, Pitampura, New Delhi - 110038</span>
+        </div>
+        <div class="alpha-footer-actions">
+          <a href="mailto:support@alphajoshh.com" class="alpha-footer-link">support@alphajoshh.com</a>
+          <span class="alpha-footer-sep">•</span>
+          <a href="tel:+919650081651" class="alpha-footer-link">+91 9650081651</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* ================= CSS VARIABLES / THEME CONFIGURATION ================= */
+  .alpha-contact-page,
+  .alpha-contact-page--light {
+    --ac-bg: #f9fafb;
+    --ac-text: #111827;
+    --ac-text-muted: #4b5563;
+    --ac-text-sub: #6b7280;
+    --ac-card-bg: #ffffff;
+    --ac-card-border: #e5e7eb;
+    --ac-card-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    --ac-card-hover-shadow: 0 12px 28px rgba(0, 0, 0, 0.08), 0 0 16px rgba(184, 134, 11, 0.12);
+    --ac-gold: #b8860b;
+    --ac-gold-hover: #996515;
+    --ac-gold-bg: rgba(184, 134, 11, 0.08);
+    --ac-gold-border: rgba(184, 134, 11, 0.28);
+    --ac-input-bg: #ffffff;
+    --ac-input-border: #d1d5db;
+    --ac-input-text: #111827;
+    --ac-input-placeholder: #9ca3af;
+    --ac-input-focus-border: #b8860b;
+    --ac-input-focus-bg: #ffffff;
+    --ac-input-focus-shadow: 0 0 0 3px rgba(184, 134, 11, 0.18);
+    --ac-inner-box-bg: #f9fafb;
+    --ac-inner-box-border: #f3f4f6;
+    --ac-btn-bg: #111111;
+    --ac-btn-text: #ffffff;
+    --ac-btn-hover-bg: #d4af37;
+    --ac-btn-hover-text: #000000;
+    --ac-btn-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+    --ac-icon-wrap-bg: #f3f4f6;
+    --ac-icon-wrap-border: #e5e7eb;
+    --ac-arrow-color: #9ca3af;
+    --ac-faq-bg: #ffffff;
+    --ac-faq-border: #e5e7eb;
+    --ac-faq-answer-bg: #fafafa;
+    --ac-faq-inner-border: #f3f4f6;
+    --ac-discreet-strip-bg: rgba(184, 134, 11, 0.07);
+    --ac-discreet-strip-border: rgba(184, 134, 11, 0.22);
+  }
+
+  .alpha-contact-page--dark {
+    --ac-bg: #0c0c0e;
+    --ac-text: #ffffff;
+    --ac-text-muted: #a1a1aa;
+    --ac-text-sub: #71717a;
+    --ac-card-bg: #141418;
+    --ac-card-border: rgba(255, 255, 255, 0.08);
+    --ac-card-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    --ac-card-hover-shadow: 0 12px 28px rgba(0, 0, 0, 0.6), 0 0 15px rgba(229, 169, 59, 0.1);
+    --ac-gold: #e5a93b;
+    --ac-gold-hover: #f0b54a;
+    --ac-gold-bg: rgba(229, 169, 59, 0.12);
+    --ac-gold-border: rgba(229, 169, 59, 0.35);
+    --ac-input-bg: #0c0c0e;
+    --ac-input-border: #27272a;
+    --ac-input-text: #ffffff;
+    --ac-input-placeholder: #52525b;
+    --ac-input-focus-border: #e5a93b;
+    --ac-input-focus-bg: #111115;
+    --ac-input-focus-shadow: 0 0 14px rgba(229, 169, 59, 0.2);
+    --ac-inner-box-bg: #0c0c0e;
+    --ac-inner-box-border: rgba(255, 255, 255, 0.05);
+    --ac-btn-bg: #e5a93b;
+    --ac-btn-text: #0a0a0a;
+    --ac-btn-hover-bg: #f0b54a;
+    --ac-btn-hover-text: #0a0a0a;
+    --ac-btn-shadow: 0 4px 18px rgba(229, 169, 59, 0.3);
+    --ac-icon-wrap-bg: #1e1e24;
+    --ac-icon-wrap-border: rgba(255, 255, 255, 0.08);
+    --ac-arrow-color: #71717a;
+    --ac-faq-bg: #0c0c0e;
+    --ac-faq-border: rgba(255, 255, 255, 0.08);
+    --ac-faq-answer-bg: #0c0c0e;
+    --ac-faq-inner-border: rgba(255, 255, 255, 0.04);
+    --ac-discreet-strip-bg: linear-gradient(135deg, rgba(229, 169, 59, 0.1) 0%, rgba(229, 169, 59, 0.03) 100%);
+    --ac-discreet-strip-border: rgba(229, 169, 59, 0.25);
+  }
+
+  /* ================= Alpha JoshhCONTACT PAGE STYLES ================= */
+  .alpha-contact-page {
+    background-color: var(--ac-bg);
+    color: var(--ac-text);
+    font-family: inherit;
+    padding: 50px 20px 80px;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .alpha-contact-container {
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+
+  /* 1. HERO SECTION */
+  .alpha-contact-hero {
+    text-align: center;
+    max-width: 840px;
+    margin: 0 auto 46px;
+  }
+
+  .alpha-contact-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ac-gold-bg);
+    border: 1px solid var(--ac-gold-border);
+    color: var(--ac-gold);
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .alpha-badge-dot {
+    width: 7px;
+    height: 7px;
+    background-color: #16a34a;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #16a34a;
+    animation: alphaPulse 2s infinite;
+  }
+
+  @keyframes alphaPulse {
+    0% { transform: scale(0.95); opacity: 0.8; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(0.95); opacity: 0.8; }
+  }
+
+  .alpha-contact-title {
+    font-size: 44px;
+    font-weight: 800;
+    color: var(--ac-text);
+    letter-spacing: -1px;
+    margin: 0 0 16px;
+    line-height: 1.15;
+  }
+
+  .alpha-contact-subtitle {
+    font-size: 16px;
+    color: var(--ac-text-muted);
+    line-height: 1.6;
+    margin: 0 auto 30px;
+    max-width: 680px;
+  }
+
+  .alpha-contact-trust-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 14px 24px;
+    background: var(--ac-card-bg);
+    border: 1px solid var(--ac-card-border);
+    border-radius: 12px;
+    box-shadow: var(--ac-card-shadow);
+  }
+
+  .alpha-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--ac-text-muted);
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .alpha-trust-item svg {
+    color: var(--ac-gold);
+    flex-shrink: 0;
+  }
+
+  /* 2. CHANNELS GRID */
+  .alpha-contact-grid-top {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .alpha-channel-card {
+    background: var(--ac-card-bg);
+    border: 1px solid var(--ac-card-border);
+    border-radius: 14px;
+    padding: 22px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: var(--ac-card-shadow);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .alpha-channel-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--ac-gold-bg) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .alpha-channel-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--ac-gold-border);
+    box-shadow: var(--ac-card-hover-shadow);
+  }
+
+  .alpha-channel-card:hover::before {
+    opacity: 1;
+  }
+
+  .alpha-channel-icon-wrap {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--ac-icon-wrap-bg);
+    border: 1px solid var(--ac-icon-wrap-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    transition: all 0.2s ease;
+  }
+
+  .alpha-channel-card:hover .alpha-channel-icon-wrap {
+    background: var(--ac-gold);
+    color: #ffffff;
+    border-color: var(--ac-gold);
+  }
+
+  .alpha-channel--whatsapp .alpha-channel-icon-wrap {
+    color: #16a34a;
+  }
+  .alpha-channel--whatsapp:hover .alpha-channel-icon-wrap {
+    background: #16a34a;
+    color: #ffffff;
+    border-color: #16a34a;
+  }
+
+  .alpha-channel--call .alpha-channel-icon-wrap {
+    color: var(--ac-gold);
+  }
+  .alpha-channel--email .alpha-channel-icon-wrap {
+    color: #2563eb;
+  }
+  .alpha-channel--address .alpha-channel-icon-wrap {
+    color: #dc2626;
+  }
+
+  .alpha-online-dot {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 10px;
+    height: 10px;
+    background: #16a34a;
+    border: 2px solid var(--ac-card-bg);
+    border-radius: 50%;
+  }
+
+  .alpha-channel-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    flex: 1 1 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .alpha-channel-label {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--ac-text-sub);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+  }
+
+  .alpha-channel-value {
+    font-size: 14.5px;
+    font-weight: 800;
+    color: var(--ac-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 3px;
+  }
+
+  .alpha-channel-sub {
+    font-size: 11.5px;
+    color: var(--ac-text-sub);
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .alpha-channel-arrow {
+    color: var(--ac-arrow-color);
+    transition: transform 0.2s ease, color 0.2s ease;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .alpha-channel-card:hover .alpha-channel-arrow {
+    transform: translateX(4px);
+    color: var(--ac-gold);
+  }
+
+  /* 3. TWO-COLUMN MAIN SECTION */
+  .alpha-contact-main-grid {
+    display: grid;
+    grid-template-columns: 1.25fr 0.95fr;
+    gap: 32px;
+    align-items: start;
+    margin-bottom: 40px;
+  }
+
+  .alpha-card {
+    background: var(--ac-card-bg);
+    border: 1px solid var(--ac-card-border);
+    border-radius: 18px;
+    box-shadow: var(--ac-card-shadow);
+    box-sizing: border-box;
+  }
+
+  /* Left Form Card */
+  .alpha-form-card {
+    padding: 38px 34px;
+    border: 1px solid var(--ac-card-border);
+  }
+
+  .alpha-card-header {
+    margin-bottom: 26px;
+  }
+
+  .alpha-card-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--ac-text);
+    letter-spacing: -0.4px;
+    margin: 0 0 8px;
+  }
+
+  .alpha-card-desc {
+    font-size: 14px;
+    color: var(--ac-text-muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* Form Alerts */
+  .alpha-form-alert {
+    display: flex;
+    gap: 14px;
+    padding: 16px 18px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+
+  .alpha-form-alert--success {
+    background: rgba(34, 197, 94, 0.12);
+    border: 1px solid rgba(34, 197, 94, 0.35);
+    color: #15803d;
+  }
+
+  .alpha-form-alert--error {
+    background: rgba(239, 68, 68, 0.12);
+    border: 1px solid rgba(239, 68, 68, 0.35);
+    color: #b91c1c;
+  }
+
+  .alpha-alert-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .alpha-form-alert--success .alpha-alert-icon {
+    background: #16a34a;
+    color: #ffffff;
+  }
+
+  .alpha-form-alert--error .alpha-alert-icon {
+    background: #dc2626;
+    color: #ffffff;
+  }
+
+  .alpha-alert-body ul {
+    margin: 6px 0 0;
+    padding-left: 20px;
+  }
+
+  /* Form Inputs */
+  .alpha-form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .alpha-form-row--2cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .alpha-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .alpha-form-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ac-text);
+    letter-spacing: -0.1px;
+  }
+
+  .alpha-required {
+    color: var(--ac-gold);
+    margin-left: 2px;
+  }
+
+  .alpha-label-hint {
+    font-size: 11.5px;
+    font-weight: 400;
+    color: var(--ac-text-sub);
+  }
+
+  .alpha-input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .alpha-form-input,
+  .alpha-form-select,
+  .alpha-form-textarea {
+    width: 100%;
+    background: var(--ac-input-bg);
+    border: 1.5px solid var(--ac-input-border);
+    border-radius: 10px;
+    color: var(--ac-input-text);
+    font-size: 14px;
+    padding: 13px 16px;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    outline: none;
+  }
+
+  .alpha-form-input::placeholder,
+  .alpha-form-textarea::placeholder {
+    color: var(--ac-input-placeholder);
+  }
+
+  .alpha-form-input:focus,
+  .alpha-form-select:focus,
+  .alpha-form-textarea:focus {
+    border-color: var(--ac-input-focus-border);
+    background: var(--ac-input-focus-bg);
+    box-shadow: var(--ac-input-focus-shadow);
+  }
+
+  /* Phone input with +91 badge */
+  .alpha-phone-wrap {
+    position: relative;
+  }
+
+  .alpha-phone-prefix {
+    position: absolute;
+    left: 12px;
+    color: var(--ac-gold);
+    font-size: 13.5px;
+    font-weight: 700;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .alpha-phone-input {
+    padding-left: 82px !important;
+  }
+
+  /* Select */
+  .alpha-select-wrap {
+    position: relative;
+  }
+
+  .alpha-form-select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+
+  .alpha-select-chevron {
+    position: absolute;
+    right: 14px;
+    color: var(--ac-text-sub);
+    pointer-events: none;
+  }
+
+  .alpha-form-textarea {
+    resize: vertical;
+    min-height: 110px;
+  }
+
+  /* Submit button */
+  .alpha-form-actions {
+    margin-top: 6px;
+  }
+
+  .alpha-submit-btn {
+    width: 100%;
+    background: var(--ac-btn-bg);
+    color: var(--ac-btn-text);
+    border: none;
+    border-radius: 12px;
+    padding: 15px 24px;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.25s ease;
+    box-shadow: var(--ac-btn-shadow);
+  }
+
+  .alpha-submit-btn:hover {
+    background: var(--ac-btn-hover-bg);
+    color: var(--ac-btn-hover-text);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  }
+
+  .alpha-privacy-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--ac-text-sub);
+    text-align: center;
+    margin-top: 4px;
+  }
+
+  .alpha-privacy-note svg {
+    color: var(--ac-gold);
+    flex-shrink: 0;
+  }
+
+  /* Right Column: Sidebar Cards */
+  .alpha-contact-sidebar-column {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .alpha-sidebar-card {
+    padding: 28px 24px;
+  }
+
+  .alpha-sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--ac-card-border);
+  }
+
+  .alpha-sidebar-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: var(--ac-gold-bg);
+    border: 1px solid var(--ac-gold-border);
+    color: var(--ac-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .alpha-sidebar-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--ac-text);
+    margin: 0 0 2px;
+    letter-spacing: -0.2px;
+  }
+
+  .alpha-sidebar-subtitle {
+    font-size: 12.5px;
+    color: var(--ac-text-sub);
+  }
+
+  /* Hours */
+  .alpha-hours-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .alpha-hour-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13.5px;
+    padding: 8px 12px;
+    background: var(--ac-inner-box-bg);
+    border-radius: 8px;
+    border: 1px solid var(--ac-inner-box-border);
+  }
+
+  .alpha-day {
+    color: var(--ac-text);
+    font-weight: 600;
+  }
+
+  .alpha-time {
+    color: var(--ac-text-muted);
+    font-weight: 500;
+  }
+
+  .alpha-time--highlight {
+    color: #16a34a;
+    font-weight: 700;
+  }
+
+  .alpha-hours-discreet-strip {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--ac-discreet-strip-bg);
+    border: 1px solid var(--ac-discreet-strip-border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: var(--ac-text-muted);
+    font-size: 12px;
+  }
+
+  .alpha-hours-discreet-strip svg {
+    color: var(--ac-gold);
+    flex-shrink: 0;
+  }
+
+  .alpha-hours-discreet-strip div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .alpha-hours-discreet-strip strong {
+    color: var(--ac-text);
+    font-size: 12.5px;
+  }
+
+  /* FAQ Accordion */
+  .alpha-faq-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .alpha-faq-item {
+    background: var(--ac-faq-bg);
+    border: 1px solid var(--ac-faq-border);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .alpha-faq-item.is-open {
+    border-color: var(--ac-gold-border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  .alpha-faq-trigger {
+    width: 100%;
+    padding: 14px 16px;
+    background: transparent;
+    border: none;
+    color: var(--ac-text);
+    font-size: 13.5px;
+    font-weight: 700;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    cursor: pointer;
+    line-height: 1.4;
+  }
+
+  .alpha-faq-trigger:hover {
+    color: var(--ac-gold);
+  }
+
+  .alpha-faq-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    background: var(--ac-inner-box-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--ac-text-sub);
+    transition: transform 0.25s ease, background 0.2s ease, color 0.2s ease;
+  }
+
+  .alpha-faq-item.is-open .alpha-faq-icon {
+    transform: rotate(45deg);
+    background: var(--ac-gold);
+    color: #ffffff;
+  }
+
+  .alpha-faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .alpha-faq-item.is-open .alpha-faq-answer {
+    max-height: 250px;
+  }
+
+  .alpha-faq-answer-inner {
+    padding: 0 16px 16px;
+    font-size: 13px;
+    color: var(--ac-text-muted);
+    line-height: 1.55;
+    background: var(--ac-faq-answer-bg);
+    border-top: 1px solid var(--ac-faq-inner-border);
+    padding-top: 12px;
+  }
+
+  /* 4. FOOTER CARD */
+  .alpha-contact-footer-card {
+    background: var(--ac-card-bg);
+    border: 1px solid var(--ac-card-border);
+    border-radius: 14px;
+    padding: 22px 28px;
+    box-sizing: border-box;
+    box-shadow: var(--ac-card-shadow);
+  }
+
+  .alpha-footer-card-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+
+  .alpha-footer-brand {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .alpha-footer-logo {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--ac-gold);
+    letter-spacing: 1px;
+  }
+
+  .alpha-footer-sub {
+    font-size: 12px;
+    color: var(--ac-text-sub);
+  }
+
+  .alpha-footer-detail {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px;
+    color: var(--ac-text-muted);
+    max-width: 480px;
+  }
+
+  .alpha-footer-detail svg {
+    color: var(--ac-gold);
+    flex-shrink: 0;
+  }
+
+  .alpha-footer-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .alpha-footer-link {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ac-text);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .alpha-footer-link:hover {
+    color: var(--ac-gold);
+  }
+
+  .alpha-footer-sep {
+    color: var(--ac-text-sub);
+  }
+
+  /* ================= RESPONSIVE MEDIA QUERIES ================= */
+  @media (max-width: 1024px) {
+    .alpha-contact-grid-top {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .alpha-contact-main-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .alpha-contact-page {
+      padding: 30px 14px 60px;
+    }
+
+    .alpha-contact-title {
+      font-size: 30px;
+    }
+
+    .alpha-contact-subtitle {
+      font-size: 14px;
+      margin-bottom: 22px;
+    }
+
+    .alpha-contact-trust-bar {
+      gap: 12px;
+      padding: 12px 14px;
+    }
+
+    .alpha-trust-item {
+      font-size: 12px;
+    }
+
+    .alpha-contact-grid-top {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .alpha-channel-card {
+      padding: 16px 14px;
+    }
+
+    .alpha-form-card {
+      padding: 24px 18px;
+    }
+
+    .alpha-card-title {
+      font-size: 22px;
+    }
+
+    .alpha-form-row--2cols {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .alpha-sidebar-card {
+      padding: 22px 18px;
+    }
+
+    .alpha-footer-card-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .alpha-footer-actions {
+      flex-wrap: wrap;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    const sectionEl = document.getElementById('alpha-contact-{{ section.id }}');
+    if (!sectionEl) return;
+
+    // FAQ Accordion interaction
+    const faqItems = sectionEl.querySelectorAll('.alpha-faq-item');
+    faqItems.forEach(item => {
+      const trigger = item.querySelector('.alpha-faq-trigger');
+      if (!trigger) return;
+
+      trigger.addEventListener('click', () => {
+        const isOpen = item.classList.contains('is-open');
+
+        // Close other items
+        faqItems.forEach(other => {
+          if (other !== item) {
+            other.classList.remove('is-open');
+            const otherBtn = other.querySelector('.alpha-faq-trigger');
+            if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+
+        // Toggle current item
+        if (isOpen) {
+          item.classList.remove('is-open');
+          trigger.setAttribute('aria-expanded', 'false');
+        } else {
+          item.classList.add('is-open');
+          trigger.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Alpha – Contact Us Page",
+  "tag": "section",
+  "class": "section-alpha-contact",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Theme Style"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme_mode",
+      "label": "Color Theme",
+      "options": [
+        {
+          "value": "light",
+          "label": "Light Theme (Clean Luxury)"
+        },
+        {
+          "value": "dark",
+          "label": "Dark Theme (Noir Luxury)"
+        }
+      ],
+      "default": "light",
+      "info": "Switch between clean light theme and dark theme."
+    },
+    {
+      "type": "header",
+      "content": "Hero Header"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Pill Text",
+      "default": "24/7 DEDICATED SUPPORT"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Page Heading",
+      "default": "Get in Touch with Alpha Josh"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Page Subheading",
+      "default": "Have questions about our Ayurvedic formulas, tracking your order, or need personalized wellness guidance? Our dedicated support team is here to assist you."
+    },
+    {
+      "type": "header",
+      "content": "Channel 1: WhatsApp"
+    },
+    {
+      "type": "checkbox",
+      "id": "whatsapp_enabled",
+      "label": "Enable WhatsApp Card",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_label",
+      "label": "WhatsApp Label",
+      "default": "Chat on WhatsApp"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_number",
+      "label": "WhatsApp Display Number",
+      "default": "+91 9650081651"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_subtext",
+      "label": "WhatsApp Subtext",
+      "default": "Fastest response • Online now"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_link",
+      "label": "WhatsApp Direct URL",
+      "default": "https://wa.me/919650081651?text=Hi%20Alpha%20Josh%2C%20I%20have%20an%20inquiry"
+    },
+    {
+      "type": "header",
+      "content": "Channel 2: Phone Helpline"
+    },
+    {
+      "type": "checkbox",
+      "id": "phone_enabled",
+      "label": "Enable Phone Card",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "phone_label",
+      "label": "Phone Label",
+      "default": "Call Our Helpline"
+    },
+    {
+      "type": "text",
+      "id": "phone_number",
+      "label": "Phone Number",
+      "default": "+91 9650081651"
+    },
+    {
+      "type": "text",
+      "id": "phone_subtext",
+      "label": "Phone Subtext",
+      "default": "Mon – Sat: 9:00 AM – 7:00 PM"
+    },
+    {
+      "type": "header",
+      "content": "Channel 3: Email Support"
+    },
+    {
+      "type": "checkbox",
+      "id": "email_enabled",
+      "label": "Enable Email Card",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "Email Label",
+      "default": "Email Support"
+    },
+    {
+      "type": "text",
+      "id": "email_address",
+      "label": "Email Address",
+      "default": "support@alphajoshh.com"
+    },
+    {
+      "type": "text",
+      "id": "email_subtext",
+      "label": "Email Subtext",
+      "default": "Response within 12–24 hours"
+    },
+    {
+      "type": "header",
+      "content": "Channel 4: Headquarters"
+    },
+    {
+      "type": "checkbox",
+      "id": "address_enabled",
+      "label": "Enable Address Card",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "address_label",
+      "label": "Address Label",
+      "default": "Headquarters"
+    },
+    {
+      "type": "text",
+      "id": "address_company",
+      "label": "Company Name",
+      "default": "Loire Pharmaceuticals LLP"
+    },
+    {
+      "type": "text",
+      "id": "address_maps_link",
+      "label": "Google Maps Link",
+      "default": "https://maps.google.com/?q=ITL+Twin+Tower+Pitampura+Delhi"
+    },
+    {
+      "type": "header",
+      "content": "Contact Form Settings"
+    },
+    {
+      "type": "text",
+      "id": "form_title",
+      "label": "Form Heading",
+      "default": "Send Us a Message"
+    },
+    {
+      "type": "text",
+      "id": "form_subtitle",
+      "label": "Form Subheading",
+      "default": "Fill out the form below and an Alpha Joshhwellness specialist will get back to you shortly."
+    },
+    {
+      "type": "text",
+      "id": "form_button_label",
+      "label": "Submit Button Label",
+      "default": "SEND MESSAGE"
+    },
+    {
+      "type": "text",
+      "id": "privacy_note",
+      "label": "Privacy Assurance Note",
+      "default": "100% Confidential. Your details will never be shared with third parties."
+    },
+    {
+      "type": "header",
+      "content": "Sidebar Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_business_hours",
+      "label": "Show Business Hours Card",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "sidebar_title",
+      "label": "FAQ Card Title",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "text",
+      "id": "sidebar_subtitle",
+      "label": "FAQ Card Subtitle",
+      "default": "Quick answers to common questions"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How long will my order take to arrive?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "Orders are dispatched within 24 hours. Metro cities typically arrive in 2–3 business days, while the rest of India takes 3–5 business days. You will receive active SMS & WhatsApp tracking links."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Alpha – Contact Us Page",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does shipping take?",
+            "answer": "Orders are dispatched within 24 hours. Metro cities typically arrive in 2–3 business days, while the rest of India takes 3–5 business days. You will receive real-time SMS & WhatsApp tracking."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is the packaging 100% discreet?",
+            "answer": "Yes. All orders are packed in plain brown boxes with zero brand category names, product titles, or sensitive markings on the label. Only you will know what is inside."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I pay Cash on Delivery (COD)?",
+            "answer": "Yes, Cash on Delivery (COD) is available across 26,000+ pin codes in India. We also offer extra prepaid discounts for UPI, Cards, and Net Banking."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Are all products authentic & Ayurvedic?",
+            "answer": "Yes. Every Alpha Joshhformulation is 100% Ayurvedic, Ayush-approved, GMP certified, and lab-tested for heavy metals and purity."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

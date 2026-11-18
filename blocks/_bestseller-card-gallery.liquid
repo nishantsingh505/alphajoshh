@@ -1,0 +1,65 @@
+
+
+{% capture children %}
+  {% unless closest.product == blank %}
+    {% render 'bestseller-card-badges', product: closest.product, settings: settings %}
+    {%  if settings.quick_add or settings.mobile_quick_add %}
+      {% render 'quick-add', product: closest.product, section_id: section.id %}
+    {% endif %}
+  {% endunless %}
+{% endcapture %}
+
+{% render 'card-gallery', children: children %}
+
+{% # Title and price for the zoomed out grid view %}
+<div class="product-grid-view-zoom-out--details">
+  {% if closest.product == blank %}
+    <h3 class="h4">{{ 'content.product_card_placeholder' | t }}</h3>
+  {% else %}
+    <h3 class="h4">{{ closest.product.title }}</h3>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Bestseller Image",
+  "tag": null,
+  "settings": [
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "t:options.auto"
+        },
+        {
+          "value": "portrait",
+          "label": "t:options.portrait"
+        },
+        {
+          "value": "square",
+          "label": "t:options.square"
+        },
+        {
+          "value": "landscape",
+          "label": "t:options.landscape"
+        }
+      ],
+      "default": "portrait",
+      "label": "t:settings.aspect_ratio",
+      "info": "t:info.aspect_ratio_adjusted"
+    },
+    {
+       "type": "header",
+       "content": "t:content.padding"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bestseller Image",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

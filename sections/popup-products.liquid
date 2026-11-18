@@ -1,0 +1,94 @@
+<div id="homePopup" class="custom-popup">
+  <div class="popup-overlay"></div>
+  <div class="popup-content">
+    <span class="popup-close">&times;</span>
+    <h3>{{ section.settings.heading }}</h3>
+    <div class="popup-products">
+      {% for block in section.blocks %}
+        {% assign product = all_products[block.settings.product] %}
+        {% if product %}
+          <div class="popup-product">
+            <img src="{{ product.featured_image | img_url: 'medium' }}">
+            <h5>{{ product.title }}</h5>
+            <!-- Price -->
+            <div class="price">
+                <span class="price-current">{{ product.price | money }}</span>
+                {% if product.compare_at_price > product.price %}
+                <span class="price-old">{{ product.compare_at_price | money }}</span>
+                {% endif %}
+            </div>
+            <div class="shiprocket-custom-button">
+                <product-form-component class="product-form" data-hide-errors="false" data-section-id="{{ section.id }}">
+                {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+                    <input
+                    type="hidden"
+                    name="id"
+                    value="{{ product.selected_or_first_available_variant.id }}"
+                    class="product-variant-id"
+                    >
+                    <div class="reels-cta">
+                    {% comment %} Primary Fastrr checkout button {% endcomment %}
+                    {% comment %} {% render 'shiprocket-buy-now', 
+                        product: product, 
+                        class: 'reels-shiprocket'
+                    %} {% endcomment %}
+
+
+                    {% comment %} Fallback Buy Now for regions where Shiprocket is hidden {% endcomment %}
+                    <button
+                        id="ProductSubmitButton-{{ section.id }}-{{ product.id }}"
+                        type="submit"
+                        name="add"
+                        class="reels-atc-btn reels-fallback-btn visually-hidden"
+                        {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
+                    >
+                        {%- if product.selected_or_first_available_variant.available -%}
+                        BUY NOW
+                        {%- else -%}
+                        SOLD OUT
+                        {%- endif -%}
+                        {% comment %} BUY NOW {% endcomment %}
+                    </button>
+                    </div>
+                {%- endform -%}
+                </product-form-component>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Popup Products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Popup Heading",
+      "default": "Recommended for you"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select product"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 2,
+  "presets": [
+    {
+      "name": "Popup Products"
+    }
+  ]
+}
+{% endschema %}

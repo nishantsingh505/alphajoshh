@@ -1,0 +1,776 @@
+{% comment %}
+  Section 9: Reviews & Bold Stories (Dual Card Design: Mission & Testimonials Slider)
+{% endcomment %}
+
+{%- liquid
+  assign mission_tag = section.settings.mission_tag | default: 'OUR MISSION'
+  assign mission_title = section.settings.mission_title | default: "Prioritising men's health and wellness in India"
+  assign point_1 = section.settings.point_1_text | default: 'Clinically Validated'
+  assign point_2 = section.settings.point_2_text | default: 'Safe & Effective'
+  assign point_3 = section.settings.point_3_text | default: 'Discreet Delivery'
+  assign mission_vid = section.settings.mission_video
+  assign mission_cover = section.settings.mission_cover_image
+  assign test_tag = section.settings.testimonials_tag | default: 'TESTIMONIALS'
+  assign test_title = section.settings.testimonials_title | default: 'Bold Men. Bold Stories.'
+-%}
+
+<section class="p-rev-section" id="p-rev-section-{{ section.id }}">
+  <div class="p-rev-container">
+    <div class="p-rev-grid">
+      
+      <!-- ================= LEFT CARD: OUR MISSION ================= -->
+      <div class="p-rev-main-card p-rev-card--mission">
+        <div class="p-mission-inner">
+          
+          <!-- Mission Left Details -->
+          <div class="p-mission-details">
+            <span class="p-rev-pill-tag">{{ mission_tag }}</span>
+            <h2 class="p-mission-headline">{{ mission_title }}</h2>
+            
+            <div class="p-mission-points">
+              {%- if point_1 != blank -%}
+                <div class="p-mission-point">
+                  <span class="p-point-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="12" y1="5" x2="12" y2="19"></line>
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                  </span>
+                  <span class="p-point-label">{{ point_1 }}</span>
+                </div>
+              {%- endif -%}
+
+              {%- if point_2 != blank -%}
+                <div class="p-mission-point">
+                  <span class="p-point-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                      <path d="M12 8v4"></path>
+                      <path d="M12 16h.01"></path>
+                    </svg>
+                  </span>
+                  <span class="p-point-label">{{ point_2 }}</span>
+                </div>
+              {%- endif -%}
+
+              {%- if point_3 != blank -%}
+                <div class="p-mission-point">
+                  <span class="p-point-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="1" y="3" width="15" height="13"></rect>
+                      <polygon points="16 8 20 8 23 11 23 16 16 16 8"></polygon>
+                      <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                      <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                    </svg>
+                  </span>
+                  <span class="p-point-label">{{ point_3 }}</span>
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+
+          <!-- Mission Right Ambassador Card -->
+          <div class="p-mission-visual">
+            <div class="p-ambassador-box">
+              <span class="p-ambassador-badge">Alpha Joshh</span>
+              <div class="p-ambassador-mute-toggle" onclick="toggleAmbassadorAudio(this, event)" aria-label="Toggle Sound">
+                <span class="p-mute-icon-muted">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#ffffff"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM19 12c0 3.12-1.86 5.8-4.5 6.97v2.02c3.75-1.28 6.5-4.81 6.5-8.99s-2.75-7.71-6.5-8.99v2.02C17.14 6.2 19 8.88 19 12zM3 9v6h4l5 5V4L7 9H3z"></path></svg>
+                </span>
+                <span class="p-mute-icon-unmuted">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#ffffff"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+                </span>
+              </div>
+              {% if mission_vid != blank %}
+                <video 
+                  class="p-ambassador-media" 
+                  playsinline 
+                  webkit-playsinline
+                  x5-playsinline
+                  autoplay 
+                  loop 
+                  muted 
+                  preload="auto"
+                  poster="{{ mission_vid.preview_image | image_url: width: 600 }}"
+                  onclick="toggleAmbassadorAudio(this.parentElement.querySelector('.p-ambassador-mute-toggle'), event)"
+                >
+                  {% for source in mission_vid.sources %}
+                    <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                  {% endfor %}
+                </video>
+              {% elsif mission_cover != blank %}
+                <img src="{{ mission_cover | image_url: width: 600 }}" alt="{{ mission_title }}" loading="lazy" class="p-ambassador-media" width="300" height="400">
+              {% else %}
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80" alt="Brand Ambassador" loading="lazy" class="p-ambassador-media" width="300" height="400">
+              {% endif %}
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ================= RIGHT CARD: TESTIMONIALS SLIDER ================= -->
+      <div class="p-rev-main-card p-rev-card--testimonials">
+        
+        <div class="p-testimonials-top-row">
+          <div class="p-testimonials-title-wrap">
+            <span class="p-rev-pill-tag">{{ test_tag }}</span>
+            <h2 class="p-testimonials-headline">{{ test_title }}</h2>
+          </div>
+
+          <!-- Slide Controls -->
+          <div class="p-carousel-arrows">
+            <button type="button" class="p-arrow-btn p-arrow-prev" id="prev-btn-{{ section.id }}" aria-label="Previous reviews">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <button type="button" class="p-arrow-btn p-arrow-next" id="next-btn-{{ section.id }}" aria-label="Next reviews">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Horizontal Snap Carousel Track -->
+        <div class="p-testimonials-carousel" id="carousel-track-{{ section.id }}">
+          {% if section.blocks.size > 0 %}
+            {% for block in section.blocks %}
+              {% assign author_val = block.settings.author | default: block.settings.author_name | default: 'Verified Customer' %}
+              {% assign quote_val = block.settings.quote | default: 'Noticed lasting stamina improvements' %}
+              {% assign card_img = block.settings.cover_image | default: block.settings.poster | default: block.settings.image %}
+
+              <div class="p-story-mini-card" {{ block.shopify_attributes }}>
+                <div class="p-story-photo-wrap">
+                  {% if block.settings.video != blank %}
+                    <video 
+                      class="p-story-video" 
+                      playsinline 
+                      webkit-playsinline
+                      x5-playsinline
+                      autoplay 
+                      loop 
+                      muted 
+                      preload="auto"
+                      poster="{{ block.settings.video.preview_image | image_url: width: 400 }}"
+                    >
+                      {% for source in block.settings.video.sources %}
+                        <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                      {% endfor %}
+                    </video>
+                  {% elsif card_img != blank %}
+                    <img src="{{ card_img | image_url: width: 400 }}" alt="{{ author_val | escape }}" loading="lazy" width="170" height="180">
+                  {% else %}
+                    {% case forloop.index %}
+                      {% when 1 %}
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80" alt="Customer Story" loading="lazy" width="170" height="180">
+                      {% when 2 %}
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80" alt="Customer Story" loading="lazy" width="170" height="180">
+                      {% when 3 %}
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80" alt="Customer Story" loading="lazy" width="170" height="180">
+                      {% else %}
+                        <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=400&auto=format&fit=crop&q=80" alt="Customer Story" loading="lazy" width="170" height="180">
+                    {% endcase %}
+                  {% endif %}
+                </div>
+                <div class="p-story-content-wrap">
+                  <p class="p-story-text">
+                    <strong class="p-story-name">{{ author_val }}</strong>
+                    {{ quote_val }}
+                  </p>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <!-- Default Customer Story Cards Matching Reference -->
+            <div class="p-story-mini-card">
+              <div class="p-story-photo-wrap">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80" alt="Rohit 33," loading="lazy" width="170" height="180">
+              </div>
+              <div class="p-story-content-wrap">
+                <p class="p-story-text">
+                  <strong class="p-story-name">Rohit 33,</strong>
+                  Noticed lasting stamina improvements
+                </p>
+              </div>
+            </div>
+
+            <div class="p-story-mini-card">
+              <div class="p-story-photo-wrap">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80" alt="Kunal 29," loading="lazy" width="170" height="180">
+              </div>
+              <div class="p-story-content-wrap">
+                <p class="p-story-text">
+                  <strong class="p-story-name">Kunal 29,</strong>
+                  Enhanced overall well-being in 60 days
+                </p>
+              </div>
+            </div>
+
+            <div class="p-story-mini-card">
+              <div class="p-story-photo-wrap">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80" alt="Deepak 30," loading="lazy" width="170" height="180">
+              </div>
+              <div class="p-story-content-wrap">
+                <p class="p-story-text">
+                  <strong class="p-story-name">Deepak 30,</strong>
+                  Observed quicker post-workout recovery in 2 months
+                </p>
+              </div>
+            </div>
+
+            <div class="p-story-mini-card">
+              <div class="p-story-photo-wrap">
+                <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=400&auto=format&fit=crop&q=80" alt="Aman 28," loading="lazy" width="170" height="180">
+              </div>
+              <div class="p-story-content-wrap">
+                <p class="p-story-text">
+                  <strong class="p-story-name">Aman 28,</strong>
+                  Gained confidence within weeks
+                </p>
+              </div>
+            </div>
+
+            <div class="p-story-mini-card">
+              <div class="p-story-photo-wrap">
+                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&auto=format&fit=crop&q=80" alt="Varun 32," loading="lazy" width="170" height="180">
+              </div>
+              <div class="p-story-content-wrap">
+                <p class="p-story-text">
+                  <strong class="p-story-name">Varun 32,</strong>
+                  Significant boost in daily energy & focus
+                </p>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.p-rev-section {
+  background-color: #f8f9fa;
+  color: #111827;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 44px 0;
+}
+
+.p-rev-container {
+  max-width: 1340px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.p-rev-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: stretch;
+  width: 100%;
+}
+
+/* Base Card Style matching Bold Care */
+.p-rev-main-card {
+  background: #ffffff;
+  border: 1px solid #eef0f2;
+  border-radius: 20px;
+  padding: 28px 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  min-height: 380px;
+  overflow: hidden;
+}
+
+/* Category Pill Tag */
+.p-rev-pill-tag {
+  font-size: 11px;
+  font-weight: 800;
+  color: #047857;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: inline-block;
+}
+
+/* Left Card - Mission Layout */
+.p-mission-inner {
+  display: grid;
+  grid-template-columns: 1.12fr 0.88fr;
+  gap: 20px;
+  align-items: center;
+  height: 100%;
+}
+
+.p-mission-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.p-mission-headline {
+  font-family: var(--font-heading--family, serif);
+  font-size: 26px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.18;
+  margin: 0 0 28px 0;
+  letter-spacing: -0.4px;
+}
+
+.p-mission-points {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.p-mission-point {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.p-point-icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #059669;
+}
+
+.p-point-label {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* Ambassador Visual Box */
+.p-mission-visual {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.p-ambassador-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  max-height: 325px;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  background: #000000;
+  cursor: pointer;
+}
+
+.p-ambassador-mute-toggle {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 4;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  transition: all 0.2s ease;
+}
+
+.p-ambassador-mute-toggle:hover {
+  background: rgba(0, 0, 0, 0.85);
+  transform: scale(1.05);
+}
+
+.p-ambassador-mute-toggle .p-mute-icon-unmuted {
+  display: none;
+}
+
+.p-ambassador-box.video-unmuted .p-ambassador-mute-toggle .p-mute-icon-muted {
+  display: none;
+}
+
+.p-ambassador-box.video-unmuted .p-ambassador-mute-toggle .p-mute-icon-unmuted {
+  display: block;
+}
+
+.p-ambassador-badge {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  z-index: 2;
+}
+
+.p-ambassador-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* Right Card - Testimonials Header with Slide Arrows */
+.p-testimonials-top-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.p-testimonials-headline {
+  font-family: var(--font-heading--family, serif);
+  font-size: 26px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.18;
+  margin: 0;
+  letter-spacing: -0.4px;
+}
+
+.p-carousel-arrows {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.p-arrow-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.p-arrow-btn:hover {
+  background: #047857;
+  border-color: #047857;
+  color: #ffffff;
+  transform: scale(1.06);
+}
+
+.p-testimonials-carousel {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: 6px;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  cursor: grab;
+}
+
+.p-testimonials-carousel:active {
+  cursor: grabbing;
+}
+
+.p-testimonials-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* Story Mini Card - Scaled to 170px so 2.5 cards show & it naturally slides */
+.p-story-mini-card {
+  flex: 0 0 170px;
+  width: 170px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #edf2f7;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.p-story-mini-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.p-story-photo-wrap {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  background: #f8fafc;
+}
+
+.p-story-photo-wrap img,
+.p-story-photo-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.p-story-content-wrap {
+  background: #ffffff;
+  padding: 12px 12px 16px;
+  flex-grow: 1;
+  display: flex;
+  align-items: flex-start;
+  min-height: 85px;
+  box-sizing: border-box;
+}
+
+.p-story-text {
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: #374151;
+  margin: 0;
+}
+
+.p-story-name {
+  color: #111827;
+  font-weight: 800;
+  display: inline;
+  margin-right: 4px;
+}
+
+/* Responsive Breakdown */
+@media screen and (max-width: 1024px) {
+  .p-rev-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .p-rev-main-card {
+    min-height: auto;
+    padding: 24px 20px;
+  }
+
+  .p-mission-inner {
+    grid-template-columns: 1fr 140px;
+    gap: 16px;
+  }
+
+  .p-ambassador-box {
+    min-height: 180px;
+    max-height: 190px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .p-rev-container {
+    padding: 0 12px;
+  }
+
+  .p-rev-main-card {
+    padding: 18px 16px 20px;
+    border-radius: 16px;
+  }
+
+  .p-mission-inner {
+    grid-template-columns: 1fr 115px;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .p-mission-headline,
+  .p-testimonials-headline {
+    font-size: 19px;
+  }
+
+  .p-testimonials-top-row {
+    margin-bottom: 14px;
+  }
+
+  .p-ambassador-box {
+    width: 115px;
+    height: 155px;
+    min-height: auto;
+    max-height: 160px;
+    border-radius: 12px;
+  }
+
+  .p-point-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .p-point-label {
+    font-size: 13px;
+  }
+
+  .p-story-mini-card {
+    flex: 0 0 135px;
+    width: 135px;
+  }
+
+  .p-story-photo-wrap {
+    height: 135px;
+  }
+
+  .p-story-content-wrap {
+    padding: 8px 8px 12px;
+    min-height: 75px;
+  }
+
+  .p-story-text {
+    font-size: 11.5px;
+  }
+
+  .p-arrow-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .p-ambassador-mute-toggle {
+    bottom: 6px;
+    right: 6px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .p-ambassador-mute-toggle svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+</style>
+
+<script>
+(function() {
+  window.toggleAmbassadorAudio = function(toggleElement, event) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    var wrapper = toggleElement.closest('.p-ambassador-box');
+    if (!wrapper) return;
+    var video = wrapper.querySelector('video');
+    if (!video) return;
+
+    var isMuted = video.muted;
+    video.muted = !isMuted;
+    
+    if (!video.muted) {
+      wrapper.classList.add('video-unmuted');
+      var playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(function() {});
+      }
+    } else {
+      wrapper.classList.remove('video-unmuted');
+    }
+  };
+
+  function initReviewsSlider() {
+    var prevBtn = document.getElementById('prev-btn-{{ section.id }}');
+    var nextBtn = document.getElementById('next-btn-{{ section.id }}');
+    var track = document.getElementById('carousel-track-{{ section.id }}');
+
+    if (track) {
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+          track.scrollBy({ left: -220, behavior: 'smooth' });
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+          track.scrollBy({ left: 220, behavior: 'smooth' });
+        });
+      }
+
+      // Mouse Drag to Scroll support
+      var isDown = false;
+      var startX;
+      var scrollLeft;
+
+      track.addEventListener('mousedown', function(e) {
+        isDown = true;
+        startX = e.pageX - track.offsetLeft;
+        scrollLeft = track.scrollLeft;
+      });
+
+      track.addEventListener('mouseleave', function() {
+        isDown = false;
+      });
+
+      track.addEventListener('mouseup', function() {
+        isDown = false;
+      });
+
+      track.addEventListener('mousemove', function(e) {
+        if (!isDown) return;
+        e.preventDefault();
+        var x = e.pageX - track.offsetLeft;
+        var walk = (x - startX) * 1.5;
+        track.scrollLeft = scrollLeft - walk;
+      });
+    }
+
+    // Video observer for autoplay & mobile responsiveness
+    var sectionVideos = document.querySelectorAll('.p-ambassador-box video, .p-story-mini-card video');
+    if (sectionVideos.length > 0) {
+      if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            var vid = entry.target;
+            if (entry.isIntersecting) {
+              vid.muted = true;
+              var playPromise = vid.play();
+              if (playPromise !== undefined) {
+                playPromise.catch(function() {});
+              }
+            } else {
+              vid.pause();
+            }
+          });
+        }, { threshold: 0.15 });
+
+        sectionVideos.forEach(function(vid) {
+          vid.muted = true;
+          vid.setAttribute('playsinline', '');
+          vid.setAttribute('webkit-playsinline', '');
+          vid.setAttribute('x5-playsinline', '');
+          observer.observe(vid);
+        });
+      } else {
+        sectionVideos.forEach(function(vid) {
+          vid.muted = true;
+          vid.play().catch(function() {});
+        });
+      }
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initReviewsSlider);
+  } else {
+    initReviewsSlider();
+  }
+})();
+</script>

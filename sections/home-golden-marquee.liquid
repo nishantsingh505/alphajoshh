@@ -1,0 +1,165 @@
+<section class="home-golden-marquee" style="background: {{ section.settings.bg_color }}; color: {{ section.settings.text_color }};">
+  <div class="golden-marquee-track">
+    <div class="golden-marquee-content">
+      {% for i in (1..4) %}
+        {% for block in section.blocks %}
+          <div class="golden-marquee-item" {{ block.shopify_attributes }}>
+            <span class="golden-item-icon">{{ block.settings.icon | default: '✦' }}</span>
+            <span class="golden-item-text">{{ block.settings.text }}</span>
+            <span class="golden-item-sep">•</span>
+          </div>
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+.home-golden-marquee {
+  width: 100%;
+  overflow: hidden;
+  padding: 14px 0;
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.golden-marquee-track {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+}
+
+.golden-marquee-content {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 20px;
+  animation: goldScroll {{ section.settings.speed }}s linear infinite;
+}
+
+.golden-marquee-content:hover {
+  animation-play-state: paused;
+}
+
+.golden-marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.golden-item-icon {
+  font-size: 1rem;
+}
+
+.golden-item-sep {
+  opacity: 0.6;
+  margin-left: 8px;
+}
+
+@keyframes goldScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-25%); }
+}
+
+@media (max-width: 768px) {
+  .home-golden-marquee {
+    padding: 10px 0;
+    font-size: 0.8rem;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Home Golden Marquee",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#c5a059"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "s",
+      "label": "Scroll Speed",
+      "default": 25
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text_item",
+      "name": "Marquee Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon / Symbol",
+          "default": "✦"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "100% NATURAL AYURVEDA"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home Golden Marquee",
+      "blocks": [
+        {
+          "type": "text_item",
+          "settings": {
+            "icon": "✦",
+            "text": "100% NATURAL AYURVEDA"
+          }
+        },
+        {
+          "type": "text_item",
+          "settings": {
+            "icon": "🔬",
+            "text": "CLINICALLY TESTED EXTRACTS"
+          }
+        },
+        {
+          "type": "text_item",
+          "settings": {
+            "icon": "🛡️",
+            "text": "ZERO SIDE EFFECTS"
+          }
+        },
+        {
+          "type": "text_item",
+          "settings": {
+            "icon": "🔒",
+            "text": "100% DISCREET PACKAGING"
+          }
+        },
+        {
+          "type": "text_item",
+          "settings": {
+            "icon": "👨‍⚕️",
+            "text": "DOCTOR RECOMMENDED"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

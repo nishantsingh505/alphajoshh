@@ -1,0 +1,329 @@
+<section class="smart-savings">
+  <div class="page-width">
+
+    <div class="ss-header">
+      <h2 class="alpha-heading">{{ section.settings.heading }}</h2>
+    </div>
+
+    <div class="ss-wrapper">
+
+      <!-- Buy Separately -->
+      <div class="ss-card ss-left">
+        <h3>{{ section.settings.left_title }}</h3>
+
+        <ul class="ss-list">
+          <li>✖ {{ section.settings.item_one }}</li>
+          <li>✖ {{ section.settings.item_two }}</li>
+        </ul>
+
+        <div class="ss-divider"></div>
+
+        <div class="ss-price old-price">
+          {{ section.settings.left_total }}
+        </div>
+      </div>
+
+
+      <!-- Buy Combo -->
+      <div class="ss-card ss-right">
+
+        <div class="best-badge">
+          {{ section.settings.badge_text }}
+        </div>
+
+        <h3>{{ section.settings.right_title }}</h3>
+
+        <ul class="ss-list">
+          <li>✔ {{ section.settings.combo_item_one }}</li>
+          <li>✔ {{ section.settings.combo_item_two }}</li>
+        </ul>
+
+        <div class="ss-divider"></div>
+
+        <div class="ss-price new-price">
+          {{ section.settings.combo_price }}
+          <span class="save-text">
+            {{ section.settings.save_text }}
+          </span>
+        </div>
+        
+      <div class="ss-btn">
+        <button
+                    id="ProductSubmitButton-{{ section.id }}-{{ product.id }}"
+                    type="submit"
+                    name="add"
+                    class="reels-atc-btn reels-fallback-btn"
+                    {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
+                  >
+                    {%- if product.selected_or_first_available_variant.available -%}
+                      BUY NOW
+                    {%- else -%}
+                      SOLD OUT
+                    {%- endif -%}
+                    {% comment %} BUY NOW {% endcomment %}
+                  </button>
+        {% comment %} <div class="shiprocket-custom-button">
+            <product-form-component class="product-form" data-hide-errors="false" data-section-id="{{ section.id }}">
+              {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+                <input
+                  type="hidden"
+                  name="id"
+                  value="{{ product.selected_or_first_available_variant.id }}"
+                  class="product-variant-id"
+                >
+                <input type="hidden" name="quantity" value="{{ block.settings.qty }}">
+                <div class="reels-cta">{{ section.settings.button_text }}
+                  {% comment %} Primary Fastrr checkout button {% endcomment %}
+                  {% comment %} {% render 'shiprocket-buy-now', 
+                    product: product, 
+                    class: 'reels-shiprocket'
+                  %} {% endcomment %}
+
+
+                  {% comment %} Fallback Buy Now for regions where Shiprocket is hidden {% endcomment %}
+                  <button
+                    id="ProductSubmitButton-{{ section.id }}-{{ product.id }}"
+                    type="submit"
+                    name="add"
+                    class="reels-atc-btn reels-fallback-btn visually-hidden"
+                    {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
+                  >
+                    {%- if product.selected_or_first_available_variant.available -%}
+                      BUY NOW
+                    {%- else -%}
+                      SOLD OUT
+                    {%- endif -%}
+                    {% comment %} BUY NOW {% endcomment %}
+                  </button>
+                </div>
+              {%- endform -%}
+            </product-form-component>
+          </div> {% endcomment %}
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.smart-savings {
+  padding: 80px 20px;
+  color: #fff;
+  text-align: center;
+}
+
+.ss-header h2 {
+  font-size: 42px;
+  font-weight: 600;
+  margin-bottom: 60px;
+}
+
+.ss-header span {
+  color: #d4af37;
+}
+
+.ss-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.ss-card {
+  position: relative;
+  background: #f8f9fa;
+color: #000000;
+  border: 1px solid rgba(212,175,55,0.3);
+  border-radius: 20px;
+  padding: 40px 35px;
+  width: 350px;
+  text-align: left;
+  transition: 0.3s ease;
+}
+
+.ss-card h3 {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.ss-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+}
+
+.ss-list li {
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+
+.ss-divider {
+  height: 1px;
+  background: rgba(212,175,55,0.3);
+  margin: 20px 0;
+}
+
+.ss-price {
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.old-price {
+  color: #777;
+}
+
+.new-price {
+  color: #d4af37;
+}
+
+.save-text {
+  font-size: 14px;
+  margin-left: 10px;
+  color: #d4af37;
+}
+
+.best-badge {
+  position: absolute;
+  top: -15px;
+  right: 20px;
+  background: #d4af37;
+  color: #000;
+  font-size: 12px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.ss-btn {
+  display: block;
+  margin-top: 25px;
+  text-align: center;
+  background: linear-gradient(90deg, #b8891c, #e5c46b);
+  color: #000;
+  padding: 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s ease;
+  position:relative;
+}
+.shiprocket-custom-button .sr-headless-checkout {
+    border-radius: 8px !important;
+    bottom: 0px;
+    right: 0px;
+    width: 100% !important;
+    max-width: 100%;
+    min-height: 100% !important;
+}
+.reels-cta {
+    gap: 0px !important;
+}
+.ss-btn:hover {
+  opacity: 0.9;
+}
+
+.ss-right {
+  box-shadow: 0 0 40px rgba(212,175,55,0.15);
+}
+
+@media (max-width: 768px) {
+  .ss-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Alphajoshh Smart Savings",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Smart Savings"
+    },
+
+    {
+      "type": "text",
+      "id": "left_title",
+      "label": "Left Title",
+      "default": "Buy Separately"
+    },
+    {
+      "type": "text",
+      "id": "item_one",
+      "label": "Item 1",
+      "default": "Capsule — ₹1,499"
+    },
+    {
+      "type": "text",
+      "id": "item_two",
+      "label": "Item 2",
+      "default": "Oil — ₹1,450"
+    },
+    {
+      "type": "text",
+      "id": "left_total",
+      "label": "Separate Total",
+      "default": "₹2,949"
+    },
+
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "BEST VALUE"
+    },
+    {
+      "type": "text",
+      "id": "right_title",
+      "label": "Right Title",
+      "default": "Buy Combo"
+    },
+    {
+      "type": "text",
+      "id": "combo_item_one",
+      "label": "Combo Item 1",
+      "default": "Capsule + Oil together"
+    },
+    {
+      "type": "text",
+      "id": "combo_item_two",
+      "label": "Combo Item 2",
+      "default": "Free shipping included"
+    },
+    {
+      "type": "text",
+      "id": "combo_price",
+      "label": "Combo Price",
+      "default": "₹2,299"
+    },
+    {
+      "type": "text",
+      "id": "save_text",
+      "label": "Save Text",
+      "default": "Save ₹650"
+    },
+    {
+      "type": "product",
+      "id": "combo_product",
+      "label": "Select Combo Product"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Get Complete Routine"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Alphajoshh Smart Savings"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,645 @@
+{%- doc -%}
+  Renders the ZeroHarm-inspired clean modern mobile menu drawer.
+
+  @param {object} linklist - The linklist to render
+  @param {string} [class] - Additional classes to add to the drawer
+  @param {string} [data_header_drawer_type] - The type of header drawer to render
+  @param {object} [block] - The block that can be used to provide settings
+  @param {object} [section] - The section that can be used to provide settings
+{%- enddoc -%}
+
+<script
+  src="{{ 'header-drawer.js' | asset_url }}"
+  type="module"
+  fetchpriority="low"
+></script>
+
+<header-drawer
+  class="header-drawer {{ class }}"
+>
+  <details
+    id="Details-menu-drawer-container"
+    data-skip-node-update="true"
+    class="menu-drawer-container"
+    ref="details"
+    scroll-lock
+  >
+    <summary
+      class="header__icon header__icon--menu header__icon--summary"
+      aria-label="{{ 'accessibility.menu' | t }}"
+      on:click="/toggle"
+    >
+      <span class="svg-wrapper header-drawer-icon header-drawer-icon--open">
+        {{- 'icon-menu.svg' | inline_asset_content -}}
+      </span>
+      <span class="svg-wrapper header-drawer-icon header-drawer-icon--close">
+        {{- 'icon-close.svg' | inline_asset_content -}}
+      </span>
+    </summary>
+
+    <div
+      data-header-drawer
+      class="menu-drawer motion-reduce"
+    >
+      <!-- Clean Top Header Bar (Close | Logo | Search | Cart) -->
+      <div class="menu-drawer__header-bar">
+        <button
+          class="button button-unstyled menu-drawer__close-btn"
+          type="button"
+          aria-label="{{ 'actions.close' | t }}"
+          on:click="header-drawer/close"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1e293b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+
+        <div class="menu-drawer__brand-center">
+          <a href="{{ routes.root_url }}" class="menu-drawer__brand-link" on:click="header-drawer/close">
+            {% if settings.logo != blank %}
+              <img
+                src="{{ settings.logo | image_url: width: 240 }}"
+                alt="{{ shop.name }}"
+                class="menu-drawer__logo-img"
+                width="130"
+                height="auto"
+                loading="eager"
+              />
+            {% else %}
+              <div class="menu-drawer__logo-text">
+                <span class="logo-symbol">🌿</span>
+                <span class="logo-name">ALPHA JOSH</span>
+              </div>
+            {% endif %}
+          </a>
+        </div>
+
+        <div class="menu-drawer__header-actions">
+          <a href="{{ routes.search_url }}" class="menu-drawer__icon-btn" aria-label="Search" on:click="header-drawer/close">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1e293b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </a>
+          <a href="{{ routes.cart_url }}" class="menu-drawer__icon-btn" aria-label="Cart" on:click="header-drawer/close">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1e293b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+            {% if cart.item_count > 0 %}
+              <span class="menu-drawer__cart-count">{{ cart.item_count }}</span>
+            {% endif %}
+          </a>
+        </div>
+      </div>
+
+      <!-- Main Scrollable Content -->
+      <div class="menu-drawer__body-scroll">
+        <nav class="menu-drawer__nav-content">
+          {% liquid
+            assign has_shop_link = false
+            for link in linklist.links
+              assign down_title = link.title | downcase
+              if down_title contains 'shop' or down_title contains 'catalog' or down_title contains 'product'
+                assign has_shop_link = true
+                break
+              endif
+            endfor
+          %}
+
+          {% for link in linklist.links %}
+            {% assign link_title_lower = link.title | downcase %}
+            
+            {% if link.links != blank %}
+              <!-- Section with Child Links (e.g. Shop / Categories) -->
+              <div class="menu-drawer__section">
+                <div class="menu-drawer__section-title">{{ link.title }}</div>
+                <div class="menu-drawer__sublinks-list">
+                  {% for childlink in link.links %}
+                    <a href="{{ childlink.url }}" class="menu-drawer__nav-row" on:click="header-drawer/close">
+                      <span class="nav-row__label">{{ childlink.title }}</span>
+                      <span class="nav-row__arrow">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#334155" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <line x1="5" y1="12" x2="19" y2="12"></line>
+                          <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                      </span>
+                    </a>
+                  {% endfor %}
+                </div>
+              </div>
+              <div class="menu-drawer__divider"></div>
+
+            {% elsif link_title_lower contains 'shop' or link_title_lower contains 'catalog' %}
+              <!-- Fallback Structured Shop Section if menu has a single flat Catalog link -->
+              <div class="menu-drawer__section">
+                <div class="menu-drawer__section-title">Shop</div>
+                <div class="menu-drawer__sublinks-list">
+                  <a href="/collections/all" class="menu-drawer__nav-row" on:click="header-drawer/close">
+                    <span class="nav-row__label">Pure Shilajit Resin</span>
+                    <span class="nav-row__arrow">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#334155" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </span>
+                  </a>
+                  <a href="/collections/all" class="menu-drawer__nav-row" on:click="header-drawer/close">
+                    <span class="nav-row__label">Shilajit Gold Capsules</span>
+                    <span class="nav-row__arrow">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#334155" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </span>
+                  </a>
+                  <a href="/collections/all" class="menu-drawer__nav-row" on:click="header-drawer/close">
+                    <span class="nav-row__label">Herbal Vitality Oil</span>
+                    <span class="nav-row__arrow">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#334155" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </span>
+                  </a>
+                  <a href="/collections/all" class="menu-drawer__nav-row" on:click="header-drawer/close">
+                    <span class="nav-row__label">Combos &amp; Value Packs</span>
+                    <span class="nav-row__arrow">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#334155" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </span>
+                  </a>
+                </div>
+              </div>
+              <div class="menu-drawer__divider"></div>
+
+            {% else %}
+              <!-- Standalone Simple Link (e.g. Ingredients, About, Home) -->
+              <div class="menu-drawer__section menu-drawer__section--flat">
+                <a href="{{ link.url }}" class="menu-drawer__standalone-link" on:click="header-drawer/close">
+                  {{ link.title }}
+                </a>
+              </div>
+              <div class="menu-drawer__divider"></div>
+            {% endif %}
+          {% endfor %}
+
+          <!-- Resources Section -->
+          <div class="menu-drawer__section">
+            <div class="menu-drawer__section-title">Resources</div>
+            <div class="menu-drawer__sublinks-list">
+              <a href="/blogs/news" class="menu-drawer__nav-row" on:click="header-drawer/close">
+                <span class="nav-row__label">Blogs</span>
+              </a>
+              <a href="#" class="menu-drawer__nav-row" onclick="event.preventDefault(); const d = document.querySelector('#Details-menu-drawer-container'); if(d) { d.classList.remove('menu-open'); d.removeAttribute('open'); } if(typeof openWellnessModal === 'function') { openWellnessModal(); }">
+                <span class="nav-row__label">Wellness Advisor Quiz</span>
+              </a>
+            </div>
+          </div>
+          <div class="menu-drawer__divider"></div>
+
+          <!-- New Arrivals / Special Action -->
+          <div class="menu-drawer__section">
+            <a href="/collections/all" class="menu-drawer__standalone-link" on:click="header-drawer/close">
+              New Arrivals
+            </a>
+          </div>
+
+          <!-- Track Order Button -->
+          <div class="menu-drawer__action-wrap">
+            <a href="https://www.alphajoshh.com/apps/17TRACK" class="menu-drawer__track-order-btn" on:click="header-drawer/close">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1e293b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="3" width="15" height="13"></rect>
+                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                <circle cx="18.5" cy="18.5" r="2.5"></circle>
+              </svg>
+              <span>Track your order</span>
+            </a>
+          </div>
+        </nav>
+      </div>
+
+      <!-- Floating Doctor Consultation Avatar Widget (Bottom Right) -->
+      <div
+        class="menu-drawer__doctor-float"
+        onclick="const d = document.querySelector('#Details-menu-drawer-container'); if(d) { d.classList.remove('menu-open'); d.removeAttribute('open'); } if(typeof openWellnessModal === 'function') { openWellnessModal(); }"
+        title="Consult Wellness Advisor"
+      >
+        <div class="doctor-float__avatar-wrap">
+          <img
+            src="{{ 'doctor-portrait.jpg' | asset_url }}"
+            alt="Doctor Consultation"
+            class="doctor-float__img"
+            width="58"
+            height="58"
+            loading="eager"
+          />
+          <span class="doctor-float__badge">1</span>
+          <span class="doctor-float__online-dot"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Backdrop -->
+    <div
+      class="menu-drawer__backdrop"
+      on:click="header-drawer/close"
+    ></div>
+  </details>
+</header-drawer>
+
+{% stylesheet %}
+  .header__icon--menu {
+    position: initial;
+  }
+
+  @media screen and (min-width: 750px) {
+    .header--desktop header-menu + .header__drawer header-drawer {
+      display: none;
+    }
+  }
+
+  .menu-drawer-container .header__icon--summary {
+    color: var(--color-foreground);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--padding-lg);
+  }
+
+  .header__icon--summary .header-drawer-icon {
+    margin: auto;
+    width: var(--icon-size-xs);
+    height: var(--icon-size-xs);
+  }
+
+  .header__drawer {
+    display: flex;
+    min-height: 60px;
+    align-items: center;
+
+    @media screen and (min-width: 750px) {
+      min-height: 0;
+    }
+  }
+
+  .header--compact .header__drawer {
+    min-height: var(--minimum-touch-target);
+  }
+
+  details:not([open]) .header__icon--menu .header-drawer-icon--close {
+    display: none;
+  }
+
+  details[open] .header__icon--menu .header-drawer-icon--close {
+    @media screen and (min-width: 750px) {
+      display: none;
+    }
+  }
+
+  details[open] .header__icon--menu .header-drawer-icon--open {
+    display: none;
+
+    @media screen and (min-width: 750px) {
+      display: flex;
+    }
+  }
+
+  /* -------------------------------------------------------------
+     ZEROHARM CLEAN STYLE MOBILE DRAWER & FIXED Z-INDEX SYSTEM
+     ------------------------------------------------------------- */
+
+  .menu-drawer {
+    position: fixed;
+    transform: translateX(-100%);
+    visibility: hidden;
+    height: 100dvh;
+    max-height: 100dvh;
+    width: min(88vw, 360px);
+    max-width: 400px;
+    z-index: 99999 !important;
+    left: 0;
+    top: 0;
+    padding: 0;
+    background: #ffffff;
+    color: #1e293b;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 10px 0 35px rgba(0, 0, 0, 0.25);
+    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.32s ease;
+    will-change: transform;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  .menu-open > .menu-drawer {
+    transform: translateX(0);
+    visibility: visible;
+    opacity: 1;
+  }
+
+  /* Backdrop with high z-index and smooth dark tint */
+  .menu-drawer__backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100dvh;
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 99990 !important;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .menu-open .menu-drawer__backdrop,
+  details[open].menu-open > .menu-drawer__backdrop {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  /* Header Bar (Close | Logo | Search | Cart) */
+  .menu-drawer__header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    background: #ffffff;
+    border-bottom: 1px solid #f1f5f9;
+    flex-shrink: 0;
+    height: 60px;
+  }
+
+  .menu-drawer__close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: #1e293b;
+    transition: opacity 0.2s ease;
+  }
+
+  .menu-drawer__close-btn:hover {
+    opacity: 0.7;
+  }
+
+  .menu-drawer__brand-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    text-align: center;
+    padding: 0 10px;
+  }
+
+  .menu-drawer__brand-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+  }
+
+  .menu-drawer__logo-img {
+    max-height: 32px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .menu-drawer__logo-text {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #0f172a;
+    text-transform: uppercase;
+  }
+
+  .menu-drawer__header-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .menu-drawer__icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1e293b;
+    text-decoration: none;
+    position: relative;
+    padding: 4px;
+    transition: opacity 0.2s ease;
+  }
+
+  .menu-drawer__icon-btn:hover {
+    opacity: 0.7;
+  }
+
+  .menu-drawer__cart-count {
+    position: absolute;
+    top: 0px;
+    right: -2px;
+    background: #ef4444;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 700;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  /* Body Scroll Container */
+  .menu-drawer__body-scroll {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding: 22px 24px 80px 24px;
+  }
+
+  .menu-drawer__nav-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Sections */
+  .menu-drawer__section {
+    padding: 6px 0;
+  }
+
+  .menu-drawer__section--flat {
+    padding: 10px 0;
+  }
+
+  .menu-drawer__section-title {
+    font-size: 1.12rem;
+    font-weight: 700;
+    color: #0f172a;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+  }
+
+  .menu-drawer__standalone-link {
+    font-size: 1.12rem;
+    font-weight: 700;
+    color: #0f172a;
+    text-decoration: none;
+    display: block;
+    letter-spacing: -0.01em;
+    transition: color 0.15s ease;
+  }
+
+  .menu-drawer__standalone-link:hover {
+    color: #0284c7;
+  }
+
+  .menu-drawer__sublinks-list {
+    display: flex;
+    flex-direction: column;
+    padding-left: 14px;
+    gap: 4px;
+  }
+
+  .menu-drawer__nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    text-decoration: none;
+    color: #334155;
+    font-size: 0.96rem;
+    font-weight: 500;
+    transition: all 0.15s ease;
+  }
+
+  .menu-drawer__nav-row:hover {
+    color: #0f172a;
+  }
+
+  .nav-row__label {
+    flex: 1;
+  }
+
+  .nav-row__arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #334155;
+    transition: transform 0.15s ease;
+  }
+
+  .menu-drawer__nav-row:hover .nav-row__arrow {
+    transform: translateX(3px);
+  }
+
+  /* Divider Lines */
+  .menu-drawer__divider {
+    height: 1px;
+    background: #f1f5f9;
+    margin: 14px 0;
+    width: 100%;
+  }
+
+  /* Track Your Order Button */
+  .menu-drawer__action-wrap {
+    margin-top: 18px;
+  }
+
+  .menu-drawer__track-order-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    border: 1.5px solid #1e293b;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #1e293b;
+    font-size: 0.92rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .menu-drawer__track-order-btn:hover {
+    background: #f8fafc;
+    border-color: #0f172a;
+    transform: translateY(-1px);
+  }
+
+  /* Floating Doctor Consultation Avatar Widget */
+  .menu-drawer__doctor-float {
+    position: absolute;
+    bottom: 24px;
+    right: 20px;
+    z-index: 20;
+    cursor: pointer;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .menu-drawer__doctor-float:hover {
+    transform: scale(1.08);
+  }
+
+  .doctor-float__avatar-wrap {
+    position: relative;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.16), 0 0 0 2.5px #ffffff;
+    background: #ffffff;
+  }
+
+  .doctor-float__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+  }
+
+  .doctor-float__badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background: #ef4444;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 6px rgba(239, 68, 68, 0.4);
+    animation: doctorBadgePulse 2s infinite;
+  }
+
+  .doctor-float__online-dot {
+    position: absolute;
+    bottom: 2px;
+    right: 1px;
+    background: #10b981;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    border: 2.5px solid #ffffff;
+    box-shadow: 0 1px 4px rgba(16, 185, 129, 0.5);
+  }
+
+  @keyframes doctorBadgePulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.12);
+    }
+  }
+{% endstylesheet %}

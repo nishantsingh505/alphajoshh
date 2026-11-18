@@ -1,0 +1,170 @@
+<section class="home-trust-badges page-width" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="trust-badges-row">
+    {% for block in section.blocks %}
+      <div class="trust-badge-col" {{ block.shopify_attributes }}>
+        <div class="badge-icon-box">
+          {% if block.settings.icon_image != blank %}
+            <img src="{{ block.settings.icon_image | img_url: '80x80' }}" alt="{{ block.settings.title | escape }}" loading="lazy">
+          {% else %}
+            <span class="badge-emoji">{{ block.settings.icon_emoji | default: '🛡️' }}</span>
+          {% endif %}
+        </div>
+        <span class="badge-title">{{ block.settings.title }}</span>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<style>
+.home-trust-badges {
+  border-top: 1px solid #eaeaea;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.trust-badges-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  align-items: center;
+}
+
+.trust-badge-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.badge-icon-box {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #f8f8f8;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.trust-badge-col:hover .badge-icon-box {
+  transform: translateY(-3px);
+  border-color: #d4af37;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
+}
+
+.badge-icon-box img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.badge-emoji {
+  font-size: 1.4rem;
+}
+
+.badge-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #222222;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 768px) {
+  .trust-badges-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Home Trust Badges",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 15,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 35
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 15,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 35
+    }
+  ],
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Trust Badge",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon Image"
+        },
+        {
+          "type": "text",
+          "id": "icon_emoji",
+          "label": "Or Icon Emoji",
+          "default": "🛡️"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Badge Title",
+          "default": "GMP Certified"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home Trust Badges",
+      "blocks": [
+        {
+          "type": "badge",
+          "settings": {
+            "icon_emoji": "🏆",
+            "title": "GMP Certified"
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "icon_emoji": "🇮🇳",
+            "title": "Made In India"
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "icon_emoji": "🔬",
+            "title": "Lab Tested Purity"
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "icon_emoji": "🚚",
+            "title": "Free & Fast Shipping"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

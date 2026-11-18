@@ -1,0 +1,213 @@
+<section class="alpha-comparison">
+  <div class="alpha-container">
+
+    {% if section.settings.badge != blank %}
+      <span class="alpha-badge">{{ section.settings.badge }}</span>
+    {% endif %}
+
+    <h2 class="alpha-heading">
+      {{ section.settings.heading }}
+      <span>{{ section.settings.highlight }}</span>
+    </h2>
+
+    <p class="alpha-subheading">
+      {{ section.settings.subheading }}
+    </p>
+
+    <div class="comparison-table">
+      <div class="comparison-row comparison-head">
+        <div>Feature</div>
+        <div class="highlight-col">{{ section.settings.brand_name }}</div>
+        <div>Others</div>
+      </div>
+
+      {% for block in section.blocks %}
+        <div class="comparison-row">
+          <div class="feature">{{ block.settings.feature }}</div>
+
+          <div class="icon yes">
+            {% if block.settings.brand_check %}
+              ✔
+            {% else %}
+              ✖
+            {% endif %}
+          </div>
+
+          <div class="icon no">
+            {% if block.settings.other_check %}
+              ✔
+            {% else %}
+              ✖
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+<style>
+.alpha-comparison {
+    background: #f8f9fa;
+  padding: 80px 20px;
+  color: #fff;
+  font-family: system-ui, sans-serif;
+}
+
+.alpha-container {
+  max-width: 1100px;
+  margin: auto;
+  text-align: center;
+}
+
+.alpha-badge {
+  display: inline-block;
+    padding: 6px 16px;
+    border-radius: 20px;
+    background: rgba(255, 200, 80, 0.15);
+    color: #000000;
+    font-size: 14px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    border: 1px solid #7cb342;
+}
+
+.alpha-heading {
+  font-size: 42px;
+  margin: 15px 0 10px;
+  color:#000000;
+}
+
+.alpha-heading span {
+  color: #d4a017;
+}
+
+.alpha-subheading {
+  color: #ccc;
+  margin-bottom: 40px;
+}
+
+.comparison-table {
+  background: rgba(43,51,32);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.comparison-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  padding: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  align-items: center;
+}
+
+.comparison-head {
+  font-weight: 700;
+  background: rgba(255,255,255,0.08);
+}
+
+.highlight-col {
+  color: #d4a017;
+}
+
+.feature {
+  text-align: left;
+}
+
+.icon {
+  font-size: 20px;
+}
+
+.icon.yes {
+  color: #d4a017;
+}
+
+.icon.no {
+  color: #c0392b;
+}
+
+@media(max-width: 768px){
+  .alpha-heading {
+    font-size: 30px;
+  }
+  .comparison-row {
+    font-size: 14px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Alpha Comparison Table",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Top Badge Text",
+      "default": "Comparison"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Why Choose"
+    },
+    {
+      "type": "text",
+      "id": "highlight",
+      "label": "Highlighted Brand Name",
+      "default": "Alpha Joshh?"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Sub Heading",
+      "default": "See how we compare to other supplements in the market"
+    },
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Brand Column Name",
+      "default": "Alpha Joshh"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "feature",
+          "label": "Feature Name",
+          "default": "100% Natural Ingredients"
+        },
+        {
+          "type": "checkbox",
+          "id": "brand_check",
+          "label": "Brand Has This?",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "other_check",
+          "label": "Others Have This?",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Alpha – Comparison Table",
+      "blocks": [
+        { "type": "feature" },
+        { "type": "feature" },
+        { "type": "feature" },
+        { "type": "feature" }
+      ]
+    }
+  ]
+}
+{% endschema %}

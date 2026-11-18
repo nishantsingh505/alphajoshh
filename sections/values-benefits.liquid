@@ -1,0 +1,498 @@
+{% schema %}
+{
+  "name": "Values and Benefits",
+  "class": "section-values-benefits",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Why Choose Us?"
+    },
+    {
+      "type": "image_picker",
+      "id": "section_image",
+      "label": "Section Image (Side-by-Side)",
+      "info": "Upload an image to display it to the right of the text (List layout only)."
+    },
+    {
+      "type": "select",
+      "id": "layout_style",
+      "label": "Layout Style",
+      "options": [
+        {
+          "value": "grid",
+          "label": "Grid / Cards"
+        },
+        {
+          "value": "list",
+          "label": "Bullet List"
+        }
+      ],
+      "default": "list"
+    },
+    {
+      "type": "header",
+      "content": "Section Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "header",
+      "content": "Card Styling (Grid Only)"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "min": 0,
+      "max": 24,
+      "step": 4,
+      "unit": "px",
+      "label": "Card Border Radius",
+      "default": 12
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_shadow",
+      "label": "Enable Drop Shadow",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 36
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "label": "Mobile Layout (Grid Only)",
+      "options": [
+        {
+          "value": "stack",
+          "label": "Stack (Vertical)"
+        },
+        {
+          "value": "slider",
+          "label": "Horizontal Slider"
+        }
+      ],
+      "default": "stack"
+    },
+    {
+      "type": "header",
+      "content": "Footer"
+    },
+    {
+      "type": "richtext",
+      "id": "footer_text",
+      "label": "Footer Text",
+      "default": "<p>Ideal For: ...</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "custom_benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon/Image (Grid Only)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Benefit Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Short description of the benefit."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Values and Benefits",
+      "blocks": [
+        {
+          "type": "custom_benefit"
+        },
+        {
+          "type": "custom_benefit"
+        },
+        {
+          "type": "custom_benefit"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% style %}
+  .values-benefits-section {
+    background-color: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .values-benefits-header {
+      text-align: center;
+      margin-bottom: 40px;
+  }
+  
+  .values-benefits-heading {
+      font-family: var(--font-heading-family);
+      font-size: 2.2rem;
+      margin: 0;
+      color: {{ section.settings.text_color }};
+      line-height: 1.2;
+  }
+
+  /* Grid Layout Styles */
+  .values-benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+
+  .benefit-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 24px;
+    background-color: {{ section.settings.card_bg_color }};
+    border-radius: {{ section.settings.card_border_radius }}px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    
+    {% if section.settings.enable_shadow %}
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    {% endif %}
+  }
+
+  .benefit-card:hover {
+    transform: translateY(-5px);
+    {% if section.settings.enable_shadow %}
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    {% endif %}
+  }
+
+  .benefit-icon-wrapper {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .benefit-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  /* List Layout Styles */
+  .values-benefits-list-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+  }
+
+  .values-benefits-list {
+      list-style-type: disc;
+      padding-left: 20px;
+      margin: 0;
+      text-align: left;
+  }
+
+  .benefit-list-item {
+      margin-bottom: 24px;
+      color: {{ section.settings.text_color }};
+      font-size: 1.1rem;
+      line-height: 1.5;
+  }
+
+  .benefit-list-item::marker {
+      font-size: 1.2em; /* Slightly larger bullet */
+      color: {{ section.settings.text_color }};
+  }
+
+  .benefit-list-title {
+      font-weight: 700;
+      font-family: var(--font-heading-family);
+      display: inline; /* Title inline with bullet */
+  }
+  
+  .benefit-list-description {
+      display: block; /* Force new line */
+      margin-top: 4px;
+      opacity: 0.9;
+  }
+
+  /* Footer */
+  .values-benefits-footer {
+    text-align: center;
+    margin: 40px auto 0;
+    max-width: 800px;
+    padding: 20px;
+    border-radius: 12px;
+    font-size: 1.15rem;
+  }
+
+  .values-benefits-footer {
+     background-color: transparent; 
+  }
+
+  {% if section.settings.layout_style == 'grid' %}
+      .values-benefits-footer {
+         background-color: rgba(0,0,0,0.03); 
+         padding: 24px 32px;
+      }
+  {% else %}
+      .values-benefits-footer {
+          font-weight: 600; 
+          margin-top: 30px;
+          text-align: left;
+          padding: 10px 0;
+      }
+  {% endif %}
+
+  .values-benefits-footer p {
+      margin: 0;
+  }
+
+  /* Side-by-Side Image Layout Styles */
+  .vb-has-image {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    justify-content: space-between;
+  }
+
+  .vb-content-side {
+    flex: 1;
+    width: 50%; /* Force equal width basis */
+  }
+
+  .vb-image-side {
+    flex: 1;
+    width: 50%; /* Force equal width basis */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .vb-main-image {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    object-fit: cover;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08); /* Subtle shadow for polish */
+  }
+
+  /* Overrides when Image is present */
+  .vb-has-image .values-benefits-header {
+    text-align: left;
+    margin-bottom: 24px;
+  }
+  
+  .vb-has-image .values-benefits-list-container {
+    padding: 0;
+    margin: 0;
+    max-width: 100%;
+  }
+
+  .vb-has-image .values-benefits-footer {
+    text-align: left;
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  @media screen and (max-width: 900px) {
+    .vb-has-image {
+      flex-direction: column-reverse; /* Stack: Image on Top (or Text on Top? usually text first for info) - let's do Column normal */
+      flex-direction: column;
+      gap: 32px;
+    }
+    
+    .vb-image-side {
+      max-width: 100%;
+      width: 100%;
+    }
+    
+    .vb-content-side {
+      max-width: 100%;
+      width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    /* Mobile Font Adjustments */
+    .benefit-description {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+
+    .benefit-list-item {
+        font-size: 0.9rem;
+        line-height: 1.4;
+        margin-bottom: 12px;
+    }
+
+    .values-benefits-heading {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+
+    .values-benefits-header {
+        margin-bottom: 20px;
+    }
+
+    .values-benefits-list {
+        padding-left: 18px;
+    }
+
+    /* Grid Mobile Styles */
+    {% if section.settings.mobile_layout == 'slider' and section.settings.layout_style == 'grid' %}
+      .values-benefits-grid {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 12px;
+        padding-bottom: 16px;
+        margin-right: -15px; 
+        padding-right: 15px; 
+      }
+      
+      .benefit-card {
+        min-width: 260px;
+        scroll-snap-align: center;
+        padding: 24px 16px;
+      }
+    {% else %}
+      .values-benefits-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    {% endif %}
+
+    .values-benefits-footer {
+        padding: 16px;
+        font-size: 0.9rem;
+        margin-top: 20px;
+    }
+  }
+{% endstyle %}
+
+<div class="values-benefits-section" id="section-{{ section.id }}">
+  <div class="page-width">
+    
+    <div class="values-benefits-wrapper {% if section.settings.section_image != blank %}vb-has-image{% endif %}">
+      
+      <div class="vb-content-side">
+        {% if section.settings.heading != blank %}
+            <div class="values-benefits-header">
+                <h2 class="values-benefits-heading" {% if section.settings.layout_style == 'list' and section.settings.section_image == blank %}style="text-align: left; max-width: 800px; margin: 0 auto 30px;"{% endif %}>{{ section.settings.heading }}</h2>
+            </div>
+        {% endif %}
+
+        {% if section.settings.layout_style == 'grid' %}
+            <div class="values-benefits-grid">
+            {% for block in section.blocks %}
+                <div class="benefit-card" {{ block.shopify_attributes }}>
+                {% if block.settings.icon != blank %}
+                    <div class="benefit-icon-wrapper">
+                    {{ block.settings.icon | image_url: width: 120 | image_tag: loading: 'lazy', class: 'benefit-icon' }}
+                    </div>
+                {% endif %}
+                
+                {% if block.settings.title != blank %}
+                    <h3 class="benefit-title">{{ block.settings.title }}</h3>
+                {% endif %}
+                
+                {% if block.settings.description != blank %}
+                    <div class="benefit-description">{{ block.settings.description }}</div>
+                {% endif %}
+                </div>
+            {% endfor %}
+            </div>
+        {% else %}
+            <!-- List Layout -->
+            <div class="values-benefits-list-container">
+                <ul class="values-benefits-list">
+                    {% for block in section.blocks %}
+                        <li class="benefit-list-item" {{ block.shopify_attributes }}>
+                            {% if block.settings.title != blank %}
+                                <div class="benefit-list-title">{{ block.settings.title }}</div>
+                            {% endif %}
+                            
+                            {% if block.settings.description != blank %}
+                                <span class="benefit-list-description">{{ block.settings.description }}</span>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        {% if section.settings.footer_text != blank %}
+          <div class="values-benefits-footer" {% if section.settings.layout_style == 'list' and section.settings.section_image == blank %}style="max-width: 800px; margin: 30px auto;"{% endif %}>
+            {{ section.settings.footer_text }}
+          </div>
+        {% endif %}
+      </div>
+
+      {% if section.settings.section_image != blank %}
+        <div class="vb-image-side">
+          {{ section.settings.section_image | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'vb-main-image', sizes: '(min-width: 768px) 50vw, 100vw' }}
+        </div>
+      {% endif %}
+
+    </div>
+    
+  </div>
+</div>

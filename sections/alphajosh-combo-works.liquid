@@ -1,0 +1,235 @@
+<section class="combo-works-section">
+  <div class="page-width">
+    
+    <div class="combo-header">
+      <h2 class="combo-title">
+        {{ section.settings.heading }}
+      </h2>
+      <p class="combo-subtext">
+        {{ section.settings.subtext }}
+      </p>
+    </div>
+
+    <div class="combo-wrapper">
+
+      <!-- Left Card -->
+      <div class="combo-card">
+        <div class="combo-icon">
+          {% if section.settings.left_icon != blank %}
+            <img src="{{ section.settings.left_icon | image_url: width: 80 }}" alt="">
+          {% endif %}
+        </div>
+        <h3>{{ section.settings.left_title }}</h3>
+        <p>{{ section.settings.left_text }}</p>
+      </div>
+
+      <!-- Center Effect -->
+      <div class="combo-center">
+        <div class="combo-arrow">→</div>
+        <div class="combo-badge">
+          {{ section.settings.center_text }}
+        </div>
+        <p class="combo-center-sub">
+          {{ section.settings.center_subtext }}
+        </p>
+      </div>
+
+      <!-- Right Card -->
+      <div class="combo-card">
+        <div class="combo-icon">
+          {% if section.settings.right_icon != blank %}
+            <img src="{{ section.settings.right_icon | image_url: width: 80 }}" alt="">
+          {% endif %}
+        </div>
+        <h3>{{ section.settings.right_title }}</h3>
+        <p>{{ section.settings.right_text }}</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.combo-works-section {
+    background: #f8f9fa;
+  color: #000;
+  padding: 80px 20px;
+  text-align: center;
+  margin-top:60px;
+}
+.combo-header{
+    margin-bottom:20px;
+}
+.combo-title {
+  font-size: 42px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.combo-title span {
+  color: #d4af37;
+}
+
+.combo-subtext {
+  max-width: 700px;
+  margin: 0 auto 60px;
+  color: #777;
+  font-size: 16px;
+  margin-bottom:20px;
+}
+
+.combo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+.combo-card {
+  background: #ffffff;
+  border: 1px solid rgba(212,175,55,0.4);
+  border-radius: 20px;
+  padding: 40px 30px;
+  max-width: 320px;
+  transition: 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.combo-card:hover {
+  transform: translateY(-5px);
+  border-color: #d4af37;
+}
+
+.combo-icon {
+  width: 80px;
+  height: 80px;
+  background: rgba(212,175,55,0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.combo-icon img {
+  max-width: 40px;
+}
+
+.combo-card h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.combo-card p {
+  font-size: 15px;
+  color: #777;
+}
+
+.combo-center {
+  text-align: center;
+  max-width: 200px;
+}
+
+.combo-arrow {
+  font-size: 28px;
+  color: #d4af37;
+  margin-bottom: 15px;
+}
+
+.combo-badge {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 1px solid #d4af37;
+  border-radius: 30px;
+  color: #d4af37;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.combo-center-sub {
+  font-size: 14px;
+  color: #777;
+}
+
+@media (max-width: 768px) {
+  .combo-wrapper {
+    flex-direction: column;
+    gap: 30px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Alphajosh Combo Works",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Why This Combo Works"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Sub Text",
+      "default": "Two powerful formulations designed to work from the inside out — together, they amplify each other."
+    },
+
+    {
+      "type": "image_picker",
+      "id": "left_icon",
+      "label": "Left Icon"
+    },
+    {
+      "type": "text",
+      "id": "left_title",
+      "label": "Left Title",
+      "default": "Capsule"
+    },
+    {
+      "type": "textarea",
+      "id": "left_text",
+      "label": "Left Text",
+      "default": "Works internally to boost stamina, energy, and confidence from within."
+    },
+
+    {
+      "type": "text",
+      "id": "center_text",
+      "label": "Center Badge Text",
+      "default": "Combined Effect"
+    },
+    {
+      "type": "text",
+      "id": "center_subtext",
+      "label": "Center Sub Text",
+      "default": "Faster & more noticeable improvement"
+    },
+
+    {
+      "type": "image_picker",
+      "id": "right_icon",
+      "label": "Right Icon"
+    },
+    {
+      "type": "text",
+      "id": "right_title",
+      "label": "Right Title",
+      "default": "Oil"
+    },
+    {
+      "type": "textarea",
+      "id": "right_text",
+      "label": "Right Text",
+      "default": "External application improves circulation, muscle relaxation, and recovery."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Alphajosh Combo Works"
+    }
+  ]
+}
+{% endschema %}

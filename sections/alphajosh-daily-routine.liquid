@@ -1,0 +1,176 @@
+<section class="daily-routine">
+  <div class="page-width">
+
+    <div class="dr-header">
+      <h2 class="alpha-heading">{{ section.settings.heading }}</h2>
+      <p>{{ section.settings.subtext }}</p>
+    </div>
+
+    <div class="dr-wrapper">
+
+      <!-- Morning Card -->
+      <div class="dr-card">
+        <div class="dr-icon">
+          {% if section.settings.morning_icon != blank %}
+            <img src="{{ section.settings.morning_icon | image_url: width: 80 }}" alt="">
+          {% endif %}
+        </div>
+        <h3>{{ section.settings.morning_title }}</h3>
+        <p>{{ section.settings.morning_text }}</p>
+      </div>
+
+      <div class="dr-line"></div>
+
+      <!-- Night Card -->
+      <div class="dr-card">
+        <div class="dr-icon">
+          {% if section.settings.night_icon != blank %}
+            <img src="{{ section.settings.night_icon | image_url: width: 80 }}" alt="">
+          {% endif %}
+        </div>
+        <h3>{{ section.settings.night_title }}</h3>
+        <p>{{ section.settings.night_text }}</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.daily-routine {
+  padding: 100px 20px;
+  color: #fff;
+  text-align: center;
+}
+
+.dr-header p {
+  color: #b5b5b5;
+  margin-bottom: 60px;
+}
+
+.dr-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.dr-card {
+    background: #f8f9fa;
+  border: 1px solid rgba(212,175,55,0.3);
+  border-radius: 20px;
+  padding: 40px 30px;
+  width: 320px;
+  transition: 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.dr-card:hover {
+  transform: translateY(-5px);
+  border-color: #d4af37;
+}
+
+.dr-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  background: rgba(212,175,55,0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dr-icon img {
+  max-width: 40px;
+}
+
+.dr-card h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color:#000000;
+}
+
+.dr-card p {
+  font-size: 15px;
+  color: #777;
+}
+
+.dr-line {
+  width: 60px;
+  height: 1px;
+  background: rgba(212,175,55,0.4);
+}
+
+@media (max-width: 768px) {
+  .dr-wrapper {
+    flex-direction: column;
+  }
+  .dr-line {
+    width: 1px;
+    height: 40px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Alphajoshh Daily Routine",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Your Daily Routine"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Simple. Effective. Two steps."
+    },
+
+    {
+      "type": "image_picker",
+      "id": "morning_icon",
+      "label": "Morning Icon"
+    },
+    {
+      "type": "text",
+      "id": "morning_title",
+      "label": "Morning Title",
+      "default": "Morning"
+    },
+    {
+      "type": "textarea",
+      "id": "morning_text",
+      "label": "Morning Text",
+      "default": "Take 1 capsule with warm water after breakfast."
+    },
+
+    {
+      "type": "image_picker",
+      "id": "night_icon",
+      "label": "Night Icon"
+    },
+    {
+      "type": "text",
+      "id": "night_title",
+      "label": "Night Title",
+      "default": "Night"
+    },
+    {
+      "type": "textarea",
+      "id": "night_text",
+      "label": "Night Text",
+      "default": "Apply oil and massage gently before bed."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Alphajoshh Daily Routine"
+    }
+  ]
+}
+{% endschema %}

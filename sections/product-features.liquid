@@ -1,0 +1,264 @@
+{% schema %}
+{
+  "name": "Product Features Grid",
+  "class": "section-product-features",
+  "settings": [
+    {
+       "type": "text",
+       "id": "subheading",
+       "label": "Subheading",
+       "default": "Benefits"
+    },
+    {
+       "type": "text",
+       "id": "heading",
+       "label": "Heading",
+       "default": "Why Choose This Product?"
+    },
+    {
+       "type": "checkbox",
+       "id": "use_metafields",
+       "label": "Use Product Metafields",
+       "default": true,
+       "info": "Pulls data from product.metafields.custom.features (List) or feature_list (Text)"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFFFFF"
+    },
+    {
+       "type": "color",
+       "id": "heading_color",
+       "label": "Heading Color",
+       "default": "#1A1A1A"
+    },
+    {
+       "type": "color",
+       "id": "text_color",
+       "label": "Text Color",
+       "default": "#333333"
+    },
+    {
+       "type": "range",
+       "id": "padding_top",
+       "min": 0,
+       "max": 100,
+       "step": 4,
+       "unit": "px",
+       "label": "Top Padding",
+       "default": 60
+    },
+    {
+       "type": "range",
+       "id": "padding_bottom",
+       "min": 0,
+       "max": 100,
+       "step": 4,
+       "unit": "px",
+       "label": "Bottom Padding",
+       "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Manual Feature",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "leaf",
+          "options": [
+            {"value": "leaf", "label": "Leaf"},
+            {"value": "scroll", "label": "Scroll / Tradition"},
+            {"value": "plant", "label": "Plant"},
+            {"value": "check_mark", "label": "Check Mark"},
+            {"value": "microscope", "label": "Microscope / Science"},
+            {"value": "shield", "label": "Shield / Protection"},
+            {"value": "energy", "label": "Energy / Bolt"}
+          ]
+        },
+        {
+           "type": "image_picker",
+           "id": "custom_image",
+           "label": "Custom Image (Overrides Icon)"
+        },
+        {
+           "type": "text",
+           "id": "title",
+           "label": "Title",
+           "default": "Feature Title"
+        },
+        {
+           "type": "textarea",
+           "id": "text",
+           "label": "Description",
+           "default": "Detailed description of the product feature."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Features Grid",
+      "blocks": [
+        { "type": "feature", "settings": { "title": "Natural Purity", "icon": "leaf" } },
+        { "type": "feature", "settings": { "title": "Lab Tested", "icon": "microscope" } },
+        { "type": "feature", "settings": { "title": "Traditional Wisdom", "icon": "scroll" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% liquid
+  assign features_list = nil
+  if section.settings.use_metafields
+    if product.metafields.custom.features != blank
+        assign features_list = product.metafields.custom.features.value
+    elsif product.metafields.custom.feature_list != blank
+        assign features_list = product.metafields.custom.feature_list | newline_to_br | split: '<br />'
+    endif
+  endif
+%}
+
+<div class="product-features-grid-section" style="background-color: {{ section.settings.bg_color }}; padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="page-width">
+    {% if section.settings.heading != blank or section.settings.subheading != blank %}
+      <div class="product-features-header">
+         {% if section.settings.subheading != blank %}
+           <span class="product-features-subheading">{{ section.settings.subheading }}</span>
+         {% endif %}
+         {% if section.settings.heading != blank %}
+           <h2 class="product-features-grid-heading" style="color: {{ section.settings.heading_color }};">{{ section.settings.heading }}</h2>
+         {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="product-features-grid">
+      {% if features_list != blank %}
+        {% for feature in features_list %}
+          <div class="product-features-item">
+            <div class="product-features-icon-wrapper" style="color: {{ section.settings.heading_color }};">
+               {% render 'icon-or-image', icon: 'check_mark', width: 40 %}
+            </div>
+            <div class="product-features-item-content">
+              <p class="product-features-item-text" style="color: {{ section.settings.text_color }};">
+                {{ feature }}
+              </p>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        {% for block in section.blocks %}
+          <div class="product-features-item" {{ block.shopify_attributes }}>
+            <div class="product-features-icon-wrapper" style="color: {{ section.settings.heading_color }};">
+               {% render 'icon-or-image', 
+                  icon: block.settings.icon, 
+                  image_upload: block.settings.custom_image, 
+                  width: 48,
+                  class_name: 'product-features-icon'
+               %}
+            </div>
+            <div class="product-features-item-content">
+              {% if block.settings.title != blank %}
+                <h3 class="product-features-item-title" style="color: {{ section.settings.heading_color }};">{{ block.settings.title }}</h3>
+              {% endif %}
+              {% if block.settings.text != blank %}
+                 <div class="product-features-item-description" style="color: {{ section.settings.text_color }};">
+                    {{ block.settings.text }}
+                 </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<style>
+  .product-features-grid-section {
+    text-align: center;
+  }
+  .product-features-header {
+    margin-bottom: 50px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .product-features-subheading {
+    display: block;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #888;
+    margin-bottom: 15px;
+  }
+  .product-features-grid-heading {
+    font-family: 'Aleo', serif;
+    font-size: 2.5rem;
+    line-height: 1.2;
+    margin: 0;
+  }
+  .product-features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    align-items: start;
+  }
+  .product-features-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.3s ease;
+  }
+  .product-features-icon-wrapper {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .product-features-icon-wrapper svg {
+    width: 100%;
+    height: 100%;
+  }
+  .product-features-item-title {
+    font-family: 'Aleo', serif;
+    font-size: 1.25rem;
+    margin: 0 0 12px 0;
+    font-weight: 600;
+  }
+  .product-features-item-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    opacity: 0.9;
+  }
+  .product-features-item-text {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 900px) {
+    .product-features-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+    .product-features-grid-heading {
+      font-size: 2rem;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    .product-features-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

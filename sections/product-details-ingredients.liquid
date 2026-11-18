@@ -1,0 +1,160 @@
+{% comment %}
+  Section 5: Product Details & Ingredients Section
+{% endcomment %}
+
+{% render 'product-details-ingredients' %}
+
+{% schema %}
+{
+  "name": "Product Ingredients",
+  "tag": "section",
+  "class": "section-product-details-ingredients",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Product Details"
+    },
+    {
+      "type": "header",
+      "content": "Product Information Card"
+    },
+    {
+      "type": "text",
+      "id": "info_title",
+      "label": "Info Card Title",
+      "default": "PRODUCT INFO"
+    },
+    {
+      "type": "text",
+      "id": "active_ingredient",
+      "label": "Active Ingredient",
+      "default": "Benzocaine 9.6%"
+    },
+    {
+      "type": "text",
+      "id": "volume",
+      "label": "Volume / Size",
+      "default": "15ml / 0.5 fl oz"
+    },
+    {
+      "type": "text",
+      "id": "application",
+      "label": "Application Method",
+      "default": "Topical Spray"
+    },
+    {
+      "type": "text",
+      "id": "duration",
+      "label": "Duration",
+      "default": "Up to 60 minutes"
+    },
+    {
+      "type": "text",
+      "id": "recommended_use",
+      "label": "Recommended Use",
+      "default": "3-5 sprays before intimacy"
+    },
+    {
+      "type": "textarea",
+      "id": "storage_instructions",
+      "label": "Storage Instructions",
+      "default": "Store in a cool, dry place away from direct sunlight. Keep out of reach of children."
+    },
+    {
+      "type": "header",
+      "content": "Ingredients Card"
+    },
+    {
+      "type": "text",
+      "id": "ingredients_title",
+      "label": "Ingredients Card Title",
+      "default": "INGREDIENTS"
+    },
+    {
+      "type": "paragraph",
+      "content": "Configure default ingredients below, or add custom Ingredient blocks to customize or add more."
+    },
+    {
+      "type": "text",
+      "id": "ing_1_name",
+      "label": "Ingredient 1 Name",
+      "default": "Benzocaine (9.6%)"
+    },
+    {
+      "type": "textarea",
+      "id": "ing_1_desc",
+      "label": "Ingredient 1 Description",
+      "default": "FDA-approved topical anesthetic that safely reduces sensitivity"
+    },
+    {
+      "type": "text",
+      "id": "ing_2_name",
+      "label": "Ingredient 2 Name",
+      "default": "Vitamin E"
+    },
+    {
+      "type": "textarea",
+      "id": "ing_2_desc",
+      "label": "Ingredient 2 Description",
+      "default": "Nourishes and protects skin while promoting healthy tissue"
+    },
+    {
+      "type": "text",
+      "id": "ing_3_name",
+      "label": "Ingredient 3 Name",
+      "default": "Aloe Vera Extract"
+    },
+    {
+      "type": "textarea",
+      "id": "ing_3_desc",
+      "label": "Ingredient 3 Description",
+      "default": "Soothes and moisturizes for comfortable application"
+    },
+    {
+      "type": "text",
+      "id": "ing_4_name",
+      "label": "Ingredient 4 Name",
+      "default": "Glycerin"
+    },
+    {
+      "type": "textarea",
+      "id": "ing_4_desc",
+      "label": "Ingredient 4 Description",
+      "default": "Provides smooth application and prevents dryness"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Ingredient Image / Icon (Optional)"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Ingredient Name",
+          "default": "Ashwagandha (Withania Somnifera)"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Ingredient Description",
+          "default": "Ancient revitalizing herb known to support endurance, energy, and stress relief."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Details Ingredients"
+    }
+  ]
+}
+{% endschema %}
+

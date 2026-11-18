@@ -1,0 +1,230 @@
+{% schema %}
+{
+  "name": "Brand Promise",
+  "class": "section-brand-promise",
+  "settings": [
+    {
+       "type": "color",
+       "id": "bg_color",
+       "label": "Background Color",
+       "default": "#C7A68B"
+    },
+    {
+       "type": "text",
+       "id": "heading",
+       "label": "Heading",
+       "default": "More than just Ayurveda. It's a Promise"
+    },
+    {
+       "type": "textarea",
+       "id": "text",
+       "label": "Text",
+       "default": "At KR Ayurveda, we're dedicated to sourcing the purest ingredients and upholding the time-honored traditions of Ayurvedic medicine."
+    },
+    {
+       "type": "text",
+       "id": "button_label",
+       "label": "Button Label",
+       "default": "Our Values"
+    },
+    {
+       "type": "url",
+       "id": "button_link",
+       "label": "Button Link"
+    },
+    {
+       "type": "image_picker",
+       "id": "image_1",
+       "label": "Main Image (Vertical)"
+    },
+    {
+       "type": "image_picker",
+       "id": "image_2",
+       "label": "Secondary Image (Overlap)"
+    },
+    {
+       "type": "color",
+       "id": "text_color",
+       "label": "Text Color",
+       "default": "#1A1A1A"
+    },
+    {
+       "type": "range",
+       "id": "padding_top",
+       "min": 0,
+       "max": 100,
+       "step": 4,
+       "unit": "px",
+       "label": "Top Padding",
+       "default": 60
+    },
+    {
+       "type": "range",
+       "id": "padding_bottom",
+       "min": 0,
+       "max": 100,
+       "step": 4,
+       "unit": "px",
+       "label": "Bottom Padding",
+       "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Promise"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="brand-promise-section" style="background-color: {{ section.settings.bg_color }}; color: {{ section.settings.text_color }}; padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="page-width">
+    <div class="brand-promise-grid">
+       <div class="brand-promise-content">
+          <h2 class="brand-promise-heading" style="color: {{ section.settings.text_color }};">{{ section.settings.heading }}</h2>
+          <div class="brand-promise-text">{{ section.settings.text | replace: 'KR Ayurveda', shop.name }}</div>
+          {%- if section.settings.button_label != blank -%}
+             <a href="{{ section.settings.button_link | default: '#' }}" class="brand-promise-button">
+                {{ section.settings.button_label }}
+             </a>
+          {%- endif -%}
+       </div>
+       
+       <div class="brand-promise-media">
+          <div class="brand-promise-collage">
+             <div class="brand-promise-image-1">
+                {%- if section.settings.image_1 != blank -%}
+                   {{ section.settings.image_1 | image_url: width: 600 | image_tag: loading: 'lazy', class: 'brand-img', widths: '300, 450, 600' }}
+                {%- else -%}
+                   {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+             </div>
+             <div class="brand-promise-image-2">
+                {%- if section.settings.image_2 != blank -%}
+                   {{ section.settings.image_2 | image_url: width: 500 | image_tag: loading: 'lazy', class: 'brand-img', widths: '300, 400, 500' }}
+                {%- else -%}
+                   {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+             </div>
+          </div>
+       </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .brand-promise-section {
+    overflow: hidden;
+  }
+  
+  .brand-promise-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  
+  .brand-promise-content {
+    max-width: 500px;
+  }
+  
+  .brand-promise-heading {
+    font-family: var(--font-heading-family);
+    font-size: 2.8rem;
+    line-height: 1.2;
+    margin-bottom: 25px;
+  }
+  
+  .brand-promise-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 35px;
+    opacity: 0.9;
+  }
+  
+  .brand-promise-button {
+    display: inline-block;
+    padding: 12px 30px;
+    border: 1px solid currentColor;
+    border-radius: 4px; /* Slightly rounded per image */
+    text-decoration: none;
+    color: currentColor;
+    font-weight: 500;
+    transition: opacity 0.3s;
+    background-color: transparent;
+  }
+  
+  .brand-promise-button:hover {
+    opacity: 0.7;
+  }
+  
+  .brand-promise-media {
+    position: relative;
+    height: 100%;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .brand-promise-collage {
+    position: relative;
+    width: 100%;
+    height: 500px; /* Constrain height */
+  }
+  
+  .brand-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  
+  /* Image 1 - Vertical one, sitting on the left/back */
+  .brand-promise-image-1 {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 60%;
+    height: 90%;
+    z-index: 1;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+  
+  /* Image 2 - Overlapping, top right */
+  .brand-promise-image-2 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 55%;
+    height: 60%;
+    z-index: 2;
+    box-shadow: -10px 10px 30px rgba(0,0,0,0.1);
+  }
+
+  @media screen and (max-width: 900px) {
+    .brand-promise-grid {
+       grid-template-columns: 1fr;
+       gap: 40px;
+    }
+    
+    .brand-promise-content {
+       max-width: 100%;
+       text-align: center;
+    }
+    
+    .brand-promise-media {
+       min-height: 400px;
+    }
+    
+    .brand-promise-collage {
+        height: 400px;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    .brand-promise-heading {
+        font-size: 2.2rem;
+    }
+  }
+</style>

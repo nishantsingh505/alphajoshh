@@ -1,0 +1,838 @@
+<section class="p-rev-section" id="home-reviews-{{ section.id }}" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="p-rev-container">
+    <div class="p-rev-grid">
+      
+      <!-- ================= LEFT CARD: OUR MISSION ================= -->
+      <div class="p-rev-main-card p-rev-card--mission">
+        <div class="p-mission-inner">
+          
+          <!-- Mission Left Details -->
+          <div class="p-mission-details">
+            <span class="p-rev-pill-tag">{{ section.settings.mission_tag | default: 'OUR AYURVEDIC MISSION' }}</span>
+            <h2 class="p-mission-headline">{{ section.settings.left_title | default: "Empowering Men's Vitality, Stamina & Peak Performance" }}</h2>
+            
+            <div class="p-mission-points">
+              <div class="p-mission-point">
+                <span class="p-point-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    <polyline points="9 12 11 14 15 10"></polyline>
+                  </svg>
+                </span>
+                <span class="p-point-label">{{ section.settings.benefit_1 | default: '100% Pure Himalayan Herbs' }}</span>
+              </div>
+
+              <div class="p-mission-point">
+                <span class="p-point-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                  </svg>
+                </span>
+                <span class="p-point-label">{{ section.settings.benefit_2 | default: 'Doctor Formulated & Tested' }}</span>
+              </div>
+
+              <div class="p-mission-point">
+                <span class="p-point-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="1" y="3" width="15" height="13"></rect>
+                    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                    <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                    <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                  </svg>
+                </span>
+                <span class="p-point-label">{{ section.settings.benefit_3 | default: '100% Confidential Delivery' }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mission Right Ambassador Card -->
+          <div class="p-mission-visual">
+            <div class="p-ambassador-box">
+              <span class="p-ambassador-badge">Alpha Joshh</span>
+              <div class="p-ambassador-mute-toggle" onclick="toggleAmbassadorAudio(this, event)" aria-label="Toggle Sound">
+                <span class="p-mute-icon-muted">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#ffffff"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM19 12c0 3.12-1.86 5.8-4.5 6.97v2.02c3.75-1.28 6.5-4.81 6.5-8.99s-2.75-7.71-6.5-8.99v2.02C17.14 6.2 19 8.88 19 12zM3 9v6h4l5 5V4L7 9H3z"></path></svg>
+                </span>
+                <span class="p-mute-icon-unmuted">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#ffffff"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+                </span>
+              </div>
+              {% if section.settings.featured_video != blank %}
+                <video 
+                  class="p-ambassador-media" 
+                  playsinline 
+                  webkit-playsinline
+                  x5-playsinline
+                  autoplay 
+                  loop 
+                  muted 
+                  preload="auto"
+                  poster="{{ section.settings.featured_video.preview_image | image_url: width: 600 }}"
+                  onclick="toggleAmbassadorAudio(this.parentElement.querySelector('.p-ambassador-mute-toggle'), event)"
+                >
+                  {% for source in section.settings.featured_video.sources %}
+                    <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                  {% endfor %}
+                </video>
+              {% elsif section.settings.featured_video_url != blank %}
+                <video 
+                  class="p-ambassador-media" 
+                  playsinline 
+                  webkit-playsinline
+                  x5-playsinline
+                  autoplay 
+                  loop 
+                  muted 
+                  preload="auto"
+                  poster="{{ section.settings.featured_poster | img_url: '600x' }}"
+                  onclick="toggleAmbassadorAudio(this.parentElement.querySelector('.p-ambassador-mute-toggle'), event)"
+                >
+                  <source src="{{ section.settings.featured_video_url }}" type="video/mp4">
+                </video>
+              {% elsif section.settings.featured_poster != blank %}
+                <img src="{{ section.settings.featured_poster | img_url: '600x' }}" alt="{{ section.settings.left_title | escape }}" loading="lazy" class="p-ambassador-media">
+              {% else %}
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80" alt="Brand Ambassador" loading="lazy" class="p-ambassador-media">
+              {% endif %}
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ================= RIGHT CARD: TESTIMONIALS ================= -->
+      <div class="p-rev-main-card p-rev-card--testimonials">
+        <span class="p-rev-pill-tag">{{ section.settings.testimonials_tag | default: 'REAL REVIEWS' }}</span>
+        <h2 class="p-testimonials-headline">{{ section.settings.right_title | default: 'Real Men. Real Transformations.' }}</h2>
+
+        <!-- Horizontal Snap Carousel -->
+        <div class="p-testimonials-carousel">
+          {% if section.blocks.size > 0 %}
+            {% for block in section.blocks %}
+              <div class="p-story-mini-card" {{ block.shopify_attributes }}>
+                <div class="p-story-photo-wrap">
+                  {% if block.settings.poster != blank %}
+                    <img src="{{ block.settings.poster | img_url: '300x' }}" alt="{{ block.settings.author | escape }}" loading="lazy">
+                  {% else %}
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&auto=format&fit=crop&q=80" alt="Customer" loading="lazy">
+                  {% endif %}
+                </div>
+                <div class="p-story-content-wrap">
+                  <p class="p-story-text">
+                    <strong class="p-story-name">{{ block.settings.author | default: 'Verified Buyer' }},</strong>
+                    {{ block.settings.quote | default: 'Noticed lasting energy & stamina improvements.' }}
+                  </p>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <!-- Default Customer Story Cards -->
+            <div class="p-story-mini-card">
+              <div class="p-story-photo-wrap">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80" alt="Vikram S." loading="lazy">
+              </div>
+              <div class="p-story-content-wrap">
+                <p class="p-story-text">
+                  <strong class="p-story-name">Vikram S., 34</strong>
+                  Morning fatigue gone in 10 days. Stamina and recovery at an all-time high.
+                </p>
+              </div>
+            </div>
+
+            <div class="p-story-mini-card">
+              <div class="p-story-photo-wrap">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&auto=format&fit=crop&q=80" alt="Rahul M." loading="lazy">
+              </div>
+              <div class="p-story-content-wrap">
+                <p class="p-story-text">
+                  <strong class="p-story-name">Rahul M., 29</strong>
+                  Clean daily energy boost with zero side effects. Shilajit purity is unmatched.
+                </p>
+              </div>
+            </div>
+
+            <div class="p-story-mini-card">
+              <div class="p-story-photo-wrap">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&auto=format&fit=crop&q=80" alt="Amit K." loading="lazy">
+              </div>
+              <div class="p-story-content-wrap">
+                <p class="p-story-text">
+                  <strong class="p-story-name">Amit K., 38</strong>
+                  Restored youthful endurance and strength within 3 weeks. Highly recommend.
+                </p>
+              </div>
+            </div>
+
+            <div class="p-story-mini-card">
+              <div class="p-story-photo-wrap">
+                <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=300&auto=format&fit=crop&q=80" alt="Sanjay P." loading="lazy">
+              </div>
+              <div class="p-story-content-wrap">
+                <p class="p-story-text">
+                  <strong class="p-story-name">Sanjay P., 31</strong>
+                  Discreet plain packaging and genuine Ayurvedic formulation. 10/10 results.
+                </p>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.p-rev-section {
+  background-color: #f8f9fa;
+  color: #111827;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.p-rev-container {
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.p-rev-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 20px;
+  align-items: stretch;
+  width: 100%;
+  min-width: 0;
+}
+
+/* Base Card Style */
+.p-rev-main-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  padding: 24px 28px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Category Pill Tag */
+.p-rev-pill-tag {
+  font-size: 11px;
+  font-weight: 800;
+  color: #047857;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+/* Left Card - Mission Layout */
+.p-mission-inner {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 20px;
+  align-items: center;
+  height: 100%;
+}
+
+.p-mission-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.p-mission-headline {
+  font-family: var(--font-heading--family, serif);
+  font-size: 24px;
+  font-weight: 800;
+  color: #111827;
+  line-height: 1.25;
+  margin: 0 0 22px 0;
+  letter-spacing: -0.3px;
+}
+
+.p-mission-points {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.p-mission-point {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.p-point-icon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.p-point-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+/* Ambassador Visual Box */
+.p-mission-visual {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.p-ambassador-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-height: 310px;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  background: #000000;
+  cursor: pointer;
+}
+
+.p-ambassador-mute-toggle {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 4;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  transition: all 0.2s ease;
+}
+
+.p-ambassador-mute-toggle:hover {
+  background: rgba(0, 0, 0, 0.85);
+  transform: scale(1.05);
+}
+
+.p-ambassador-mute-toggle .p-mute-icon-unmuted {
+  display: none;
+}
+
+.p-ambassador-box.video-unmuted .p-ambassador-mute-toggle .p-mute-icon-muted {
+  display: none;
+}
+
+.p-ambassador-box.video-unmuted .p-ambassador-mute-toggle .p-mute-icon-unmuted {
+  display: block;
+}
+
+.p-ambassador-badge {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  z-index: 2;
+}
+
+.p-ambassador-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* Right Card - Testimonials Layout */
+.p-testimonials-headline {
+  font-family: var(--font-heading--family, serif);
+  font-size: 24px;
+  font-weight: 800;
+  color: #111827;
+  line-height: 1.25;
+  margin: 0 0 18px 0;
+  letter-spacing: -0.3px;
+}
+
+.p-testimonials-carousel {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.p-testimonials-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* Story Mini Card */
+.p-story-mini-card {
+  flex: 0 0 135px;
+  width: 135px;
+  min-width: 135px;
+  max-width: 135px;
+  box-sizing: border-box;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #edf2f7;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.p-story-photo-wrap {
+  width: 100%;
+  height: 135px;
+  overflow: hidden;
+  background: #f1f5f9;
+}
+
+.p-story-photo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.p-story-content-wrap {
+  background: #f8fafc;
+  padding: 10px 10px 12px;
+  border-radius: 0 0 12px 12px;
+  flex-grow: 1;
+  display: flex;
+  align-items: flex-start;
+}
+
+.p-story-text {
+  font-size: 11.5px;
+  line-height: 1.35;
+  color: #475569;
+  margin: 0;
+}
+
+.p-story-name {
+  color: #0f172a;
+  font-weight: 800;
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* Responsive Breakdown */
+@media screen and (max-width: 960px) {
+  .p-rev-container {
+    padding: 0 14px;
+    overflow: hidden;
+  }
+
+  .p-rev-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .p-rev-main-card {
+    padding: 20px 16px;
+    border-radius: 18px;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  .p-mission-inner {
+    display: grid;
+    grid-template-columns: 1fr 130px;
+    gap: 14px;
+    align-items: stretch;
+    min-width: 0;
+  }
+
+  .p-mission-headline,
+  .p-testimonials-headline {
+    font-size: 18px;
+    line-height: 1.25;
+    margin-bottom: 14px;
+  }
+
+  .p-mission-points {
+    gap: 10px;
+  }
+
+  .p-mission-point {
+    gap: 8px;
+  }
+
+  .p-point-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .p-point-label {
+    font-size: 12.5px;
+    line-height: 1.25;
+  }
+
+  .p-ambassador-box {
+    width: 100%;
+    height: 100%;
+    min-height: 175px;
+    max-height: 210px;
+    border-radius: 12px;
+  }
+
+  .p-testimonials-carousel {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .p-story-mini-card {
+    flex: 0 0 135px;
+    width: 135px;
+    min-width: 135px;
+    max-width: 135px;
+  }
+
+  .p-story-photo-wrap {
+    height: 130px;
+  }
+
+  .p-story-text {
+    font-size: 11.5px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .p-rev-container {
+    padding: 0 12px;
+    overflow: hidden;
+  }
+
+  .p-rev-main-card {
+    padding: 16px 14px;
+    border-radius: 16px;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .p-mission-inner {
+    display: grid;
+    grid-template-columns: 1fr 115px;
+    gap: 12px;
+    align-items: stretch;
+    min-width: 0;
+  }
+
+  .p-mission-headline,
+  .p-testimonials-headline {
+    font-size: 16px;
+    line-height: 1.22;
+    margin-bottom: 12px;
+  }
+
+  .p-mission-points {
+    gap: 8px;
+  }
+
+  .p-point-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .p-point-label {
+    font-size: 12px;
+  }
+
+  .p-ambassador-box {
+    width: 100%;
+    height: 100%;
+    min-height: 160px;
+    max-height: 190px;
+    border-radius: 10px;
+  }
+
+  .p-ambassador-badge {
+    font-size: 9px;
+    top: 6px;
+    right: 6px;
+  }
+
+  .p-story-mini-card {
+    flex: 0 0 120px;
+    width: 120px;
+    min-width: 120px;
+    max-width: 120px;
+  }
+
+  .p-story-photo-wrap {
+    height: 120px;
+  }
+
+  .p-story-content-wrap {
+    padding: 8px 8px 10px;
+  }
+
+  .p-ambassador-mute-toggle {
+    bottom: 6px;
+    right: 6px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .p-ambassador-mute-toggle svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+</style>
+
+<script>
+(function() {
+  window.toggleAmbassadorAudio = function(toggleElement, event) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    var wrapper = toggleElement.closest('.p-ambassador-box');
+    if (!wrapper) return;
+    var video = wrapper.querySelector('video');
+    if (!video) return;
+
+    var isMuted = video.muted;
+    video.muted = !isMuted;
+    
+    if (!video.muted) {
+      wrapper.classList.add('video-unmuted');
+      var playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(function() {});
+      }
+    } else {
+      wrapper.classList.remove('video-unmuted');
+    }
+  };
+
+  function initAmbassadorVideos() {
+    var ambassadorVideos = document.querySelectorAll('.p-ambassador-box video');
+    if (!ambassadorVideos.length) return;
+
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          var vid = entry.target;
+          if (entry.isIntersecting) {
+            vid.muted = true;
+            var playPromise = vid.play();
+            if (playPromise !== undefined) {
+              playPromise.catch(function() {});
+            }
+          } else {
+            vid.pause();
+          }
+        });
+      }, { threshold: 0.15 });
+
+      ambassadorVideos.forEach(function(vid) {
+        vid.muted = true;
+        vid.setAttribute('playsinline', '');
+        vid.setAttribute('webkit-playsinline', '');
+        vid.setAttribute('x5-playsinline', '');
+        observer.observe(vid);
+      });
+    } else {
+      ambassadorVideos.forEach(function(vid) {
+        vid.muted = true;
+        vid.play().catch(function() {});
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAmbassadorVideos);
+  } else {
+    initAmbassadorVideos();
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Reviews & UGC",
+  "settings": [
+    {
+      "type": "text",
+      "id": "mission_tag",
+      "label": "Left Column Tag",
+      "default": "OUR AYURVEDIC MISSION"
+    },
+    {
+      "type": "text",
+      "id": "left_title",
+      "label": "Left Column Heading",
+      "default": "Empowering Men's Vitality, Stamina & Peak Performance"
+    },
+    {
+      "type": "text",
+      "id": "benefit_1",
+      "label": "Benefit 1",
+      "default": "100% Pure Himalayan Herbs"
+    },
+    {
+      "type": "text",
+      "id": "benefit_2",
+      "label": "Benefit 2",
+      "default": "Doctor Formulated & Tested"
+    },
+    {
+      "type": "text",
+      "id": "benefit_3",
+      "label": "Benefit 3",
+      "default": "100% Confidential Delivery"
+    },
+    {
+      "type": "video",
+      "id": "featured_video",
+      "label": "Featured Shopify Video"
+    },
+    {
+      "type": "text",
+      "id": "featured_video_url",
+      "label": "Featured Video URL (MP4)"
+    },
+    {
+      "type": "image_picker",
+      "id": "featured_poster",
+      "label": "Ambassador / Featured Image"
+    },
+    {
+      "type": "text",
+      "id": "testimonials_tag",
+      "label": "Right Column Tag",
+      "default": "REAL REVIEWS"
+    },
+    {
+      "type": "text",
+      "id": "right_title",
+      "label": "Right Column Heading",
+      "default": "Real Men. Real Transformations."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "story",
+      "name": "Story Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "poster",
+          "label": "Customer Photo"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Customer Name & Age (e.g. Vikram S., 34)",
+          "default": "Vikram S., 34"
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Outcome / Review",
+          "default": "Morning fatigue gone in 10 days. Stamina and recovery at an all-time high."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews & UGC",
+      "blocks": [
+        {
+          "type": "story",
+          "settings": {
+            "author": "Vikram S., 34",
+            "quote": "Morning fatigue gone in 10 days. Stamina and recovery at an all-time high."
+          }
+        },
+        {
+          "type": "story",
+          "settings": {
+            "author": "Rahul M., 29",
+            "quote": "Clean daily energy boost with zero side effects. Shilajit purity is unmatched."
+          }
+        },
+        {
+          "type": "story",
+          "settings": {
+            "author": "Amit K., 38",
+            "quote": "Restored youthful endurance and strength within 3 weeks. Highly recommend."
+          }
+        },
+        {
+          "type": "story",
+          "settings": {
+            "author": "Sanjay P., 31",
+            "quote": "Discreet plain packaging and genuine Ayurvedic formulation. 10/10 results."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

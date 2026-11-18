@@ -1,0 +1,606 @@
+<section class="home-hero-slider" id="hero-slider-{{ section.id }}" data-autoplay="{{ section.settings.autoplay }}" data-autoplay-speed="{{ section.settings.autoplay_speed | times: 1000 }}">
+  <div class="hero-slider-container">
+    <div class="hero-slides-wrapper" id="heroSlidesWrapper-{{ section.id }}">
+      {% for block in section.blocks %}
+        <div class="hero-slide {% if forloop.first %}active{% endif %}" {{ block.shopify_attributes }} data-slide-index="{{ forloop.index0 }}">
+          <div class="hero-slide-bg">
+            {% if block.settings.desktop_image != blank %}
+              <img src="{{ block.settings.desktop_image | img_url: '2000x' }}" alt="{{ block.settings.heading | escape }}" class="hero-bg-desktop {% if block.settings.mobile_image != blank %}hide-on-mobile{% endif %}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
+            {% else %}
+              <div class="hero-bg-placeholder" style="background-image: url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=2000&q=80');"></div>
+            {% endif %}
+
+            {% if block.settings.mobile_image != blank %}
+              <img src="{{ block.settings.mobile_image | img_url: '1000x' }}" alt="{{ block.settings.heading | escape }}" class="hero-bg-mobile" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
+            {% endif %}
+            
+            <div class="hero-slide-overlay" style="opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};"></div>
+          </div>
+
+          <div class="hero-content-wrapper page-width">
+            <div class="hero-content-box {{ block.settings.content_alignment }}">
+              {% if block.settings.sub_badge != blank %}
+                <div class="hero-gold-badge">
+                  <span class="badge-icon">✦</span>
+                  <span class="badge-text">{{ block.settings.sub_badge }}</span>
+                </div>
+              {% endif %}
+
+              <h1 class="hero-main-title">
+                {{ block.settings.heading }}
+                {% if block.settings.highlight_text != blank %}
+                  <span class="gold-gradient-text">{{ block.settings.highlight_text }}</span>
+                {% endif %}
+              </h1>
+
+              {% if block.settings.subheading != blank %}
+                <p class="hero-description">
+                  {{ block.settings.subheading }}
+                </p>
+              {% endif %}
+
+              <div class="hero-btn-group">
+                {% if block.settings.btn_1_text != blank %}
+                  <a href="{{ block.settings.btn_1_link | default: '/collections/all' }}" class="hero-btn-primary">
+                    {{ block.settings.btn_1_text }}
+                  </a>
+                {% endif %}
+
+                {% if block.settings.btn_2_text != blank %}
+                  <a href="{{ block.settings.btn_2_link | default: '/collections/all' }}" class="hero-btn-secondary">
+                    {{ block.settings.btn_2_text }}
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if section.blocks.size > 1 %}
+      <!-- Controls -->
+      <button class="hero-nav-arrow hero-prev" id="heroPrev-{{ section.id }}" aria-label="Previous Slide">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+      <button class="hero-nav-arrow hero-next" id="heroNext-{{ section.id }}" aria-label="Next Slide">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+
+      <div class="hero-pagination-dots" id="heroDots-{{ section.id }}">
+        {% for block in section.blocks %}
+          <button class="hero-dot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}" aria-label="Go to slide {{ forloop.index }}"></button>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+.home-hero-slider {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: #0c0c0c;
+  color: #ffffff;
+}
+
+.hero-slider-container {
+  position: relative;
+  width: 100%;
+  min-height: 520px;
+  height: 80vh;
+  max-height: 750px;
+}
+
+.hero-slides-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+}
+
+.hero-slide.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 2;
+}
+
+.hero-slide-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.hero-slide-bg img,
+.hero-bg-placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.hero-bg-placeholder {
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-bg-mobile {
+  display: none;
+}
+
+.hero-slide-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.2) 100%);
+  pointer-events: none;
+}
+
+.hero-content-wrapper {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.hero-content-box {
+  max-width: 580px;
+  animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero-content-box.text-center {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-content-box.text-right {
+  margin-left: auto;
+  text-align: right;
+}
+
+.hero-gold-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  color: #e5c07b;
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  backdrop-filter: blur(8px);
+}
+
+.hero-gold-badge .badge-icon {
+  color: #d4af37;
+  font-size: 0.9rem;
+}
+
+.hero-main-title {
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin: 0 0 16px 0;
+  text-transform: uppercase;
+}
+
+.gold-gradient-text {
+  display: block;
+  background: linear-gradient(135deg, #f5d77f 0%, #d4af37 50%, #aa8010 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-description {
+  font-size: clamp(0.95rem, 1.2vw, 1.15rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.82);
+  margin: 0 0 28px 0;
+  max-width: 500px;
+}
+
+.hero-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.hero-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e5c07b 0%, #d4af37 100%);
+  color: #000000;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 14px 32px;
+  border-radius: 30px;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+  transition: all 0.3s ease;
+  border: 1px solid #e5c07b;
+}
+
+.hero-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5);
+  background: linear-gradient(135deg, #f0d592 0%, #e0bd49 100%);
+  color: #000000;
+}
+
+.hero-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  padding: 13px 24px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+}
+
+.hero-btn-secondary:hover {
+  border-color: #d4af37;
+  color: #e5c07b;
+  background: rgba(212, 175, 55, 0.1);
+  transform: translateY(-2px);
+}
+
+.hero-nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(18, 18, 18, 0.7);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  color: #d4af37;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+}
+
+.hero-nav-arrow:hover {
+  background: #d4af37;
+  color: #000000;
+  border-color: #d4af37;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+}
+
+.hero-prev {
+  left: 20px;
+}
+
+.hero-next {
+  right: 20px;
+}
+
+.hero-pagination-dots {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 5;
+}
+
+.hero-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hero-dot.active {
+  width: 28px;
+  border-radius: 12px;
+  background: #d4af37;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+}
+
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-slider-container {
+    min-height: 480px;
+    height: 70vh;
+  }
+
+  .hero-bg-mobile {
+    display: block;
+  }
+
+  .hide-on-mobile {
+    display: none !important;
+  }
+
+  .hero-slide-overlay {
+    background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%);
+  }
+
+  .hero-content-wrapper {
+    padding: 0 20px;
+  }
+
+  .hero-content-box {
+    margin-top: auto;
+    margin-bottom: 50px;
+    text-align: left;
+  }
+
+  .hero-nav-arrow {
+    display: none;
+  }
+
+  .hero-btn-group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .hero-btn-primary,
+  .hero-btn-secondary {
+    width: 100%;
+    text-align: center;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const slider = document.getElementById('hero-slider-{{ section.id }}');
+  if (!slider) return;
+
+  const slides = slider.querySelectorAll('.hero-slide');
+  const dots = slider.querySelectorAll('.hero-dot');
+  const prevBtn = slider.querySelector('#heroPrev-{{ section.id }}');
+  const nextBtn = slider.querySelector('#heroNext-{{ section.id }}');
+  
+  if (slides.length <= 1) return;
+
+  let currentSlide = 0;
+  let autoplayTimer = null;
+  const autoplay = slider.dataset.autoplay === 'true';
+  const autoplaySpeed = parseInt(slider.dataset.autoplaySpeed, 10) || 5000;
+
+  function goToSlide(index) {
+    slides[currentSlide].classList.remove('active');
+    if (dots[currentSlide]) dots[currentSlide].classList.remove('active');
+
+    currentSlide = (index + slides.length) % slides.length;
+
+    slides[currentSlide].classList.add('active');
+    if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+  }
+
+  function startAutoplay() {
+    if (autoplay) {
+      stopAutoplay();
+      autoplayTimer = setInterval(() => goToSlide(currentSlide + 1), autoplaySpeed);
+    }
+  }
+
+  function stopAutoplay() {
+    if (autoplayTimer) clearInterval(autoplayTimer);
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      goToSlide(currentSlide - 1);
+      startAutoplay();
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      goToSlide(currentSlide + 1);
+      startAutoplay();
+    });
+  }
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const idx = parseInt(dot.dataset.index, 10);
+      goToSlide(idx);
+      startAutoplay();
+    });
+  });
+
+  slider.addEventListener('mouseenter', stopAutoplay);
+  slider.addEventListener('mouseleave', startAutoplay);
+
+  // Swipe support for mobile
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  slider.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  slider.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    if (touchStartX - touchEndX > 50) {
+      goToSlide(currentSlide + 1);
+      startAutoplay();
+    } else if (touchEndX - touchStartX > 50) {
+      goToSlide(currentSlide - 1);
+      startAutoplay();
+    }
+  }, { passive: true });
+
+  startAutoplay();
+});
+</script>
+
+{% schema %}
+{
+  "name": "Home Hero Slider",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto-rotate slides",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Change slides every",
+      "default": 5
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Hero Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "desktop_image",
+          "label": "Desktop Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile Image (Optional)"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "min": 0,
+          "max": 90,
+          "step": 5,
+          "unit": "%",
+          "label": "Dark Overlay Opacity",
+          "default": 55
+        },
+        {
+          "type": "select",
+          "id": "content_alignment",
+          "label": "Content Alignment",
+          "options": [
+            { "value": "text-left", "label": "Left" },
+            { "value": "text-center", "label": "Center" },
+            { "value": "text-right", "label": "Right" }
+          ],
+          "default": "text-left"
+        },
+        {
+          "type": "text",
+          "id": "sub_badge",
+          "label": "Top Gold Badge",
+          "default": "100% Ayurvedic Formula"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Main Heading Line 1",
+          "default": "LAST LONGER."
+        },
+        {
+          "type": "text",
+          "id": "highlight_text",
+          "label": "Main Heading Highlight (Gold)",
+          "default": "PERFORM BETTER."
+        },
+        {
+          "type": "textarea",
+          "id": "subheading",
+          "label": "Subheading Text",
+          "default": "Clinically proven Ayurvedic formulas for men's wellness, stamina & vitality — discreet delivery across India."
+        },
+        {
+          "type": "text",
+          "id": "btn_1_text",
+          "label": "Primary Button Label",
+          "default": "SHOP NOW"
+        },
+        {
+          "type": "url",
+          "id": "btn_1_link",
+          "label": "Primary Button Link"
+        },
+        {
+          "type": "text",
+          "id": "btn_2_text",
+          "label": "Secondary Button Label",
+          "default": "Explore Collection"
+        },
+        {
+          "type": "url",
+          "id": "btn_2_link",
+          "label": "Secondary Button Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home Hero Slider",
+      "blocks": [
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

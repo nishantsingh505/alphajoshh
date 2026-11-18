@@ -1,0 +1,123 @@
+{% comment %}
+  Section 7: Why Product is Different Section
+{% endcomment %}
+
+{% render 'why-product-is-different' %}
+
+{% schema %}
+{
+  "name": "Why Product is Different",
+  "tag": "section",
+  "class": "section-why-product-is-different",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading_prefix",
+      "label": "Heading Prefix",
+      "default": "Why"
+    },
+    {
+      "type": "text",
+      "id": "heading_suffix",
+      "label": "Heading Suffix",
+      "default": "is Different"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Not all products are created equal. Here’s what sets [product] apart from the competition."
+    },
+    {
+      "type": "header",
+      "content": "Feature 1"
+    },
+    {
+      "type": "text",
+      "id": "feat_1_title",
+      "label": "Feature 1 Title",
+      "default": "Pharmaceutical-Grade Formula"
+    },
+    {
+      "type": "textarea",
+      "id": "feat_1_desc",
+      "label": "Feature 1 Description",
+      "default": "Made with FDA-approved ingredients in certified facilities"
+    },
+    {
+      "type": "header",
+      "content": "Feature 2"
+    },
+    {
+      "type": "text",
+      "id": "feat_2_title",
+      "label": "Feature 2 Title",
+      "default": "Trusted by 50,000+ Men"
+    },
+    {
+      "type": "textarea",
+      "id": "feat_2_desc",
+      "label": "Feature 2 Description",
+      "default": "Join thousands of satisfied customers across India"
+    },
+    {
+      "type": "header",
+      "content": "Feature 3"
+    },
+    {
+      "type": "text",
+      "id": "feat_3_title",
+      "label": "Feature 3 Title",
+      "default": "Clinically Tested"
+    },
+    {
+      "type": "textarea",
+      "id": "feat_3_desc",
+      "label": "Feature 3 Description",
+      "default": "Backed by scientific research and clinical studies"
+    },
+    {
+      "type": "header",
+      "content": "Feature 4"
+    },
+    {
+      "type": "text",
+      "id": "feat_4_title",
+      "label": "Feature 4 Title",
+      "default": "No Side Effects"
+    },
+    {
+      "type": "textarea",
+      "id": "feat_4_desc",
+      "label": "Feature 4 Description",
+      "default": "Safe formulation with natural ingredients and no harmful chemicals"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Feature Title",
+          "default": "Clinically Validated"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Feature Description",
+          "default": "Rigorous laboratory testing ensures pure bio-actives and consistent potency."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Why Product is Different"
+    }
+  ]
+}
+{% endschema %}
+

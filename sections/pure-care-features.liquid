@@ -1,0 +1,275 @@
+{% schema %}
+{
+  "name": "Pure Care Features",
+  "class": "section-pure-care",
+  "settings": [
+    {
+       "type": "text",
+       "id": "subheading",
+       "label": "Subheading",
+       "default": "Pure Care"
+    },
+    {
+       "type": "text",
+       "id": "heading",
+       "label": "Heading",
+       "default": "Ayurveda for Modern India, Rooted in Tradition"
+    },
+    {
+       "type": "textarea",
+       "id": "description",
+       "label": "Description",
+       "default": "Experience authentic wellness from Rajasthan's farms, crafted with ancient wisdom and proven by science."
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFFFFF"
+    },
+    {
+       "type": "color",
+       "id": "heading_color",
+       "label": "Heading Color",
+       "default": "#1A1A1A"
+    },
+    {
+       "type": "color",
+       "id": "text_color",
+       "label": "Text Color",
+       "default": "#333333"
+    },
+    {
+       "type": "range",
+       "id": "padding_top",
+       "min": 0,
+       "max": 100,
+       "step": 4,
+       "unit": "px",
+       "label": "Top Padding",
+       "default": 60
+    },
+    {
+       "type": "range",
+       "id": "padding_bottom",
+       "min": 0,
+       "max": 100,
+       "step": 4,
+       "unit": "px",
+       "label": "Bottom Padding",
+       "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "leaf",
+          "options": [
+            {"value": "leaf", "label": "Leaf"},
+            {"value": "scroll", "label": "Scroll / Tradition"},
+            {"value": "plant", "label": "Plant"},
+            {"value": "check_mark", "label": "Check Mark"},
+            {"value": "microscope", "label": "Microscope / Science"},
+             {"value": "none", "label": "None"}
+          ]
+        },
+        {
+           "type": "image_picker",
+           "id": "custom_image",
+           "label": "Custom Image (Overrides Icon)"
+        },
+        {
+           "type": "text",
+           "id": "text",
+           "label": "Text",
+           "default": "Feature Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pure Care Features",
+      "blocks": [
+        {
+           "type": "feature",
+           "settings": {
+              "text": "No Chemicals but tradition",
+              "icon": "leaf"
+           }
+        },
+        {
+           "type": "feature",
+           "settings": {
+              "text": "Handpicked herbs for you",
+              "icon": "plant"
+           }
+        },
+        {
+           "type": "feature",
+           "settings": {
+              "text": "Lab-Tested and AYUSH approved",
+              "icon": "microscope"
+           }
+        },
+        {
+           "type": "feature",
+           "settings": {
+              "text": "Ayurveda one with you",
+              "icon": "leaf"
+           }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<div class="pure-care-section" style="background-color: {{ section.settings.bg_color }}; padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="page-width">
+    <div class="pure-care-header">
+       {%- if section.settings.subheading != blank -%}
+         <span class="pure-care-subheading">{{ section.settings.subheading }}</span>
+       {%- endif -%}
+       
+       {%- if section.settings.heading != blank -%}
+         <h2 class="pure-care-heading" style="color: {{ section.settings.heading_color }};">{{ section.settings.heading }}</h2>
+       {%- endif -%}
+       
+       {%- if section.settings.description != blank -%}
+         <div class="pure-care-description" style="color: {{ section.settings.text_color }};">
+            {{ section.settings.description }}
+         </div>
+       {%- endif -%}
+    </div>
+
+    <div class="pure-care-grid">
+       {%- for block in section.blocks -%}
+          <div class="pure-care-item" {{ block.shopify_attributes }}>
+             <div class="pure-care-icon-wrapper" style="color: {{ section.settings.heading_color }};">
+                {%- render 'icon-or-image',
+                    icon: block.settings.icon,
+                    image_upload: block.settings.custom_image,
+                    width: 48,
+                    class_name: 'pure-care-icon'
+                -%}
+             </div>
+             <p class="pure-care-item-text" style="color: {{ section.settings.text_color }};">
+                {{ block.settings.text }}
+             </p>
+          </div>
+       {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<style>
+  .pure-care-section {
+    text-align: center;
+  }
+  .pure-care-header {
+    margin-bottom: 60px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .pure-care-subheading {
+    display: block;
+    font-size: 1rem;
+    color: #888;
+    margin-bottom: 15px;
+    font-family: var(--font-body-family);
+    text-transform: capitalize;
+  }
+  .pure-care-heading {
+    margin: 0 0 20px 0;
+    font-family: 'Aleo', serif;
+    font-size: 2.8rem;
+    line-height: 1.2;
+    color: #1A1A1A;
+    font-weight: 500;
+  }
+  .pure-care-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  .pure-care-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    justify-items: center;
+    align-items: start;
+    padding-bottom: 20px;
+  }
+  
+  .pure-care-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    max-width: 250px;
+  }
+  
+  .pure-care-icon-wrapper {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #558B2F; /* Leaf Green matching reference */
+    margin-bottom: 5px;
+  }
+  
+  .pure-care-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  
+  .pure-care-icon svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+    stroke: currentColor;
+  }
+
+  /* Specific fix for some icons that might use strokes */
+  .pure-care-icon svg path {
+      fill: currentColor;
+  }
+  
+  .pure-care-item-text {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #333; /* Darker text for readability */
+  }
+  
+  @media screen and (max-width: 900px) {
+    .pure-care-grid {
+       grid-template-columns: repeat(2, 1fr);
+       gap: 50px 20px;
+    }
+    .pure-care-heading {
+        font-size: 2rem;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .pure-care-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+  }
+</style>

@@ -1,0 +1,130 @@
+{% comment %}
+  Manual Rating Block
+  Allows manual input of rating and review count for display.
+{% endcomment %}
+
+{% liquid
+  assign rating = block.settings.rating | default: 4.5
+  assign scale_max = block.settings.scale_max | default: 5
+  assign review_count = block.settings.review_count | default: 100
+  assign star_color = block.settings.star_color | default: "#88b04b"
+  assign text_color = block.settings.text_color | default: "#000000"
+%}
+
+<div class="manual-rating-wrapper" {{ block.shopify_attributes }}>
+  <div class="rating-star">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 32 32"
+      width="20"
+      height="20"
+      role="presentation"
+      fill="{{ star_color }}"
+    >
+      <path d="M31.547 12a.848.848 0 00-.677-.577l-9.427-1.376-4.224-8.532a.847.847 0 00-1.516 0l-4.218 8.534-9.427 1.355a.847.847 0 00-.467 1.467l6.823 6.664-1.612 9.375a.847.847 0 001.23.893l8.428-4.434 8.432 4.432a.847.847 0 001.229-.894l-1.615-9.373 6.822-6.665a.845.845 0 00.214-.869z" />
+    </svg>
+  </div>
+  <div class="rating-text" style="color: {{ text_color }};">
+    {{ rating }}/{{ scale_max }} ({{ review_count }})
+  </div>
+</div>
+
+<style>
+  .manual-rating-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-top: {{ block.settings.padding_top }}px;
+    padding-bottom: {{ block.settings.padding_bottom }}px;
+  }
+  .rating-text {
+    font-size: {{ block.settings.font_size }}px;
+    font-weight: {{ block.settings.font_weight }};
+    line-height: 1;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Manual Rating",
+  "settings": [
+    {
+      "type": "text",
+      "id": "rating",
+      "label": "Rating Value",
+      "default": "4.52"
+    },
+    {
+      "type": "text",
+      "id": "scale_max",
+      "label": "Max Scale",
+      "default": "5"
+    },
+    {
+      "type": "text",
+      "id": "review_count",
+      "label": "Review Count",
+      "default": "4911"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star Color",
+      "default": "#FFD700"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font Weight",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Manual Rating"
+    }
+  ]
+}
+{% endschema %}

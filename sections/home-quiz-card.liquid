@@ -1,0 +1,280 @@
+<section class="home-quiz-card page-width" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="quiz-card-container">
+    <div class="quiz-emblem">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.8">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+      </svg>
+    </div>
+
+    <h2 class="quiz-heading">{{ section.settings.heading | default: "NOT SURE WHAT YOU NEED?" }}</h2>
+    
+    {% if section.settings.subheading != blank %}
+      <p class="quiz-subheading">{{ section.settings.subheading }}</p>
+    {% endif %}
+
+    <div class="quiz-options-row">
+      {% for block in section.blocks %}
+        <button type="button" class="quiz-option-pill {% if forloop.first %}selected{% endif %}" {{ block.shopify_attributes }} data-link="{{ block.settings.link | default: '/collections/all' }}">
+          {{ block.settings.label }}
+        </button>
+      {% endfor %}
+    </div>
+
+    <div class="quiz-cta-row">
+      <a href="{{ section.settings.btn_link | default: '/collections/all' }}" class="btn-quiz-cta" id="quizActionBtn-{{ section.id }}">
+        {{ section.settings.btn_text | default: 'Find My Formula' }}
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+.home-quiz-card {
+  color: #ffffff;
+}
+
+.quiz-card-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: linear-gradient(145deg, #141414 0%, #0a0a0a 100%);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 24px;
+  padding: 48px 36px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(212, 175, 55, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.quiz-card-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.quiz-emblem {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.quiz-heading {
+  font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: #ffffff;
+  margin: 0 0 12px 0;
+  text-transform: uppercase;
+}
+
+.quiz-subheading {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.75);
+  max-width: 520px;
+  margin: 0 auto 32px;
+  line-height: 1.5;
+}
+
+.quiz-options-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+  position: relative;
+  z-index: 2;
+}
+
+.quiz-option-pill {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.quiz-option-pill:hover,
+.quiz-option-pill.selected {
+  background: rgba(212, 175, 55, 0.2);
+  border-color: #d4af37;
+  color: #f5d77f;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
+}
+
+.quiz-cta-row {
+  position: relative;
+  z-index: 2;
+}
+
+.btn-quiz-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e5c07b 0%, #d4af37 100%);
+  color: #000000;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 15px 44px;
+  border-radius: 30px;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+  transition: all 0.3s ease;
+}
+
+.btn-quiz-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(212, 175, 55, 0.5);
+  background: linear-gradient(135deg, #f0d592 0%, #e0bd49 100%);
+}
+
+@media (max-width: 600px) {
+  .quiz-card-container {
+    padding: 36px 20px;
+  }
+  
+  .quiz-options-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .quiz-option-pill {
+    width: 100%;
+  }
+
+  .btn-quiz-cta {
+    width: 100%;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const container = document.querySelector('.quiz-card-container');
+  if (!container) return;
+  const pills = container.querySelectorAll('.quiz-option-pill');
+  const actionBtn = document.getElementById('quizActionBtn-{{ section.id }}');
+
+  pills.forEach(pill => {
+    pill.addEventListener('click', function() {
+      pills.forEach(p => p.classList.remove('selected'));
+      this.classList.add('selected');
+      if (actionBtn && this.dataset.link) {
+        actionBtn.href = this.dataset.link;
+      }
+    });
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Home Quiz Card",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "NOT SURE WHAT YOU NEED?"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Choose your primary health goal to find your customized Ayurvedic daily routine."
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button Text",
+      "default": "Find My Formula"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "option",
+      "name": "Goal Option",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Option Name",
+          "default": "Stamina & Energy"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Redirect Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home Quiz Card",
+      "blocks": [
+        {
+          "type": "option",
+          "settings": {
+            "label": "Stamina"
+          }
+        },
+        {
+          "type": "option",
+          "settings": {
+            "label": "Energy & Vitality"
+          }
+        },
+        {
+          "type": "option",
+          "settings": {
+            "label": "Daily Wellness"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

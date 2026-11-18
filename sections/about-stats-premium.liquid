@@ -1,0 +1,64 @@
+{{ 'about-us-premium.css' | asset_url | stylesheet_tag }}
+
+<div class="about-stats-premium" style="background-color: {{ section.settings.bg_color }}; color: {{ section.settings.text_color }};">
+  <div class="about-stats-grid">
+    {% for block in section.blocks %}
+      <div class="about-stat-item animate-fade-up delay-{{ forloop.index }}00">
+        <span class="about-stat-number" style="color: {{ section.settings.accent_color }};">{{ block.settings.number }}</span>
+        <span class="about-stat-label">{{ block.settings.label }}</span>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "About Stats Premium",
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number",
+          "default": "100+"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Stat Label"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#FFD700"
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Stats Premium"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,73 @@
+{% comment %}
+  Renders a Shiprocket/Fastrr Buy Now button with branding and modal trigger.
+  Accepts:
+  - product: {Object} The product object (required for type 'product')
+  - type: {String} 'product' or 'cart' (default: 'product')
+  - class: {String} Additional classes for the button
+  - style: {String} Inline styles for the container
+{% endcomment %}
+
+{%- liquid
+  assign button_type = type | default: 'product'
+  if button_type == 'product'
+    assign variant = product.selected_or_first_available_variant
+  endif
+-%}
+
+<div class="shiprocket-headless {{ class }}" style="width: 100%; {{ style }}" data-type="{{ button_type }}" {% if button_type == 'product' %}data-product-id="{{ product.id }}" data-variant-id="{{ variant.id }}"{% endif %}>
+  <input type="hidden" value="{{ product.url }}" name="productUrl" />
+  <input type="hidden" value="true" id="fastrrCollectionPage" />
+
+  <button
+    type="button"
+    class="sr-headless-checkout {{ class }}"
+    style="width: 100% !important;"
+    {% if button_type == 'product' %}
+      data-product-id="{{ product.id }}"
+      data-variant-id="{{ variant.id }}"
+      onclick="
+        (function(btn, e) {
+          console.log('Fastrr Product Clicked');
+          if (window.shiprocketCheckoutEvents && shiprocketCheckoutEvents.buyProduct) {
+            shiprocketCheckoutEvents.buyProduct(e);
+          } else {
+            console.log('Fastrr not loaded - falling back');
+            btn.closest('form')?.requestSubmit();
+          }
+        })(this, event);
+      "
+      {% if variant.available == false %}disabled{% endif %}
+    {% else %}
+      onclick="
+        (function(btn, e) {
+          console.log('Fastrr Cart Clicked');
+          if (window.shiprocketCheckoutEvents && shiprocketCheckoutEvents.buyCart) {
+            shiprocketCheckoutEvents.buyCart(e);
+          } else {
+            console.log('Fastrr not loaded - falling back');
+            const form = btn.closest('form') || document.getElementById('cart-form');
+            if (form) form.requestSubmit(); else window.location.href = '/checkout';
+          }
+        })(this, event);
+      "
+      {% if cart.item_count == 0 %}disabled{% endif %}
+    {% endif %}
+
+
+  >
+    <div class="sr-d-flex flex-center" style="display: flex !important; align-items: center !important; justify-content: center !important; flex-wrap: nowrap !important; flex-direction: row !important;">
+      <div class="sr-d-flex full-width flex-center" style="display: flex !important; align-items: center !important; justify-content: center !important; width: auto !important;">
+        <span class="sr-checkout-visible2" style="white-space: nowrap !important;">BUY NOW</span>
+        <img src="https://fastrr-boost-ui.pickrr.com/assets/images/boost_button/upi_options.svg" alt="Google Pay | Phone Pay | UPI" class="sr-pl-15 sr-checkout-visible" loading="lazy">
+        <div class="loader5"></div>
+        <img src="https://fastrr-boost-ui.pickrr.com/assets/images/boost_button/right_arrow.svg" class="sr-pl-15 sr-checkout-visible1" alt="right_arrow" loading="lazy">
+      </div>
+      <div>
+        <span class="sr-powered-by">
+          <img src="https://fastrr-boost-ui.pickrr.com/assets/images/boost_button/powered_by.svg" alt="Powered by Fastrr" loading="lazy">
+        </span>
+      </div>
+    </div>
+  </button>
+</div>
+

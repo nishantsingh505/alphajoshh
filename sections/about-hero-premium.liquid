@@ -1,0 +1,35 @@
+{{ 'about-us-premium.css' | asset_url | stylesheet_tag }}
+
+<div class="about-premium-wrapper">
+  <div class="about-hero-premium">
+    <div class="about-hero-content">
+      <h1 class="about-hero-title animate-fade-up">{{ section.settings.heading }}</h1>
+      <p class="about-hero-subtitle text-white animate-fade-up delay-100">{{ section.settings.subheading }}</p>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "About Hero Premium",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Unleash Your Alpha"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Premium Ayurvedic wellness crafted for peak performance and vitality."
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Hero Premium"
+    }
+  ]
+}
+{% endschema %}

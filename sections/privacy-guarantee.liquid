@@ -1,0 +1,79 @@
+{% comment %}
+  Section 11: Privacy Guarantee Section
+{% endcomment %}
+
+{% render 'privacy-guarantee' %}
+
+{% schema %}
+{
+  "name": "Privacy Guarantee",
+  "tag": "section",
+  "class": "section-privacy-guarantee",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Your Privacy Is Guaranteed"
+    },
+    {
+      "type": "header",
+      "content": "Privacy Pillars"
+    },
+    {
+      "type": "text",
+      "id": "pillar_1",
+      "label": "Pillar 1",
+      "default": "Plain brown box"
+    },
+    {
+      "type": "text",
+      "id": "pillar_2",
+      "label": "Pillar 2",
+      "default": "No product name"
+    },
+    {
+      "type": "text",
+      "id": "pillar_3",
+      "label": "Pillar 3",
+      "default": "No brand mentioned"
+    },
+    {
+      "type": "text",
+      "id": "pillar_4",
+      "label": "Pillar 4",
+      "default": "Delivery partner won't know"
+    },
+    {
+      "type": "header",
+      "content": "Footer Tagline"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Bottom Tagline",
+      "default": "We respect your privacy as much as your performance."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "pillar",
+      "name": "Privacy Pillar",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Pillar Text",
+          "default": "100% Confidential packaging"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Privacy Guarantee"
+    }
+  ]
+}
+{% endschema %}
+

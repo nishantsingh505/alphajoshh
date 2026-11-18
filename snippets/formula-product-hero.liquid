@@ -1,0 +1,2996 @@
+{% comment %}
+  Dynamic Luxury Product Hero Snippet
+  - Real-Time Cart Updating Engine:
+    * Updates Cart Drawer HTML sections on the fly
+    * Updates Header Cart Count & Item Bubbles immediately
+    * Smoothly slides out the Cart Drawer on Add to Cart (both Main and Upsell buttons)
+    * Instant Single / Multi-pack checkout with Buy Now
+{% endcomment %}
+
+{%- liquid
+  assign current_product = closest.product | default: product
+  assign current_variant = current_product.selected_or_first_available_variant
+  assign form_id = 'product-form-' | append: section.id | append: '-' | append: current_product.id
+
+  # Dynamic Benefits sourcing
+  assign feature_items = current_product.metafields.custom.features.value
+  if feature_items == blank
+    assign feature_items = current_product.metafields.custom.feature_list | newline_to_br | split: '<br />'
+  endif
+  if feature_items == blank
+    if current_product.description contains '<li>'
+      assign desc_parts = current_product.description | split: '<li>'
+      assign temp_features = ''
+      for part in desc_parts offset: 1
+        assign item_text = part | split: '</li>' | first | strip_html | strip
+        if item_text != blank
+          if temp_features == ''
+            assign temp_features = item_text
+          else
+            assign temp_features = temp_features | append: '|||' | append: item_text
+          endif
+        endif
+      endfor
+      assign feature_items = temp_features | split: '|||'
+    endif
+  endif
+
+  if feature_items == blank or feature_items.size == 0
+    assign feature_items = 'Helps improve stamina & daily performance|||Reduces fatigue & boosts energy levels|||Supports confidence & active lifestyle' | split: '|||'
+  endif
+
+  # Dynamic Ratings
+  assign rating_val = current_product.metafields.reviews.rating.value.rating | default: '4.9'
+  if section.settings.rating_override != blank
+    assign rating_val = section.settings.rating_override
+  endif
+
+  # Review count — match per-product counts shown on collection/home cards
+  assign p_handle = current_product.handle | downcase
+  assign review_count_num = ''
+  if p_handle contains 'shilajit'
+    assign review_count_num = '1,420+'
+  elsif p_handle contains 'capsule' or p_handle contains 't-max'
+    assign review_count_num = '980+'
+  elsif p_handle contains 'oil' or p_handle contains 'performance'
+    assign review_count_num = '850+'
+  elsif p_handle contains 'combo' or p_handle contains 'prime'
+    assign review_count_num = '620+'
+  endif
+
+  # Fall back to metafield if present, then to a generic default
+  if review_count_num == ''
+    if current_product.metafields.reviews.rating_count != blank
+      assign review_count_num = current_product.metafields.reviews.rating_count
+    else
+      assign review_count_num = '450+'
+    endif
+  endif
+
+  if section.settings.review_count_override != blank
+    assign review_count_num = section.settings.review_count_override
+  endif
+
+  assign show_floating_badges = true
+  if section.settings.show_floating_badges == false
+    assign show_floating_badges = false
+  endif
+
+  assign badge_1 = section.settings.badge_1_text | default: 'Discreet Packaging'
+  assign badge_2 = section.settings.badge_2_text | default: '100% Ayurvedic & Pure'
+  assign badge_3 = section.settings.badge_3_text | default: 'Quality Assured'
+
+  assign show_trust_card = true
+  if section.settings.show_trust_card == false
+    assign show_trust_card = false
+  endif
+
+  assign trust_pill = section.settings.trust_pill_text | default: 'Clinically Tested Formula'
+  assign trust_f1 = section.settings.trust_feat_1 | default: 'Cash on Delivery'
+  assign trust_f2 = section.settings.trust_feat_2 | default: 'Expertly Formulated'
+  assign trust_f3 = section.settings.trust_feat_3 | default: 'Top Quality Ingredients'
+
+  assign priv_title = section.settings.privacy_box_title | default: 'Privacy Guarantee'
+  assign priv_l1 = section.settings.privacy_line_1 | default: 'Plain Brown Box'
+  assign priv_l2 = section.settings.privacy_line_2 | default: 'No Product Names'
+  assign priv_l3 = section.settings.privacy_line_3 | default: 'Free Shipping'
+
+  assign tax_note = section.settings.tax_shipping_note | default: 'Inclusive of all taxes • Free express discreet shipping'
+
+  assign show_coupon = true
+  if section.settings.show_coupon_box == false
+    assign show_coupon = false
+  endif
+  assign c_code = section.settings.coupon_code | default: 'SAVE10'
+  assign c_desc = section.settings.coupon_text | default: 'Get flat 10% off + FREE Gift on orders above ₹999'
+  assign c_btn = section.settings.coupon_button_label | default: 'Copy'
+
+  assign buynow_btn_text = section.settings.buynow_button_label | default: 'BUY NOW'
+  assign atc_btn_text = section.settings.atc_button_label | default: 'ADD TO CART – DISCREET DELIVERY'
+
+  assign show_trust_strip = true
+  if section.settings.show_trust_strip == false
+    assign show_trust_strip = false
+  endif
+  assign ts_1 = section.settings.trust_strip_1 | default: 'Cash on Delivery'
+  assign ts_2 = section.settings.trust_strip_2 | default: 'Free Shipping'
+  assign ts_3 = section.settings.trust_strip_3 | default: 'Easy Returns'
+
+  assign show_upsell = true
+  if section.settings.show_upsell_section == false
+    assign show_upsell = false
+  endif
+  assign up_heading = section.settings.upsell_heading | default: 'PAIR IT WITH:'
+
+  assign enable_floating_atc = true
+  if section.settings.enable_floating_atc == false
+    assign enable_floating_atc = false
+  endif
+
+  assign floating_show_buynow = true
+  if section.settings.floating_atc_show_buynow == false
+    assign floating_show_buynow = false
+  endif
+
+  assign floating_show_qty = true
+  if section.settings.floating_atc_show_qty == false
+    assign floating_show_qty = false
+  endif
+
+  assign floating_atc_text = section.settings.floating_atc_btn_text | default: 'ADD TO CART'
+  assign floating_buynow_text = section.settings.floating_buynow_btn_text | default: 'BUY NOW'
+-%}
+
+<div class="f41-product-hero" id="f41-hero-{{ section.id }}">
+  <div class="f41-container">
+    <div class="f41-grid">
+      
+      <!-- ================= LEFT COLUMN: MEDIA & TRUST ================= -->
+      <div class="f41-media-col">
+        
+        <!-- Main Media Showcase Card -->
+        <div class="f41-gallery-card">
+          
+          <!-- Floating Badges on top-left of image -->
+          {%- if show_floating_badges -%}
+            <div class="f41-floating-badges">
+              {%- if badge_1 != blank -%}
+                <div class="f41-badge f41-badge--red">
+                  <span class="f41-badge-icon">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 2.18l7 3.12v4.7c0 4.67-3.13 8.98-7 10.15-3.87-1.17-7-5.48-7-10.15V6.3l7-3.12z"/>
+                    </svg>
+                  </span>
+                  <span>{{ badge_1 }}</span>
+                </div>
+              {%- endif -%}
+
+              {%- if badge_2 != blank -%}
+                <div class="f41-badge f41-badge--dark">
+                  <span class="f41-badge-icon flag-icon">🇮🇳</span>
+                  <span>{{ badge_2 }}</span>
+                </div>
+              {%- endif -%}
+
+              {%- if badge_3 != blank -%}
+                <div class="f41-badge f41-badge--dark">
+                  <span class="f41-badge-icon">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                  </span>
+                  <span>{{ badge_3 }}</span>
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+          <!-- Main Image Carousel -->
+          <div class="f41-main-media-viewport">
+            <div class="f41-slides-track" id="f41-track-{{ section.id }}">
+              {%- if current_product.media.size > 0 -%}
+                {%- for media in current_product.media -%}
+                  <div class="f41-slide {% if forloop.first %}is-active{% endif %}" data-index="{{ forloop.index0 }}" data-media-id="{{ media.id }}">
+                    {{ media | image_url: width: 1000 | image_tag: loading: 'eager', class: 'f41-main-img', alt: media.alt | default: current_product.title }}
+                  </div>
+                {%- endfor -%}
+              {%- elsif current_product.featured_image -%}
+                <div class="f41-slide is-active" data-index="0">
+                  {{ current_product.featured_image | image_url: width: 1000 | image_tag: loading: 'eager', class: 'f41-main-img', alt: current_product.title }}
+                </div>
+              {%- else -%}
+                <div class="f41-slide is-active" data-index="0">
+                  <div class="f41-placeholder-img">
+                    <svg viewBox="0 0 400 400" width="100%" height="100%"><rect width="400" height="400" fill="#f8f8f8"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#888" font-size="20">{{ current_product.title }}</text></svg>
+                  </div>
+                </div>
+              {%- endif -%}
+            </div>
+
+            <!-- Arrow Navigation -->
+            {%- if current_product.media.size > 1 -%}
+              <button type="button" class="f41-nav-btn f41-nav-prev" id="f41-prev-{{ section.id }}" aria-label="Previous image">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+              <button type="button" class="f41-nav-btn f41-nav-next" id="f41-next-{{ section.id }}" aria-label="Next image">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            {%- endif -%}
+          </div>
+        </div>
+
+        <!-- Thumbnails Strip -->
+        {%- if current_product.media.size > 1 -%}
+          <div class="f41-thumbnails-row" id="f41-thumbs-{{ section.id }}">
+            {%- for media in current_product.media -%}
+              <button type="button" class="f41-thumb-item {% if forloop.first %}is-active{% endif %}" data-index="{{ forloop.index0 }}" aria-label="Thumbnail {{ forloop.index }}">
+                {{ media | image_url: width: 160, height: 160, crop: 'center' | image_tag: loading: 'lazy', alt: media.alt | default: current_product.title }}
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        <!-- Left Trust & Privacy Card -->
+        {%- if show_trust_card -%}
+          <div class="f41-trust-card">
+            
+            <!-- Top Tag -->
+            {%- if trust_pill != blank -%}
+              <div class="f41-trust-pill-tag">
+                <span class="f41-trust-pill-circle"></span>
+                <span class="f41-trust-pill-text">{{ trust_pill }}</span>
+              </div>
+            {%- endif -%}
+
+            <!-- 3 Feature Badges -->
+            <div class="f41-trust-features-grid">
+              {%- if trust_f1 != blank -%}
+                <div class="f41-trust-feat-item">
+                  <div class="f41-feat-icon-circle">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                      <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                      <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                    </svg>
+                  </div>
+                  <span class="f41-feat-text">{{ trust_f1 }}</span>
+                </div>
+              {%- endif -%}
+
+              {%- if trust_f2 != blank -%}
+                <div class="f41-trust-feat-item">
+                  <div class="f41-feat-icon-circle">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M10 2v7.31"></path><path d="M14 9.3V1.99"></path><path d="M8.5 2h7"></path>
+                      <path d="M14 9.3a6.5 6.5 0 1 1-4 0"></path><path d="M5.52 16h12.96"></path>
+                    </svg>
+                  </div>
+                  <span class="f41-feat-text">{{ trust_f2 }}</span>
+                </div>
+              {%- endif -%}
+
+              {%- if trust_f3 != blank -%}
+                <div class="f41-trust-feat-item">
+                  <div class="f41-feat-icon-circle">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                      <polyline points="9 12 11 14 15 10"></polyline>
+                    </svg>
+                  </div>
+                  <span class="f41-feat-text">{{ trust_f3 }}</span>
+                </div>
+              {%- endif -%}
+            </div>
+
+            <!-- White 100% Privacy Guarantee Box -->
+            <div class="f41-privacy-guarantee-box">
+              <div class="f41-privacy-left">
+                <div class="f41-privacy-percent">100%</div>
+                <div class="f41-privacy-title">{{ priv_title }}</div>
+              </div>
+              <div class="f41-privacy-right">
+                {%- if priv_l1 != blank -%}
+                  <div class="f41-privacy-line">
+                    <span class="f41-priv-icon">📦</span>
+                    <span>{{ priv_l1 }}</span>
+                  </div>
+                {%- endif -%}
+                {%- if priv_l2 != blank -%}
+                  <div class="f41-privacy-line">
+                    <span class="f41-priv-icon">✖</span>
+                    <span>{{ priv_l2 }}</span>
+                  </div>
+                {%- endif -%}
+                {%- if priv_l3 != blank -%}
+                  <div class="f41-privacy-line">
+                    <span class="f41-priv-icon">🚚</span>
+                    <span>{{ priv_l3 }}</span>
+                  </div>
+                {%- endif -%}
+              </div>
+            </div>
+
+          </div>
+        {%- endif -%}
+
+      </div>
+
+      <!-- ================= RIGHT COLUMN: DYNAMIC PRODUCT INFO ================= -->
+      <div class="f41-info-col">
+        
+        <!-- Dynamic Product Header -->
+        <div class="f41-header-block">
+          <h1 class="f41-title-main">{{ current_product.title }}</h1>
+          {%- if section.settings.subtitle_override != blank -%}
+            <div class="f41-title-sub">{{ section.settings.subtitle_override }}</div>
+          {%- elsif current_product.metafields.custom.subtitle != blank -%}
+            <div class="f41-title-sub">{{ current_product.metafields.custom.subtitle }}</div>
+          {%- elsif current_product.type != blank -%}
+            <div class="f41-title-sub">{{ current_product.type }}</div>
+          {%- endif -%}
+          
+          {%- if section.settings.tagline_override != blank -%}
+            <p class="f41-tagline">{{ section.settings.tagline_override }}</p>
+          {%- elsif current_product.metafields.custom.tagline != blank -%}
+            <p class="f41-tagline">{{ current_product.metafields.custom.tagline }}</p>
+          {%- elsif current_product.metafields.descriptors.subtitle != blank -%}
+            <p class="f41-tagline">{{ current_product.metafields.descriptors.subtitle }}</p>
+          {%- endif -%}
+        </div>
+
+        <!-- Social Proof & Rating -->
+        <div class="f41-rating-row">
+          <div class="f41-stars" aria-label="5 stars rating">★★★★★</div>
+          <span class="f41-rating-score">{{ rating_val }}</span>
+          <span class="f41-trust-text">({{ review_count_num }} reviews)</span>
+        </div>
+
+        <!-- Benefits Checklist -->
+        <div class="f41-benefits-block">
+          <h4 class="f41-benefits-heading">{{ section.settings.benefits_title | default: 'Benefits:' }}</h4>
+          <ul class="f41-benefits-list">
+            {%- for item in feature_items limit: 4 -%}
+              {%- assign clean_item = item | strip -%}
+              {%- if clean_item != blank -%}
+                <li>
+                  <span class="f41-check-icon">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  </span>
+                  <span>{{ clean_item }}</span>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+
+        <!-- Live Real Variant Price Display -->
+        <div class="f41-live-price-wrapper" id="f41-price-box-{{ section.id }}">
+          <div class="f41-live-price-main">
+            <span class="f41-live-price-amount" id="f41-live-price-{{ section.id }}">{{ current_variant.price | money_without_trailing_zeros }}</span>
+            <span class="f41-live-compare-amount" id="f41-live-compare-{{ section.id }}" {% unless current_variant.compare_at_price > current_variant.price %}style="display:none;"{% endunless %}>
+              {%- if current_variant.compare_at_price > current_variant.price -%}
+                {{ current_variant.compare_at_price | money_without_trailing_zeros }}
+              {%- endif -%}
+            </span>
+            <span class="f41-live-save-pill" id="f41-live-savings-{{ section.id }}" {% unless current_variant.compare_at_price > current_variant.price %}style="display:none;"{% endunless %}>
+              {%- if current_variant.compare_at_price > current_variant.price -%}
+                Save {{ current_variant.compare_at_price | minus: current_variant.price | money_without_trailing_zeros }}
+              {%- endif -%}
+            </span>
+          </div>
+          <div class="f41-live-price-tax-note">{{ tax_note }}</div>
+        </div>
+
+        <!-- Form & Real Variants Selector -->
+        {%- form 'product', current_product, id: form_id, class: 'f41-product-form' -%}
+          <input type="hidden" name="id" id="f41-variant-id-{{ section.id }}" value="{{ current_variant.id }}">
+          <input type="hidden" name="quantity" id="f41-hidden-qty-{{ section.id }}" value="1">
+
+          {%- unless current_product.has_only_default_variant -%}
+            {%- liquid
+              assign opt_heading = current_product.options.first | default: 'Option'
+              if opt_heading == 'Title' or opt_heading == blank
+                assign opt_heading = 'Option'
+              endif
+            -%}
+            <!-- Real Variants Section -->
+            <div class="f41-packs-section">
+              <h4 class="f41-packs-heading">Select {{ opt_heading }}:</h4>
+              
+              <div class="f41-packs-grid" style="grid-template-columns: repeat({{ current_product.variants.size | at_most: 4 | at_least: 2 }}, minmax(0, 1fr));">
+                {%- for variant in current_product.variants -%}
+                  {%- liquid
+                    assign is_selected = false
+                    if variant.id == current_variant.id
+                      assign is_selected = true
+                    endif
+
+                    assign has_compare = false
+                    assign savings_amt = ''
+                    if variant.compare_at_price > variant.price
+                      assign has_compare = true
+                      assign savings_amt = variant.compare_at_price | minus: variant.price | money_without_trailing_zeros
+                    endif
+                  -%}
+                  <div class="f41-pack-card {% if is_selected %}is-selected{% endif %}{% unless variant.available %} is-sold-out{% endunless %}" 
+                       data-pack="{{ forloop.index }}" 
+                       data-qty="1"
+                       data-variant-id="{{ variant.id }}" 
+                       data-price="{{ variant.price | money_without_trailing_zeros }}"
+                       data-compare="{% if has_compare %}{{ variant.compare_at_price | money_without_trailing_zeros }}{% endif %}"
+                       data-savings="{% if has_compare %}Save {{ savings_amt }}{% endif %}"
+                       data-available="{{ variant.available }}"
+                       {% if variant.featured_media %}data-media-id="{{ variant.featured_media.id }}"{% endif %}
+                       tabindex="0" role="radio" aria-checked="{% if is_selected %}true{% else %}false{% endif %}">
+                    
+                    {%- if variant.available == false -%}
+                      <div class="f41-card-floating-badge f41-badge-soldout">
+                        <span>SOLD OUT</span>
+                      </div>
+                    {%- elsif forloop.index == 2 and current_product.variants.size >= 2 -%}
+                      <div class="f41-card-floating-badge f41-badge-popular">
+                        <span>🔥 POPULAR</span>
+                      </div>
+                    {%- elsif forloop.index == 3 and current_product.variants.size >= 3 -%}
+                      <div class="f41-card-floating-badge f41-badge-bestvalue">
+                        <span>⚡ BEST VALUE</span>
+                      </div>
+                    {%- endif -%}
+
+                    <div class="f41-pack-inner">
+                      <div class="f41-pack-title">{{ variant.title }}</div>
+                      <div class="f41-pack-price">{{ variant.price | money_without_trailing_zeros }}</div>
+                      
+                      {%- if has_compare -%}
+                        <div class="f41-pack-compare">{{ variant.compare_at_price | money_without_trailing_zeros }}</div>
+                        <div class="f41-pack-save-badge">Save {{ savings_amt }}</div>
+                      {%- elsif variant.available == false -%}
+                        <div class="f41-pack-subtext">Out of stock</div>
+                      {%- else -%}
+                        <div class="f41-pack-subtext">In Stock</div>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endunless -%}
+
+          <!-- Coupon Discount Box -->
+          {%- if show_coupon -%}
+            <div class="f41-coupon-card">
+              <div class="f41-coupon-info">
+                <div class="f41-coupon-header">
+                  <span class="f41-coupon-code" id="f41-coupon-val-{{ section.id }}">{{ c_code }}</span>
+                </div>
+                <div class="f41-coupon-desc">{{ c_desc }}</div>
+              </div>
+              <button type="button" class="f41-coupon-btn" id="f41-apply-btn-{{ section.id }}" data-code="{{ c_code }}" aria-label="Copy Coupon Code">
+                <span class="f41-btn-text">{{ c_btn }}</span>
+                <span class="f41-btn-applied-text">Copied ✓</span>
+              </button>
+            </div>
+          {%- endif -%}
+
+          <!-- Quantity Selector -->
+          <div class="f41-quantity-row">
+            <label class="f41-qty-label">Quantity:</label>
+            <div class="f41-qty-box">
+              <button type="button" class="f41-qty-btn f41-qty-minus" id="f41-qty-minus-{{ section.id }}">-</button>
+              <span class="f41-qty-val" id="f41-qty-val-{{ section.id }}">1</span>
+              <button type="button" class="f41-qty-btn f41-qty-plus" id="f41-qty-plus-{{ section.id }}">+</button>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="f41-actions-block">
+            <button type="button" class="f41-buynow-btn" id="f41-buynow-btn-{{ section.id }}">
+              <span>{{ buynow_btn_text }}</span>
+            </button>
+            
+            <button type="submit" name="add" class="f41-atc-btn" id="f41-atc-btn-{{ section.id }}">
+              <span class="f41-atc-text">{{ atc_btn_text }}</span>
+            </button>
+          </div>
+
+          <!-- Trust Badges Strip -->
+          {%- if show_trust_strip -%}
+            <div class="f41-trust-strip">
+              <div class="f41-trust-strip-item">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                <span>{{ ts_1 }}</span>
+              </div>
+              <div class="f41-trust-strip-item">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                <span>{{ ts_2 }}</span>
+              </div>
+              <div class="f41-trust-strip-item">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                <span>{{ ts_3 }}</span>
+              </div>
+            </div>
+          {%- endif -%}
+
+          <!-- Functional PAIR IT WITH Upsells -->
+          {%- if show_upsell -%}
+            {%- liquid
+              assign upsell_count = 0
+              assign custom_upsell_products = section.settings.upsell_products
+            -%}
+            <div class="f41-upsell-section">
+              <h5 class="f41-upsell-heading">{{ up_heading }}</h5>
+              <div class="f41-upsell-grid">
+                {%- if custom_upsell_products != blank and custom_upsell_products.count > 0 -%}
+                  {%- for up_product in custom_upsell_products -%}
+                    {%- if up_product.id != current_product.id and up_product.available -%}
+                      <div class="f41-upsell-card" data-card-product-id="{{ up_product.id }}">
+                        <div class="f41-upsell-img-wrap">
+                          {%- if up_product.featured_image -%}
+                            {{ up_product.featured_image | image_url: width: 120, height: 120, crop: 'center' | image_tag: loading: 'lazy', alt: up_product.title }}
+                          {%- else -%}
+                            <div class="f41-upsell-placeholder"></div>
+                          {%- endif -%}
+                        </div>
+                        <div class="f41-upsell-info">
+                          <span class="f41-upsell-vendor">{{ up_product.title | truncate: 22 }}</span>
+                          <span class="f41-upsell-price">MRP {{ up_product.price | money_without_trailing_zeros }}</span>
+                        </div>
+                        <button type="button" class="f41-upsell-btn" data-variant-id="{{ up_product.selected_or_first_available_variant.id }}" aria-label="Add {{ up_product.title }} to cart">
+                          <span class="f41-up-text">Add</span>
+                          <span class="f41-up-spinner" style="display:none;">⏳</span>
+                          <span class="f41-up-added" style="display:none;">Added ✓</span>
+                        </button>
+                      </div>
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- else -%}
+                  {%- for up_product in collections.all.products -%}
+                    {%- if up_product.id != current_product.id and upsell_count < 2 and up_product.available -%}
+                      {%- assign upsell_count = upsell_count | plus: 1 -%}
+                      <div class="f41-upsell-card" data-card-product-id="{{ up_product.id }}">
+                        <div class="f41-upsell-img-wrap">
+                          {%- if up_product.featured_image -%}
+                            {{ up_product.featured_image | image_url: width: 120, height: 120, crop: 'center' | image_tag: loading: 'lazy', alt: up_product.title }}
+                          {%- else -%}
+                            <div class="f41-upsell-placeholder"></div>
+                          {%- endif -%}
+                        </div>
+                        <div class="f41-upsell-info">
+                          <span class="f41-upsell-vendor">{{ up_product.title | truncate: 22 }}</span>
+                          <span class="f41-upsell-price">MRP {{ up_product.price | money_without_trailing_zeros }}</span>
+                        </div>
+                        <button type="button" class="f41-upsell-btn" data-variant-id="{{ up_product.selected_or_first_available_variant.id }}" aria-label="Add {{ up_product.title }} to cart">
+                          <span class="f41-up-text">Add</span>
+                          <span class="f41-up-spinner" style="display:none;">⏳</span>
+                          <span class="f41-up-added" style="display:none;">Added ✓</span>
+                        </button>
+                      </div>
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endif -%}
+
+        {%- endform -%}
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- if enable_floating_atc -%}
+  <div class="f41-floating-atc-bar" id="f41-floating-atc-{{ section.id }}" aria-hidden="true" role="region" aria-label="Floating Add to Cart">
+    <div class="f41-floating-inner">
+      <!-- Left: Thumbnail & Product Info -->
+      <div class="f41-floating-product" id="f41-floating-product-{{ section.id }}" title="Click to view product options">
+        {%- assign feat_img = current_variant.featured_image | default: current_product.featured_image -%}
+        {%- if feat_img -%}
+          <img 
+            src="{{ feat_img | image_url: width: 140 }}" 
+            alt="{{ current_product.title | escape }}" 
+            class="f41-floating-thumb" 
+            id="f41-floating-thumb-{{ section.id }}"
+            width="46" 
+            height="46" 
+            loading="lazy"
+          >
+        {%- endif -%}
+        <div class="f41-floating-meta">
+          <div class="f41-floating-title" title="{{ current_product.title | escape }}">
+            {{ current_product.title }}
+          </div>
+          <div class="f41-floating-submeta">
+            <span class="f41-floating-pack-name" id="f41-floating-pack-title-{{ section.id }}">
+              {%- unless current_product.has_only_default_variant -%}
+                {{ current_variant.title }}
+              {%- else -%}
+                ★ {{ rating_val }} ({{ review_count_num }})
+              {%- endunless -%}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center: Variant Selector & Live Pricing -->
+      <div class="f41-floating-center">
+        {%- unless current_product.has_only_default_variant -%}
+          <div class="f41-floating-select-wrap">
+            <select class="f41-floating-variant-select" id="f41-floating-select-{{ section.id }}" aria-label="Select Variant">
+              {%- for v in current_product.variants -%}
+                <option value="{{ v.id }}" {% if v.id == current_variant.id %}selected{% endif %} {% unless v.available %}disabled{% endunless %}>
+                  {{ v.title }} • {{ v.price | money_without_trailing_zeros }}{% unless v.available %} (Sold Out){% endunless %}
+                </option>
+              {%- endfor -%}
+            </select>
+            <svg class="f41-floating-select-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+        {%- endunless -%}
+
+        <div class="f41-floating-pricing">
+          <span class="f41-floating-live-price" id="f41-floating-price-{{ section.id }}">
+            {{ current_variant.price | money_without_trailing_zeros }}
+          </span>
+          <span class="f41-floating-live-compare" id="f41-floating-compare-{{ section.id }}" {% unless current_variant.compare_at_price > current_variant.price %}style="display:none;"{% endunless %}>
+            {{ current_variant.compare_at_price | money_without_trailing_zeros }}
+          </span>
+          {%- if current_variant.compare_at_price > current_variant.price -%}
+            {%- assign float_save = current_variant.compare_at_price | minus: current_variant.price | money_without_trailing_zeros -%}
+            <span class="f41-floating-live-save" id="f41-floating-save-{{ section.id }}">Save {{ float_save }}</span>
+          {%- else -%}
+            <span class="f41-floating-live-save" id="f41-floating-save-{{ section.id }}" style="display:none;"></span>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <!-- Right: Quantity + Action Buttons -->
+      <div class="f41-floating-actions">
+        {%- if floating_show_qty -%}
+          <div class="f41-floating-qty-wrap">
+            <button type="button" class="f41-floating-qty-btn f41-floating-qty-minus" id="f41-floating-minus-{{ section.id }}" aria-label="Decrease quantity">−</button>
+            <span class="f41-floating-qty-val" id="f41-floating-qty-val-{{ section.id }}">1</span>
+            <button type="button" class="f41-floating-qty-btn f41-floating-qty-plus" id="f41-floating-plus-{{ section.id }}" aria-label="Increase quantity">+</button>
+          </div>
+        {%- endif -%}
+
+        {%- if floating_show_buynow -%}
+          <button type="button" class="f41-floating-buynow-btn" id="f41-floating-buynow-{{ section.id }}" {% unless current_variant.available %}disabled{% endunless %}>
+            <span>{{ floating_buynow_text }}</span>
+          </button>
+        {%- endif -%}
+
+        <button type="button" class="f41-floating-atc-btn" id="f41-floating-atc-btn-{{ section.id }}" {% unless current_variant.available %}disabled{% endunless %}>
+          <svg class="f41-floating-atc-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="f41-floating-atc-text">
+            {%- if current_variant.available -%}
+              {{ floating_atc_text }}
+            {%- else -%}
+              SOLD OUT
+            {%- endif -%}
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+<style>
+  .f41-product-hero {
+    background-color: #0c0c0c;
+    color: #ffffff;
+    padding: 30px 20px 60px;
+    line-height: 1.5;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .f41-container {
+    max-width: 1340px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  .f41-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    gap: 48px;
+    align-items: flex-start;
+  }
+
+  /* ── LEFT COLUMN ───────────────────────────── */
+  .f41-media-col {
+    position: sticky;
+    top: 20px;
+  }
+
+  .f41-gallery-card {
+    position: relative;
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .f41-floating-badges {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity 0.28s ease, transform 0.28s ease, visibility 0.28s;
+  }
+
+  .f41-gallery-card:hover .f41-floating-badges {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .f41-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    line-height: 1;
+  }
+
+  .f41-badge--red {
+    background: #d90429;
+    color: #ffffff;
+  }
+
+  .f41-badge--dark {
+    background: rgba(18, 18, 18, 0.88);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .f41-badge-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .f41-main-media-viewport {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+  }
+
+  .f41-slides-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .f41-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .f41-slide.is-active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 2;
+  }
+
+  .f41-main-img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin: auto;
+  }
+
+  .f41-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(45, 45, 45, 0.85);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .f41-nav-btn:hover {
+    background: #111111;
+    transform: translateY(-50%) scale(1.08);
+  }
+
+  .f41-nav-prev { left: 12px; }
+  .f41-nav-next { right: 12px; }
+
+  .f41-thumbnails-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .f41-thumb-item {
+    width: 74px;
+    height: 74px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #181818;
+    border: 2px solid transparent;
+    padding: 0;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .f41-thumb-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .f41-thumb-item.is-active {
+    border-color: #e5a93b;
+    transform: scale(1.03);
+    box-shadow: 0 0 10px rgba(229, 169, 59, 0.4);
+  }
+
+  /* Left Trust & Privacy Card */
+  .f41-trust-card {
+    background: #141414;
+    border: 1px solid #242424;
+    border-radius: 16px;
+    padding: 5px;
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .f41-trust-pill-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #1f1f1f;
+    border: 1px solid #333333;
+    padding: 6px 14px;
+    border-radius: 20px;
+    align-self: flex-start;
+  }
+
+  .f41-trust-pill-circle {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #4a5568;
+    display: inline-block;
+  }
+
+  .f41-trust-pill-text {
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  .f41-trust-features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 12px;
+    text-align: center;
+  }
+
+  .f41-trust-feat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .f41-feat-icon-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .f41-feat-text {
+    font-size: 11.5px;
+    color: #a1a1aa;
+    line-height: 1.25;
+  }
+
+  .f41-privacy-guarantee-box {
+    background: #ffffff;
+    color: #000000;
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+  }
+
+  .f41-privacy-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .f41-privacy-percent {
+    font-size: 26px;
+    font-weight: 900;
+    line-height: 1;
+    color: #d97706;
+  }
+
+  .f41-privacy-title {
+    font-size: 13px;
+    font-weight: 800;
+    color: #111827;
+    margin-top: 4px;
+  }
+
+  .f41-privacy-right {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #374151;
+  }
+
+  .f41-privacy-line {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .f41-priv-icon {
+    font-size: 12px;
+  }
+
+  /* ── RIGHT COLUMN ───────────────────────────── */
+  .f41-info-col {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .f41-header-block {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .f41-title-main {
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1.15;
+    margin: 0;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+  }
+
+  .f41-title-sub {
+    font-size: 32px;
+    font-weight: 800;
+    color: #e5a93b;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+  }
+
+  .f41-tagline {
+    font-size: 15px;
+    color: #cccccc;
+    margin: 4px 0 0;
+    font-weight: 400;
+  }
+
+  .f41-rating-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    font-size: 14px;
+    color: #a3a3a3;
+    margin-top: -4px;
+  }
+
+  .f41-stars {
+    color: #f59e0b;
+    font-size: 17px;
+    letter-spacing: 2px;
+  }
+
+  .f41-rating-score {
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  .f41-trust-text {
+    color: #9e9e9e;
+    font-size: 13.5px;
+  }
+
+  .f41-benefits-block {
+    margin-top: 4px;
+  }
+
+  .f41-benefits-heading {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 10px;
+  }
+
+  .f41-benefits-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .f41-benefits-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14.5px;
+    color: #d1d5db;
+    line-height: 1.35;
+  }
+
+  .f41-check-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    flex-shrink: 0;
+  }
+
+  
+  /* Live Price Block */
+  .f41-live-price-wrapper {
+    margin: 16px 0 14px;
+    padding: 14px 18px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+  }
+
+  .f41-live-price-main {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .f41-live-price-amount {
+    font-size: 32px;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+    line-height: 1;
+  }
+
+  .f41-live-compare-amount {
+    font-size: 18px;
+    font-weight: 500;
+    color: #71717a;
+    text-decoration: line-through;
+    line-height: 1;
+  }
+
+  .f41-live-save-pill {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(34, 197, 94, 0.15);
+    border: 1px solid rgba(34, 197, 94, 0.35);
+    color: #4ade80;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+  }
+
+  .f41-live-price-tax-note {
+    font-size: 12px;
+    color: #9ca3af;
+    margin-top: 6px;
+  }
+
+  .f41-pack-card.is-sold-out {
+    opacity: 0.55;
+    cursor: not-allowed;
+    border-color: #262626;
+  }
+
+  .f41-badge-soldout {
+    background: #3f3f46;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  /* Choose Your Pack Section */
+  .f41-packs-section {
+    margin-top: 16px;
+  }
+
+  .f41-packs-heading {
+    font-size: 16px;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 16px;
+    letter-spacing: -0.2px;
+  }
+
+  .f41-packs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .f41-pack-card {
+    position: relative;
+    background: #131313;
+    border: 1.5px solid #282828;
+    border-radius: 12px;
+    padding: 18px 8px 14px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 108px;
+    box-sizing: border-box;
+  }
+
+  .f41-pack-card:hover {
+    border-color: #484848;
+    background: #181818;
+    transform: translateY(-2px);
+  }
+
+  .f41-pack-card.is-selected {
+    border-color: #d4af37;
+    background: linear-gradient(180deg, #1d1912 0%, #131313 100%);
+    box-shadow: 0 0 16px rgba(212, 175, 55, 0.22), inset 0 0 12px rgba(212, 175, 55, 0.04);
+  }
+
+  .f41-card-floating-badge {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ffffff;
+    padding: 2.5px 8px;
+    border-radius: 999px;
+    font-size: 8px;
+    font-weight: 900;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  }
+
+  .f41-badge-popular {
+    background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .f41-badge-bestvalue {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .f41-pack-inner {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .f41-pack-title {
+    font-size: 13px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.2;
+    letter-spacing: -0.2px;
+    margin-bottom: 3px;
+  }
+
+  .f41-pack-price {
+    font-size: 15px;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1.2;
+    margin-bottom: 3px;
+  }
+
+  .f41-pack-card.is-selected .f41-pack-price {
+    color: #fef08a;
+  }
+
+  .f41-pack-compare {
+    font-size: 10.5px;
+    color: #71717a;
+    text-decoration: line-through;
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+
+  .f41-pack-save-badge {
+    display: inline-block;
+    font-size: 9.5px;
+    font-weight: 800;
+    color: #22c55e;
+    background: rgba(34, 197, 94, 0.12);
+    border: 1px solid rgba(34, 197, 94, 0.25);
+    border-radius: 4px;
+    padding: 2px 6px;
+    line-height: 1.2;
+  }
+
+  .f41-pack-gift-badge {
+    font-size: 8.5px;
+    font-weight: 800;
+    color: #f59e0b;
+    margin-top: 3px;
+    letter-spacing: 0.3px;
+  }
+
+  .f41-pack-subtext {
+    font-size: 9.5px;
+    color: #9ca3af;
+    line-height: 1.2;
+  }
+
+  /* Coupon */
+  .f41-coupon-card {
+    background: #141414;
+    border: 1px solid #282828;
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-top: 14px;
+  }
+
+  .f41-coupon-code {
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+  }
+
+  .f41-coupon-desc {
+    font-size: 12.5px;
+    color: #9ca3af;
+    margin-top: 2px;
+  }
+
+  .f41-coupon-btn {
+    background: #ffffff;
+    color: #000000;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-size: 13.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    flex-shrink: 0;
+  }
+
+  .f41-coupon-btn:hover {
+    background: #e5e5e5;
+  }
+
+  .f41-coupon-btn .f41-btn-applied-text { display: none; }
+  .f41-coupon-btn.is-applied { background: #22c55e; color: #ffffff; }
+  .f41-coupon-btn.is-applied .f41-btn-text { display: none; }
+  .f41-coupon-btn.is-applied .f41-btn-applied-text { display: inline; }
+
+  /* Quantity */
+  .f41-quantity-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 14px;
+  }
+
+  .f41-qty-label {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  .f41-qty-box {
+    display: inline-flex;
+    align-items: center;
+    background: #181818;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .f41-qty-btn {
+    background: #202020;
+    color: #ffffff;
+    border: none;
+    width: 34px;
+    height: 34px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+
+  .f41-qty-btn:hover {
+    background: #2a2a2a;
+  }
+
+  .f41-qty-val {
+    min-width: 36px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  /* Actions */
+  .f41-actions-block {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 14px;
+  }
+
+  .f41-buynow-btn {
+    width: 100%;
+    background: #ffffff;
+    color: #0a0a0a;
+    border: none;
+    border-radius: 12px;
+    padding: 16px 24px;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+  }
+
+  .f41-buynow-btn:hover {
+    background: #e2e2e2;
+  }
+
+  .f41-atc-btn {
+    width: 100%;
+    background: #e5a93b;
+    color: #0a0a0a;
+    border: none;
+    border-radius: 12px;
+    padding: 16px 24px;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 18px rgba(229, 169, 59, 0.25);
+    text-align: center;
+  }
+
+  .f41-atc-btn:hover {
+    background: #f0b54a;
+    transform: translateY(-2px);
+  }
+
+  /* Trust Strip */
+  .f41-trust-strip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 12px;
+    padding: 6px 2px;
+    font-size: 12.5px;
+    color: #a1a1aa;
+    flex-wrap: wrap;
+  }
+
+  .f41-trust-strip-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Pair It With Upsells */
+  .f41-upsell-section {
+    margin-top: 24px;
+    border-top: 1px solid #222222;
+    padding-top: 20px;
+  }
+
+  .f41-upsell-heading {
+    font-size: 14.5px;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 14px;
+    letter-spacing: 0.5px;
+  }
+
+  .f41-upsell-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .f41-upsell-card {
+    background: #141414;
+    border: 1px solid #262626;
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .f41-upsell-img-wrap {
+    width: 52px;
+    height: 52px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #252525;
+  }
+
+  .f41-upsell-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .f41-upsell-placeholder {
+    width: 100%;
+    height: 100%;
+    background: #2e2e2e;
+  }
+
+  .f41-upsell-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .f41-upsell-vendor {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .f41-upsell-price {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #e5a93b;
+  }
+
+  .f41-upsell-btn {
+    background: #ffffff;
+    color: #000000;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+
+  .f41-upsell-btn:hover {
+    background: #e2e2e2;
+  }
+
+  .f41-upsell-btn.is-added {
+    background: #22c55e;
+    color: #ffffff;
+  }
+
+  /* Large Desktop & Widescreen (Above 1280px) */
+  @media screen and (min-width: 1281px) {
+    .f41-container {
+      max-width: 1340px;
+      padding: 0 24px;
+    }
+
+    .f41-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+      gap: 48px;
+    }
+
+    .f41-title-main {
+      font-size: 36px;
+      line-height: 1.15;
+    }
+
+    .f41-title-sub {
+      font-size: 30px;
+      line-height: 1.15;
+    }
+
+    .f41-packs-grid {
+      gap: 12px;
+    }
+
+    .f41-pack-card {
+      padding: 20px 10px 16px;
+      min-height: 112px;
+    }
+
+    .f41-upsell-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+  }
+
+  /* Laptop & Small Screen Optimization (901px - 1280px) */
+  @media screen and (min-width: 901px) and (max-width: 1280px) {
+    .f41-product-hero {
+      padding: 24px 16px 50px;
+    }
+
+    .f41-container {
+      max-width: 100%;
+      padding: 0 12px;
+    }
+
+    .f41-grid {
+      grid-template-columns:minmax(0, 1fr) minmax(0, 1.15fr);
+      gap: 24px;
+    }
+
+    .f41-title-main {
+      font-size: 28px;
+      line-height: 1.2;
+    }
+
+    .f41-title-sub {
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    .f41-tagline {
+      font-size: 13.5px;
+    }
+
+    .f41-rating-row {
+      font-size: 13px;
+    }
+
+    .f41-stars {
+      font-size: 15px;
+    }
+
+    .f41-trust-text {
+      font-size: 12.5px;
+    }
+
+    .f41-benefits-heading {
+      font-size: 15px;
+    }
+
+    .f41-benefits-list li {
+      font-size: 13.5px;
+    }
+
+    .f41-packs-grid {
+      gap: 8px;
+    }
+
+    .f41-pack-card {
+      padding: 14px 6px 10px;
+      min-height: 98px;
+    }
+
+    .f41-card-floating-badge {
+      font-size: 7.5px;
+      padding: 2px 6px;
+      top: -9px;
+    }
+
+    .f41-pack-title {
+      font-size: 11.5px;
+    }
+
+    .f41-pack-price {
+      font-size: 13.5px;
+    }
+
+    .f41-pack-compare {
+      font-size: 9.5px;
+    }
+
+    .f41-pack-save-badge {
+      font-size: 8.5px;
+      padding: 1.5px 4px;
+    }
+
+    .f41-pack-gift-badge {
+      font-size: 7.5px;
+    }
+
+    .f41-coupon-card {
+      padding: 10px 14px;
+      gap: 10px;
+    }
+
+    .f41-coupon-code {
+      font-size: 13.5px;
+    }
+
+    .f41-coupon-desc {
+      font-size: 11.5px;
+    }
+
+    .f41-coupon-btn {
+      padding: 7px 14px;
+      font-size: 12.5px;
+    }
+
+    .f41-buynow-btn,
+    .f41-atc-btn {
+      padding: 14px 18px;
+      font-size: 14px;
+    }
+
+    .f41-upsell-grid {
+      gap: 8px;
+    }
+
+    .f41-upsell-card {
+      padding: 8px 10px;
+      gap: 8px;
+    }
+
+    .f41-upsell-img-wrap {
+      width: 44px;
+      height: 44px;
+    }
+
+    .f41-upsell-vendor {
+      font-size: 11px;
+    }
+
+    .f41-upsell-price {
+      font-size: 11.5px;
+    }
+
+    .f41-upsell-btn {
+      padding: 5px 10px;
+      font-size: 11px;
+    }
+
+    .f41-trust-card {
+      padding: 16px 14px;
+      gap: 14px;
+    }
+
+    .f41-privacy-guarantee-box {
+      padding: 10px 12px;
+      gap: 8px;
+    }
+
+    .f41-privacy-percent {
+      font-size: 22px;
+    }
+
+    .f41-privacy-title {
+      font-size: 12px;
+    }
+
+    .f41-privacy-right {
+      font-size: 11px;
+      gap: 2px;
+    }
+  }
+
+  /* Tablet & Medium Screens (601px - 900px) */
+  @media screen and (min-width: 601px) and (max-width: 900px) {
+    .f41-product-hero {
+      padding: 24px 16px 45px !important;
+      width: 100% !important;
+      max-width: 100vw !important;
+      overflow-x: hidden !important;
+      box-sizing: border-box !important;
+    }
+
+    .f41-container {
+      width: 100% !important;
+      max-width: 100% !important;
+      padding: 0 16px !important;
+      box-sizing: border-box !important;
+      overflow-x: hidden !important;
+    }
+
+    .f41-grid {
+      grid-template-columns: 100% !important;
+      gap: 24px !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      overflow-x: hidden !important;
+      box-sizing: border-box !important;
+    }
+    
+    .f41-media-col,
+    .f41-info-col {
+      position: static !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      overflow-x: hidden !important;
+      box-sizing: border-box !important;
+    }
+
+    .f41-gallery-card {
+      max-width: 580px !important;
+      margin: 0 auto !important;
+      border-radius: 18px !important;
+    }
+
+    .f41-trust-card {
+      max-width: 580px !important;
+      margin: 20px auto 0 !important;
+    }
+
+    .f41-title-main { 
+      font-size: 28px; 
+      font-weight: 800;
+      line-height: 1.2;
+    }
+    .f41-title-sub { 
+      font-size: 24px; 
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .f41-packs-grid {
+      gap: 10px;
+    }
+
+    .f41-pack-card {
+      min-height: 108px;
+      padding: 18px 8px 12px;
+    }
+
+    .f41-upsell-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+  }
+
+  /* Mobile Devices (Max 600px) */
+  @media screen and (max-width: 600px) {
+    .f41-product-hero {
+      padding: 16px 8px 40px !important;
+      width: 100% !important;
+      max-width: 100vw !important;
+      overflow-x: hidden !important;
+      box-sizing: border-box !important;
+    }
+
+    .f41-container {
+      width: 100% !important;
+      max-width: 100% !important;
+      padding: 0 6px !important;
+      box-sizing: border-box !important;
+      overflow-x: hidden !important;
+    }
+
+    .f41-grid {
+      grid-template-columns: 100% !important;
+      gap: 18px !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      overflow-x: hidden !important;
+      box-sizing: border-box !important;
+    }
+    
+    .f41-media-col,
+    .f41-info-col {
+      position: static !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      overflow-x: hidden !important;
+      box-sizing: border-box !important;
+    }
+
+    .f41-gallery-card {
+      width: 100% !important;
+      max-width: 100% !important;
+      border-radius: 16px !important;
+      overflow: hidden !important;
+      box-sizing: border-box !important;
+    }
+
+    .f41-main-media-viewport {
+      width: 100% !important;
+      max-width: 100% !important;
+      aspect-ratio: 1 / 1 !important;
+      overflow: hidden !important;
+    }
+
+    .f41-slides-track {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+
+    .f41-slide {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    .f41-main-img {
+      max-width: 100% !important;
+      max-height: 100% !important;
+      object-fit: contain !important;
+    }
+
+    .f41-title-main { 
+      font-size: 22px; 
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      line-height: 1.2;
+    }
+    .f41-title-sub { 
+      font-size: 19px; 
+      font-weight: 700;
+      line-height: 1.25;
+      margin-top: 2px;
+    }
+    .f41-tagline {
+      font-size: 12.5px;
+      margin-top: 4px;
+    }
+
+    .f41-rating-row {
+      font-size: 12px;
+    }
+    .f41-stars {
+      font-size: 14px;
+    }
+    .f41-trust-text {
+      font-size: 12px;
+    }
+
+    .f41-benefits-heading {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    .f41-benefits-list {
+      gap: 8px;
+    }
+    .f41-benefits-list li {
+      font-size: 12.5px;
+      gap: 8px;
+    }
+    .f41-check-icon {
+      width: 18px;
+      height: 18px;
+    }
+
+    .f41-packs-heading {
+      font-size: 14.5px;
+      margin-bottom: 14px;
+    }
+
+    .f41-packs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+      gap: 6px;
+    }
+
+    .f41-pack-card {
+      min-height: 100px;
+      padding: 15px 3px 10px;
+      border-radius: 10px;
+    }
+
+    .f41-card-floating-badge {
+      top: -9px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 7.5px;
+      padding: 2px 5px;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
+
+    .f41-pack-title {
+      font-size: 11px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 2px;
+      white-space: nowrap;
+    }
+
+    .f41-pack-price {
+      font-size: 12.5px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 2px;
+      white-space: nowrap;
+    }
+
+    .f41-pack-compare {
+      font-size: 9px;
+      margin-bottom: 3px;
+    }
+
+    .f41-pack-save-badge {
+      font-size: 8.5px;
+      font-weight: 800;
+      padding: 1px 3px;
+      line-height: 1.2;
+    }
+
+    .f41-pack-gift-badge {
+      font-size: 7px;
+      font-weight: 800;
+      margin-top: 2px;
+    }
+
+    .f41-pack-subtext {
+      font-size: 8.5px;
+    }
+
+    .f41-coupon-card {
+      padding: 10px 12px;
+    }
+    .f41-coupon-code {
+      font-size: 13px;
+    }
+    .f41-coupon-desc {
+      font-size: 11px;
+    }
+    .f41-coupon-btn {
+      font-size: 11px;
+      padding: 6px 12px;
+    }
+
+    .f41-qty-label {
+      font-size: 13px;
+    }
+    .f41-buynow-btn {
+      font-size: 13.5px;
+      padding: 13px;
+      border-radius: 10px;
+    }
+    .f41-atc-btn {
+      font-size: 13.5px;
+      padding: 13px;
+      border-radius: 10px;
+    }
+    .f41-trust-strip {
+      font-size: 11px;
+      gap: 8px;
+    }
+
+    .f41-upsell-grid {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .f41-upsell-card {
+      padding: 8px 10px;
+    }
+  }
+
+  /* Extra Small Mobile (Max 360px) */
+  @media screen and (max-width: 360px) {
+    .f41-packs-grid {
+      gap: 4px;
+    }
+    .f41-pack-card {
+      padding: 13px 2px 8px;
+      min-height: 92px;
+    }
+    .f41-pack-title {
+      font-size: 10px;
+    }
+    .f41-pack-price {
+      font-size: 11.5px;
+    }
+    .f41-pack-save-badge {
+      font-size: 7.5px;
+      padding: 1px 2.5px;
+    }
+    .f41-card-floating-badge {
+      font-size: 6.5px;
+      padding: 1px 4px;
+      top: -8px;
+    }
+    .f41-coupon-code {
+      font-size: 11.5px;
+    }
+    .f41-coupon-btn {
+      font-size: 10px;
+      padding: 5px 8px;
+    }
+  }
+
+  /* ================= FLOATING ADD TO CART BAR ================= */
+  .f41-floating-atc-bar {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    background: #0f0f12 !important;
+    background: rgba(14, 14, 16, 0.98) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(212, 175, 55, 0.35) !important;
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.85), 0 0 16px rgba(212, 175, 55, 0.1) !important;
+    z-index: 99999 !important;
+    transform: translateY(115%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, visibility 0.25s ease;
+    padding: 10px 24px;
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
+    box-sizing: border-box !important;
+  }
+
+  .f41-floating-atc-bar.is-visible {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  .f41-floating-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .f41-floating-product {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    flex: 1 1 auto;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .f41-floating-thumb {
+    width: 46px;
+    height: 46px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    object-fit: cover;
+    background: #18181b;
+    flex-shrink: 0;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .f41-floating-product:hover .f41-floating-thumb {
+    transform: scale(1.05);
+    border-color: #d4af37;
+  }
+
+  .f41-floating-meta {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    gap: 2px;
+  }
+
+  .f41-floating-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 280px;
+  }
+
+  .f41-floating-submeta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .f41-floating-pack-name {
+    font-size: 12px;
+    color: #a1a1aa;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .f41-floating-center {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+
+  .f41-floating-select-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .f41-floating-variant-select {
+    appearance: none;
+    -webkit-appearance: none;
+    background: #18181b;
+    border: 1px solid #333338;
+    color: #ffffff;
+    padding: 8px 30px 8px 12px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .f41-floating-variant-select:hover,
+  .f41-floating-variant-select:focus {
+    border-color: #d4af37;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+  }
+
+  .f41-floating-select-arrow {
+    position: absolute;
+    right: 10px;
+    color: #a1a1aa;
+    pointer-events: none;
+  }
+
+  .f41-floating-pricing {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    white-space: nowrap;
+  }
+
+  .f41-floating-live-price {
+    font-size: 18px;
+    font-weight: 800;
+    color: #e5a93b;
+    letter-spacing: -0.4px;
+  }
+
+  .f41-floating-live-compare {
+    font-size: 13px;
+    color: #71717a;
+    text-decoration: line-through;
+  }
+
+  .f41-floating-live-save {
+    font-size: 11px;
+    font-weight: 700;
+    color: #4ade80;
+    background: rgba(74, 222, 128, 0.12);
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid rgba(74, 222, 128, 0.25);
+  }
+
+  .f41-floating-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .f41-floating-qty-wrap {
+    display: flex;
+    align-items: center;
+    background: #141416;
+    border: 1px solid #2e2e32;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 38px;
+  }
+
+  .f41-floating-qty-btn {
+    background: transparent;
+    border: none;
+    color: #d1d5db;
+    font-size: 15px;
+    font-weight: 700;
+    width: 28px;
+    height: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, color 0.15s ease;
+    user-select: none;
+  }
+
+  .f41-floating-qty-btn:hover {
+    background: #252528;
+    color: #ffffff;
+  }
+
+  .f41-floating-qty-val {
+    min-width: 22px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
+    user-select: none;
+  }
+
+  .f41-floating-buynow-btn {
+    background: #202024;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 0 16px;
+    height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.3px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .f41-floating-buynow-btn:hover {
+    background: #2c2c34;
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-1px);
+  }
+
+  .f41-floating-atc-btn {
+    background: #e5a93b;
+    color: #0a0a0a;
+    border: none;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 0 20px;
+    height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    letter-spacing: 0.3px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 14px rgba(229, 169, 59, 0.32);
+    white-space: nowrap;
+  }
+
+  .f41-floating-atc-btn:hover {
+    background: #f0b54a;
+    box-shadow: 0 6px 18px rgba(229, 169, 59, 0.48);
+    transform: translateY(-1px);
+  }
+
+  .f41-floating-atc-btn:disabled,
+  .f41-floating-buynow-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  @media (max-width: 989px) {
+    .f41-floating-atc-bar {
+      padding: 10px 16px;
+    }
+    .f41-floating-title {
+      max-width: 200px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .f41-floating-atc-bar {
+      padding: 9px 12px !important;
+      padding-bottom: max(10px, env(safe-area-inset-bottom)) !important;
+      background: #0f0f12 !important;
+    }
+    .f41-floating-inner {
+      gap: 8px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+    }
+    .f41-floating-product {
+      display: flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      min-width: 0 !important;
+      flex: 1 1 auto !important;
+    }
+    .f41-floating-thumb {
+      width: 42px !important;
+      height: 42px !important;
+      border-radius: 6px !important;
+      flex-shrink: 0 !important;
+    }
+    .f41-floating-meta {
+      display: flex !important;
+      flex-direction: column !important;
+      min-width: 0 !important;
+      overflow: hidden !important;
+    }
+    .f41-floating-title {
+      font-size: 12px !important;
+      max-width: 130px !important;
+      line-height: 1.2 !important;
+      color: #ffffff !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+    .f41-floating-submeta {
+      display: flex !important;
+      align-items: center !important;
+    }
+    .f41-floating-pack-name {
+      display: block !important;
+      font-size: 11px !important;
+      color: #a1a1aa !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      max-width: 120px !important;
+    }
+    .f41-floating-select-wrap {
+      display: none !important;
+    }
+    .f41-floating-center {
+      gap: 0 !important;
+      flex-shrink: 0 !important;
+    }
+    .f41-floating-live-price {
+      font-size: 15.5px !important;
+      font-weight: 800 !important;
+      color: #e5a93b !important;
+    }
+    .f41-floating-live-compare,
+    .f41-floating-live-save {
+      display: none !important;
+    }
+    .f41-floating-qty-wrap {
+      display: none !important;
+    }
+    .f41-floating-actions {
+      gap: 6px !important;
+      flex: 0 0 auto !important;
+      display: flex !important;
+      align-items: center !important;
+    }
+    .f41-floating-buynow-btn {
+      height: 38px !important;
+      padding: 0 10px !important;
+      font-size: 11px !important;
+      font-weight: 700 !important;
+      border-radius: 6px !important;
+    }
+    .f41-floating-atc-btn {
+      height: 38px !important;
+      padding: 0 13px !important;
+      font-size: 11.5px !important;
+      font-weight: 800 !important;
+      border-radius: 6px !important;
+    }
+    .f41-floating-atc-icon {
+      width: 13px !important;
+      height: 13px !important;
+    }
+  }
+
+  @media (max-width: 370px) {
+    .f41-floating-product {
+      display: none !important;
+    }
+    .f41-floating-center {
+      flex: 0 0 auto !important;
+    }
+    .f41-floating-actions {
+      flex: 1 1 auto !important;
+      justify-content: flex-end !important;
+    }
+    .f41-floating-buynow-btn,
+    .f41-floating-atc-btn {
+      flex: 1 !important;
+      padding: 0 6px !important;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    const sId = {{ section.id | json }};
+    const heroEl = document.getElementById('f41-hero-' + sId);
+    if (!heroEl) return;
+
+    const track = document.getElementById('f41-track-' + sId);
+    const thumbsContainer = document.getElementById('f41-thumbs-' + sId);
+    const prevBtn = document.getElementById('f41-prev-' + sId);
+    const nextBtn = document.getElementById('f41-next-' + sId);
+    const packCards = heroEl.querySelectorAll('.f41-pack-card');
+    const variantInput = document.getElementById('f41-variant-id-' + sId);
+    const hiddenQty = document.getElementById('f41-hidden-qty-' + sId);
+    const qtyVal = document.getElementById('f41-qty-val-' + sId);
+    const qtyMinus = document.getElementById('f41-qty-minus-' + sId);
+    const qtyPlus = document.getElementById('f41-qty-plus-' + sId);
+    const applyBtn = document.getElementById('f41-apply-btn-' + sId);
+    const buyNowBtn = document.getElementById('f41-buynow-btn-' + sId);
+    const atcBtn = document.getElementById('f41-atc-btn-' + sId);
+    const upsellBtns = heroEl.querySelectorAll('.f41-upsell-btn');
+
+    // ================= REAL-TIME CART ENGINE =================
+    async function addToCartEngine(items, onStart, onComplete, onError) {
+      if (onStart) onStart();
+
+      // Collect section IDs to morph
+      const sectionIds = new Set();
+      document.querySelectorAll('cart-items-component').forEach(item => {
+        if (item.dataset.sectionId) sectionIds.add(item.dataset.sectionId);
+        const sec = item.closest('.shopify-section');
+        if (sec && sec.id) sectionIds.add(sec.id.replace('shopify-section-', ''));
+      });
+
+      const drawerSec = document.querySelector('cart-drawer-component')?.closest('.shopify-section');
+      if (drawerSec && drawerSec.id) sectionIds.add(drawerSec.id.replace('shopify-section-', ''));
+
+      const headerSec = document.querySelector('.header-actions__cart-icon')?.closest('.shopify-section');
+      if (headerSec && headerSec.id) sectionIds.add(headerSec.id.replace('shopify-section-', ''));
+
+      const bodyData = {
+        items: items,
+        sections: Array.from(sectionIds).join(','),
+        sections_url: window.location.pathname
+      };
+
+      try {
+        const response = await fetch('/cart/add.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(bodyData)
+        });
+
+        const data = await response.json();
+
+        if (data.status && data.status >= 400) {
+          throw new Error(data.message || data.description || 'Add to cart failed');
+        }
+
+        // Live Morph all returned cart sections
+        if (data.sections) {
+          for (const [sectionId, html] of Object.entries(data.sections)) {
+            const targetEl = document.getElementById(`shopify-section-${sectionId}`) || document.querySelector(`[data-section-id="${sectionId}"]`)?.closest('.shopify-section');
+            if (targetEl) {
+              const parsed = new DOMParser().parseFromString(html, 'text/html');
+              const newInner = parsed.getElementById(`shopify-section-${sectionId}`);
+              if (newInner) {
+                targetEl.innerHTML = newInner.innerHTML;
+              } else {
+                targetEl.innerHTML = html;
+              }
+            }
+          }
+        }
+
+        // Fetch fresh cart count & totals
+        const cartRes = await fetch('/cart.js');
+        const cartObj = await cartRes.json();
+
+        // Update all badge counters across header/drawer
+        document.querySelectorAll('.cart-count-bubble, [ref="cartItemCount"], .header-actions__cart-icon-bubble, .cart-bubble, .cart-count, .header__cart-count').forEach(el => {
+          el.textContent = cartObj.item_count;
+          el.classList.remove('hidden');
+          el.style.display = cartObj.item_count > 0 ? '' : 'none';
+        });
+
+        // Dispatch theme-wide events
+        document.dispatchEvent(new CustomEvent('cart:update', { bubbles: true, detail: { resource: cartObj, sections: data.sections } }));
+        document.dispatchEvent(new CustomEvent('cart:refresh', { bubbles: true, detail: { resource: cartObj } }));
+
+        // Slide open the Cart Drawer
+        const drawer = document.querySelector('cart-drawer-component');
+        if (drawer) {
+          if (typeof drawer.open === 'function') {
+            drawer.open();
+          } else if (typeof drawer.showDialog === 'function') {
+            drawer.showDialog();
+          } else {
+            const dlg = drawer.querySelector('dialog');
+            if (dlg && typeof dlg.showModal === 'function' && !dlg.open) {
+              dlg.showModal();
+            }
+          }
+        }
+
+        if (window.gokwikSdk && typeof window.gokwikSdk.init === 'function') {
+          window.gokwikSdk.init();
+        }
+
+        if (onComplete) onComplete(data, cartObj);
+      } catch (err) {
+        console.error('Add to Cart error:', err);
+        if (onError) onError(err);
+      }
+    }
+
+    // Gallery Slider
+    if (track) {
+      const slides = track.querySelectorAll('.f41-slide');
+      const thumbs = thumbsContainer ? thumbsContainer.querySelectorAll('.f41-thumb-item') : [];
+      let currentIndex = 0;
+
+      function goToSlide(index) {
+        if (index < 0) index = slides.length - 1;
+        if (index >= slides.length) index = 0;
+        currentIndex = index;
+
+        slides.forEach((s, idx) => s.classList.toggle('is-active', idx === currentIndex));
+        thumbs.forEach((t, idx) => t.classList.toggle('is-active', idx === currentIndex));
+        const floatThumb = document.getElementById('f41-floating-thumb-' + sId);
+        if (floatThumb && slides[currentIndex]) {
+          const activeImg = slides[currentIndex].querySelector('img');
+          if (activeImg && activeImg.src) floatThumb.src = activeImg.src;
+        }
+      }
+
+      if (prevBtn) prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
+      if (nextBtn) nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
+
+      thumbs.forEach((thumb, idx) => {
+        thumb.addEventListener('click', () => goToSlide(idx));
+      });
+    }
+
+    // Pack Selector Interaction
+    let currentQty = 1; // Default to 1
+    packCards.forEach(card => {
+      card.addEventListener('click', function() {
+        packCards.forEach(c => {
+          c.classList.remove('is-selected');
+          c.setAttribute('aria-checked', 'false');
+        });
+        this.classList.add('is-selected');
+        this.setAttribute('aria-checked', 'true');
+
+        const variantId = this.getAttribute('data-variant-id');
+        if (variantId && variantInput) {
+          variantInput.value = variantId;
+        }
+
+        // Live Real Price Display update
+        const priceStr = this.getAttribute('data-price');
+        const compareStr = this.getAttribute('data-compare');
+        const savingsStr = this.getAttribute('data-savings');
+        const isAvail = this.getAttribute('data-available') === 'true';
+
+        const livePriceEl = document.getElementById('f41-live-price-' + sId);
+        const liveCompareEl = document.getElementById('f41-live-compare-' + sId);
+        const liveSavingsEl = document.getElementById('f41-live-savings-' + sId);
+
+        if (livePriceEl && priceStr) {
+          livePriceEl.textContent = priceStr;
+        }
+        if (liveCompareEl) {
+          if (compareStr) {
+            liveCompareEl.textContent = compareStr;
+            liveCompareEl.style.display = '';
+          } else {
+            liveCompareEl.style.display = 'none';
+          }
+        }
+        if (liveSavingsEl) {
+          if (savingsStr) {
+            liveSavingsEl.textContent = savingsStr;
+            liveSavingsEl.style.display = '';
+          } else {
+            liveSavingsEl.style.display = 'none';
+          }
+        }
+
+        // Sold-out / Available handling for ATC
+        if (atcBtn) {
+          const atcTextEl = atcBtn.querySelector('.f41-atc-text');
+          if (!isAvail) {
+            atcBtn.disabled = true;
+            if (atcTextEl) atcTextEl.textContent = 'SOLD OUT';
+            if (buyNowBtn) buyNowBtn.disabled = true;
+          } else {
+            atcBtn.disabled = false;
+            if (atcTextEl) atcTextEl.textContent = 'ADD TO CART – DISCREET DELIVERY';
+            if (buyNowBtn) buyNowBtn.disabled = false;
+          }
+        }
+
+        // Sync Floating Bar elements
+        const floatSelect = document.getElementById('f41-floating-select-' + sId);
+        const floatTitle = document.getElementById('f41-floating-pack-title-' + sId);
+        const floatPrice = document.getElementById('f41-floating-price-' + sId);
+        const floatCompare = document.getElementById('f41-floating-compare-' + sId);
+        const floatSave = document.getElementById('f41-floating-save-' + sId);
+        const floatAtc = document.getElementById('f41-floating-atc-btn-' + sId);
+        const floatBuyNow = document.getElementById('f41-floating-buynow-' + sId);
+        const floatThumb = document.getElementById('f41-floating-thumb-' + sId);
+
+        if (floatSelect && variantId) floatSelect.value = variantId;
+        if (floatTitle) {
+          const cardTitle = this.querySelector('.f41-pack-title');
+          if (cardTitle) floatTitle.textContent = cardTitle.textContent.trim();
+        }
+        if (floatPrice && priceStr) floatPrice.textContent = priceStr;
+        if (floatCompare) {
+          if (compareStr) {
+            floatCompare.textContent = compareStr;
+            floatCompare.style.display = '';
+          } else {
+            floatCompare.style.display = 'none';
+          }
+        }
+        if (floatSave) {
+          if (savingsStr) {
+            floatSave.textContent = savingsStr;
+            floatSave.style.display = '';
+          } else {
+            floatSave.style.display = 'none';
+          }
+        }
+        if (floatAtc) {
+          floatAtc.disabled = !isAvail;
+          const floatAtcText = floatAtc.querySelector('.f41-floating-atc-text');
+          if (floatAtcText) floatAtcText.textContent = isAvail ? '{{ floating_atc_text | escape }}' : 'SOLD OUT';
+        }
+        if (floatBuyNow) {
+          floatBuyNow.disabled = !isAvail;
+        }
+
+        // Switch to variant media if available
+        const mediaId = this.getAttribute('data-media-id');
+        if (mediaId && track) {
+          const matchingSlide = track.querySelector(`.f41-slide[data-media-id="${mediaId}"]`);
+          if (matchingSlide) {
+            const idx = parseInt(matchingSlide.getAttribute('data-index'), 10);
+            if (!isNaN(idx)) {
+              track.querySelectorAll('.f41-slide').forEach((s, i) => s.classList.toggle('is-active', i === idx));
+              if (thumbsContainer) {
+                thumbsContainer.querySelectorAll('.f41-thumb-item').forEach((t, i) => t.classList.toggle('is-active', i === idx));
+              }
+              if (floatThumb) {
+                const sImg = matchingSlide.querySelector('img');
+                if (sImg && sImg.src) floatThumb.src = sImg.src;
+              }
+            }
+          }
+        }
+      });
+    });
+
+    // Quantity Selector & Sync
+    const floatQtyVal = document.getElementById('f41-floating-qty-val-' + sId);
+    const floatQtyMinus = document.getElementById('f41-floating-minus-' + sId);
+    const floatQtyPlus = document.getElementById('f41-floating-plus-' + sId);
+
+    function updateAllQuantities(newQ) {
+      currentQty = Math.max(1, newQ);
+      if (qtyVal) qtyVal.textContent = currentQty;
+      if (hiddenQty) hiddenQty.value = currentQty;
+      if (floatQtyVal) floatQtyVal.textContent = currentQty;
+    }
+
+    if (qtyMinus && qtyPlus) {
+      qtyMinus.addEventListener('click', () => updateAllQuantities(currentQty - 1));
+      qtyPlus.addEventListener('click', () => updateAllQuantities(currentQty + 1));
+    }
+
+    if (floatQtyMinus && floatQtyPlus) {
+      floatQtyMinus.addEventListener('click', () => updateAllQuantities(currentQty - 1));
+      floatQtyPlus.addEventListener('click', () => updateAllQuantities(currentQty + 1));
+    }
+
+    // Floating Bar Variant Select interaction
+    const floatSelect = document.getElementById('f41-floating-select-' + sId);
+    if (floatSelect) {
+      floatSelect.addEventListener('change', function() {
+        const vId = this.value;
+        const targetCard = heroEl.querySelector(`.f41-pack-card[data-variant-id="${vId}"]`);
+        if (targetCard) {
+          targetCard.click();
+        } else if (variantInput) {
+          variantInput.value = vId;
+        }
+      });
+    }
+
+    // Floating Bar Product click -> smooth scroll to pack options
+    const floatProduct = document.getElementById('f41-floating-product-' + sId);
+    if (floatProduct) {
+      floatProduct.addEventListener('click', () => {
+        const targetScroll = heroEl.querySelector('.f41-packs-section') || heroEl.querySelector('.f41-actions-block');
+        if (targetScroll) {
+          targetScroll.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    }
+
+    // Floating Bar Add to Cart Button click
+    const floatAtcBtn = document.getElementById('f41-floating-atc-btn-' + sId);
+    if (floatAtcBtn) {
+      floatAtcBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const vId = variantInput ? variantInput.value : null;
+        const q = hiddenQty ? parseInt(hiddenQty.value, 10) : 1;
+        if (!vId) return;
+
+        const floatAtcText = floatAtcBtn.querySelector('.f41-floating-atc-text');
+        const origText = floatAtcText ? floatAtcText.textContent : '{{ floating_atc_text | escape }}';
+
+        addToCartEngine(
+          [{ id: vId, quantity: q }],
+          () => {
+            floatAtcBtn.disabled = true;
+            if (floatAtcText) floatAtcText.textContent = 'ADDING...';
+          },
+          () => {
+            if (floatAtcText) floatAtcText.textContent = 'ADDED ✓';
+            setTimeout(() => {
+              if (floatAtcText) floatAtcText.textContent = origText;
+              floatAtcBtn.disabled = false;
+            }, 2000);
+          },
+          () => {
+            if (floatAtcText) floatAtcText.textContent = origText;
+            floatAtcBtn.disabled = false;
+          }
+        );
+      });
+    }
+
+    // Floating Bar Buy Now Button click
+    const floatBuyNowBtn = document.getElementById('f41-floating-buynow-' + sId);
+    if (floatBuyNowBtn && variantInput) {
+      floatBuyNowBtn.addEventListener('click', () => {
+        const vId = variantInput.value;
+        const q = hiddenQty ? hiddenQty.value : 1;
+        if (vId) window.location.href = '/cart/' + vId + ':' + q;
+      });
+    }
+
+    // Floating Bar Visibility & Relocation
+    const floatingBar = document.getElementById('f41-floating-atc-' + sId);
+    const actionsBlock = heroEl.querySelector('.f41-actions-block');
+
+    if (floatingBar && actionsBlock) {
+      // Append to body so parent section overflow/clipping cannot affect fixed positioning
+      if (floatingBar.parentElement !== document.body) {
+        document.body.appendChild(floatingBar);
+      }
+
+      const toggleFloatingBar = (show) => {
+        if (show) {
+          floatingBar.classList.add('is-visible');
+          floatingBar.setAttribute('aria-hidden', 'false');
+        } else {
+          floatingBar.classList.remove('is-visible');
+          floatingBar.setAttribute('aria-hidden', 'true');
+        }
+      };
+
+      const updateVisibility = () => {
+        const rect = actionsBlock.getBoundingClientRect();
+        const winHeight = window.innerHeight || document.documentElement.clientHeight;
+        // Main button is visible if its top < viewport bottom AND its bottom > 0
+        const isMainButtonVisible = rect.top < winHeight && rect.bottom > 0;
+        toggleFloatingBar(!isMainButtonVisible);
+      };
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            toggleFloatingBar(!entry.isIntersecting);
+          });
+        }, {
+          root: null,
+          threshold: 0.1
+        });
+
+        observer.observe(actionsBlock);
+      }
+
+      window.addEventListener('scroll', updateVisibility, { passive: true });
+      window.addEventListener('resize', updateVisibility, { passive: true });
+
+      // Check immediately
+      updateVisibility();
+    }
+
+    // Coupon Apply
+    if (applyBtn) {
+      applyBtn.addEventListener('click', function() {
+        const code = this.getAttribute('data-code') || 'SAVE10';
+        navigator.clipboard.writeText(code).then(() => {
+          applyBtn.classList.add('is-applied');
+          fetch('/discount/' + encodeURIComponent(code)).catch(() => {});
+          setTimeout(() => applyBtn.classList.remove('is-applied'), 3500);
+        }).catch(() => {
+          applyBtn.classList.add('is-applied');
+        });
+      });
+    }
+
+    // Direct Buy Now Button
+    if (buyNowBtn && variantInput) {
+      buyNowBtn.addEventListener('click', () => {
+        const vId = variantInput.value;
+        const q = hiddenQty ? hiddenQty.value : 1;
+        if (vId) window.location.href = '/cart/' + vId + ':' + q;
+      });
+    }
+
+    // Main Add To Cart Form Submission (Real-time update & drawer trigger)
+    const productForm = heroEl.querySelector('.f41-product-form');
+    if (productForm && atcBtn) {
+      productForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const vId = variantInput ? variantInput.value : null;
+        const q = hiddenQty ? parseInt(hiddenQty.value, 10) : 1;
+        if (!vId) return;
+
+        const atcTextEl = atcBtn.querySelector('.f41-atc-text');
+        const origText = atcTextEl ? atcTextEl.textContent : 'ADD TO CART – DISCREET DELIVERY';
+
+        addToCartEngine(
+          [{ id: vId, quantity: q }],
+          () => {
+            atcBtn.disabled = true;
+            if (atcTextEl) atcTextEl.textContent = 'ADDING TO CART...';
+          },
+          () => {
+            if (atcTextEl) atcTextEl.textContent = 'ADDED TO CART ✓';
+            setTimeout(() => {
+              if (atcTextEl) atcTextEl.textContent = origText;
+              atcBtn.disabled = false;
+            }, 2000);
+          },
+          () => {
+            if (atcTextEl) atcTextEl.textContent = origText;
+            atcBtn.disabled = false;
+          }
+        );
+      });
+    }
+
+    // Pair It With Add Buttons (Real-time update & drawer trigger)
+    upsellBtns.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const vId = this.getAttribute('data-variant-id');
+        if (!vId) return;
+
+        const textSpan = this.querySelector('.f41-up-text');
+        const spinnerSpan = this.querySelector('.f41-up-spinner');
+        const addedSpan = this.querySelector('.f41-up-added');
+
+        addToCartEngine(
+          [{ id: vId, quantity: 1 }],
+          () => {
+            this.disabled = true;
+            if (textSpan) textSpan.style.display = 'none';
+            if (spinnerSpan) spinnerSpan.style.display = 'inline';
+          },
+          () => {
+            if (spinnerSpan) spinnerSpan.style.display = 'none';
+            if (addedSpan) addedSpan.style.display = 'inline';
+            this.classList.add('is-added');
+
+            setTimeout(() => {
+              if (addedSpan) addedSpan.style.display = 'none';
+              if (textSpan) textSpan.style.display = 'inline';
+              this.classList.remove('is-added');
+              this.disabled = false;
+            }, 2500);
+          },
+          () => {
+            if (spinnerSpan) spinnerSpan.style.display = 'none';
+            if (textSpan) textSpan.style.display = 'inline';
+            this.disabled = false;
+          }
+        );
+      });
+    });
+
+  })();
+</script>

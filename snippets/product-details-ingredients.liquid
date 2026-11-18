@@ -1,0 +1,487 @@
+{% comment %}
+  Section 5: Product Details & Ingredients
+  Figma replica featuring side-by-side Product Info table and Ingredients showcase cards.
+{% endcomment %}
+
+{%- liquid
+  assign current_product = closest.product | default: product
+  assign heading = section.settings.heading | default: 'Product Details'
+
+  assign info_title = section.settings.info_title | default: 'PRODUCT INFO'
+  assign active_ingredient = section.settings.active_ingredient | default: 'Benzocaine 9.6%'
+  assign volume = section.settings.volume | default: '15ml / 0.5 fl oz'
+  assign application = section.settings.application | default: 'Topical Spray'
+  assign duration = section.settings.duration | default: 'Up to 60 minutes'
+  assign recommended_use = section.settings.recommended_use | default: '3-5 sprays before intimacy'
+  assign storage_instructions = section.settings.storage_instructions | default: 'Store in a cool, dry place away from direct sunlight. Keep out of reach of children.'
+
+  assign ingredients_title = section.settings.ingredients_title | default: 'INGREDIENTS'
+  assign ing_1_name = section.settings.ing_1_name | default: 'Benzocaine (9.6%)'
+  assign ing_1_desc = section.settings.ing_1_desc | default: 'FDA-approved topical anesthetic that safely reduces sensitivity'
+  assign ing_2_name = section.settings.ing_2_name | default: 'Vitamin E'
+  assign ing_2_desc = section.settings.ing_2_desc | default: 'Nourishes and protects skin while promoting healthy tissue'
+  assign ing_3_name = section.settings.ing_3_name | default: 'Aloe Vera Extract'
+  assign ing_3_desc = section.settings.ing_3_desc | default: 'Soothes and moisturizes for comfortable application'
+  assign ing_4_name = section.settings.ing_4_name | default: 'Glycerin'
+  assign ing_4_desc = section.settings.ing_4_desc | default: 'Provides smooth application and prevents dryness'
+-%}
+
+<section class="p-pdi-section" id="p-pdi-{{ section.id }}">
+  <div class="p-pdi-container">
+    
+    <!-- Section Header -->
+    {%- if heading != blank -%}
+      <div class="p-pdi-header">
+        <h2 class="p-pdi-title">{{ heading }}</h2>
+        <div class="p-pdi-gold-line"></div>
+      </div>
+    {%- endif -%}
+
+    <div class="p-pdi-grid">
+      
+      <!-- ================= LEFT: PRODUCT INFO TABLE ================= -->
+      <div class="p-pdi-col">
+        <div class="p-pdi-card p-pdi-info-card">
+          <div class="p-pdi-card-header">
+            <h3>{{ info_title }}</h3>
+          </div>
+          
+          <div class="p-pdi-table">
+            <div class="p-pdi-row">
+              <span class="p-pdi-key">PRODUCT NAME</span>
+              <span class="p-pdi-val">{{ current_product.title }}</span>
+            </div>
+
+            {%- if active_ingredient != blank -%}
+              <div class="p-pdi-row">
+                <span class="p-pdi-key">ACTIVE INGREDIENT</span>
+                <span class="p-pdi-val">{{ active_ingredient }}</span>
+              </div>
+            {%- endif -%}
+
+            {%- if volume != blank -%}
+              <div class="p-pdi-row">
+                <span class="p-pdi-key">VOLUME</span>
+                <span class="p-pdi-val">{{ volume }}</span>
+              </div>
+            {%- endif -%}
+
+            {%- if application != blank -%}
+              <div class="p-pdi-row">
+                <span class="p-pdi-key">APPLICATION</span>
+                <span class="p-pdi-val">{{ application }}</span>
+              </div>
+            {%- endif -%}
+
+            {%- if duration != blank -%}
+              <div class="p-pdi-row">
+                <span class="p-pdi-key">DURATION</span>
+                <span class="p-pdi-val">{{ duration }}</span>
+              </div>
+            {%- endif -%}
+
+            {%- if recommended_use != blank -%}
+              <div class="p-pdi-row">
+                <span class="p-pdi-key">RECOMMENDED USE</span>
+                <span class="p-pdi-val">{{ recommended_use }}</span>
+              </div>
+            {%- endif -%}
+
+            {%- if storage_instructions != blank -%}
+              <div class="p-pdi-row p-pdi-row--full">
+                <span class="p-pdi-key">STORAGE INSTRUCTIONS</span>
+                <p class="p-pdi-note">{{ storage_instructions }}</p>
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= RIGHT: INGREDIENTS LIST ================= -->
+      <div class="p-pdi-col">
+        <div class="p-pdi-card p-pdi-ing-card">
+          <div class="p-pdi-card-header">
+            <h3>{{ ingredients_title }}</h3>
+          </div>
+
+          <div class="p-pdi-ing-list">
+            {%- if section.blocks.size > 0 -%}
+              {%- for block in section.blocks -%}
+                <div class="p-pdi-ing-item" {{ block.shopify_attributes }}>
+                  {%- if block.settings.image != blank -%}
+                    <div class="p-pdi-ing-img-wrap" style="background:#27272a;">
+                      <img src="{{ block.settings.image | image_url: width: 80, height: 80, crop: 'center' }}" alt="{{ block.settings.name }}" loading="lazy" width="40" height="40" style="object-fit:cover; border-radius:8px;">
+                    </div>
+                  {%- else -%}
+                    {%- assign col_idx = forloop.index | modulo: 4 -%}
+                    <div class="p-pdi-ing-img-wrap {% if col_idx == 1 %}p-pdi-ing-img--blue{% elsif col_idx == 2 %}p-pdi-ing-img--yellow{% elsif col_idx == 3 %}p-pdi-ing-img--green{% else %}p-pdi-ing-img--cyan{% endif %}">
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                        <path d="M2 17l10 5 10-5"></path>
+                        <path d="M2 12l10 5 10-5"></path>
+                      </svg>
+                    </div>
+                  {%- endif -%}
+                  <div class="p-pdi-ing-content">
+                    <h4 class="p-pdi-ing-name">{{ block.settings.name }}</h4>
+                    <p class="p-pdi-ing-desc">{{ block.settings.description }}</p>
+                  </div>
+                </div>
+              {%- endfor -%}
+            {%- else -%}
+              <!-- Ingredient 1: Benzocaine -->
+              <div class="p-pdi-ing-item">
+                <div class="p-pdi-ing-img-wrap p-pdi-ing-img--blue">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10 2v7.31"></path><path d="M14 9.3V1.99"></path><path d="M8.5 2h7"></path>
+                    <path d="M14 9.3a6.5 6.5 0 1 1-4 0"></path><path d="M5.52 16h12.96"></path>
+                  </svg>
+                </div>
+                <div class="p-pdi-ing-content">
+                  <h4 class="p-pdi-ing-name">{{ ing_1_name }}</h4>
+                  <p class="p-pdi-ing-desc">{{ ing_1_desc }}</p>
+                </div>
+              </div>
+
+              <!-- Ingredient 2: Vitamin E -->
+              <div class="p-pdi-ing-item">
+                <div class="p-pdi-ing-img-wrap p-pdi-ing-img--yellow">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                  </svg>
+                </div>
+                <div class="p-pdi-ing-content">
+                  <h4 class="p-pdi-ing-name">{{ ing_2_name }}</h4>
+                  <p class="p-pdi-ing-desc">{{ ing_2_desc }}</p>
+                </div>
+              </div>
+
+              <!-- Ingredient 3: Aloe Vera Extract -->
+              <div class="p-pdi-ing-item">
+                <div class="p-pdi-ing-img-wrap p-pdi-ing-img--green">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                    <path d="M2 17l10 5 10-5"></path>
+                    <path d="M2 12l10 5 10-5"></path>
+                  </svg>
+                </div>
+                <div class="p-pdi-ing-content">
+                  <h4 class="p-pdi-ing-name">{{ ing_3_name }}</h4>
+                  <p class="p-pdi-ing-desc">{{ ing_3_desc }}</p>
+                </div>
+              </div>
+
+              <!-- Ingredient 4: Glycerin -->
+              <div class="p-pdi-ing-item">
+                <div class="p-pdi-ing-img-wrap p-pdi-ing-img--cyan">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                  </svg>
+                </div>
+                <div class="p-pdi-ing-content">
+                  <h4 class="p-pdi-ing-name">{{ ing_4_name }}</h4>
+                  <p class="p-pdi-ing-desc">{{ ing_4_desc }}</p>
+                </div>
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .p-pdi-section {
+    background-color: #ffffff;
+    color: #111827;
+    padding: 60px 20px 85px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .p-pdi-container {
+    max-width: 1340px;
+    margin: 0 auto;
+  }
+
+  .p-pdi-header {
+    text-align: center;
+    margin-bottom: 44px;
+  }
+
+  .p-pdi-title {
+    font-size: 34px;
+    font-weight: 800;
+    color: #111827;
+    margin: 0;
+    letter-spacing: -0.6px;
+  }
+
+  .p-pdi-gold-line {
+    width: 60px;
+    height: 3px;
+    background: #d4af37;
+    margin: 12px auto 0;
+    border-radius: 2px;
+  }
+
+  .p-pdi-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: flex-start;
+  }
+
+  .p-pdi-card {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+  }
+
+  .p-pdi-card-header {
+    background: #000000;
+    color: #ffffff;
+    padding: 14px 20px;
+  }
+
+  .p-pdi-card-header h3 {
+    margin: 0;
+    font-size: 13.5px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    color: #ffffff;
+  }
+
+  /* ── PRODUCT INFO TABLE ────────────────────── */
+  .p-pdi-table {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+  }
+
+  .p-pdi-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 13.5px;
+  }
+
+  .p-pdi-row:last-child {
+    border-bottom: none;
+  }
+
+  .p-pdi-row--full {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 16px 20px;
+  }
+
+  .p-pdi-key {
+    font-weight: 800;
+    font-size: 11.5px;
+    letter-spacing: 0.4px;
+    color: #6b7280;
+    text-transform: uppercase;
+  }
+
+  .p-pdi-val {
+    font-weight: 700;
+    color: #111827;
+    text-align: right;
+  }
+
+  .p-pdi-note {
+    font-size: 13px;
+    color: #4b5563;
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  /* ── INGREDIENTS LIST ──────────────────────── */
+  .p-pdi-ing-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 14px;
+  }
+
+  .p-pdi-ing-item {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .p-pdi-ing-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+  }
+
+  .p-pdi-ing-img-wrap {
+    width: 54px;
+    height: 54px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .p-pdi-ing-img--blue { background: linear-gradient(135deg, #1e3a8a, #3b82f6); }
+  .p-pdi-ing-img--yellow { background: linear-gradient(135deg, #b45309, #eab308); }
+  .p-pdi-ing-img--green { background: linear-gradient(135deg, #065f46, #10b981); }
+  .p-pdi-ing-img--cyan { background: linear-gradient(135deg, #0e7490, #06b6d4); }
+
+  .p-pdi-ing-content {
+    flex: 1;
+  }
+
+  .p-pdi-ing-name {
+    margin: 0 0 4px;
+    font-size: 15px;
+    font-weight: 800;
+    color: #111827;
+  }
+
+  .p-pdi-ing-desc {
+    margin: 0;
+    font-size: 12.5px;
+    color: #6b7280;
+    line-height: 1.4;
+  }
+
+  /* Laptop Optimization */
+  @media screen and (min-width: 769px) and (max-width: 1100px) {
+    .p-pdi-grid {
+      gap: 18px;
+    }
+    .p-pdi-table {
+      padding: 14px 18px;
+    }
+    .p-pdi-row {
+      padding: 10px 0;
+    }
+    .p-pdi-key {
+      font-size: 11.5px;
+    }
+    .p-pdi-val {
+      font-size: 12.5px;
+    }
+    .p-pdi-ing-list {
+      padding: 14px 18px;
+      gap: 12px;
+    }
+    .p-pdi-ing-item {
+      padding: 10px 12px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .p-pdi-section {
+      padding: 36px 16px 44px;
+    }
+
+    .p-pdi-title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .p-pdi-gold-line {
+      width: 44px;
+      height: 2.5px;
+      margin: 8px auto 0;
+    }
+
+    .p-pdi-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .p-pdi-card-header h3 {
+      font-size: 13.5px;
+      letter-spacing: 0.5px;
+    }
+
+    .p-pdi-card-header {
+      padding: 12px 14px;
+    }
+
+    .p-pdi-table {
+      padding: 12px 14px;
+    }
+
+    .p-pdi-row {
+      padding: 10px 0;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .p-pdi-row--full {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .p-pdi-key {
+      font-size: 11.5px;
+    }
+
+    .p-pdi-val {
+      font-size: 12.5px;
+      text-align: right;
+    }
+
+    .p-pdi-note {
+      font-size: 11.5px;
+    }
+
+    .p-pdi-ing-list {
+      padding: 12px 14px;
+      gap: 12px;
+    }
+
+    .p-pdi-ing-item {
+      padding: 10px 12px;
+    }
+
+    .p-pdi-ing-img-wrap {
+      width: 42px;
+      height: 42px;
+    }
+
+    .p-pdi-ing-img-wrap svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .p-pdi-ing-name {
+      font-size: 13.5px;
+      margin: 0 0 2px;
+    }
+
+    .p-pdi-ing-desc {
+      font-size: 11.5px;
+    }
+  }
+</style>

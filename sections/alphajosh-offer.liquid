@@ -1,0 +1,204 @@
+{% schema %}
+{
+  "name": "Alphajosh Offer Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Top Badge",
+      "default": "⭐ Most Popular Choice"
+    },
+    {
+      "type": "text",
+      "id": "title_white",
+      "label": "Title (White)",
+      "default": "Ready to Experience"
+    },
+    {
+      "type": "text",
+      "id": "title_gold",
+      "label": "Title (Gold)",
+      "default": "True Vitality?"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Join thousands of men who've transformed their energy, strength, and performance with authentic Himalayan Shilajit."
+    },
+    {
+      "type": "text",
+      "id": "old_price",
+      "label": "Old Price",
+      "default": "₹2,499"
+    },
+    {
+      "type": "text",
+      "id": "new_price",
+      "label": "New Price",
+      "default": "₹1,499"
+    },
+    {
+      "type": "text",
+      "id": "product_info",
+      "label": "Product Info",
+      "default": "One time purchase • 30g Premium Resin"
+    },
+    {
+    "type": "product",
+    "id": "selected_product",
+    "label": "Select Product for Buy Now"
+    },
+    {
+      "type": "text",
+      "id": "bundle_text",
+      "label": "Bundle Promo Text",
+      "default": "💪 Bundle & Save: Get Shilajit + Capsules combo at 20% OFF"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Alphajosh Offer Section"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="aj-offer-section">
+  <div class="aj-offer-container">
+    <div class="aj-offer-header">
+      <span class="aj-offer-badge">{{ section.settings.badge_text }}</span>
+      <h2 class="aj-offer-title">{{ section.settings.title_white }} <span>{{ section.settings.title_gold }}</span></h2>
+      <p class="aj-offer-subtitle">{{ section.settings.subtitle }}</p>
+    </div>
+
+    <div class="aj-price-card">
+      <div class="aj-pricing">
+        <span class="old-price">{{ section.settings.old_price }}</span>
+        <span class="new-price">{{ section.settings.new_price }}</span>
+      </div>
+      <p class="aj-card-info">{{ section.settings.product_info }}</p>
+
+    {% assign product = all_products[section.settings.selected_product] %}
+    {% assign variant_id = product.selected_or_first_available_variant.id %}
+    <div class="offer-button">
+      <a href="/cart/{{ variant_id }}:1?checkout" class="aj-buy-btn">
+          Buy Now — {{ section.settings.new_price }}
+      </a>
+      {% comment %} <div class="shiprocket-custom-button">
+        <product-form-component class="product-form" data-hide-errors="false" data-section-id="{{ section.id }}">
+          {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+            <input
+              type="hidden"
+              name="id"
+              value="{{ product.selected_or_first_available_variant.id }}"
+              class="product-variant-id"
+            >
+            <div class="reels-cta">
+              {% comment %} Primary Fastrr checkout button {% endcomment %}
+              {% comment %} {% render 'shiprocket-buy-now', 
+                product: product, 
+                class: 'reels-shiprocket'
+              %} {% endcomment %}
+
+
+              {% comment %} Fallback Buy Now for regions where Shiprocket is hidden {% endcomment %}
+              <button
+                id="ProductSubmitButton-{{ section.id }}-{{ product.id }}"
+                type="submit"
+                name="add"
+                class="reels-atc-btn reels-fallback-btn visually-hidden"
+                {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
+              >
+                {%- if product.selected_or_first_available_variant.available -%}
+                  BUY NOW
+                {%- else -%}
+                  SOLD OUT
+                {%- endif -%}
+                {% comment %} BUY NOW {% endcomment %}
+              </button>
+            </div>
+          {%- endform -%}
+        </product-form-component>
+      </div> {% endcomment %}
+    </div>
+      
+      <div class="aj-secure-tag">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="#f3ae4b"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+        Secure checkout • SSL encrypted
+      </div>
+    </div>
+
+    <div class="aj-trust-markers">
+      <span>🕒 Limited batch — High demand</span>
+      <span>🚚 Free shipping on all orders</span>
+      <span>🛡️ 30-day money-back guarantee</span>
+    </div>
+
+    <div class="aj-bundle-tag">
+      {{ section.settings.bundle_text }}
+    </div>
+  </div>
+</section>
+
+<style>
+  .aj-offer-section { background-color: #2b3320; color: #fff; padding: 100px 20px; font-family: 'Inter', sans-serif; text-align: center; }
+  .aj-offer-container { max-width: 700px; margin: 0 auto; }
+
+  /* Header */
+  .aj-offer-badge { background: rgba(255,165,0,0.1); border: 1px solid #a37332; color: #f3ae4b; padding: 6px 16px; border-radius: 20px; font-size: 11px; text-transform: uppercase; }
+  .aj-offer-title { font-size: 38px; margin: 30px 0 15px; font-weight: 700; line-height: 1.2; }
+  .aj-offer-title span { color: #f3ae4b; }
+  .aj-offer-subtitle { color: #888; font-size: 16px; margin-bottom: 50px; line-height: 1.5; max-width: 550px; margin-left: auto; margin-right: auto; }
+
+  /* Card */
+  .aj-price-card { 
+    background: #0d0d0d; border: 1px solid #222; border-radius: 16px; 
+    padding: 20px; position: relative;
+    box-shadow: 0 0 40px rgba(243, 174, 75, 0.05);
+    max-width: 350px;
+    margin: 30px auto 40px;
+  }
+  .aj-pricing { margin-bottom: 10px; display: flex; justify-content: center; align-items: center; gap: 15px; }
+  .old-price { color: #555; text-decoration: line-through; font-size: 24px; }
+  .new-price { color: #f3ae4b; font-size: 48px; font-weight: bold; }
+  .aj-card-info { color: #888; font-size: 14px; margin-bottom: 30px; }
+
+  /* Button */
+  .aj-buy-btn { 
+    display: block; width: 100%; background: linear-gradient(180deg, #f3ae4b 0%, #a37332 100%);
+    color: #000; padding: 20px; border-radius: 10px; text-decoration: none;
+    font-weight: bold; font-size: 18px; transition: 0.3s;
+  }
+  .aj-buy-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(243, 174, 75, 0.3); }
+  
+  .aj-secure-tag { color: #555; font-size: 12px; display: flex; align-items: center; justify-content: center; gap: 5px; }
+
+  /* Trust Markers */
+  .aj-trust-markers { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-bottom: 40px; }
+  .aj-trust-markers span { font-size: 12px; color: #f3ae4b; }
+
+  /* Bundle Tag */
+  .aj-bundle-tag { 
+    background: rgba(243, 174, 75, 0.05); border: 1px solid #443311; 
+    padding: 12px 25px; border-radius: 50px; display: inline-block;
+    font-size: 13px; color: #f3ae4b; font-weight: 500;
+  }
+  .offer-button{
+    margin-bottom: 15px;
+    position:relative;
+  }
+  .shiprocket-custom-button .sr-headless-checkout{
+    right: 0px;
+    bottom: 0px;
+    height: 69px !important;
+    max-width: 100%;
+  }
+
+  @media (max-width: 600px) {
+    .aj-offer-title { font-size: 28px; }
+    .new-price { font-size: 36px; }
+    .aj-price-card { padding: 30px 20px; }
+    .aj-trust-markers { flex-direction: column; gap: 10px; }
+  }
+</style>

@@ -1,0 +1,237 @@
+<section class="three-layer-system">
+  <div class="page-width">
+
+    <div class="section-header">
+      <span class="alpha-badge">{{ section.settings.subheading }}</span>
+      <h2 class="alpha-heading">{{ section.settings.heading }}</h2>
+      <p class="description">{{ section.settings.description }}</p>
+    </div>
+
+    <div class="layer-grid">
+      {% for block in section.blocks %}
+        <div class="layer-card">
+          
+          <div class="layer-top">
+            <div class="icon-box">
+              {{ block.settings.icon }}
+            </div>
+            <div>
+              <span class="layer-label">{{ block.settings.layer_label }}</span>
+              <h3>{{ block.settings.title }}</h3>
+            </div>
+          </div>
+
+          <p class="layer-text">{{ block.settings.text }}</p>
+
+          <span class="layer-tag">{{ block.settings.tag }}</span>
+
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="bottom-line">
+      {{ section.settings.bottom_text }}
+    </div>
+
+  </div>
+</section>
+
+<style>
+.three-layer-system {
+  background-color: #f8f9fa;
+  color: #fff;
+  padding: 80px 20px;
+  text-align: center;
+  margin-top:80px;
+}
+
+.section-header .subheading {
+  color: #d4af37;
+  font-size: 13px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.section-header .heading {
+  font-size: 42px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.section-header .heading span {
+  color: #d4af37;
+}
+
+.section-header .description {
+  max-width: 700px;
+  margin: auto;
+  color: #777;
+}
+
+.layer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  max-width: 1100px;
+    margin: 30px auto 0px;
+}
+
+.layer-card {
+  background: linear-gradient(145deg, #1a1a1a, #111);
+  border: 1px solid rgba(212,175,55,0.3);
+  border-radius: 20px;
+  padding: 40px;
+  text-align: left;
+  transition: 0.4s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.layer-card:hover {
+  transform: translateY(-8px);
+  border-color: #d4af37;
+}
+
+.layer-top {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.icon-box {
+  width: 50px;
+  height: 50px;
+  background: rgba(212,175,55,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  color: #d4af37;
+  font-size: 22px;
+}
+
+.layer-label {
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #d4af37;
+}
+
+.layer-card h3 {
+  margin: 5px 0 0;
+  font-size: 20px;
+}
+
+.layer-text {
+  color: #ccc;
+  margin: 15px 0 20px;
+}
+
+.layer-tag {
+  display: inline-block;
+  background: rgba(212,175,55,0.15);
+  color: #d4af37;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.bottom-line {
+  margin-top: 40px;
+  display: inline-block;
+  padding: 12px 30px;
+  border: 1px solid rgba(212,175,55,0.5);
+  border-radius: 30px;
+  color: #d4af37;
+  background:#ffffff;
+}
+
+@media(max-width: 992px){
+  .layer-grid {
+    grid-template-columns: 1fr;
+  }
+  .section-header .heading {
+    font-size: 30px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Alphajoshh 3 Layer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "HOW IT WORKS"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The 3-Layer Performance System"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Each product targets a different layer of your performance. Together, they create synergy that works faster and better than any single product."
+    },
+    {
+      "type": "text",
+      "id": "bottom_text",
+      "label": "Bottom Text",
+      "default": "Inside → Energy → Outside = Complete System"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "layer",
+      "name": "Layer",
+      "settings": [
+        {
+          "type": "text",
+          "id": "layer_label",
+          "label": "Layer Label",
+          "default": "LAYER 1"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Performance Capsule"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "Daily internal strength & stamina support. Builds your foundation from within."
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Tag",
+          "default": "Inside"
+        },
+        {
+          "type": "html",
+          "id": "icon",
+          "label": "Icon (SVG or Emoji)",
+          "default": "💊"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Alphajoshh 3 Layer",
+      "blocks": [
+        { "type": "layer" },
+        { "type": "layer" },
+        { "type": "layer" }
+      ]
+    }
+  ]
+}
+{% endschema %}

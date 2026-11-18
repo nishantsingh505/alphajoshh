@@ -1,0 +1,161 @@
+{% comment %} AlphaJoshh Promise Section {% endcomment %}
+<section class="alpha-promise">
+  <div class="alpha-promise__container">
+
+    {% if section.settings.top_label != blank %}
+      <p class="alpha-promise__label">{{ section.settings.top_label }}</p>
+    {% endif %}
+
+    {% if section.settings.heading != blank %}
+      <h2 class="alpha-promise__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    {% if section.settings.subtext != blank %}
+      <p class="alpha-promise__subtext">{{ section.settings.subtext }}</p>
+    {% endif %}
+
+    <div class="alpha-promise__grid">
+      {% for block in section.blocks %}
+        <div class="alpha-promise__card">
+          <div class="alpha-promise__content">
+            <h4>{{ block.settings.title }}</h4>
+            <p>{{ block.settings.text }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+<style>
+.alpha-promise {
+  padding: 90px 20px;
+  color: #fff;
+}
+
+.alpha-promise__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.alpha-promise__label {
+  color: #d4af37;
+  letter-spacing: 3px;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+.alpha-promise__heading {
+  font-size: 42px;
+  font-weight: 500;
+  margin-bottom: 18px;
+  color:#000;
+}
+
+.alpha-promise__subtext {
+  max-width: 680px;
+  margin: 0 auto 60px;
+  color: #000;
+  font-size: 16px;
+}
+
+.alpha-promise__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  max-width:800px;
+  margin:0px auto;
+}
+
+.alpha-promise__card {
+  padding: 28px;
+  border-radius: 14px;
+  text-align: left;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.alpha-promise__icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(212,175,55,0.15);
+  color: #d4af37;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  font-size: 18px;
+}
+
+.alpha-promise__card h4 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  color: #000;
+}
+
+.alpha-promise__card p {
+  font-size: 14px;
+  color: #000;
+  line-height: 1.6;
+}
+
+@media(max-width: 768px) {
+  .alpha-promise__heading {
+    font-size: 32px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Alpha Joshh Promise",
+  "settings": [
+    {
+      "type": "text",
+      "id": "top_label",
+      "label": "Top Label",
+      "default": "OUR COMMITMENT TO YOU"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The AlphaJoshh Promise"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Sub Text",
+      "default": "Your wellness journey deserves a brand that stands behind its products — and its people."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "promise",
+      "name": "Promise Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Quality Assurance"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "Every batch undergoes rigorous testing for purity, potency, and safety."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "AlphaJoshh Promise"
+    }
+  ]
+}
+{% endschema %}

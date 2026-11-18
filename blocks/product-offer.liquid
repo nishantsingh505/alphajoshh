@@ -1,0 +1,201 @@
+{% comment %}
+  Product Offer Banner Block
+  Displays a promotional banner with customizable text and styling.
+{% endcomment %}
+
+{% liquid
+  assign text = block.settings.text | default: "🔥 Limited-Time Offer: Extra savings available on prepaid orders."
+  assign bg_color = block.settings.bg_color | default: "#fff3cd"
+  assign text_color = block.settings.text_color | default: "#856404"
+  assign border_color = block.settings.border_color | default: "#ffeeba"
+%}
+
+<div class="product-offer-banner" {{ block.shopify_attributes }}>
+  <div class="offer-content">
+    {{ text }} <span id="offer-timer-{{ block.id }}" style="font-weight: bold; white-space: nowrap;"></span>
+  </div>
+</div>
+
+<script>
+  (function() {
+    var timerId = 'offer-timer-{{ block.id }}';
+    var duration = 15 * 60; // 15 minutes in seconds
+    var timerDisplay = document.getElementById(timerId);
+    
+    function startTimer(duration, display) {
+      var timer = duration, minutes, seconds;
+      
+      // Try to get saved end time from sessionStorage
+      var savedEndTime = sessionStorage.getItem('offerEndTime_' + timerId);
+      var now = Date.now();
+      
+      if (savedEndTime && savedEndTime > now) {
+        timer = Math.floor((savedEndTime - now) / 1000);
+      } else {
+        // Set new end time
+        var endTime = now + (duration * 1000);
+        sessionStorage.setItem('offerEndTime_' + timerId, endTime);
+        timer = duration;
+      }
+
+      var interval = setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        if (display) {
+           display.textContent = " Offer ends in " + minutes + ":" + seconds;
+        }
+
+        if (--timer < 0) {
+          // Reset timer
+          var newEndTime = Date.now() + (duration * 1000);
+          sessionStorage.setItem('offerEndTime_' + timerId, newEndTime);
+          timer = duration;
+        }
+      }, 1000);
+    }
+    
+    // Start immediately
+    startTimer(duration, timerDisplay);
+  })();
+</script>
+
+<style>
+  .product-offer-banner {
+    background-color: {{ bg_color }};
+    color: {{ text_color }};
+    border: 1px solid {{ border_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    padding: {{ block.settings.padding_top }}px {{ block.settings.padding_sides }}px {{ block.settings.padding_bottom }}px;
+    margin-bottom: {{ block.settings.margin_bottom }}px;
+    font-size: {{ block.settings.font_size }}px;
+    text-align: {{ block.settings.text_alignment }};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .offer-content {
+      display: inline-block;
+  }
+  
+  .offer-content p {
+    display: inline;
+    margin: 0;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Offer Banner",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Offer Text",
+      "default": "<p>🔥 <strong>Limited-Time Offer:</strong> Extra savings available on prepaid orders.</p>"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#fff3cd"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#856404"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border Color",
+      "default": "#ffeeba"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Border Radius",
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "padding_sides",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Side Padding",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Bottom Margin",
+      "default": 16
+    }
+  ],
+  "presets": [
+    {
+      "name": "Offer Banner"
+    }
+  ]
+}
+{% endschema %}

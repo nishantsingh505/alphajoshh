@@ -1,0 +1,186 @@
+<section class="alpha-hero"
+  style="background-image:url({{ section.settings.bg_image | img_url: '2000x' }});">
+
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+
+    {% if section.settings.brand != blank %}
+      <div class="brand">{{ section.settings.brand }}</div>
+    {% endif %}
+
+    <h1 class="hero-title">
+      {{ section.settings.heading }}
+      <span>{{ section.settings.highlight }}</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      {{ section.settings.subheading }}
+    </p>
+
+    <div class="hero-badges">
+      {% for block in section.blocks %}
+        <div class="badge-item">
+          {% if block.settings.icon != blank %}
+            <img src="{{ block.settings.icon | img_url: '40x40' }}" alt="">
+          {% endif %}
+          <span>{{ block.settings.text }}</span>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+<style>
+.alpha-hero {
+  position: relative;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.55),
+    rgba(0,0,0,0.75)
+  );
+}
+
+.hero-content {
+  position: relative;
+  text-align: center;
+  max-width: 900px;
+  padding: 20px;
+  z-index: 2;
+}
+
+.brand {
+  letter-spacing: 3px;
+  font-size: 13px;
+  color: #d4a017;
+  margin-bottom: 15px;
+}
+
+.hero-title {
+  font-size: 54px;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.hero-title span {
+  color: #d4a017;
+}
+
+.hero-subtitle {
+  font-size: 18px;
+  color: #ddd;
+  max-width: 700px;
+  margin: 0 auto 40px;
+}
+
+.hero-badges {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.badge-item {
+  border: 1px solid rgba(212,160,23,0.5);
+  padding: 10px 18px;
+  border-radius: 14px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,0,0,0.4);
+}
+
+.badge-item img {
+  width: 18px;
+}
+
+@media(max-width: 768px) {
+  .hero-title {
+    font-size: 34px;
+  }
+  .hero-subtitle {
+    font-size: 15px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Alpha Hero Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "brand",
+      "label": "Brand Text",
+      "default": "ALPHAJOSHH"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Main Heading",
+      "default": "Unleash Your Alpha"
+    },
+    {
+      "type": "text",
+      "id": "highlight",
+      "label": "Highlighted Text",
+      "default": "— Naturally."
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Sub Heading",
+      "default": "Premium Ayurvedic wellness solutions crafted for strength, stamina, and confidence."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Feature Badge",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Badge Icon"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Badge Text",
+          "default": "100% Ayurvedic"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Alpha – Hero Banner",
+      "blocks": [
+        { "type": "badge" },
+        { "type": "badge" },
+        { "type": "badge" },
+        { "type": "badge" }
+      ]
+    }
+  ]
+}
+{% endschema %}

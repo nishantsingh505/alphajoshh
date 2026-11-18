@@ -1,0 +1,1159 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slideshow_home": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_TUU6qD": {
+          "type": "_slide",
+          "name": "t:names.slide",
+          "disabled": true,
+          "settings": {
+            "media_type_1": "image",
+            "image_1": "shopify://shop_images/banner_jpg.jpg",
+            "image_mobile": "shopify://shop_images/banner_3__jpg.jpg",
+            "hide_on_mobile": false,
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "horizontal_alignment_mobile": "center",
+            "vertical_alignment_mobile": "center",
+            "inherit_color_scheme": false,
+            "color_scheme": "scheme-6",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "padding-block-start": 48,
+            "padding-block-end": 48,
+            "padding-inline-start": 48,
+            "padding-inline-end": 48,
+            "product_ref": "",
+            "slide_link": ""
+          },
+          "blocks": {}
+        },
+        "slide_erWjGx": {
+          "type": "_slide",
+          "name": "t:names.slide",
+          "settings": {
+            "media_type_1": "image",
+            "image_1": "shopify://shop_images/banner_12__jpg.jpg",
+            "image_mobile": "shopify://shop_images/banner_11__jpg.jpg",
+            "hide_on_mobile": false,
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "horizontal_alignment_mobile": "center",
+            "vertical_alignment_mobile": "center",
+            "inherit_color_scheme": false,
+            "color_scheme": "scheme-6",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "padding-block-start": 48,
+            "padding-block-end": 48,
+            "padding-inline-start": 48,
+            "padding-inline-end": 48,
+            "product_ref": "",
+            "slide_link": "shopify://products/alphajoshh-capsule-oil-combo"
+          },
+          "blocks": {}
+        },
+        "slide_WKgJ3V": {
+          "type": "_slide",
+          "settings": {
+            "media_type_1": "image",
+            "image_1": "shopify://shop_images/desktop_website_banner_jpg.jpg",
+            "image_mobile": "shopify://shop_images/mobile_view_1_jpg_32b2122c-c1d9-4b77-b672-c8530b86e18c.jpg",
+            "hide_on_mobile": false,
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "horizontal_alignment_mobile": "center",
+            "vertical_alignment_mobile": "center",
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "product_ref": "alphajoshh-pure-shilajit-20g",
+            "slide_link": ""
+          },
+          "blocks": {}
+        },
+        "slide_jki7Dz": {
+          "type": "_slide",
+          "settings": {
+            "media_type_1": "image",
+            "image_1": "shopify://shop_images/desktop_banner_2_jpg.jpg",
+            "image_mobile": "shopify://shop_images/mobile_view___jpg.jpg",
+            "hide_on_mobile": false,
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "horizontal_alignment_mobile": "center",
+            "vertical_alignment_mobile": "center",
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "product_ref": "alpha-josh-capsule",
+            "slide_link": ""
+          },
+          "blocks": {}
+        },
+        "slide_XdHTL3": {
+          "type": "_slide",
+          "settings": {
+            "media_type_1": "image",
+            "image_1": "shopify://shop_images/desktop_banner_3_jpg_7c0507e0-efb2-4604-b36e-dcf318cdfc89.jpg",
+            "image_mobile": "shopify://shop_images/mobile_view_3_jpg_e63cbc44-21e9-49ee-ba48-5b29738dfa5a.jpg",
+            "hide_on_mobile": false,
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "horizontal_alignment_mobile": "flex-start",
+            "vertical_alignment_mobile": "center",
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "product_ref": "alpha-josh-oil",
+            "slide_link": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "slide_TUU6qD",
+        "slide_erWjGx",
+        "slide_WKgJ3V",
+        "slide_jki7Dz",
+        "slide_XdHTL3"
+      ],
+      "settings": {
+        "display_mode": "default",
+        "section_width": "full-width",
+        "full_frame_on_mobile": true,
+        "slideshow_gap": 0,
+        "corner_radius": 0,
+        "slide_height": "adapt_image",
+        "slide_height_mobile": "adapt_image",
+        "content_position": "on-media",
+        "color_scheme": "",
+        "icons_style": "arrows_chevron",
+        "icons_shape": "circle",
+        "arrows_position": "center",
+        "slideshow_controls_style": "dots",
+        "pagination_position": "center",
+        "show_arrows": false,
+        "autoplay": true,
+        "autoplay_speed": 5,
+        "padding-block-start": 0,
+        "padding-block-end": 5
+      }
+    },
+    "promo_strip": {
+      "type": "home-promo-strip",
+      "blocks": {
+        "item_1": {
+          "type": "promo_item",
+          "settings": {
+            "icon_text": "⚡",
+            "text": "GET 10% OFF on all Prepaid Orders",
+            "link": ""
+          }
+        },
+        "item_2": {
+          "type": "promo_item",
+          "settings": {
+            "icon_text": "🌿",
+            "text": "Made with 100% Pure Ayurvedic Herbs",
+            "link": ""
+          }
+        },
+        "item_3": {
+          "type": "promo_item",
+          "settings": {
+            "icon_text": "🔒",
+            "text": "100% Discreet Packaging & Delivery Across India",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3"
+      ],
+      "settings": {
+        "bg_color": "#b3131b",
+        "text_color": "#ffffff",
+        "enable_marquee": true,
+        "scroll_speed": 25
+      }
+    },
+    "category_highlights": {
+      "type": "home-category-highlights",
+      "blocks": {
+        "card_1": {
+          "type": "highlight_card",
+          "settings": {
+            "card_image_desktop": "shopify://shop_images/banner_1_jpg_b6b29cea-2d61-43c6-8ecb-941521e8795f.jpg",
+            "enable_overlay_content": false,
+            "card_bg_color": "#094943",
+            "card_bg_color_end": "#052e2a",
+            "card_bg_gradient": "",
+            "badge_text": "NEW LAUNCH",
+            "badge_bg": "#ffffff29",
+            "badge_text_color": "#ffffff",
+            "title": "Alpha Joshh 35+ Men Combo",
+            "description": "Botanical Formula to Last Longer",
+            "button_text": "Order Now",
+            "button_link": "shopify://products/alphajoshh-capsule-oil-combo",
+            "product": "alphajoshh-capsule-oil-combo"
+          }
+        },
+        "card_2": {
+          "type": "highlight_card",
+          "settings": {
+            "card_image_desktop": "shopify://shop_images/banner_2_jpg_0e0f61cb-b6c6-46a9-bbb6-1e69d8d2f357.jpg",
+            "enable_overlay_content": false,
+            "card_bg_color": "#113f8c",
+            "card_bg_color_end": "#0a295c",
+            "card_bg_gradient": "",
+            "badge_text": "NEW LAUNCH",
+            "badge_bg": "#ffffff29",
+            "badge_text_color": "#ffffff",
+            "title": "Coming Soon",
+            "description": "",
+            "button_text": "Order Now",
+            "button_link": "/collections/all",
+            "product": "alpha-josh-capsule"
+          }
+        },
+        "card_3": {
+          "type": "highlight_card",
+          "settings": {
+            "card_image_desktop": "shopify://shop_images/banner_3_jpg_62ae5de7-caa7-4760-83f2-df6d3e067c50.jpg",
+            "enable_overlay_content": false,
+            "card_bg_color": "#68253b",
+            "card_bg_color_end": "#451424",
+            "card_bg_gradient": "",
+            "badge_text": "NEW LAUNCH",
+            "badge_bg": "#ffffff29",
+            "badge_text_color": "#ffffff",
+            "title": "Combo & Save",
+            "description": "",
+            "button_text": "Order Now",
+            "button_link": "shopify://products/alphajoshh-capsule-oil-combo",
+            "product": "alphajoshh-pure-shilajit-20g"
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3"
+      ],
+      "settings": {
+        "bg_color": "#ffffff",
+        "heading_color": "#111827",
+        "heading": "New Launches & Offers",
+        "subheading": "",
+        "container_max_width": 1320,
+        "padding_top": 45,
+        "padding_bottom": 45
+      }
+    },
+    "bestsellers_grid": {
+      "type": "home-bestsellers-grid",
+      "blocks": {
+        "card_1": {
+          "type": "product_card",
+          "settings": {
+            "product": "alphajoshh-pure-shilajit-20g",
+            "custom_badge": "🏆 #1 Bestseller",
+            "custom_title": "Alpha Joshh Pure Himalayan Shilajit Resin (20g)",
+            "rating_text": "4.9 (1,420+ reviews)",
+            "fallback_price": "Rs. 1,199.00",
+            "fallback_compare": "Rs. 1,499.00",
+            "btn_text": "ADD TO CART",
+            "custom_link": ""
+          }
+        },
+        "card_2": {
+          "type": "product_card",
+          "settings": {
+            "product": "alpha-josh-capsule",
+            "custom_badge": "🔥 Most Loved",
+            "custom_title": "Alpha Joshh T-MAX Capsule",
+            "rating_text": "4.9 (980+ reviews)",
+            "fallback_price": "Rs. 1,799.00",
+            "fallback_compare": "Rs. 1,950.00",
+            "btn_text": "ADD TO CART",
+            "custom_link": ""
+          }
+        },
+        "card_3": {
+          "type": "product_card",
+          "settings": {
+            "product": "alpha-josh-oil",
+            "custom_badge": "⭐ Top Choice",
+            "custom_title": "Alpha Joshh Performance Oil",
+            "rating_text": "4.8 (850+ reviews)",
+            "fallback_price": "Rs. 899.00",
+            "fallback_compare": "Rs. 999.00",
+            "btn_text": "ADD TO CART",
+            "custom_link": ""
+          }
+        },
+        "card_4": {
+          "type": "product_card",
+          "settings": {
+            "product": "alphajoshh-capsule-oil-combo",
+            "custom_badge": "💎 Value Pack",
+            "custom_title": "Alpha Prime 35+ Combo",
+            "rating_text": "4.9 (620+ reviews)",
+            "fallback_price": "Rs. 2,499.00",
+            "fallback_compare": "Rs. 2,999.00",
+            "btn_text": "ADD TO CART",
+            "custom_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3",
+        "card_4"
+      ],
+      "settings": {
+        "bg_color": "#000000",
+        "text_color": "#ffffff",
+        "badge": "DOCTOR RECOMMENDED",
+        "heading": "Recommended By Doctors",
+        "subheading": "Clinically proven Ayurvedic solutions trusted by over 10 Lakh+ men.",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "video_reels": {
+      "type": "video-reels",
+      "blocks": {
+        "reel_1": {
+          "type": "video_reel",
+          "settings": {
+            "video": "shopify://files/videos/done 5th with text_ec262e0a-7612-4de6-8726-6273c7912f04.mp4",
+            "product": "alphajoshh-pure-shilajit-20g",
+            "link": ""
+          }
+        },
+        "reel_2": {
+          "type": "video_reel",
+          "settings": {
+            "video": "shopify://files/videos/English.mp4",
+            "product": "alpha-josh-capsule",
+            "link": ""
+          }
+        },
+        "reel_3": {
+          "type": "video_reel",
+          "settings": {
+            "video": "shopify://files/videos/alpha capsule 4.mp4",
+            "product": "alpha-josh-oil",
+            "link": ""
+          }
+        },
+        "reel_4": {
+          "type": "video_reel",
+          "settings": {
+            "video": "shopify://files/videos/new ad  video for alphajoshh oil.mp4",
+            "product": "alphajoshh-capsule-oil-combo",
+            "link": ""
+          }
+        },
+        "reel_5": {
+          "type": "video_reel",
+          "settings": {
+            "video": "shopify://files/videos/Shilajit 2 UGC video.mp4",
+            "product": "alphajoshh-pure-shilajit-20g",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "reel_1",
+        "reel_2",
+        "reel_3",
+        "reel_4",
+        "reel_5"
+      ],
+      "settings": {
+        "heading": "Watch & Shop",
+        "subheading": "Real customer stories and how-to guides",
+        "heading_size": "h2",
+        "section_width": "page-width",
+        "columns_desktop": 5,
+        "enable_desktop_slider": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "platform_availability": {
+      "type": "home-platform-availability",
+      "blocks": {
+        "platform_flipkart": {
+          "type": "flipkart",
+          "settings": {
+            "title": "Flipkart",
+            "link": "",
+            "custom_image": "shopify://shop_images/download.png"
+          }
+        },
+        "platform_tata1mg": {
+          "type": "tata_1mg",
+          "settings": {
+            "title": "TATA 1mg",
+            "link": "",
+            "custom_image": "shopify://shop_images/ogImage.jpg"
+          }
+        },
+        "platform_amazon": {
+          "type": "amazon",
+          "settings": {
+            "title": "Amazon",
+            "link": "",
+            "custom_image": "shopify://shop_images/download.avif"
+          }
+        }
+      },
+      "block_order": [
+        "platform_flipkart",
+        "platform_tata1mg",
+        "platform_amazon"
+      ],
+      "settings": {
+        "heading": "Also Available On",
+        "heading_size": 20,
+        "heading_color": "#2b2b2b",
+        "bg_color": "#ffffff",
+        "logo_height": 40,
+        "gap": 65,
+        "speed": 30,
+        "pause_on_hover": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "brand_science": {
+      "type": "home-brand-science",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "🌿",
+            "title": "100% Ayurvedic",
+            "subtitle": "Natural botanical extracts"
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "🔬",
+            "title": "Clinically Tested",
+            "subtitle": "Standardized active herbs"
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "🛡️",
+            "title": "Zero Side Effects",
+            "subtitle": "No heavy metals or additives"
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "icon": "📦",
+            "title": "Free Discreet Shipping",
+            "subtitle": "Plain unmarked delivery"
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "feature_4"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/WhatsApp_Image_2026-09-04_at_15.28.13.jpg",
+        "big_stat_number": "150+",
+        "heading": "Powerful Ayurvedic Ingredients Formulated For Real Results...",
+        "description": "Alpha Joshh brings together ancient Himalayan botanicals and modern scientific refinement to restore male vitality, confidence, and endurance naturally.",
+        "button_text": "Read our story",
+        "button_link": "/pages/about-us",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "collection_showcase": {
+      "type": "home-collection-showcase",
+      "blocks": {
+        "card_1": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "",
+            "product": "alphajoshh-pure-shilajit-20g",
+            "title": "Himalayan Shilajit",
+            "subtext": "Pure Gold Grade Resin",
+            "btn_text": "VIEW PRODUCTS",
+            "link": ""
+          }
+        },
+        "card_2": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "",
+            "product": "alpha-josh-capsule",
+            "title": "Vitality Capsules",
+            "subtext": "Daily Energy & Stamina",
+            "btn_text": "VIEW PRODUCTS",
+            "link": ""
+          }
+        },
+        "card_3": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "",
+            "product": "alpha-josh-oil",
+            "title": "Performance Oil",
+            "subtext": "Fast Absorption Formula",
+            "btn_text": "VIEW PRODUCTS",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3"
+      ],
+      "settings": {
+        "heading": "Our Collection",
+        "subheading": "Explore targeted Ayurvedic solutions tailored for modern men",
+        "media_bg_color": "#ffffff",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "discreet_consultation": {
+      "type": "home-discreet-consultation",
+      "blocks": {
+        "pt_1": {
+          "type": "point",
+          "settings": {
+            "icon": "🔒",
+            "title": "100% Discreet Packaging",
+            "description": "Plain box with zero brand markings"
+          }
+        },
+        "pt_2": {
+          "type": "point",
+          "settings": {
+            "icon": "👨‍⚕️",
+            "title": "Free Online Consultation",
+            "description": "Speak with certified Ayurvedic vaidyas"
+          }
+        },
+        "pt_3": {
+          "type": "point",
+          "settings": {
+            "icon": "💬",
+            "title": "Confidential Support",
+            "description": "Private 24/7 WhatsApp care"
+          }
+        },
+        "pt_4": {
+          "type": "point",
+          "settings": {
+            "icon": "📦",
+            "title": "No Product Name on Box",
+            "description": "Complete privacy guaranteed"
+          }
+        },
+        "pt_5": {
+          "type": "point",
+          "settings": {
+            "icon": "🌿",
+            "title": "Certified Ayurvedic",
+            "description": "Lab tested and GMP certified pure herbs"
+          }
+        },
+        "pt_6": {
+          "type": "point",
+          "settings": {
+            "icon": "⚡",
+            "title": "Fast & Tracked Delivery",
+            "description": "Live SMS and WhatsApp tracking"
+          }
+        }
+      },
+      "block_order": [
+        "pt_1",
+        "pt_2",
+        "pt_3",
+        "pt_4",
+        "pt_5",
+        "pt_6"
+      ],
+      "settings": {
+        "bg_color": "#000000",
+        "text_color": "#ffffff",
+        "heading": "Still Afraid to Talk About It?",
+        "subheading": "Your privacy and comfort are our #1 priority. Connect safely and discreetly.",
+        "show_chat_btn": true,
+        "chat_btn_text": "Chat with Wellness Advisor (Private)",
+        "chat_btn_link": "https://wa.me/919650081651",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "privacy_promise": {
+      "type": "home-privacy-promise",
+      "blocks": {
+        "badge_1": {
+          "type": "badge",
+          "settings": {
+            "icon": "🔒",
+            "label": "100% Discreet Delivery"
+          }
+        },
+        "badge_2": {
+          "type": "badge",
+          "settings": {
+            "icon": "📦",
+            "label": "Plain Unmarked Box"
+          }
+        },
+        "badge_3": {
+          "type": "badge",
+          "settings": {
+            "icon": "🛡️",
+            "label": "Zero Brand Mentions"
+          }
+        }
+      },
+      "block_order": [
+        "badge_1",
+        "badge_2",
+        "badge_3"
+      ],
+      "settings": {
+        "bg_color": "#000000",
+        "text_color": "#ffffff",
+        "heading": "YOUR PRIVACY IS OUR PROMISE",
+        "subheading": "Delivered in tamper-proof, plain boxes directly to your doorstep.",
+        "video_url": "#",
+        "video_poster": "shopify://shop_images/WhatsApp_Image_2026-09-04_at_16.55.27.jpg",
+        "cta_text": "ORDER DISCREETLY",
+        "cta_link": "/collections/all",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "formula_spotlight": {
+      "type": "home-formula-spotlight",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "number": "1M+",
+            "label": "Happy Men"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "number": "99%",
+            "label": "Satisfaction Rate"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "number": "50+",
+            "label": "Doctor Endorsements"
+          }
+        },
+        "stat_4": {
+          "type": "stat",
+          "settings": {
+            "number": "41",
+            "label": "Active Ayurvedic Herbs"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3",
+        "stat_4"
+      ],
+      "settings": {
+        "heading_prefix": "Built for the",
+        "heading_highlight": "Alpha Man,",
+        "heading_suffix": "Be More. Feel More. Live More.",
+        "description": "High-potency botanical extracts formulated to restore vigor, stamina, and youthful energy with proven herbal science.",
+        "offer_text": "Get Flat 10% Extra Off on Prepaid Orders",
+        "video_url": "",
+        "poster_image": "shopify://shop_images/WhatsApp_Image_2026-11-17_at_14.34.46.jpg",
+        "btn_text": "EXPLORE FORMULA",
+        "btn_link": "/collections/all",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "golden_marquee": {
+      "type": "home-golden-marquee",
+      "blocks": {
+        "item_1": {
+          "type": "text_item",
+          "settings": {
+            "icon": "✦",
+            "text": "100% NATURAL AYURVEDA"
+          }
+        },
+        "item_2": {
+          "type": "text_item",
+          "settings": {
+            "icon": "🔬",
+            "text": "CLINICALLY TESTED EXTRACTS"
+          }
+        },
+        "item_3": {
+          "type": "text_item",
+          "settings": {
+            "icon": "🛡️",
+            "text": "ZERO SIDE EFFECTS"
+          }
+        },
+        "item_4": {
+          "type": "text_item",
+          "settings": {
+            "icon": "🔒",
+            "text": "100% DISCREET PACKAGING"
+          }
+        },
+        "item_5": {
+          "type": "text_item",
+          "settings": {
+            "icon": "👨‍⚕️",
+            "text": "DOCTOR RECOMMENDED"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4",
+        "item_5"
+      ],
+      "settings": {
+        "bg_color": "#c5a059",
+        "text_color": "#000000",
+        "speed": 25
+      }
+    },
+    "reviews_ugc": {
+      "type": "home-reviews-ugc",
+      "blocks": {
+        "story_gGarxR": {
+          "type": "story",
+          "settings": {
+            "poster": "shopify://shop_images/WhatsApp_Image_2026-09-04_at_18.14.13_2.jpg",
+            "author": "Manya S., 28",
+            "quote": "Morning fatigue gone in 10 days. Stamina and recovery at an all-time high."
+          }
+        },
+        "story_1": {
+          "type": "story",
+          "settings": {
+            "poster": "shopify://shop_images/WhatsApp_Image_2026-09-04_at_18.14.14.jpg",
+            "author": "Karan K., 34",
+            "quote": "Morning fatigue gone in 10 days. Stamina and recovery at an all-time high."
+          }
+        },
+        "story_geJ9AG": {
+          "type": "story",
+          "settings": {
+            "poster": "shopify://shop_images/WhatsApp_Image_2026-09-04_at_18.14.13.jpg",
+            "author": "Sweety R., 32",
+            "quote": "Morning fatigue gone in 10 days. Stamina and recovery at an all-time high."
+          }
+        },
+        "story_iF8jKg": {
+          "type": "story",
+          "settings": {
+            "poster": "shopify://shop_images/WhatsApp_Image_2026-09-04_at_18.14.14_2.jpg",
+            "author": "Vikram S., 34",
+            "quote": "Morning fatigue gone in 10 days. Stamina and recovery at an all-time high."
+          }
+        },
+        "story_9m6f8Y": {
+          "type": "story",
+          "settings": {
+            "poster": "shopify://shop_images/WhatsApp_Image_2026-09-04_at_18.14.13_3.jpg",
+            "author": "Nitya T., 29",
+            "quote": "Morning fatigue gone in 10 days. Stamina and recovery at an all-time high."
+          }
+        },
+        "story_4": {
+          "type": "story",
+          "settings": {
+            "poster": "shopify://shop_images/WhatsApp_Image_2026-09-04_at_18.14.14_1.jpg",
+            "author": "Sanjay P., 31",
+            "quote": "Discreet plain packaging and genuine Ayurvedic formulation. 10/10 results."
+          }
+        },
+        "story_yi4eq9": {
+          "type": "story",
+          "settings": {
+            "poster": "shopify://shop_images/WhatsApp_Image_2026-09-04_at_18.14.13_1.jpg",
+            "author": "Niharika K., 31",
+            "quote": "Morning fatigue gone in 10 days. Stamina and recovery at an all-time high."
+          }
+        },
+        "story_2": {
+          "type": "story",
+          "settings": {
+            "poster": "shopify://shop_images/WhatsApp_Image_2026-09-04_at_18.14.14_4.jpg",
+            "author": "Rahul M., 29",
+            "quote": "Clean daily energy boost with zero side effects. Shilajit purity is unmatched."
+          }
+        },
+        "story_3": {
+          "type": "story",
+          "settings": {
+            "poster": "shopify://shop_images/WhatsApp_Image_2026-09-04_at_18.14.14_3.jpg",
+            "author": "Amit K., 38",
+            "quote": "Restored youthful endurance and strength within 3 weeks. Highly recommend."
+          }
+        }
+      },
+      "block_order": [
+        "story_gGarxR",
+        "story_1",
+        "story_geJ9AG",
+        "story_iF8jKg",
+        "story_9m6f8Y",
+        "story_4",
+        "story_yi4eq9",
+        "story_2",
+        "story_3"
+      ],
+      "settings": {
+        "mission_tag": "OUR AYURVEDIC MISSION",
+        "left_title": "Empowering Men's Vitality, Stamina & Peak Performance",
+        "benefit_1": "100% Pure Himalayan Herbs",
+        "benefit_2": "Doctor Formulated & Tested",
+        "benefit_3": "100% Confidential Delivery",
+        "featured_video": "shopify://files/videos/Shilajit 1 UGC video.mp4",
+        "featured_video_url": "",
+        "testimonials_tag": "REAL REVIEWS",
+        "right_title": "Real Men. Real Transformations.",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "trust_badges": {
+      "type": "home-trust-badges",
+      "blocks": {
+        "b_1": {
+          "type": "badge",
+          "settings": {
+            "icon_emoji": "🏆",
+            "title": "GMP Certified"
+          }
+        },
+        "b_2": {
+          "type": "badge",
+          "settings": {
+            "icon_emoji": "🇮🇳",
+            "title": "Made In India"
+          }
+        },
+        "b_3": {
+          "type": "badge",
+          "settings": {
+            "icon_emoji": "🔬",
+            "title": "Lab Tested Purity"
+          }
+        },
+        "b_4": {
+          "type": "badge",
+          "settings": {
+            "icon_emoji": "🚚",
+            "title": "Free & Fast Shipping"
+          }
+        }
+      },
+      "block_order": [
+        "b_1",
+        "b_2",
+        "b_3",
+        "b_4"
+      ],
+      "settings": {
+        "padding_top": 35,
+        "padding_bottom": 35
+      }
+    },
+    "quiz_card": {
+      "type": "home-quiz-card",
+      "blocks": {
+        "opt_1": {
+          "type": "option",
+          "settings": {
+            "label": "Stamina",
+            "link": "/collections/all"
+          }
+        },
+        "opt_2": {
+          "type": "option",
+          "settings": {
+            "label": "Energy & Vitality",
+            "link": "/collections/all"
+          }
+        },
+        "opt_3": {
+          "type": "option",
+          "settings": {
+            "label": "Daily Wellness",
+            "link": "/collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "opt_1",
+        "opt_2",
+        "opt_3"
+      ],
+      "settings": {
+        "heading": "NOT SURE WHAT YOU NEED?",
+        "subheading": "Choose your primary health goal to find your customized Ayurvedic daily routine.",
+        "btn_text": "Find My Formula",
+        "btn_link": "/collections/all",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "wellness_categories": {
+      "type": "home-wellness-categories",
+      "blocks": {
+        "cat_1": {
+          "type": "category_circle",
+          "settings": {
+            "title": "Shilajit & Energy",
+            "icon_emoji": "⚡",
+            "collection": "",
+            "link": "/collections/all"
+          }
+        },
+        "cat_2": {
+          "type": "category_circle",
+          "settings": {
+            "title": "Vitality & Stamina",
+            "icon_emoji": "🔥",
+            "collection": "",
+            "link": "/collections/all"
+          }
+        },
+        "cat_3": {
+          "type": "category_circle",
+          "settings": {
+            "title": "Performance",
+            "icon_emoji": "💪",
+            "collection": "",
+            "link": "/collections/all"
+          }
+        },
+        "cat_4": {
+          "type": "category_circle",
+          "settings": {
+            "title": "Muscle & Fitness",
+            "icon_emoji": "🏋️",
+            "collection": "",
+            "link": "/collections/all"
+          }
+        },
+        "cat_5": {
+          "type": "category_circle",
+          "settings": {
+            "title": "Stress Relief",
+            "icon_emoji": "🧘",
+            "collection": "",
+            "link": "/collections/all"
+          }
+        },
+        "cat_6": {
+          "type": "category_circle",
+          "settings": {
+            "title": "Daily Health",
+            "icon_emoji": "🌿",
+            "collection": "",
+            "link": "/collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3",
+        "cat_4",
+        "cat_5",
+        "cat_6"
+      ],
+      "settings": {
+        "heading_prefix": "Specialized",
+        "heading_highlight": "Ayurvedic Wellness",
+        "heading_suffix": "That You Want And Need",
+        "subheading": "Clinically backed natural solutions curated for men's wellness",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "faq_section_7jMtgz": {
+      "type": "faq-section",
+      "blocks": {
+        "faq_ixCi3Q": {
+          "type": "faq",
+          "settings": {
+            "question": "Is Alpha Joshh safe to use?",
+            "answer": "Yes. All Alpha Joshh products are 100% Ayurvedic, lab-tested, and free from chemicals or harmful additives. They are formulated under strict quality guidelines and are safe for regular use."
+          }
+        },
+        "faq_dK8ifd": {
+          "type": "faq",
+          "settings": {
+            "question": "How soon will I see results?",
+            "answer": "Most users report feeling a difference within 1–2 weeks of consistent use. For best results, we recommend using the product daily as directed."
+          }
+        },
+        "faq_tUhrTi": {
+          "type": "faq",
+          "settings": {
+            "question": "Is the delivery discreet?",
+            "answer": "Absolutely. All orders are shipped in plain, unmarked packaging with no mention of the product or brand on the outside."
+          }
+        },
+        "faq_icRXDw": {
+          "type": "faq",
+          "settings": {
+            "question": "Do you offer Cash on Delivery (COD)?",
+            "answer": "Yes, we offer COD across India for your convenience and trust."
+          }
+        },
+        "faq_BF34it": {
+          "type": "faq",
+          "settings": {
+            "question": "What is your refund policy?",
+            "answer": "We offer a 30-Day Satisfaction Guarantee. If you’re not satisfied with your purchase, reach out to our support team within 30 days for assistance."
+          }
+        }
+      },
+      "block_order": [
+        "faq_ixCi3Q",
+        "faq_dK8ifd",
+        "faq_tUhrTi",
+        "faq_icRXDw",
+        "faq_BF34it"
+      ],
+      "name": "FAQ Section",
+      "settings": {
+        "badge": "Frequently Asked Questions",
+        "heading": "",
+        "subheading": "Everything you need to know about our products, delivery & safety.",
+        "have_que": "",
+        "contact_text": "",
+        "phone_number": "",
+        "email_address": ""
+      }
+    }
+  },
+  "order": [
+    "slideshow_home",
+    "promo_strip",
+    "category_highlights",
+    "bestsellers_grid",
+    "video_reels",
+    "platform_availability",
+    "brand_science",
+    "collection_showcase",
+    "discreet_consultation",
+    "privacy_promise",
+    "formula_spotlight",
+    "golden_marquee",
+    "reviews_ugc",
+    "trust_badges",
+    "quiz_card",
+    "wellness_categories",
+    "faq_section_7jMtgz"
+  ]
+}

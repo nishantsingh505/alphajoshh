@@ -1,0 +1,471 @@
+{%- assign desktop_image = section.settings.image_desktop | default: section.settings.poster_image -%}
+{%- assign mobile_image = section.settings.mobile_image | default: section.settings.image_mobile -%}
+{%- assign full_heading = section.settings.heading_prefix | append: ' ' | append: section.settings.heading_highlight | append: ' ' | append: section.settings.heading_suffix | strip -%}
+
+<section class="home-formula-spotlight page-width" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="spotlight-top-container">
+    <div class="spotlight-media-col">
+      <div class="spotlight-media-wrap">
+        {% if section.settings.video_url != blank %}
+          <video class="spotlight-video" playsinline poster="{{ desktop_image | default: mobile_image | img_url: '800x600' }}" preload="none">
+            <source src="{{ section.settings.video_url }}" type="video/mp4">
+          </video>
+          <button class="spotlight-play-btn" aria-label="Play Video">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          </button>
+        {% elsif desktop_image != blank or mobile_image != blank %}
+          <picture class="spotlight-picture">
+            {% if mobile_image != blank %}
+              <source media="(max-width: 768px)" srcset="{{ mobile_image | image_url: width: 900 }}">
+            {% endif %}
+            {% if desktop_image != blank %}
+              <source media="(min-width: 769px)" srcset="{{ desktop_image | image_url: width: 1400 }}">
+              <img
+                src="{{ desktop_image | image_url: width: 1200 }}"
+                alt="{{ full_heading | default: 'Formula Spotlight' | escape }}"
+                class="spotlight-img"
+                loading="lazy"
+                width="{{ desktop_image.width | default: 800 }}"
+                height="{{ desktop_image.height | default: 600 }}"
+              >
+            {% elsif mobile_image != blank %}
+              <img
+                src="{{ mobile_image | image_url: width: 900 }}"
+                alt="{{ full_heading | default: 'Formula Spotlight' | escape }}"
+                class="spotlight-img"
+                loading="lazy"
+                width="{{ mobile_image.width | default: 600 }}"
+                height="{{ mobile_image.height | default: 600 }}"
+              >
+            {% endif %}
+          </picture>
+        {% else %}
+          <div class="spotlight-placeholder">
+            <div class="spotlight-play-btn">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="spotlight-content-col">
+      <h2 class="spotlight-heading">
+        {{ section.settings.heading_prefix }}
+        <span class="gold-text">{{ section.settings.heading_highlight }}</span>
+        {{ section.settings.heading_suffix }}
+      </h2>
+
+      {% if section.settings.description != blank %}
+        <p class="spotlight-description">{{ section.settings.description }}</p>
+      {% endif %}
+
+      <div class="spotlight-offer-pill">
+        <span class="offer-icon">⚡</span>
+        <span>{{ section.settings.offer_text | default: 'Get Flat 10% Extra Off on Prepaid Orders' }}</span>
+      </div>
+
+      {% if section.settings.btn_text != blank %}
+        <div class="spotlight-btn-wrap">
+          <a href="{{ section.settings.btn_link | default: '/collections/all' }}" class="btn-spotlight-cta">
+            {{ section.settings.btn_text }}
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- 4-Stat Metric Strip -->
+  <div class="spotlight-stats-strip">
+    {% for block in section.blocks %}
+      <div class="stat-item" {{ block.shopify_attributes }}>
+        <span class="stat-number">{{ block.settings.number }}</span>
+        <span class="stat-label">{{ block.settings.label }}</span>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<style>
+.home-formula-spotlight {
+  color: #111111;
+}
+
+.spotlight-top-container {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  margin-bottom: 50px;
+}
+
+.spotlight-media-col {
+  flex: 1 1 50%;
+}
+
+#shopify-section-{{ section.id }} .spotlight-media-wrap {
+  height: {{ section.settings.media_height_desktop | default: 340 }}px;
+}
+
+.spotlight-media-wrap {
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #111111;
+  position: relative;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spotlight-media-wrap picture,
+.spotlight-picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.spotlight-media-wrap video,
+.spotlight-media-wrap img,
+.spotlight-picture img,
+.spotlight-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.spotlight-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #111111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spotlight-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.9);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.spotlight-play-btn:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: #d4af37;
+}
+
+.spotlight-content-col {
+  flex: 1 1 50%;
+}
+
+.spotlight-heading {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 800;
+  color: #111111;
+  line-height: 1.25;
+  margin: 0 0 16px 0;
+}
+
+.spotlight-heading .gold-text {
+  color: #b8860b;
+}
+
+.spotlight-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555555;
+  margin: 0 0 24px 0;
+}
+
+.spotlight-offer-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(179, 19, 27, 0.08);
+  border: 1px dashed #b3131b;
+  color: #b3131b;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin-bottom: 28px;
+}
+
+.btn-spotlight-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #111111;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  padding: 13px 32px;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-spotlight-cta:hover {
+  background: #d4af37;
+  color: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+}
+
+/* Stats Strip */
+.spotlight-stats-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 30px 20px;
+  border-top: 1px solid #eaeaea;
+  border-bottom: 1px solid #eaeaea;
+  text-align: center;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-number {
+  font-size: clamp(2rem, 3.5vw, 2.6rem);
+  font-weight: 900;
+  color: #111111;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: #666666;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+@media (max-width: 860px) {
+  #shopify-section-{{ section.id }} .spotlight-media-wrap {
+    height: {{ section.settings.media_height_mobile | default: 280 }}px;
+  }
+
+  .spotlight-top-container {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .spotlight-stats-strip {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 16px;
+  }
+}
+</style>
+
+{% if section.settings.video_url != blank %}
+<script>
+  (function() {
+    var sectionEl = document.getElementById('shopify-section-{{ section.id }}');
+    if (!sectionEl) return;
+    var video = sectionEl.querySelector('.spotlight-video');
+    var playBtn = sectionEl.querySelector('.spotlight-play-btn');
+    if (video && playBtn) {
+      function togglePlay() {
+        if (video.paused) {
+          video.play();
+          playBtn.style.display = 'none';
+        } else {
+          video.pause();
+          playBtn.style.display = 'flex';
+        }
+      }
+      playBtn.addEventListener('click', togglePlay);
+      video.addEventListener('click', togglePlay);
+      video.addEventListener('ended', function() {
+        playBtn.style.display = 'flex';
+      });
+    }
+  })();
+</script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Home Formula Spotlight",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading_prefix",
+      "label": "Heading Prefix",
+      "default": "America's"
+    },
+    {
+      "type": "text",
+      "id": "heading_highlight",
+      "label": "Heading Highlight (Gold)",
+      "default": "#1 Formula"
+    },
+    {
+      "type": "text",
+      "id": "heading_suffix",
+      "label": "Heading Suffix",
+      "default": ", Now in India"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "High-potency botanical extracts formulated to restore vigor, stamina, and youthful energy with proven herbal science."
+    },
+    {
+      "type": "text",
+      "id": "offer_text",
+      "label": "Offer Callout",
+      "default": "Get Flat 10% Extra Off on Prepaid Orders"
+    },
+    {
+      "type": "header",
+      "content": "Media Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "poster_image",
+      "label": "Desktop Image / Video Poster",
+      "info": "Image shown on desktop screens. Also serves as video poster if video link is provided."
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile Image (Optional)",
+      "info": "Separate image shown on mobile screens (screens 768px and down). If left blank, desktop image is used."
+    },
+    {
+      "type": "range",
+      "id": "media_height_desktop",
+      "min": 200,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "label": "Desktop Image Height",
+      "default": 340
+    },
+    {
+      "type": "range",
+      "id": "media_height_mobile",
+      "min": 150,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Mobile Image Height",
+      "default": 280
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Video Link (MP4, Optional)",
+      "info": "Leave blank to display static image only."
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button Text",
+      "default": "EXPLORE FORMULA"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat Column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Metric Number",
+          "default": "1M+"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Happy Men"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home Formula Spotlight",
+      "blocks": [
+        {
+          "type": "stat",
+          "settings": {
+            "number": "1M+",
+            "label": "Happy Men"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "99%",
+            "label": "Satisfaction Rate"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "50+",
+            "label": "Doctor Endorsements"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "41",
+            "label": "Active Ayurvedic Herbs"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

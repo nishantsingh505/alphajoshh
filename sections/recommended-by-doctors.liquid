@@ -1,0 +1,126 @@
+{% comment %}
+  Section 6: Recommended by Healthcare Professionals
+{% endcomment %}
+
+{% render 'recommended-by-doctors' %}
+
+{% schema %}
+{
+  "name": "Doctors Recommendation",
+  "tag": "section",
+  "class": "section-doctors-recommendation",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Recommended by Healthcare Professionals"
+    },
+    {
+      "type": "header",
+      "content": "Free Expert Consultation Banner"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_consult_bar",
+      "label": "Show Consultation Banner",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "consult_title",
+      "label": "Banner Title",
+      "default": "Need Expert Advice?"
+    },
+    {
+      "type": "text",
+      "id": "consult_subtitle",
+      "label": "Banner Subtitle",
+      "default": "Consult our certified doctors for free - 100% confidential"
+    },
+    {
+      "type": "text",
+      "id": "consult_button_text",
+      "label": "Button Label",
+      "default": "Book Consultation"
+    },
+    {
+      "type": "url",
+      "id": "consult_button_link",
+      "label": "Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "doctor",
+      "name": "Doctor Testimonial",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Doctor Portrait Photo"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Doctor Name",
+          "default": "Dr. Rajesh Kumar"
+        },
+        {
+          "type": "text",
+          "id": "specialty",
+          "label": "Degree / Specialty",
+          "default": "MD, Sexual Health Specialist"
+        },
+        {
+          "type": "text",
+          "id": "stars",
+          "label": "Star Rating Display",
+          "default": "★★★★★"
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Doctor Quote / Endorsement (Use [product] to insert product title)",
+          "default": "[product] is one of the most effective solutions that supports natural circulation and confidence without harsh side effects. Formulated with clinical precision and verified ingredients, it offers safe and dependable performance enhancement."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Doctors Recommendation",
+      "blocks": [
+        {
+          "type": "doctor",
+          "settings": {
+            "name": "Dr. Rajesh Kumar",
+            "specialty": "MD, Sexual Health Specialist",
+            "stars": "★★★★★",
+            "quote": "[product] is one of the most effective solutions that supports natural circulation and confidence without harsh side effects. Formulated with clinical precision and verified ingredients, it offers safe and dependable performance enhancement."
+          }
+        },
+        {
+          "type": "doctor",
+          "settings": {
+            "name": "Dr. Ananya Roy",
+            "specialty": "BAMS, Consultant Andrologist",
+            "stars": "★★★★★",
+            "quote": "What makes this formula stand out is its non-transferable nature and quick absorption. It provides proven control while preserving natural sensitivity for both partners."
+          }
+        },
+        {
+          "type": "doctor",
+          "settings": {
+            "name": "Dr. Vikram Sen",
+            "specialty": "Senior Ayurvedic Physician",
+            "stars": "★★★★★",
+            "quote": "Tested thoroughly under laboratory conditions, this formulation combines time-tested herbs with modern extraction techniques for maximum vitality and stamina."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

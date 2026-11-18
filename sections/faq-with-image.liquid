@@ -1,0 +1,250 @@
+{% schema %}
+{
+  "name": "FAQ with Image",
+  "class": "section-faq",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image (Left)"
+    },
+    {
+       "type": "text",
+       "id": "subheading",
+       "label": "Subheading",
+       "default": "FAQs"
+    },
+    {
+       "type": "text",
+       "id": "heading",
+       "label": "Heading",
+       "default": "Frequently Asked Questions"
+    },
+    {
+       "type": "header",
+       "content": "Spacing"
+    },
+    {
+       "type": "range",
+       "id": "padding_top",
+       "min": 0,
+       "max": 100,
+       "step": 4,
+       "unit": "px",
+       "label": "Top Padding",
+       "default": 60
+    },
+    {
+       "type": "range",
+       "id": "padding_bottom",
+       "min": 0,
+       "max": 100,
+       "step": 4,
+       "unit": "px",
+       "label": "Bottom Padding",
+       "default": 60
+    }
+  ],
+  "blocks": [
+    {
+       "type": "question",
+       "name": "Question",
+       "settings": [
+          {
+             "type": "text",
+             "id": "title",
+             "label": "Question",
+             "default": "Question text here"
+          },
+          {
+             "type": "richtext",
+             "id": "answer",
+             "label": "Answer",
+             "default": "<p>Answer text here.</p>"
+          }
+       ]
+    }
+  ],
+  "presets": [
+     {
+        "name": "FAQ with Image",
+        "blocks": [
+           { "type": "question" },
+           { "type": "question" },
+           { "type": "question" }
+        ]
+     }
+  ]
+}
+{% endschema %}
+
+<div class="faq-section" style="background-color: {{ section.settings.bg_color }}; padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="page-width">
+     <div class="faq-grid">
+        <div class="faq-image-column">
+           {%- if section.settings.image != blank -%}
+              {{ section.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', class: 'faq-main-image', widths: '400, 600, 800' }}
+           {%- else -%}
+              <img src="https://placehold.co/800x800/E5E5E5/888888?text=FAQ+Image" class="faq-main-image" alt="FAQ Image" loading="lazy">
+           {%- endif -%}
+        </div>
+
+        <div class="faq-content-column">
+           {%- if section.settings.subheading != blank -%}
+              <span class="faq-subheading">{{ section.settings.subheading }}</span>
+           {%- endif -%}
+           
+           {%- if section.settings.heading != blank -%}
+              <h2 class="faq-heading">{{ section.settings.heading }}</h2>
+           {%- endif -%}
+           
+           <div class="faq-accordion">
+              {%- for block in section.blocks -%}
+                 <details class="faq-item" {{ block.shopify_attributes }}>
+                    <summary class="faq-summary">
+                       <span class="faq-question">{{ block.settings.title }}</span>
+                       <span class="faq-icon">
+                          <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-plus" viewBox="0 0 20 20"><path fill="currentColor" d="M10 4a1 1 0 0 1 1 1v4h4a1 1 0 1 1 0 2h-4v4a1 1 0 1 1-2 0v-4H5a1 1 0 1 1 0-2h4V5a1 1 0 0 1 1-1Z"/></svg>
+                          <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-minus" viewBox="0 0 20 20"><path fill="currentColor" d="M4 10a1 1 0 0 1 1-1h10a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1Z"/></svg>
+                       </span>
+                    </summary>
+                    <div class="faq-answer rte">
+                       {{ block.settings.answer }}
+                    </div>
+                 </details>
+              {%- endfor -%}
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
+
+<style>
+  .faq-section {
+    color: #333;
+  }
+  
+  .faq-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8%;
+    align-items: center; /* Center align image with text block */
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .faq-image-column {
+    flex: 0 0 50%;
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .faq-main-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 1 / 1; 
+    object-fit: cover;
+  }
+  
+  .faq-content-column {
+    flex: 0 0 42%;
+  }
+  
+  .faq-subheading {
+    display: block;
+    text-transform: capitalize; /* Reference shows "FAQs" typical title case or caps */
+    font-family: var(--font-body-family); 
+    font-size: 0.95rem;
+    color: #888;
+    margin-bottom: 15px;
+  }
+  
+  .faq-heading {
+    font-family: 'Aleo', serif;
+    font-size: 2.5rem;
+    margin: 0 0 40px 0;
+    line-height: 1.2;
+    color: #1A1A1A;
+    font-weight: 500;
+  }
+  
+  .faq-accordion {
+    border-top: 1px solid #EBEBEB;
+  }
+  
+  .faq-item {
+    border-bottom: 1px solid #EBEBEB;
+  }
+  
+  .faq-summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 24px 0; /* More vertically spaced */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .faq-summary::-webkit-details-marker {
+    display: none;
+  }
+  
+  .faq-question {
+    font-family: 'Aleo', serif; /* Use serif for questions too */
+    font-size: 1.15rem; /* Slightly larger */
+    font-weight: 500;
+    line-height: 1.4;
+    font-style: italic; /* Reference has slight italic feel or just serif? Let's stick to serif normal first, actually looks Italic in reference for question? Reference image questions: "How long...", looks italicized serif. */
+    font-style: oblique;
+  }
+  
+  .faq-icon {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+    position: relative;
+    color: #333;
+  }
+  
+  .faq-icon svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  
+  .faq-item[open] .icon-plus {
+     opacity: 0;
+     transform: rotate(90deg);
+  }
+  
+  .faq-item:not([open]) .icon-minus {
+     opacity: 0;
+     transform: rotate(-90deg);
+  }
+  
+  .faq-answer {
+    padding-bottom: 25px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #555;
+    font-family: var(--font-body-family);
+  }
+  
+  @media screen and (max-width: 900px) {
+    .faq-grid {
+       flex-direction: column;
+       gap: 40px;
+    }
+  }

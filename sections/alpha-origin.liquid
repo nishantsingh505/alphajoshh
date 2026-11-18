@@ -1,0 +1,154 @@
+<section class="alpha-origin">
+  <div class="origin-wrapper">
+
+    <!-- LEFT IMAGE -->
+    <div class="origin-image">
+      {% if section.settings.image %}
+        <img src="{{ section.settings.image | img_url: '900x900' }}" alt="">
+      {% endif %}
+    </div>
+
+    <!-- RIGHT CONTENT -->
+    <div class="origin-content">
+
+      {% if section.settings.label != blank %}
+        <span class="origin-label">{{ section.settings.label }}</span>
+      {% endif %}
+
+      <h2 class="origin-heading">
+        {{ section.settings.heading }}
+      </h2>
+
+      <div class="divider"></div>
+
+      <div class="origin-text">
+        {{ section.settings.text }}
+      </div>
+
+      {% if section.settings.quote != blank %}
+        <p class="origin-quote">
+          “{{ section.settings.quote }}”
+        </p>
+      {% endif %}
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+.alpha-origin {
+  background: #f8f9fa;
+  padding: 90px 20px;
+  color: #fff;
+  font-family: system-ui, sans-serif;
+}
+
+.origin-wrapper {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 70px;
+  align-items: center;
+}
+
+.origin-image img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+}
+
+.origin-label {
+  color: #d4a017;
+  letter-spacing: 3px;
+  font-size: 16px;
+  margin-bottom: 14px;
+  display: inline-block;
+  font-weight: 500;
+}
+
+.origin-heading {
+  font-size: 46px;
+  line-height: 1.25;
+  margin-bottom: 20px;
+  color:#000;
+}
+
+.divider {
+  width: 60px;
+  height: 2px;
+  background: #d4a017;
+  margin-bottom: 25px;
+}
+
+.origin-text {
+  color: #000;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.origin-text p {
+  margin-bottom: 16px;
+}
+
+.origin-quote {
+  margin-top: 30px;
+  font-style: italic;
+  color: #d4a017;
+  font-size: 18px;
+}
+
+@media(max-width: 900px) {
+  .origin-wrapper {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .origin-heading {
+    font-size: 34px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Alpha – Our Origin",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Left Image"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Small Label",
+      "default": "OUR ORIGIN"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Reviving Ancient Wisdom for the Modern Man"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Content Text",
+      "default": "<p>We started AlphaJoshh with a simple observation: the supplement industry had become cluttered with synthetic formulas, misleading claims, and products that prioritized marketing over results.</p><p>Our mission was clear — bring back the authentic power of Ayurveda. We source the finest herbs from the Himalayan foothills, working directly with farmers who have cultivated these potent botanicals for generations.</p><p>Every AlphaJoshh product represents the perfect balance of ancient wisdom and modern science.</p>"
+    },
+    {
+      "type": "text",
+      "id": "quote",
+      "label": "Quote Text",
+      "default": "True strength comes from nature, refined by tradition."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Alpha – Our Origin Section"
+    }
+  ]
+}
+{% endschema %}

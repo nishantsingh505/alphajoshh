@@ -1,0 +1,259 @@
+{% comment %}
+  Section 4: How To Use (Dark Luxury 3-Step Process)
+  Matches the Figma design with gold outline step circles and numbers.
+{% endcomment %}
+
+{%- liquid
+  assign heading = section.settings.heading | default: 'How To Use'
+  assign step_1_title = section.settings.step_1_title | default: 'Take 2–3 drops'
+  assign step_1_desc = section.settings.step_1_desc | default: 'Apply required amount'
+  assign step_2_title = section.settings.step_2_title | default: 'Massage gently (30–60 seconds)'
+  assign step_2_desc = section.settings.step_2_desc | default: 'Allow oil to absorb fully'
+  assign step_3_title = section.settings.step_3_title | default: 'Proceed confidently'
+  assign step_3_desc = section.settings.step_3_desc | default: 'Feel enhanced sensitivity & comfort'
+-%}
+
+<section class="p-htu-section" id="p-htu-{{ section.id }}">
+  <div class="p-htu-container">
+    {%- if heading != blank -%}
+      <div class="p-htu-header">
+        <h2 class="p-htu-title">{{ heading }}</h2>
+        <div class="p-htu-gold-line"></div>
+      </div>
+    {%- endif -%}
+
+    <div class="p-htu-grid">
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          <div class="p-htu-step" {{ block.shopify_attributes }}>
+            <div class="p-htu-icon-box">
+              {%- if forloop.index == 1 -%}
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                </svg>
+              {%- elsif forloop.index == 2 -%}
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+              {%- else -%}
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+              {%- endif -%}
+              <span class="p-htu-step-badge">{{ block.settings.step_number | default: forloop.index }}</span>
+            </div>
+            <h3 class="p-htu-step-title">{{ block.settings.title }}</h3>
+            <p class="p-htu-step-desc">{{ block.settings.description }}</p>
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <!-- Step 1 -->
+        <div class="p-htu-step">
+          <div class="p-htu-icon-box">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+            </svg>
+            <span class="p-htu-step-badge">1</span>
+          </div>
+          <h3 class="p-htu-step-title">{{ step_1_title }}</h3>
+          <p class="p-htu-step-desc">{{ step_1_desc }}</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="p-htu-step">
+          <div class="p-htu-icon-box">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span class="p-htu-step-badge">2</span>
+          </div>
+          <h3 class="p-htu-step-title">{{ step_2_title }}</h3>
+          <p class="p-htu-step-desc">{{ step_2_desc }}</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="p-htu-step">
+          <div class="p-htu-icon-box">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+            <span class="p-htu-step-badge">3</span>
+          </div>
+          <h3 class="p-htu-step-title">{{ step_3_title }}</h3>
+          <p class="p-htu-step-desc">{{ step_3_desc }}</p>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .p-htu-section {
+    background-color: #0c0c0c;
+    color: #ffffff;
+    padding: 60px 20px 75px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .p-htu-container {
+    max-width: 980px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .p-htu-header {
+    margin-bottom: 48px;
+  }
+
+  .p-htu-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: -0.5px;
+  }
+
+  .p-htu-gold-line {
+    width: 60px;
+    height: 3px;
+    background: #d4af37;
+    margin: 12px auto 0;
+    border-radius: 2px;
+  }
+
+  .p-htu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .p-htu-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .p-htu-icon-box {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    border: 1.5px solid #d4af37;
+    background: #141414;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 22px;
+  }
+
+  .p-htu-step-badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #d4af37;
+    color: #0c0c0c;
+    font-size: 11.5px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  }
+
+  .p-htu-step-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 8px;
+    letter-spacing: -0.2px;
+  }
+
+  .p-htu-step-desc {
+    font-size: 13.5px;
+    color: #9ca3af;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  /* Laptop Optimization */
+  @media screen and (min-width: 769px) and (max-width: 1100px) {
+    .p-htu-container {
+      padding: 0 16px;
+    }
+    .p-htu-grid {
+      gap: 16px;
+    }
+    .p-htu-step-title {
+      font-size: 15px;
+    }
+    .p-htu-step-desc {
+      font-size: 12.5px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .p-htu-section {
+      padding: 36px 16px 44px;
+    }
+
+    .p-htu-header {
+      margin-bottom: 24px;
+    }
+
+    .p-htu-title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .p-htu-gold-line {
+      width: 44px;
+      height: 2.5px;
+      margin: 8px auto 0;
+    }
+
+    .p-htu-grid {
+      grid-template-columns: 1fr;
+      gap: 22px;
+    }
+
+    .p-htu-icon-box {
+      width: 52px;
+      height: 52px;
+      margin-bottom: 10px;
+    }
+
+    .p-htu-icon-box svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .p-htu-step-badge {
+      width: 19px;
+      height: 19px;
+      font-size: 10.5px;
+      top: -1px;
+      right: -1px;
+    }
+
+    .p-htu-step-title {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin: 0 0 3px;
+    }
+
+    .p-htu-step-desc {
+      font-size: 12px;
+      line-height: 1.4;
+      color: #9ca3af;
+    }
+  }
+</style>

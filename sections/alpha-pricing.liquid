@@ -1,0 +1,362 @@
+<section class="alpha-pricing">
+  <div class="alpha-wrap">
+
+    {% if section.settings.top_notice != blank %}
+      <div class="top-offer">
+        ⏰ {{ section.settings.top_notice }}
+      </div>
+    {% endif %}
+
+    <span class="badge">{{ section.settings.badge }}</span>
+
+    <h2 class="heading">
+      {{ section.settings.heading }}
+      <span>{{ section.settings.highlight }}</span>
+    </h2>
+
+    <p class="subheading">{{ section.settings.subheading }}</p>
+
+    <div class="pricing-grid">
+
+      {% for block in section.blocks %}
+        <div class="pricing-card {% if block.settings.popular %}popular{% endif %}">
+
+          {% if block.settings.popular %}
+            <span class="popular-tag">MOST POPULAR</span>
+          {% endif %}
+
+          <p class="plan">{{ block.settings.plan }}</p>
+          <h3 class="qty">{{ block.settings.qty }} <span>Bottles</span></h3>
+
+          {% if block.settings.image %}
+            <img src="{{ block.settings.image | img_url: '300x300' }}" alt="">
+          {% endif %}
+
+          <div class="price">
+            ₹{{ block.settings.price }}
+            <del>₹{{ block.settings.compare }}</del>
+          </div>
+          {% if block.settings.per_bottle != blank %}
+            <p class="per-bottle">₹{{ block.settings.per_bottle }}/bottle</p>
+            {% endif %}
+          <p class="save">Save ₹{{ block.settings.save }}</p>
+
+          {% if block.settings.bonus != blank %}
+            <div class="bonus">🎁 {{ block.settings.bonus }}</div>
+          {% endif %}
+        <div class=pay-now-button>
+          <form method="post" action="/cart/add">
+              <input type="hidden" name="id" value="{{ block.settings.variant_id }}">
+              <input type="hidden" name="quantity" value="{{ block.settings.qty }}">
+              <input type="hidden" name="return_to" value="/checkout">
+
+              <button type="submit" class="buy-btn">
+                  Pay Online
+              </button>
+          </form>
+          {% comment %} <div class="shiprocket-custom-button">
+            <product-form-component class="product-form" data-hide-errors="false" data-section-id="{{ section.id }}">
+              {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+                <input
+                  type="hidden"
+                  name="id"
+                  value="{{ product.selected_or_first_available_variant.id }}"
+                  class="product-variant-id"
+                >
+                <input type="hidden" name="quantity" value="{{ block.settings.qty }}">
+                <div class="reels-cta">
+                  {% comment %} Primary Fastrr checkout button {% endcomment %}
+                  {% comment %} {% render 'shiprocket-buy-now', 
+                    product: product, 
+                    class: 'reels-shiprocket'
+                  %} {% endcomment %}
+
+
+                  {% comment %} Fallback Buy Now for regions where Shiprocket is hidden {% endcomment %}
+                  <button
+                    id="ProductSubmitButton-{{ section.id }}-{{ product.id }}"
+                    type="submit"
+                    name="add"
+                    class="reels-atc-btn reels-fallback-btn visually-hidden"
+                    {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
+                  >
+                    {%- if product.selected_or_first_available_variant.available -%}
+                      BUY NOW
+                    {%- else -%}
+                      SOLD OUT
+                    {%- endif -%}
+                    {% comment %} BUY NOW {% endcomment %}
+                  </button>
+                </div>
+              {%- endform -%}
+            </product-form-component>
+          </div> {% endcomment %}
+        </div>
+
+        </div>
+      {% endfor %}
+
+    </div>
+
+    <div class="trust">
+      <span>🛡 30-Day Money Back</span>
+      <span>🚚 Fast Shipping</span>
+      <span>📦 Discreet Packaging</span>
+      <span>⚡ Secure Checkout</span>
+    </div>
+
+  </div>
+</section>
+
+<style>
+.pay-now-button{
+  position:relative;
+}
+.shiprocket-custom-button .sr-headless-checkout{
+  right: 0px;
+  bottom: 0px;
+  height: 46px !important;
+  max-width: 100%;
+}
+.alpha-pricing {
+  padding: 90px 20px;
+  color: #fff;
+  text-align: center;
+}
+
+.alpha-wrap {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.top-offer {
+  border: 1px solid #c0392b;
+  padding: 12px;
+  border-radius: 12px;
+  color: #ff5e57;
+  margin-bottom: 30px;
+  font-size:18px;
+}
+
+.badge {
+  display: inline-block;
+    padding: 6px 16px;
+    border-radius: 20px;
+    background: rgba(255, 200, 80, 0.15);
+    color: #000000;
+    font-size: 14px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    border: 1px solid #7cb342;
+}
+
+.heading {
+  font-size: 44px;
+  margin: 15px 0 10px;
+  color:#000000;
+}
+
+.heading span {
+  color: #d4a017;
+}
+
+.subheading {
+  color: #000;
+  margin-bottom: 50px;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.pricing-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: 20px;
+  padding: 30px;
+  position: relative;
+  border: 1px solid #000000;
+}
+
+.pricing-card.popular {
+  border: 2px solid #d4a017;
+  transform: scale(1.05);
+}
+
+.popular-tag {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #d4a017;
+  color: #000;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.plan {
+  color: #000;
+  font-size: 16px;
+font-weight: 500;
+}
+
+.qty {
+    color:#000;
+  font-size: 38px;
+  margin: 10px 0;
+}
+
+.qty span {
+  font-size: 16px;
+  color: #000;
+}
+
+.pricing-card img {
+  max-width: 140px;
+  margin: 20px auto;
+}
+
+.price {
+  font-size: 26px;
+  font-weight: 700;
+  color:#000;
+}
+
+.price del {
+  color: #777;
+  font-size: 14px;
+  margin-left: 6px;
+}
+
+.per-bottle {
+  font-size: 14px;
+  color: #ccc;
+}
+
+.save {
+  color: #d4a017;
+  margin: 6px 0 12px;
+}
+
+.bonus {
+  background: rgba(212,160,23,0.15);
+  padding: 10px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  color:#000;
+  border: 1px solid #d4a017;
+}
+
+.buy-btn {
+  display: block;
+  padding: 14px;
+  border-radius: 14px;
+  border: 2px solid #d4a017;
+  color: #000;
+  background: #d4a017;
+  font-weight: 700;
+  text-decoration: none;
+  width: 100%;
+  cursor:pointer;
+}
+
+.pricing-card:not(.popular) .buy-btn {
+  background: transparent;
+  color: #d4a017;
+}
+
+.trust {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 40px;
+  font-size: 14px;
+  color: #000;
+}
+
+@media(max-width: 900px) {
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+  .pricing-card.popular {
+    transform: scale(1);
+  }
+  
+    .trust {
+        flex-wrap:wrap;
+    }
+    .trust span{
+        width:44%;
+    }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Alpha Pricing Packages",
+  "settings": [
+    {
+      "type": "text",
+      "id": "top_notice",
+      "label": "Top Limited Offer Text",
+      "default": "Limited Time Offer — Only 47 bottles left at this price!"
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge Text",
+      "default": "Special Offer"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Choose Your"
+    },
+    {
+      "type": "text",
+      "id": "highlight",
+      "label": "Highlighted Text",
+      "default": "Package"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Start your transformation today. The more you buy, the more you save."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "package",
+      "name": "Package",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product"},
+        { "type": "text", "id": "variant_id", "label": "Product Variant ID (Required)", "info": "Paste the Shopify variant ID of this product"},
+        { "type": "text", "id": "plan", "label": "Plan Name", "default": "STARTER" },
+        { "type": "number", "id": "qty", "label": "Bottle Quantity", "default": 1 },
+        { "type": "image_picker", "id": "image", "label": "Product Image" },
+        { "type": "text", "id": "price", "label": "Price", "default": "1499" },
+        { "type": "text", "id": "compare", "label": "Compare Price", "default": "1999" },
+        { "type": "text", "id": "per_bottle", "label": "Per Bottle Price", "default": "1499" },
+        { "type": "text", "id": "save", "label": "Save Amount", "default": "500" },
+        { "type": "text", "id": "bonus", "label": "Bonus Text", "default": "Free Shipping" },
+        { "type": "checkbox", "id": "popular", "label": "Mark as Most Popular", "default": false }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Alpha - Pricing Packages",
+      "blocks": [
+        { "type": "package" },
+        { "type": "package" },
+        { "type": "package" }
+      ]
+    }
+  ]
+}
+{% endschema %}

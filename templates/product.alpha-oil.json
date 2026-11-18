@@ -1,0 +1,398 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "formula-product-hero",
+      "settings": {
+        "show_floating_badges": true,
+        "badge_1_text": "Discreet Packaging",
+        "badge_2_text": "100% Ayurvedic & Pure",
+        "badge_3_text": "Quality Assured",
+        "show_trust_card": true,
+        "trust_pill_text": "Clinically Tested Formula",
+        "trust_feat_1": "Cash on Delivery",
+        "trust_feat_2": "Expertly Formulated",
+        "trust_feat_3": "Top Quality Ingredients",
+        "privacy_box_title": "Privacy Guarantee",
+        "privacy_line_1": "Plain Brown Box",
+        "privacy_line_2": "No Product Names",
+        "privacy_line_3": "Free Shipping",
+        "subtitle_override": "",
+        "tagline_override": "",
+        "rating_override": "",
+        "review_count_override": "",
+        "benefits_title": "Benefits:",
+        "tax_shipping_note": "Inclusive of all taxes • Free express discreet shipping",
+        "show_coupon_box": true,
+        "coupon_code": "SAVE10",
+        "coupon_text": "Get flat 10% off + FREE Gift on orders above ₹999",
+        "coupon_button_label": "Copy",
+        "buynow_button_label": "BUY NOW",
+        "atc_button_label": "ADD TO CART – DISCREET DELIVERY",
+        "show_trust_strip": true,
+        "trust_strip_1": "Cash on Delivery",
+        "trust_strip_2": "Free Shipping",
+        "trust_strip_3": "Easy Returns",
+        "show_upsell_section": true,
+        "upsell_heading": "PAIR IT WITH:",
+        "upsell_products": []
+      }
+    },
+    "video_reels_GzXgjN": {
+      "type": "video-reels",
+      "blocks": {
+        "video_reel_8U6HJ3": {
+          "type": "video_reel",
+          "settings": {
+            "video": "shopify://files/videos/New 1 (Final).mp4",
+            "product": "",
+            "link": ""
+          }
+        },
+        "video_reel_8RD86q": {
+          "type": "video_reel",
+          "settings": {
+            "video": "shopify://files/videos/new 3 (final).mp4",
+            "product": "",
+            "link": ""
+          }
+        },
+        "video_reel_GycPB3": {
+          "type": "video_reel",
+          "settings": {
+            "video": "shopify://files/videos/OIL.mp4",
+            "product": "",
+            "link": ""
+          }
+        },
+        "video_reel_xJktNA": {
+          "type": "video_reel",
+          "settings": {
+            "video": "shopify://files/videos/New 5.mp4",
+            "product": "",
+            "link": ""
+          }
+        },
+        "video_reel_iadnNy": {
+          "type": "video_reel",
+          "settings": {
+            "video": "shopify://files/videos/new 2.mp4",
+            "product": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "video_reel_8U6HJ3",
+        "video_reel_8RD86q",
+        "video_reel_GycPB3",
+        "video_reel_xJktNA",
+        "video_reel_iadnNy"
+      ],
+      "name": "Video Reels",
+      "settings": {
+        "heading": "Watch & Shop",
+        "subheading": "Real customer stories and how-to guides",
+        "heading_size": "h1",
+        "section_width": "page-width",
+        "columns_desktop": 5,
+        "enable_desktop_slider": true,
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "fast_delivery": {
+      "type": "fast-delivery-comparison",
+      "settings": {
+        "show_bonus_bar": false,
+        "bonus_gift_icon": "🎁",
+        "bonus_title": "Limited-Time Bonus",
+        "bonus_subtext": "Buy 2 or more & get FREE Premium Intimate Essentials Pack (Tissues / Condoms / Care wipes — no extra cost)",
+        "heading": "Fast Delivery on Prepaid Orders",
+        "prepaid_badge": "PREPAID",
+        "prepaid_days": "1-3 Days",
+        "prepaid_delivery_type": "Express Delivery",
+        "prepaid_point_1": "Instant payment confirmation & order processing",
+        "prepaid_point_2": "Priority handling with verified payment",
+        "prepaid_point_3": "No waiting for cash collection verification",
+        "cod_badge": "COD",
+        "cod_days": "4-7 Days",
+        "cod_delivery_type": "Standard Delivery",
+        "cod_point_1": "Additional verification steps required",
+        "cod_point_2": "Cash collection logistics add time",
+        "cod_point_3": "Standard processing queue",
+        "padding_top": 50,
+        "padding_bottom": 70
+      }
+    },
+    "tabbed_info": {
+      "type": "product-tabbed-info",
+      "settings": {
+        "tab_1_title": "WHY BUY THIS",
+        "tab_2_title": "HOW TO USE",
+        "tab_3_title": "PRODUCT DETAILS",
+        "tab_4_title": "DOCTORS RECOMMENDATION",
+        "tab_5_title": "FAQS",
+        "why_buy_heading": "Why Buy",
+        "feat_1_title": "Made for Men’s Wellness",
+        "feat_1_desc": "Created for men who want to feel more confident, comfortable, and in control of their intimate moments.",
+        "feat_2_title": "Safe & Tested",
+        "feat_2_desc": "Clinically tested ingredients with pharmaceutical-grade benzocaine. No harmful side effects.",
+        "feat_3_title": "Ayurvedic Formula",
+        "feat_3_desc": "Specially formulated to absorb quickly without transferring to your partner during intimacy.",
+        "feat_4_title": "Doctor Recommended",
+        "feat_4_desc": "Trusted and recommended by healthcare professionals across India for male wellness.",
+        "how_to_use_heading": "How To Use For Best Results",
+        "step_1_title": "Clean & Prepare",
+        "step_1_desc": "Apply 2–3 drops of Alpha Joshh Performance Oil to the desired external area.",
+        "step_2_title": "Massage Gently",
+        "step_2_desc": "Massage gently for 30–60 seconds and allow the oil to absorb fully.",
+        "step_3_title": "Wait 30 Minutes",
+        "step_3_desc": "Enjoy 30–40 minutes of performance During intimacy.",
+        "product_details_heading": "Product Specifications",
+        "detail_category": "Male Wellness & Stamina",
+        "detail_formulation": "Ayurvedic, Clinically Tested & Safe Daily Use",
+        "detail_packaging": "100% Discreet Plain Brown Box Delivery",
+        "detail_shelf_life": "24 Months from manufacturing date",
+        "doctor_heading": "Doctor & Expert Endorsement",
+        "doctor_badge": "🩺 Clinically Approved",
+        "doctor_quote": "Formulated with precision bio-actives and verified herbs, this product addresses stamina and performance concerns safely without causing dependency, skin irritation, or numbness.",
+        "doctor_name": "Dr. A. Sharma, MD",
+        "doctor_role": "Senior Wellness Specialist & Ayurvedic Consultant",
+        "faq_heading": "Frequently Asked Questions",
+        "faq_1_q": "How long before intimacy should I apply Alpha Joshh Performance Oil?",
+        "faq_1_a": "For best results, apply the oil around 30 minutes before intimacy and allow it to absorb fully.",
+        "faq_2_q": "How should I use the oil?",
+        "faq_2_a": "Apply a small amount to the desired external area and gently massage until absorbed. Follow the usage instructions provided on the product packaging.",
+        "faq_3_q": "Will the oil transfer to my partner?",
+        "faq_3_a": "Allow the oil to fully absorb before intimacy. If there is any remaining residue, wipe it off before intimate contact.",
+        "faq_4_q": "Is the packaging discreet?",
+        "faq_4_a": "Our formulation is dermatologically tested, non-comedogenic, and 100% safe for daily and regular use."
+      }
+    },
+    "how_to_use": {
+      "type": "product-how-to-use",
+      "settings": {
+        "heading": "How To Use",
+        "step_1_title": "Clean & Prepare",
+        "step_1_desc": "Wash and dry the area gently before application.",
+        "step_2_title": "Massage gently (30–60 seconds)",
+        "step_2_desc": "Apply a small amount of oil and gently massage until absorbed.",
+        "step_3_title": "Use 30 Minutes Before Intimacy",
+        "step_3_desc": "Enjoy 30–40 minutes of performance During intimacy."
+      }
+    },
+    "product_details": {
+      "type": "product-details-ingredients",
+      "settings": {
+        "heading": "Product Details",
+        "info_title": "PRODUCT INFO",
+        "active_ingredient": "Anacyclus Pyrethrum",
+        "volume": "30 ML",
+        "application": "Sexual Performance Oil",
+        "duration": "Up to 40-45 minutes",
+        "recommended_use": "3-5 Drops before intimacy",
+        "storage_instructions": "Store in a cool, dry place away from direct sunlight. Keep out of reach of children.",
+        "ingredients_title": "INGREDIENTS",
+        "ing_1_name": "Myristica Fragrans",
+        "ing_1_desc": "🔥 Warming Comfort — Creates a soothing, relaxing feel during intimate massage.",
+        "ing_2_name": "Terminalia Belerica",
+        "ing_2_desc": "Helps maintain healthy, comfortable skin during intimate use.",
+        "ing_3_name": "Ebris Aristata",
+        "ing_3_desc": "Traditionally used in Ayurveda to support male vitality and sexual wellness.",
+        "ing_4_name": "Withania Somnifera",
+        "ing_4_desc": "Included as part of the botanical blend for a skin-friendly intimate experience."
+      }
+    },
+    "doctors_recommendation": {
+      "type": "recommended-by-doctors",
+      "settings": {
+        "heading": "Recommended by Healthcare Professionals",
+        "show_consult_bar": true,
+        "consult_title": "Need Expert Advice?",
+        "consult_subtitle": "Consult our certified doctors for free - 100% confidential",
+        "consult_button_text": "Book Consultation",
+        "consult_button_link": ""
+      }
+    },
+    "why_different": {
+      "type": "why-product-is-different",
+      "settings": {
+        "heading_prefix": "Why",
+        "heading_suffix": "is Different",
+        "subtitle": "Not all products are created equal. Here’s what sets [product] apart from the competition.",
+        "feat_1_title": "Pharmaceutical-Grade Formula",
+        "feat_1_desc": "Made with FDA-approved ingredients in certified facilities",
+        "feat_2_title": "Trusted by 50,000+ Men",
+        "feat_2_desc": "Join thousands of satisfied customers across India",
+        "feat_3_title": "Clinically Tested",
+        "feat_3_desc": "Backed by scientific research and clinical studies",
+        "feat_4_title": "No Side Effects",
+        "feat_4_desc": "Safe formulation with natural ingredients and no harmful chemicals"
+      }
+    },
+    "you_may_also_like": {
+      "type": "product-you-may-also-like",
+      "settings": {
+        "heading": "You May Also Like",
+        "product_list": [],
+        "collection": "",
+        "products_to_show": 3
+      }
+    },
+    "reviews_missions": {
+      "type": "product-reviews-missions",
+      "blocks": {
+        "review_1": {
+          "type": "video_testimonial",
+          "settings": {
+            "cover_image": "shopify://shop_images/WhatsApp_Image_2026-09-04_at_18.14.13_1.jpg",
+            "author_name": "Verified Customer",
+            "quote": "No more anxiety. Just pure confidence. This is exactly what I needed."
+          }
+        },
+        "review_2": {
+          "type": "video_testimonial",
+          "settings": {
+            "cover_image": "shopify://shop_images/WhatsApp_Image_2026-09-04_at_18.14.14.jpg",
+            "author_name": "Verified Customer",
+            "quote": "Noticeable improvement within 30 minutes. My partner and I couldn't be happier."
+          }
+        },
+        "review_3": {
+          "type": "video_testimonial",
+          "settings": {
+            "cover_image": "shopify://shop_images/WhatsApp_Image_2026-09-04_at_18.14.14_1.jpg",
+            "author_name": "Verified Customer",
+            "quote": "Zero side effects, clean absorption, and 100% discreet delivery. Highly recommend."
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ],
+      "settings": {
+        "mission_tag": "OUR MISSIONS",
+        "mission_title": "Prioritizing men’s health and wellness in India",
+        "point_1_text": "Clinically Validated",
+        "point_2_text": "Safe & Effective",
+        "point_3_text": "Discreet Delivery",
+        "mission_video": "shopify://files/videos/new 3 (final).mp4",
+        "testimonials_tag": "TESTIMONIALS",
+        "testimonials_title": "Bold Men. Bold Stories",
+        "padding_top": 45,
+        "padding_bottom": 45
+      }
+    },
+    "faq_accordion": {
+      "type": "product-faq-accordion",
+      "blocks": {
+        "faq_item_FVpA7M": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long before intimacy should I apply Alpha Joshh Performance Oil?",
+            "answer": "<p>For best results, apply the oil around 30 minutes before intimacy and allow it to absorb fully.</p>"
+          }
+        },
+        "faq_item_kK7a9b": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How should I use the oil?",
+            "answer": "<p>Apply a small amount to the desired external area and gently massage until absorbed. Follow the usage instructions provided on the product packaging.<br/></p>"
+          }
+        },
+        "faq_item_X9XE44": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Will the oil transfer to my partner?",
+            "answer": "<p>Allow the oil to fully absorb before intimacy. If there is any remaining residue, wipe it off before intimate contact.</p>"
+          }
+        },
+        "faq_item_J6yhj9": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is the packaging discreet?",
+            "answer": "<p>Yes, Alpha Joshh is packed in discreet packaging to help maintain your privacy.</p>"
+          }
+        },
+        "faq_item_hNVPGM": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Are there any side effects?",
+            "answer": "<p>Use only as directed. If you experience irritation, burning, redness, or discomfort, stop using the product and consult a healthcare professional. Avoid applying to broken or irritated skin.</p>"
+          }
+        },
+        "faq_item_X9CiGn": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I use it every day?",
+            "answer": "<p>Use it according to the frequency and dosage mentioned on the product packaging. Do not use more than recommended.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_FVpA7M",
+        "faq_item_kK7a9b",
+        "faq_item_X9XE44",
+        "faq_item_J6yhj9",
+        "faq_item_hNVPGM",
+        "faq_item_X9CiGn"
+      ],
+      "settings": {
+        "badge": "FAQ",
+        "heading": "Frequently Asked Questions",
+        "subtitle": "Get answers to common questions"
+      }
+    },
+    "support_banner": {
+      "type": "support-contact-banner",
+      "settings": {
+        "heading": "Still Have Questions?",
+        "subtitle": "Our customer support team is here to help you 24/7",
+        "show_email_button": true,
+        "email_label": "Email Support",
+        "email_address": "support@alphajoshh.com",
+        "show_call_button": true,
+        "call_label": "Call Us",
+        "phone_number": "+919876543210"
+      }
+    },
+    "privacy_guarantee": {
+      "type": "privacy-guarantee",
+      "settings": {
+        "heading": "Your Privacy Is Guaranteed",
+        "pillar_1": "Plain brown box",
+        "pillar_2": "No product name",
+        "pillar_3": "No brand mentioned",
+        "pillar_4": "Delivery partner won't know",
+        "tagline": "We respect your privacy as much as your performance."
+      }
+    }
+  },
+  "order": [
+    "main",
+    "video_reels_GzXgjN",
+    "fast_delivery",
+    "tabbed_info",
+    "how_to_use",
+    "product_details",
+    "doctors_recommendation",
+    "why_different",
+    "you_may_also_like",
+    "reviews_missions",
+    "faq_accordion",
+    "support_banner",
+    "privacy_guarantee"
+  ]
+}

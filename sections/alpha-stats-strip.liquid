@@ -1,0 +1,140 @@
+<section class="alpha-stats">
+  <div class="alpha-stats-wrap">
+
+    {% for block in section.blocks %}
+      <div class="stat-item">
+        <div class="stat-number">{{ block.settings.number }}</div>
+        <div class="stat-label">{{ block.settings.label }}</div>
+      </div>
+
+      {% unless forloop.last %}
+        <div class="stat-divider"></div>
+      {% endunless %}
+    {% endfor %}
+
+  </div>
+</section>
+
+<style>
+.alpha-stats {
+  padding: 70px 20px;
+}
+
+.alpha-stats-wrap {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  color: #fff;
+}
+
+.stat-item {
+  text-align: center;
+  min-width: 220px;
+}
+
+.stat-number {
+  font-size: 56px;
+  font-weight: 600;
+  color: #d4a017;
+  letter-spacing: 1px;
+}
+
+.stat-label {
+  margin-top: 8px;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: #000;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(212,160,23,0.6),
+    transparent
+  );
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .alpha-stats-wrap {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .stat-divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(212,160,23,0.6),
+      transparent
+    );
+  }
+
+  .stat-number {
+    font-size: 44px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Alpha – Stats Strip",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number",
+          "default": "10,000+"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "HAPPY CUSTOMERS"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Alpha – Stats Strip",
+      "blocks": [
+        {
+          "type": "stat",
+          "settings": {
+            "number": "10,000+",
+            "label": "HAPPY CUSTOMERS"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "4.8/5",
+            "label": "AVERAGE RATING"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "100%",
+            "label": "NATURAL FORMULATIONS"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

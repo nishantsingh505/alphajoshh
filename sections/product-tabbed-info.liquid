@@ -1,0 +1,285 @@
+{% comment %}
+  Product Tabbed Information Section
+{% endcomment %}
+
+{% render 'product-tabbed-info' %}
+
+{% schema %}
+{
+  "name": "Product Tabbed Info",
+  "tag": "section",
+  "class": "section-product-tabbed-info",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Tab Titles"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_title",
+      "label": "Tab 1 Title",
+      "default": "WHY BUY THIS"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_title",
+      "label": "Tab 2 Title",
+      "default": "HOW TO USE"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_title",
+      "label": "Tab 3 Title",
+      "default": "PRODUCT DETAILS"
+    },
+    {
+      "type": "text",
+      "id": "tab_4_title",
+      "label": "Tab 4 Title",
+      "default": "DOCTORS RECOMMENDATION"
+    },
+    {
+      "type": "text",
+      "id": "tab_5_title",
+      "label": "Tab 5 Title",
+      "default": "FAQS"
+    },
+    {
+      "type": "header",
+      "content": "Tab 1: Why Buy This"
+    },
+    {
+      "type": "text",
+      "id": "why_buy_heading",
+      "label": "Heading Prefix",
+      "default": "Why Buy"
+    },
+    {
+      "type": "text",
+      "id": "feat_1_title",
+      "label": "Feature 1 Title",
+      "default": "Deep Penetration"
+    },
+    {
+      "type": "textarea",
+      "id": "feat_1_desc",
+      "label": "Feature 1 Description",
+      "default": "Advanced formula provides up to 60 minutes of extended performance with just 3-5 sprays."
+    },
+    {
+      "type": "text",
+      "id": "feat_2_title",
+      "label": "Feature 2 Title",
+      "default": "Safe & Tested"
+    },
+    {
+      "type": "textarea",
+      "id": "feat_2_desc",
+      "label": "Feature 2 Description",
+      "default": "Clinically tested ingredients with pharmaceutical-grade benzocaine. No harmful side effects."
+    },
+    {
+      "type": "text",
+      "id": "feat_3_title",
+      "label": "Feature 3 Title",
+      "default": "Ayurvedic Formula"
+    },
+    {
+      "type": "textarea",
+      "id": "feat_3_desc",
+      "label": "Feature 3 Description",
+      "default": "Specially formulated to absorb quickly without transferring to your partner during intimacy."
+    },
+    {
+      "type": "text",
+      "id": "feat_4_title",
+      "label": "Feature 4 Title",
+      "default": "Doctor Recommended"
+    },
+    {
+      "type": "textarea",
+      "id": "feat_4_desc",
+      "label": "Feature 4 Description",
+      "default": "Trusted and recommended by healthcare professionals across India for male wellness."
+    },
+    {
+      "type": "header",
+      "content": "Tab 2: How To Use"
+    },
+    {
+      "type": "text",
+      "id": "how_to_use_heading",
+      "label": "How To Use Heading",
+      "default": "How To Use For Best Results"
+    },
+    {
+      "type": "text",
+      "id": "step_1_title",
+      "label": "Step 1 Title",
+      "default": "Clean & Prepare"
+    },
+    {
+      "type": "textarea",
+      "id": "step_1_desc",
+      "label": "Step 1 Description",
+      "default": "Wash the area with warm water and gently pat dry before application."
+    },
+    {
+      "type": "text",
+      "id": "step_2_title",
+      "label": "Step 2 Title",
+      "default": "Apply Dosage"
+    },
+    {
+      "type": "textarea",
+      "id": "step_2_desc",
+      "label": "Step 2 Description",
+      "default": "Apply 3-5 sprays or consume 1 capsule with water 15-20 minutes before activity."
+    },
+    {
+      "type": "text",
+      "id": "step_3_title",
+      "label": "Step 3 Title",
+      "default": "Last & Enjoy"
+    },
+    {
+      "type": "textarea",
+      "id": "step_3_desc",
+      "label": "Step 3 Description",
+      "default": "Allows deep absorption. Enjoy extended stamina, confidence, and peak performance."
+    },
+    {
+      "type": "header",
+      "content": "Tab 3: Product Details"
+    },
+    {
+      "type": "text",
+      "id": "product_details_heading",
+      "label": "Specifications Heading",
+      "default": "Product Specifications"
+    },
+    {
+      "type": "text",
+      "id": "detail_category",
+      "label": "Category",
+      "default": "Male Wellness & Stamina"
+    },
+    {
+      "type": "text",
+      "id": "detail_formulation",
+      "label": "Formulation",
+      "default": "Ayurvedic, Clinically Tested & Safe Daily Use"
+    },
+    {
+      "type": "text",
+      "id": "detail_packaging",
+      "label": "Packaging",
+      "default": "100% Discreet Plain Brown Box Delivery"
+    },
+    {
+      "type": "text",
+      "id": "detail_shelf_life",
+      "label": "Shelf Life",
+      "default": "24 Months from manufacturing date"
+    },
+    {
+      "type": "header",
+      "content": "Tab 4: Doctors Recommendation"
+    },
+    {
+      "type": "text",
+      "id": "doctor_heading",
+      "label": "Heading",
+      "default": "Doctor & Expert Endorsement"
+    },
+    {
+      "type": "text",
+      "id": "doctor_badge",
+      "label": "Badge",
+      "default": "🩺 Clinically Approved"
+    },
+    {
+      "type": "textarea",
+      "id": "doctor_quote",
+      "label": "Doctor Quote",
+      "default": "Formulated with precision bio-actives and verified herbs, this product addresses stamina and performance concerns safely without causing dependency, skin irritation, or numbness."
+    },
+    {
+      "type": "text",
+      "id": "doctor_name",
+      "label": "Doctor Name",
+      "default": "Dr. A. Sharma, MD"
+    },
+    {
+      "type": "text",
+      "id": "doctor_role",
+      "label": "Doctor Title / Role",
+      "default": "Senior Wellness Specialist & Ayurvedic Consultant"
+    },
+    {
+      "type": "header",
+      "content": "Tab 5: FAQs"
+    },
+    {
+      "type": "text",
+      "id": "faq_heading",
+      "label": "FAQ Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "text",
+      "id": "faq_1_q",
+      "label": "Question 1",
+      "default": "How soon does it start working?"
+    },
+    {
+      "type": "textarea",
+      "id": "faq_1_a",
+      "label": "Answer 1",
+      "default": "It takes effect within 15 to 20 minutes of application and provides lasting confidence and stamina for up to 60 minutes."
+    },
+    {
+      "type": "text",
+      "id": "faq_2_q",
+      "label": "Question 2",
+      "default": "Will this transfer to my partner?"
+    },
+    {
+      "type": "textarea",
+      "id": "faq_2_a",
+      "label": "Answer 2",
+      "default": "No, once absorbed after 15 minutes, the formulation will not transfer to your partner and causes zero numbness."
+    },
+    {
+      "type": "text",
+      "id": "faq_3_q",
+      "label": "Question 3",
+      "default": "Is the delivery packaging discreet?"
+    },
+    {
+      "type": "textarea",
+      "id": "faq_3_a",
+      "label": "Answer 3",
+      "default": "Yes, all orders are shipped in 100% plain brown tamper-evident boxes with no mention of product name or brand anywhere on the exterior."
+    },
+    {
+      "type": "text",
+      "id": "faq_4_q",
+      "label": "Question 4",
+      "default": "Are there any side effects?"
+    },
+    {
+      "type": "textarea",
+      "id": "faq_4_a",
+      "label": "Answer 4",
+      "default": "Our formulation is dermatologically tested, non-comedogenic, and 100% safe for daily and regular use."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Tabbed Info"
+    }
+  ]
+}
+{% endschema %}
+

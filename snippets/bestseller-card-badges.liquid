@@ -1,0 +1,35 @@
+{%- doc -%}
+  Renders product badges for the bestseller card with percentage.
+{%- enddoc -%}
+
+<div class="product-badges product-badges--top-left">
+  {%- comment -%} Check if this is the massage oil product {%- endcomment -%}
+  {%- assign is_massage_oil = false -%}
+  {%- if product.title contains 'Massage Oil' or product.handle contains 'massage-oil' -%}
+    {%- assign is_massage_oil = true -%}
+  {%- endif -%}
+  
+  {%- if is_massage_oil -%}
+    <div class="card-badge card-badge--choice">
+      🔥 #1 CHOICE
+    </div>
+  {%- endif -%}
+  
+  {%- comment -%}
+  {%- if product.available and product.compare_at_price > product.price -%}
+     {% assign savings = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round %}
+    <div class="card-badge">
+      Sale -{{ savings }}%
+    </div>
+  {%- endif -%}
+  {%- endcomment -%}
+</div>
+
+{% stylesheet %}
+  .product-badges {
+    position: absolute;
+    z-index: 2;
+    top: 10px;
+    left: 10px;
+  }
+{% endstylesheet %}

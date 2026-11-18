@@ -1,0 +1,522 @@
+{% comment %}
+  Section 8: You May Also Like (Dark Luxury Product Grid)
+  Dynamically fetches other products across all collections in the store and client-side /products.json
+{% endcomment %}
+
+{%- liquid
+  assign current_product = closest.product | default: product
+  assign heading = section.settings.heading | default: 'You May Also Like'
+  assign products_limit = section.settings.products_to_show | default: 3
+  assign rendered_ids = current_product.id | append: ''
+  assign rendered_count = 0
+-%}
+
+<section class="p-ymal-section" id="p-ymal-section-{{ section.id }}">
+  <div class="p-ymal-container">
+    {%- if heading != blank -%}
+      <h2 class="p-ymal-title">{{ heading }}</h2>
+    {%- endif -%}
+
+    <div class="p-ymal-grid" id="p-ymal-grid-{{ section.id }}" data-current-product-id="{{ current_product.id }}">
+      
+      {%- if section.settings.product_list.count > 0 -%}
+        <!-- Merchant Curated Product List -->
+        {%- for rec_prod in section.settings.product_list limit: products_limit -%}
+          {%- if rec_prod.id != current_product.id -%}
+            {%- assign rendered_count = rendered_count | plus: 1 -%}
+            <a href="{{ rec_prod.url }}" class="p-ymal-card-link" data-product-id="{{ rec_prod.id }}">
+              <div class="p-ymal-card">
+                <div class="p-ymal-img-wrap">
+                  {%- if rendered_count == 1 -%}
+                    <span class="p-ymal-badge p-ymal-badge--new">NEW</span>
+                  {%- elsif rendered_count == 2 -%}
+                    <span class="p-ymal-badge p-ymal-badge--bestseller">BESTSELLER</span>
+                  {%- endif -%}
+
+                  {%- if rec_prod.featured_image -%}
+                    <img src="{{ rec_prod.featured_image | image_url: width: 600 }}" alt="{{ rec_prod.title }}" loading="lazy" class="p-ymal-img" width="300" height="300">
+                  {%- else -%}
+                    <div class="p-ymal-placeholder-img">
+                      <span>{{ rec_prod.title | truncate: 15 }}</span>
+                    </div>
+                  {%- endif -%}
+                </div>
+
+                <div class="p-ymal-content">
+                  <h3 class="p-ymal-name">{{ rec_prod.title | truncate: 28 }}</h3>
+                  <p class="p-ymal-desc">
+                    {{ rec_prod.metafields.custom.subtitle | default: rec_prod.description | strip_html | truncate: 50 | default: 'Daily wellness supplement for energy & stamina' }}
+                  </p>
+                  
+                  <div class="p-ymal-bottom">
+                    <span class="p-ymal-price">{{ rec_prod.price | money_without_trailing_zeros }}</span>
+                    <span class="p-ymal-btn">View</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+
+      {%- elsif section.settings.collection != blank -%}
+        <!-- Merchant Selected Collection -->
+        {%- for rec_prod in section.settings.collection.products limit: products_limit -%}
+          {%- if rec_prod.id != current_product.id -%}
+            {%- assign rendered_count = rendered_count | plus: 1 -%}
+            <a href="{{ rec_prod.url }}" class="p-ymal-card-link" data-product-id="{{ rec_prod.id }}">
+              <div class="p-ymal-card">
+                <div class="p-ymal-img-wrap">
+                  {%- if rendered_count == 1 -%}
+                    <span class="p-ymal-badge p-ymal-badge--new">NEW</span>
+                  {%- elsif rendered_count == 2 -%}
+                    <span class="p-ymal-badge p-ymal-badge--bestseller">BESTSELLER</span>
+                  {%- endif -%}
+
+                  {%- if rec_prod.featured_image -%}
+                    <img src="{{ rec_prod.featured_image | image_url: width: 600 }}" alt="{{ rec_prod.title }}" loading="lazy" class="p-ymal-img" width="300" height="300">
+                  {%- else -%}
+                    <div class="p-ymal-placeholder-img">
+                      <span>{{ rec_prod.title | truncate: 15 }}</span>
+                    </div>
+                  {%- endif -%}
+                </div>
+
+                <div class="p-ymal-content">
+                  <h3 class="p-ymal-name">{{ rec_prod.title | truncate: 28 }}</h3>
+                  <p class="p-ymal-desc">
+                    {{ rec_prod.metafields.custom.subtitle | default: rec_prod.description | strip_html | truncate: 50 | default: 'Daily wellness supplement for energy & stamina' }}
+                  </p>
+                  
+                  <div class="p-ymal-bottom">
+                    <span class="p-ymal-price">{{ rec_prod.price | money_without_trailing_zeros }}</span>
+                    <span class="p-ymal-btn">View</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+
+      {%- else -%}
+        <!-- Loop through all store collections to find unique other products (Default Dynamic Behavior) -->
+        {%- for col in collections -%}
+          {%- for rec_prod in col.products -%}
+            {%- assign prod_id_str = rec_prod.id | append: '' -%}
+            {%- unless rendered_ids contains prod_id_str -%}
+              {%- if rendered_count < products_limit -%}
+                {%- assign rendered_count = rendered_count | plus: 1 -%}
+                {%- assign rendered_ids = rendered_ids | append: ',' | append: prod_id_str -%}
+                
+                <a href="{{ rec_prod.url }}" class="p-ymal-card-link" data-product-id="{{ rec_prod.id }}">
+                  <div class="p-ymal-card">
+                    <!-- Image Area -->
+                    <div class="p-ymal-img-wrap">
+                      {%- if rendered_count == 1 -%}
+                        <span class="p-ymal-badge p-ymal-badge--new">NEW</span>
+                      {%- elsif rendered_count == 2 -%}
+                        <span class="p-ymal-badge p-ymal-badge--bestseller">BESTSELLER</span>
+                      {%- endif -%}
+
+                      {%- if rec_prod.featured_image -%}
+                        <img src="{{ rec_prod.featured_image | image_url: width: 600 }}" alt="{{ rec_prod.title }}" loading="lazy" class="p-ymal-img" width="300" height="300">
+                      {%- else -%}
+                        <div class="p-ymal-placeholder-img">
+                          <span>{{ rec_prod.title | truncate: 15 }}</span>
+                        </div>
+                      {%- endif -%}
+                    </div>
+
+                    <!-- Content Area -->
+                    <div class="p-ymal-content">
+                      <h3 class="p-ymal-name">{{ rec_prod.title | truncate: 28 }}</h3>
+                      <p class="p-ymal-desc">
+                        {{ rec_prod.metafields.custom.subtitle | default: rec_prod.description | strip_html | truncate: 50 | default: 'Daily wellness supplement for energy & stamina' }}
+                      </p>
+                      
+                      <div class="p-ymal-bottom">
+                        <span class="p-ymal-price">{{ rec_prod.price | money_without_trailing_zeros }}</span>
+                        <span class="p-ymal-btn">View</span>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+
+              {%- endif -%}
+            {%- endunless -%}
+          {%- endfor -%}
+        {%- endfor -%}
+
+        <!-- Also loop through collections.all if rendered_count is still under limit -->
+        {%- if rendered_count < products_limit -%}
+          {%- for rec_prod in collections.all.products -%}
+            {%- assign prod_id_str = rec_prod.id | append: '' -%}
+            {%- unless rendered_ids contains prod_id_str -%}
+              {%- if rendered_count < products_limit -%}
+                {%- assign rendered_count = rendered_count | plus: 1 -%}
+                {%- assign rendered_ids = rendered_ids | append: ',' | append: prod_id_str -%}
+                
+                <a href="{{ rec_prod.url }}" class="p-ymal-card-link" data-product-id="{{ rec_prod.id }}">
+                  <div class="p-ymal-card">
+                    <div class="p-ymal-img-wrap">
+                      {%- if rendered_count == 1 -%}
+                        <span class="p-ymal-badge p-ymal-badge--new">NEW</span>
+                      {%- elsif rendered_count == 2 -%}
+                        <span class="p-ymal-badge p-ymal-badge--bestseller">BESTSELLER</span>
+                      {%- endif -%}
+
+                      {%- if rec_prod.featured_image -%}
+                        <img src="{{ rec_prod.featured_image | image_url: width: 600 }}" alt="{{ rec_prod.title }}" loading="lazy" class="p-ymal-img" width="300" height="300">
+                      {%- else -%}
+                        <div class="p-ymal-placeholder-img">
+                          <span>{{ rec_prod.title | truncate: 15 }}</span>
+                        </div>
+                      {%- endif -%}
+                    </div>
+
+                    <div class="p-ymal-content">
+                      <h3 class="p-ymal-name">{{ rec_prod.title | truncate: 28 }}</h3>
+                      <p class="p-ymal-desc">
+                        {{ rec_prod.metafields.custom.subtitle | default: rec_prod.description | strip_html | truncate: 50 | default: 'Daily wellness supplement for energy & stamina' }}
+                      </p>
+                      
+                      <div class="p-ymal-bottom">
+                        <span class="p-ymal-price">{{ rec_prod.price | money_without_trailing_zeros }}</span>
+                        <span class="p-ymal-btn">View</span>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+
+              {%- endif -%}
+            {%- endunless -%}
+          {%- endfor -%}
+        {%- endif -%}
+      {%- endif -%}
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .p-ymal-section {
+    background-color: #0c0c0c;
+    color: #ffffff;
+    padding: 60px 20px 75px;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  .p-ymal-container {
+    max-width: 1340px;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+
+  .p-ymal-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 38px;
+    letter-spacing: -0.4px;
+  }
+
+  .p-ymal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .p-ymal-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    cursor: pointer;
+  }
+
+  .p-ymal-card {
+    background: #141414;
+    border: 1px solid #242424;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    transition: transform 0.22s ease, border-color 0.22s ease;
+    height: 100%;
+  }
+
+  .p-ymal-card-link:hover .p-ymal-card {
+    transform: translateY(-4px);
+    border-color: #383838;
+  }
+
+  .p-ymal-img-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #ffffff;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+
+  .p-ymal-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .p-ymal-card:hover .p-ymal-img {
+    transform: scale(1.03);
+  }
+
+  .p-ymal-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  .p-ymal-badge--new {
+    background: #e11d48;
+  }
+
+  .p-ymal-badge--bestseller {
+    background: #dc2626;
+  }
+
+  .p-ymal-placeholder-img {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1e1e1e;
+    color: #999;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .p-ymal-content {
+    padding: 18px 18px 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .p-ymal-name {
+    font-size: 16px;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 6px;
+    letter-spacing: -0.2px;
+  }
+
+  .p-ymal-desc {
+    font-size: 12.5px;
+    color: #9ca3af;
+    margin: 0 0 16px;
+    line-height: 1.4;
+    flex: 1;
+  }
+
+  .p-ymal-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+  }
+
+  .p-ymal-price {
+    font-size: 17px;
+    font-weight: 800;
+    color: #ffffff;
+  }
+
+  .p-ymal-btn {
+    background: #d4af37;
+    color: #0c0c0c;
+    text-decoration: none;
+    font-size: 12.5px;
+    font-weight: 800;
+    padding: 6px 18px;
+    border-radius: 6px;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+
+  .p-ymal-btn:hover {
+    background: #e5be48;
+    transform: translateY(-1px);
+  }
+
+  /* Laptop Optimization */
+  @media screen and (min-width: 861px) and (max-width: 1150px) {
+    .p-ymal-container {
+      padding: 0 16px;
+    }
+    .p-ymal-grid {
+      gap: 14px;
+    }
+    .p-ymal-content {
+      padding: 14px;
+    }
+    .p-ymal-name {
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 860px) {
+    .p-ymal-section {
+      padding: 36px 0 44px;
+    }
+
+    .p-ymal-container {
+      padding: 0;
+    }
+
+    .p-ymal-title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      padding: 0 16px;
+    }
+
+    .p-ymal-gold-line {
+      width: 44px;
+      height: 2.5px;
+      margin: 8px auto 20px;
+    }
+
+    .p-ymal-grid {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding: 4px 16px 16px;
+      gap: 14px;
+      scrollbar-width: none;
+    }
+
+    .p-ymal-grid::-webkit-scrollbar {
+      display: none;
+    }
+
+    .p-ymal-card {
+      flex: 0 0 78%;
+      max-width: 290px;
+      min-width: 240px;
+      scroll-snap-align: start;
+    }
+
+    .p-ymal-img-wrap {
+      padding: 12px;
+    }
+
+    .p-ymal-content {
+      padding: 12px 14px 14px;
+    }
+
+    .p-ymal-name {
+      font-size: 14px;
+      margin: 0 0 3px;
+    }
+
+    .p-ymal-desc {
+      font-size: 11px;
+      margin: 0 0 10px;
+    }
+
+    .p-ymal-price {
+      font-size: 14.5px;
+    }
+
+    .p-ymal-btn {
+      font-size: 11px;
+      padding: 5px 14px;
+    }
+  }
+</style>
+
+<!-- Client-side real-time fetch to ensure 3 genuine store products are always shown -->
+<script>
+  (function() {
+    const grid = document.getElementById('p-ymal-grid-{{ section.id }}');
+    if (!grid) return;
+
+    const curProdId = grid.getAttribute('data-current-product-id');
+    const existingCards = grid.querySelectorAll('.p-ymal-card');
+
+    if (existingCards.length < 3) {
+      fetch('/products.json?limit=12')
+        .then(res => res.json())
+        .then(data => {
+          if (!data || !data.products) return;
+
+          const existingIds = new Set([curProdId]);
+          existingCards.forEach(card => {
+            const pid = card.getAttribute('data-product-id');
+            if (pid) existingIds.add(pid);
+          });
+
+          let added = existingCards.length;
+          data.products.forEach(prod => {
+            if (added >= 3) return;
+            const strId = String(prod.id);
+            if (!existingIds.has(strId)) {
+              existingIds.add(strId);
+              added++;
+
+              const priceNum = prod.variants && prod.variants[0] ? Math.round(parseFloat(prod.variants[0].price)) : '';
+              const imgSrc = prod.images && prod.images[0] ? prod.images[0].src : '';
+              const badgeHtml = added === 2 ? '<span class="p-ymal-badge p-ymal-badge--bestseller">BESTSELLER</span>' : (added === 3 ? '<span class="p-ymal-badge p-ymal-badge--new">POPULAR</span>' : '');
+
+              const linkEl = document.createElement('a');
+              linkEl.href = `/products/${prod.handle}`;
+              linkEl.className = 'p-ymal-card-link';
+              linkEl.setAttribute('data-product-id', prod.id);
+              linkEl.innerHTML = `
+                <div class="p-ymal-card">
+                  <div class="p-ymal-img-wrap">
+                    ${badgeHtml}
+                    ${imgSrc ? `<img src="${imgSrc}" alt="${prod.title}" loading="lazy" class="p-ymal-img" width="300" height="300">` : `<div class="p-ymal-placeholder-img"><span>${prod.title}</span></div>`}
+                  </div>
+                  <div class="p-ymal-content">
+                    <h3 class="p-ymal-name">${prod.title.length > 28 ? prod.title.substring(0, 28) + '...' : prod.title}</h3>
+                    <p class="p-ymal-desc">Daily wellness supplement for energy & stamina</p>
+                    <div class="p-ymal-bottom">
+                      <span class="p-ymal-price">${priceNum ? '₹' + priceNum.toLocaleString('en-IN') : ''}</span>
+                      <span class="p-ymal-btn">View</span>
+                    </div>
+                  </div>
+                </div>
+              `;
+              grid.appendChild(linkEl);
+            }
+          });
+        })
+        .catch(err => console.error('Error fetching store products for You May Also Like:', err));
+    }
+  })();
+</script>

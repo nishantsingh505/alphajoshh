@@ -1,0 +1,226 @@
+<section class="transformation-cta">
+  <div class="page-width">
+
+    <div class="cta-box">
+
+      <h2 class="alpha-heading">{{ section.settings.heading }}</h2>
+
+      <div class="cta-features">
+        <span>✔ {{ section.settings.feature1 }}</span>
+        <span>✔ {{ section.settings.feature2 }}</span>
+        <span>✔ {{ section.settings.feature3 }}</span>
+      </div>
+
+      {% if section.settings.product != blank %}
+
+        {% assign product = section.settings.product %}
+        {% assign price = product.price %}
+        {% assign compare = product.compare_at_price %}
+
+        <div class="cta-price">
+          <span class="new-price">{{ price | money }}</span>
+          {% if compare > price %}
+            <span class="old-price">{{ compare | money }}</span>
+          {% endif %}
+        </div>
+
+        <div class="ss-btn">
+          <button
+                    id="ProductSubmitButton-{{ section.id }}-{{ product.id }}"
+                    type="submit"
+                    name="add"
+                    class="reels-atc-btn reels-fallback-btn"
+                    {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
+                  >
+                    {%- if product.selected_or_first_available_variant.available -%}
+                      BUY NOW
+                    {%- else -%}
+                      SOLD OUT
+                    {%- endif -%}
+                    {% comment %} BUY NOW {% endcomment %}
+                  </button>
+            {% comment %} <div class="shiprocket-custom-button">
+            <product-form-component class="product-form" data-hide-errors="false" data-section-id="{{ section.id }}">
+              {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+                <input
+                  type="hidden"
+                  name="id"
+                  value="{{ product.selected_or_first_available_variant.id }}"
+                  class="product-variant-id"
+                >
+                <input type="hidden" name="quantity" value="{{ block.settings.qty }}">
+                <div class="reels-cta">{{ section.settings.button_text }}
+                  {% comment %} Primary Fastrr checkout button {% endcomment %}
+                  {% comment %} {% render 'shiprocket-buy-now', 
+                    product: product, 
+                    class: 'reels-shiprocket'
+                  %} {% endcomment %}
+
+
+                  {% comment %} Fallback Buy Now for regions where Shiprocket is hidden {% endcomment %}
+                  <button
+                    id="ProductSubmitButton-{{ section.id }}-{{ product.id }}"
+                    type="submit"
+                    name="add"
+                    class="reels-atc-btn reels-fallback-btn visually-hidden"
+                    {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
+                  >
+                    {%- if product.selected_or_first_available_variant.available -%}
+                      BUY NOW
+                    {%- else -%}
+                      SOLD OUT
+                    {%- endif -%}
+                    {% comment %} BUY NOW {% endcomment %}
+                  </button>
+                </div>
+              {%- endform -%}
+            </product-form-component>
+          </div> {% endcomment %}
+        </div>
+      </div>
+
+      {% endif %}
+
+      <p class="cta-note">
+        {{ section.settings.bottom_text }}
+      </p>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+.transformation-cta {
+  background: #f8f9fa;
+  padding: 80px 20px;
+  text-align: center;
+  color: #fff;
+}
+
+.cta-box {
+  max-width: 750px;
+  margin: auto;
+  padding: 60px 40px;
+  border-radius: 25px;
+  border: 1px solid rgba(212,175,55,0.4);
+  background: rgba(255,255,255,0.03);
+  box-shadow: 0 0 60px rgba(212,175,55,0.1);
+}
+
+.cta-box h2 span {
+  color: #d4af37;
+}
+
+.cta-features {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  color: #777;
+  margin-bottom: 25px;
+  font-size: 14px;
+}
+
+.cta-price {
+  margin: 25px 0;
+}
+
+.new-price {
+  font-size: 32px;
+  color: #d4af37;
+  font-weight: 600;
+  margin-right: 15px;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 20px;
+}
+
+.cta-btn {
+  background: linear-gradient(90deg, #b8891c, #e5c46b);
+  color: #000;
+  padding: 16px 40px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: 0.3s ease;
+}
+
+.cta-btn:hover {
+  transform: translateY(-3px);
+}
+
+.cta-note {
+  margin-top: 25px;
+  font-size: 13px;
+  color: #777;
+}
+.ss-btn{
+    max-width:300px;
+    margin:0px auto;
+}
+@media (max-width: 768px) {
+  .cta-box h2 {
+    font-size: 28px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Alphajoshh Transform CTA",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Start Your Transformation Today"
+    },
+    {
+      "type": "text",
+      "id": "feature1",
+      "label": "Feature 1",
+      "default": "Complete routine"
+    },
+    {
+      "type": "text",
+      "id": "feature2",
+      "label": "Feature 2",
+      "default": "Free shipping"
+    },
+    {
+      "type": "text",
+      "id": "feature3",
+      "label": "Feature 3",
+      "default": "30-day guarantee"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Select Product"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Get Complete Routine — Save ₹650"
+    },
+    {
+      "type": "text",
+      "id": "bottom_text",
+      "label": "Bottom Text",
+      "default": "Discreet packaging • Secure checkout"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Alphajoshh Transform CTA"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,61 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "Footer",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "logo_width": 160,
+        "address": "500, 5th Floor, Plot NP-B-9,\nITL Twin Tower, Pitampura,\nNew Delhi - 110038",
+        "phone": "+91 9650081651",
+        "email": "support@alphajoshh.com",
+        "menu_1_heading": "Shop",
+        "menu_1": "",
+        "menu_2_heading": "Quick Links",
+        "menu_2": "quick-links",
+        "newsletter_heading": "JOIN OUR MAILING LIST",
+        "newsletter_placeholder": "Enter Email",
+        "social_heading": "FOLLOW US",
+        "icon_instagram": "shopify://shop_images/De-Dwpd5CHc.avif",
+        "instagram_link": "https://www.instagram.com/alphajoshhofficial",
+        "icon_facebook": "shopify://shop_images/download.webp",
+        "facebook_link": "https://www.facebook.com/Alphajoshhofficial/",
+        "icon_youtube": "shopify://shop_images/play_15047677.webp",
+        "youtube_link": "https://www.youtube.com/@AlphaJoshh-u6c",
+        "available_label": "Also Available On:",
+        "badges_height": 26,
+        "badge_amazon": "shopify://shop_images/download.avif",
+        "badge_blinkit": "shopify://shop_images/download_5a370a2f-35db-427a-9cff-09762e05e3cd.avif",
+        "badge_flipkart": "shopify://shop_images/download.png",
+        "badge_jiomart": "shopify://shop_images/download_da9345d5-ab9e-4205-8e02-80ae7e0a6cc9.avif",
+        "accept_label": "We Accept :",
+        "payment_badges_height": 24,
+        "pay_amazon": "shopify://shop_images/download_42bebb19-5cf6-44e7-857e-5f4b42d0ad85.avif",
+        "pay_upi": "shopify://shop_images/download_3cf9f1c7-55c6-4176-925e-6b4a5a2e1182.webp",
+        "pay_gpay": "shopify://shop_images/download_936cadad-307c-4b0d-a120-d97bdf4abddd.avif",
+        "pay_rupay": "shopify://shop_images/download_6b4abf20-e284-4025-a332-5521e991dd1e.webp",
+        "pay_visa": "shopify://shop_images/download_8fee8bc0-4c6e-4d49-b5f5-3a0079e2e7fc.webp",
+        "pay_mastercard": "shopify://shop_images/download_8713ff50-3432-4740-8704-42032cb2da08.png",
+        "policies_menu": "footer",
+        "copyright_text": "Loire Pharmaceuticals LLP. All rights reserved.",
+        "bg_color": "#f6f4ed",
+        "text_color": "#1e251e",
+        "bottom_bar_bg": "#183b2b",
+        "bottom_bar_text": "#ffffff",
+        "padding_top": 50
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

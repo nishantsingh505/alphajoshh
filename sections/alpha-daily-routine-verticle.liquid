@@ -1,0 +1,222 @@
+<section class="alpha-routine">
+  <div class="alpha-container">
+
+    <div class="alpha-header">
+      <span class="alpha-badge">{{ section.settings.top_text }}</span>
+      <h2 class="alpha-heading">{{ section.settings.heading }}</h2>
+      <p class="alpha-sub">{{ section.settings.subheading }}</p>
+    </div>
+
+    <div class="alpha-timeline">
+
+      {% for block in section.blocks %}
+        <div class="alpha-step">
+          
+          <div class="alpha-icon-pnl">
+            {% if block.settings.morning_icon != blank %}
+                <img src="{{ block.settings.morning_icon | image_url: width: 80 }}" alt="">
+            {% endif %}
+          </div>
+
+          <div class="alpha-card-pnl">
+            <span class="alpha-step-label">{{ block.settings.step_label }}</span>
+            <h3>{{ block.settings.title }}</h3>
+            <p>{{ block.settings.text }}</p>
+          </div>
+
+        </div>
+      {% endfor %}
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+.alpha-routine {
+  padding: 80px 20px 20px;
+  color: #fff;
+}
+
+.alpha-container {
+  max-width: 1100px;
+  margin: auto;
+}
+
+.alpha-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.alpha-tag {
+  color: #d4a017;
+  font-size: 13px;
+  letter-spacing: 2px;
+}
+
+.alpha-title {
+  font-size: 48px;
+  margin: 15px 0;
+  font-weight: 600;
+}
+
+.alpha-sub {
+  color: #777;
+  max-width: 600px;
+  margin: auto;
+}
+
+.alpha-timeline {
+  position: relative;
+}
+
+.alpha-timeline:before {
+  content: "";
+  position: absolute;
+  left: 40px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #333;
+}
+
+.alpha-step {
+  display: flex;
+  align-items: center;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.alpha-icon-pnl {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #111;
+  border: 2px solid #d4a017;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d4a017;
+  font-size: 22px;
+  position: relative;
+  z-index: 2;
+}
+.alpha-icon-pnl img{
+    max-width: 35px;
+}
+
+.alpha-card-pnl {
+  margin-left: 40px;
+  padding: 30px;
+  flex: 1;
+  background: linear-gradient(90deg, rgba(42,34,14,1), rgba(6,6,5,1));
+  border: 1px solid #222;
+  border-radius: 16px;
+  text-align: left;
+}
+
+.alpha-step-label {
+  color: #d4a017;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform:uppercase;
+  font-weight:500;
+}
+
+.alpha-card-pnl h3 {
+  margin: 10px 0;
+  font-size: 24px;
+}
+
+.alpha-card-pnl p {
+  color: #bbb;
+  font-size: 15px;
+}
+
+@media(max-width:768px){
+  .alpha-title {
+    font-size: 32px;
+  }
+
+  .alpha-step {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .alpha-timeline:before {
+    left: 40px;
+  }
+
+  .alpha-card {
+    margin-left: 0;
+    margin-top: 20px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Daily Routine vertical",
+  "settings": [
+    {
+      "type": "text",
+      "id": "top_text",
+      "label": "Top Label",
+      "default": "DEAD SIMPLE"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Your Daily Routine"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Three easy steps. That's all it takes to run the complete system."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Routine Step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "step_label",
+          "label": "Step Label",
+          "default": "MORNING"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Performance Capsule"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Description",
+          "default": "Take 1 capsule with warm water on an empty stomach"
+        },
+        {
+        "type": "image_picker",
+        "id": "morning_icon",
+        "label": "Routine Icon"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Daily Routine vertical",
+      "blocks": [
+        { "type": "step" },
+        { "type": "step" },
+        { "type": "step" }
+      ]
+    }
+  ]
+}
+{% endschema %}

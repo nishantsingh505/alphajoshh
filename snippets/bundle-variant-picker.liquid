@@ -1,0 +1,235 @@
+{% comment %}
+  Renders a bundle variant picker.
+
+  Accepts:
+  - product: {Object} product object.
+  - block: {Object} block object.
+  - form_id: {String} form id.
+{% endcomment %}
+
+<div class="bundle-picker">
+  <div class="bundle-picker__header">
+    <span class="bundle-picker__title">Bundle & Save</span>
+  </div>
+
+  <div class="bundle-picker__options">
+    {%- for variant in product.variants -%}
+      <label class="bundle-option {% if variant.id == product.selected_or_first_available_variant.id %}bundle-option--selected{% endif %}">
+        <input
+          type="radio"
+          name="id"
+          class="bundle-option__input"
+          form="{{ form_id }}"
+          value="{{ variant.id }}"
+          {% if variant.id == product.selected_or_first_available_variant.id %}
+            checked
+          {% endif %}
+          data-variant-id="{{ variant.id }}"
+        >
+        
+        {%- if forloop.index == 2 -%}
+          <div class="bundle-option__badge">Most Popular</div>
+        {%- endif -%}
+
+        <div class="bundle-option__content">
+          <div class="bundle-option__radio"></div>
+          <div class="bundle-option__info">
+            <span class="bundle-option__title">{{ variant.title }}</span>
+            {%- if forloop.first -%}
+              <span class="bundle-option__tag bundle-option__tag--standard">Standard Price</span>
+            {%- elsif variant.compare_at_price > variant.price -%}
+              <span class="bundle-option__tag">
+                {{ variant.compare_at_price | minus: variant.price | times: 100.0 | divided_by: variant.compare_at_price | round }}% OFF
+              </span>
+            {%- endif -%}
+          </div>
+          <div class="bundle-option__price">
+            <span class="price-item price-item--sale">
+              {{ variant.price | money }}
+            </span>
+            {%- if variant.compare_at_price > variant.price -%}
+              <span class="price-item price-item--regular">
+                {{ variant.compare_at_price | money }}
+              </span>
+              <span class="price-item price-item--savings">
+                You'll save {{ variant.compare_at_price | minus: variant.price | money }}
+              </span>
+            {%- endif -%}
+          </div>
+        </div>
+      </label>
+    {%- endfor -%}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const bundleOptions = document.querySelectorAll('.bundle-option__input');
+    
+    bundleOptions.forEach(input => {
+      input.addEventListener('change', function() {
+        // Update selected class
+        document.querySelectorAll('.bundle-option').forEach(el => el.classList.remove('bundle-option--selected'));
+        this.closest('.bundle-option').classList.add('bundle-option--selected');
+        
+        // Trigger generic variant change event if needed, or update Main Product Form
+        // We rely on the form attribute to update the add to cart form directly
+      });
+    });
+  });
+</script>
+
+<style>
+  .bundle-picker {
+    margin: 0 0 2rem 0;
+  }
+
+  .bundle-picker__header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    position: relative;
+    text-align: center;
+  }
+  
+  .bundle-picker__header::before,
+  .bundle-picker__header::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #e5e5e5;
+    margin: 0 15px;
+  }
+
+  .bundle-picker__title {
+    font-size: 20px;
+    font-weight: 700; /* Serif font weight */
+    font-family: serif; /* Use theme serif font if available */
+    color: #333;
+    white-space: nowrap;
+  }
+
+  .bundle-picker__options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .bundle-option {
+    display: flex;
+    flex-direction: column; /* For badge positioning */
+    position: relative;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: #f9f9f9;
+  }
+
+  .bundle-option--selected {
+    background-color: #f5f5f5;
+    border: 2px solid #000; /* Dark border for selected */
+    padding: 15px; /* Adjust padding to account for border width to prevent layout shift */
+  }
+
+  .bundle-option__badge {
+    position: absolute;
+    top: -12px;
+    right: 12px;
+    background-color: #000;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+
+  .bundle-option__content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .bundle-option__input {
+    display: none;
+  }
+
+  .bundle-option__radio {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    margin-right: 12px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bundle-option--selected .bundle-option__radio {
+    border-color: #000;
+  }
+
+  .bundle-option--selected .bundle-option__radio::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-color: #000;
+    border-radius: 50%;
+  }
+
+  .bundle-option__info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .bundle-option__title {
+    font-weight: 600;
+    font-size: 16px;
+    color: #333;
+  }
+
+  .bundle-option__tag {
+    background-color: #000;
+    color: #fff;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+
+  .bundle-option__tag--standard {
+    background-color: #333;
+  }
+
+  .bundle-option__price {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+  }
+  
+  .bundle-option__price .price-item--sale {
+    font-weight: 700;
+    color: #333;
+    font-size: 18px;
+  }
+
+  .bundle-option__price .price-item--regular {
+    text-decoration: line-through;
+    color: #888;
+    font-size: 13px;
+    margin-top: 2px;
+  }
+
+  .bundle-option__price .price-item--savings {
+    color: #4CAF50;
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 4px;
+  }
+</style>

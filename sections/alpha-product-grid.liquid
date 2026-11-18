@@ -1,0 +1,271 @@
+<section class="alpha-product-grid">
+  <div class="alpha-container">
+    {% if section.settings.heading != blank %}
+      <h2 class="alpha-heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+    <p>{{ section.settings.Subheading }}</p>
+
+    <div class="products-grid">
+
+      {% for block in section.blocks %}
+        {% assign product = all_products[block.settings.product] %}
+
+        {% if product != blank %}
+        <div class="product-card-panel">
+
+          {% if product.compare_at_price > product.price %}
+            {% assign discount = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
+            <div class="discount-badge">
+              {{ discount }}% OFF
+            </div>
+          {% endif %}
+
+          <a href="{{ product.url }}" class="product-image">
+            <img src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product.title }}">
+          </a>
+
+          <h4 class="product-title">
+            <a href="{{ product.url }}">{{ product.title }}</a>
+          </h4>
+
+          <!-- Price -->
+          <div class="price">
+            <span class="price-current">{{ product.price | money }}</span>
+            {% if product.compare_at_price > product.price %}
+              <span class="price-old">{{ product.compare_at_price | money }}</span>
+            {% endif %}
+          </div>
+            <div class="ss-btn">
+              <button
+                                id="ProductSubmitButton-{{ section.id }}-{{ product.id }}"
+                                type="submit"
+                                name="add"
+                                class="reels-atc-btn reels-fallback-btn"
+                                {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
+                            >
+                                {%- if product.selected_or_first_available_variant.available -%}
+                                BUY NOW
+                                {%- else -%}
+                                SOLD OUT
+                                {%- endif -%}
+                                {% comment %} BUY NOW {% endcomment %}
+                            </button>
+                {% comment %} <div class="shiprocket-custom-button">
+                    <product-form-component class="product-form" data-hide-errors="false" data-section-id="{{ section.id }}">
+                    {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+                        <input
+                        type="hidden"
+                        name="id"
+                        value="{{ product.selected_or_first_available_variant.id }}"
+                        class="product-variant-id"
+                        >
+                        <input type="hidden" name="quantity" value="{{ block.settings.qty }}">
+                        <div class="reels-cta">BUY NOW
+                            {% comment %} Primary Fastrr checkout button {% endcomment %}
+                            {% comment %} {% render 'shiprocket-buy-now', 
+                                product: product, 
+                                class: 'reels-shiprocket'
+                            %} {% endcomment %}
+
+
+                            {% comment %} Fallback Buy Now for regions where Shiprocket is hidden {% endcomment %}
+                            
+                        </div>
+                    {%- endform -%}
+                    </product-form-component>
+                </div> {% endcomment %}
+            </div>
+
+        </div>
+        {% endif %}
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+
+<style>
+.alpha-product-grid {
+  padding: 60px 20px;
+}
+
+.alpha-container {
+  max-width: 1200px;
+  margin: auto;
+}
+.alpha-heading{
+    margin-bottom:30px;
+}
+
+.alpha-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.alpha-card {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  position: relative;
+}
+
+.discount-badge {
+  background: #8bc34a;
+  color: #000;
+  padding: 6px 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.alpha-image img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.price-box {
+  margin: 15px 0;
+  font-size: 18px;
+}
+
+.compare {
+  text-decoration: line-through;
+  color: #888;
+  margin-left: 8px;
+}
+
+.qty-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.qty-box button {
+  width: 35px;
+  height: 35px;
+  border: none;
+  background: #ddd;
+  cursor: pointer;
+}
+
+.qty-box input {
+  width: 50px;
+  text-align: center;
+  border: 1px solid #ccc;
+  height: 35px;
+}
+
+.buy-btn:hover {
+  opacity: 0.9;
+}
+.alpha-heading{
+    text-align:center;
+}
+
+.ss-btn {
+  display: block;
+  margin-top: 25px;
+  text-align: center;
+  background: linear-gradient(90deg, #b8891c, #e5c46b);
+  color: #000;
+  padding: 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s ease;
+  position:relative;
+}
+.ss-btn .shiprocket-custom-button .sr-headless-checkout {
+    border-radius: 8px !important;
+    bottom: 0px;
+    right: 0px;
+    width: 100% !important;
+    max-width: 100%;
+    min-height: 100% !important;
+}
+.products-grid {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.product-card-panel{
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 12px;
+    background: #fff;
+    position: relative;
+    width: 25%;
+}
+.product-title {
+    text-align: center;
+    font-size: 15px !important;
+    margin: 10px 0;
+    line-height: 20px;
+    min-height: 40px;
+}
+
+@media(max-width: 991px){
+  .alpha-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }  
+    .product-card-panel{
+        width: 48%;
+    }
+}
+
+@media(max-width: 600px){
+  .alpha-grid {
+    grid-template-columns: 1fr;
+  }
+    .product-card-panel{
+        width: 100%;
+    }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Alpha Product Grid",
+  "settings": [
+        {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+        },
+        {
+        "type": "text",
+        "id": "subheading",
+        "label": "Subheading"
+        }
+    ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Alpha Product Grid",
+      "blocks": [
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" }
+      ]
+    }
+  ]
+}
+{% endschema %}

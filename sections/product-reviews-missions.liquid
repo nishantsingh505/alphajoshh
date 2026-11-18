@@ -1,0 +1,195 @@
+{% comment %}
+  Section 9: Product Reviews & Missions Section (Full Customizer & Video Blocks Support)
+{% endcomment %}
+
+{% render 'product-reviews-missions' %}
+
+{% schema %}
+{
+  "name": "Reviews & Bold Stories",
+  "tag": "section",
+  "class": "section-product-reviews-missions",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Our Mission Column"
+    },
+    {
+      "type": "text",
+      "id": "mission_tag",
+      "label": "Mission Tag",
+      "default": "OUR MISSION"
+    },
+    {
+      "type": "text",
+      "id": "mission_title",
+      "label": "Mission Title",
+      "default": "Prioritising men's health and wellness in India"
+    },
+    {
+      "type": "text",
+      "id": "point_1_text",
+      "label": "Benefit 1 Text",
+      "default": "Clinically Validated"
+    },
+    {
+      "type": "text",
+      "id": "point_2_text",
+      "label": "Benefit 2 Text",
+      "default": "Safe & Effective"
+    },
+    {
+      "type": "text",
+      "id": "point_3_text",
+      "label": "Benefit 3 Text",
+      "default": "Discreet Delivery"
+    },
+    {
+      "type": "video",
+      "id": "mission_video",
+      "label": "Mission Video (Shopify-hosted MP4)"
+    },
+    {
+      "type": "image_picker",
+      "id": "mission_cover_image",
+      "label": "Ambassador / Mission Image"
+    },
+    {
+      "type": "header",
+      "content": "Testimonials Slider Column"
+    },
+    {
+      "type": "text",
+      "id": "testimonials_tag",
+      "label": "Testimonials Tag",
+      "default": "TESTIMONIALS"
+    },
+    {
+      "type": "text",
+      "id": "testimonials_title",
+      "label": "Testimonials Title",
+      "default": "Bold Men. Bold Stories."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 45
+    }
+  ],
+  "blocks": [
+    {
+      "type": "story",
+      "name": "Customer Story Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "cover_image",
+          "label": "Customer Photo"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Testimonial Video (Optional)"
+        },
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "Customer Name & Age (e.g. Rohit 33,)",
+          "default": "Rohit 33,"
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Review / Outcome Text",
+          "default": "Noticed lasting stamina improvements"
+        }
+      ]
+    },
+    {
+      "type": "video_testimonial",
+      "name": "Video Testimonial",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "cover_image",
+          "label": "Video Thumbnail / Customer Photo"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Testimonial Video (Optional)"
+        },
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "Customer Name & Age (e.g. Kunal 29,)",
+          "default": "Kunal 29,"
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Review / Outcome Text",
+          "default": "Enhanced overall well-being in 60 days"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews & Bold Stories",
+      "blocks": [
+        {
+          "type": "story",
+          "settings": {
+            "author_name": "Rohit 33,",
+            "quote": "Noticed lasting stamina improvements"
+          }
+        },
+        {
+          "type": "story",
+          "settings": {
+            "author_name": "Kunal 29,",
+            "quote": "Enhanced overall well-being in 60 days"
+          }
+        },
+        {
+          "type": "story",
+          "settings": {
+            "author_name": "Deepak 30,",
+            "quote": "Observed quicker post-workout recovery in 2 months"
+          }
+        },
+        {
+          "type": "story",
+          "settings": {
+            "author_name": "Aman 28,",
+            "quote": "Gained confidence within weeks"
+          }
+        },
+        {
+          "type": "story",
+          "settings": {
+            "author_name": "Varun 32,",
+            "quote": "Significant boost in daily energy & focus"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,275 @@
+{% comment %}
+  Product Hero Section
+{% endcomment %}
+
+{% render 'formula-product-hero' %}
+
+{% schema %}
+{
+  "name": "Product Hero",
+  "tag": "section",
+  "class": "section-formula-hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Floating Badges (Image Gallery)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_floating_badges",
+      "label": "Show Floating Badges on Image Gallery",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "badge_1_text",
+      "label": "Badge 1 Label",
+      "default": "Discreet Packaging"
+    },
+    {
+      "type": "text",
+      "id": "badge_2_text",
+      "label": "Badge 2 Label",
+      "default": "100% Ayurvedic & Pure"
+    },
+    {
+      "type": "text",
+      "id": "badge_3_text",
+      "label": "Badge 3 Label",
+      "default": "Quality Assured"
+    },
+    {
+      "type": "header",
+      "content": "Left Column Trust & Privacy Card"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_card",
+      "label": "Show Trust & Privacy Card",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "trust_pill_text",
+      "label": "Trust Pill Badge Text",
+      "default": "Clinically Tested Formula"
+    },
+    {
+      "type": "text",
+      "id": "trust_feat_1",
+      "label": "Feature Item 1",
+      "default": "Cash on Delivery"
+    },
+    {
+      "type": "text",
+      "id": "trust_feat_2",
+      "label": "Feature Item 2",
+      "default": "Expertly Formulated"
+    },
+    {
+      "type": "text",
+      "id": "trust_feat_3",
+      "label": "Feature Item 3",
+      "default": "Top Quality Ingredients"
+    },
+    {
+      "type": "text",
+      "id": "privacy_box_title",
+      "label": "Privacy Box Heading",
+      "default": "Privacy Guarantee"
+    },
+    {
+      "type": "text",
+      "id": "privacy_line_1",
+      "label": "Privacy Item 1",
+      "default": "Plain Brown Box"
+    },
+    {
+      "type": "text",
+      "id": "privacy_line_2",
+      "label": "Privacy Item 2",
+      "default": "No Product Names"
+    },
+    {
+      "type": "text",
+      "id": "privacy_line_3",
+      "label": "Privacy Item 3",
+      "default": "Free Shipping"
+    },
+    {
+      "type": "header",
+      "content": "Product Information Overrides"
+    },
+    {
+      "type": "text",
+      "id": "subtitle_override",
+      "label": "Subtitle Override",
+      "info": "Leave blank to use product type or metafield"
+    },
+    {
+      "type": "text",
+      "id": "tagline_override",
+      "label": "Tagline Override",
+      "info": "Leave blank to use product metafield"
+    },
+    {
+      "type": "text",
+      "id": "rating_override",
+      "label": "Rating Score Override",
+      "info": "Leave blank to use product reviews rating (e.g. 4.9)"
+    },
+    {
+      "type": "text",
+      "id": "review_count_override",
+      "label": "Review Count Override",
+      "info": "Leave blank for automatic count (e.g. 1,420+)"
+    },
+    {
+      "type": "text",
+      "id": "benefits_title",
+      "label": "Benefits Heading",
+      "default": "Benefits:"
+    },
+    {
+      "type": "text",
+      "id": "tax_shipping_note",
+      "label": "Tax & Shipping Note",
+      "default": "Inclusive of all taxes • Free express discreet shipping"
+    },
+    {
+      "type": "header",
+      "content": "Coupon Discount Box"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_coupon_box",
+      "label": "Show Coupon Box",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "coupon_code",
+      "label": "Coupon Code",
+      "default": "SAVE10"
+    },
+    {
+      "type": "text",
+      "id": "coupon_text",
+      "label": "Coupon Description",
+      "default": "Get flat 10% off + FREE Gift on orders above ₹999"
+    },
+    {
+      "type": "text",
+      "id": "coupon_button_label",
+      "label": "Coupon Button Label",
+      "default": "Copy"
+    },
+    {
+      "type": "header",
+      "content": "Call-to-Action Buttons"
+    },
+    {
+      "type": "text",
+      "id": "buynow_button_label",
+      "label": "Buy Now Button Label",
+      "default": "BUY NOW"
+    },
+    {
+      "type": "text",
+      "id": "atc_button_label",
+      "label": "Add to Cart Button Label",
+      "default": "ADD TO CART – DISCREET DELIVERY"
+    },
+    {
+      "type": "header",
+      "content": "Trust Badges Strip (Below Buttons)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_strip",
+      "label": "Show Trust Badges Strip",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "trust_strip_1",
+      "label": "Trust Item 1",
+      "default": "Cash on Delivery"
+    },
+    {
+      "type": "text",
+      "id": "trust_strip_2",
+      "label": "Trust Item 2",
+      "default": "Free Shipping"
+    },
+    {
+      "type": "text",
+      "id": "trust_strip_3",
+      "label": "Trust Item 3",
+      "default": "Easy Returns"
+    },
+    {
+      "type": "header",
+      "content": "Pair It With (Upsells)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_upsell_section",
+      "label": "Show Upsells Section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "upsell_heading",
+      "label": "Upsells Heading",
+      "default": "PAIR IT WITH:"
+    },
+    {
+      "type": "product_list",
+      "id": "upsell_products",
+      "label": "Upsell Products",
+      "limit": 4,
+      "info": "Leave blank to automatically pick available products from catalog"
+    },
+    {
+      "type": "header",
+      "content": "Floating Add to Cart Bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_floating_atc",
+      "label": "Enable Floating Add to Cart",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "floating_atc_show_buynow",
+      "label": "Show Buy Now in Floating Bar",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "floating_atc_show_qty",
+      "label": "Show Quantity in Floating Bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "floating_atc_btn_text",
+      "label": "Floating Add to Cart Button Text",
+      "default": "ADD TO CART"
+    },
+    {
+      "type": "text",
+      "id": "floating_buynow_btn_text",
+      "label": "Floating Buy Now Button Text",
+      "default": "BUY NOW"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Hero"
+    }
+  ]
+}
+{% endschema %}

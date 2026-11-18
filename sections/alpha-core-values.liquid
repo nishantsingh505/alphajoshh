@@ -1,0 +1,190 @@
+<section class="alpha-values">
+  <div class="values-container">
+
+    <!-- HEADER -->
+    <div class="values-header">
+      {% if section.settings.top_label != blank %}
+        <span class="values-label">{{ section.settings.top_label }}</span>
+      {% endif %}
+
+      <h2 class="values-heading">{{ section.settings.heading }}</h2>
+      <div class="values-divider"></div>
+    </div>
+
+    <!-- CARDS -->
+    <div class="values-grid">
+      {% for block in section.blocks %}
+        <div class="value-card">
+          {% if block.settings.icon != blank %}
+            <div class="value-icon">
+              {{ block.settings.icon }}
+            </div>
+          {% endif %}
+
+          <h3 class="value-title">{{ block.settings.title }}</h3>
+          <p class="value-text">{{ block.settings.text }}</p>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+<style>
+.alpha-values {
+  padding: 90px 20px;
+  color: #fff;
+}
+
+.values-container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.values-header {
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.values-label {
+  color: #d4a017;
+  letter-spacing: 3px;
+  font-size: 12px;
+  margin-bottom: 12px;
+  display: inline-block;
+}
+
+.values-heading {
+  font-size: 48px;
+  font-weight: 500;
+  color:#000;
+}
+
+.values-divider {
+  width: 60px;
+  height: 2px;
+  background: #d4a017;
+  margin: 20px auto 0;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.value-card {
+  background: linear-gradient(145deg, #0d0d0d, #000);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 35px 28px;
+  border-radius: 14px;
+  transition: all 0.35s ease;
+}
+
+.value-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(212,160,23,0.5);
+}
+
+.value-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(212,160,23,0.15);
+  color: #d4a017;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+
+.value-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.value-title {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.value-text {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #cfcfcf;
+}
+
+@media (max-width: 1024px) {
+  .values-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .values-heading {
+    font-size: 34px;
+  }
+
+  .values-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Alpha – Core Values",
+  "settings": [
+    {
+      "type": "text",
+      "id": "top_label",
+      "label": "Top Label",
+      "default": "WHAT WE STAND FOR"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Main Heading",
+      "default": "Our Core Values"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value Card",
+      "settings": [
+        {
+          "type": "html",
+          "id": "icon",
+          "label": "Icon (SVG code)",
+          "default": "<svg viewBox='0 0 24 24'><path d='M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7z'/></svg>"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Purity First"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "Every ingredient is carefully sourced from trusted cultivators. No fillers, no synthetic additives — just nature’s finest."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Alpha – Our Core Values",
+      "blocks": [
+        { "type": "value" },
+        { "type": "value" },
+        { "type": "value" },
+        { "type": "value" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,1127 @@
+<footer class="footer-alphajosh" style="--footer-bg: {{ section.settings.bg_color }}; --footer-text: {{ section.settings.text_color }}; --footer-bottom-bg: {{ section.settings.bottom_bar_bg }}; --footer-bottom-text: {{ section.settings.bottom_bar_text }};">
+  <div class="footer-alphajosh__container">
+    
+    <!-- Top 4-Column Section -->
+    <div class="footer-alphajosh__top-grid">
+      
+      <!-- Column 1: Brand Logo & Address -->
+      <div class="footer-alphajosh__col footer-alphajosh__col--brand">
+        {%- assign footer_logo = section.settings.logo | default: settings.logo -%}
+        <div class="footer-alphajosh__logo-wrap">
+          {%- if footer_logo != blank -%}
+            <a href="{{ routes.root_url }}" class="footer-alphajosh__logo-link">
+              <img
+                src="{{ footer_logo | image_url: width: section.settings.logo_width }}"
+                alt="{{ footer_logo.alt | default: shop.name | escape }}"
+                width="{{ section.settings.logo_width }}"
+                height="auto"
+                loading="lazy"
+                class="footer-alphajosh__logo-img"
+              >
+            </a>
+          {%- else -%}
+            <a href="{{ routes.root_url }}" class="footer-alphajosh__brand-text">
+              {{ shop.name | default: 'ALPHA JOSHH' }}
+            </a>
+          {%- endif -%}
+        </div>
+
+        {%- if section.settings.address != blank -%}
+          <div class="footer-alphajosh__address">
+            {{ section.settings.address }}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- Column 2: Shop Menu -->
+      <div class="footer-alphajosh__col footer-alphajosh__col--menu">
+        <h3 class="footer-alphajosh__col-title">
+          {{ section.settings.menu_1_heading | default: 'Shop' }}
+        </h3>
+        <ul class="footer-alphajosh__nav-list">
+          {%- if section.settings.menu_1 != blank and linklists[section.settings.menu_1].links.size > 0 -%}
+            {%- for link in linklists[section.settings.menu_1].links -%}
+              <li>
+                <a href="{{ link.url }}" class="footer-alphajosh__nav-link">
+                  {{ link.title }}
+                </a>
+              </li>
+            {%- endfor -%}
+          {%- else -%}
+            <li><a href="/collections/all" class="footer-alphajosh__nav-link">SHOP ALL</a></li>
+            <li><a href="/account" class="footer-alphajosh__nav-link">MY ACCOUNT</a></li>
+            <li><a href="/#faqs" class="footer-alphajosh__nav-link">FAQS</a></li>
+          {%- endif -%}
+        </ul>
+      </div>
+
+      <!-- Column 3: Important Links Menu -->
+      <div class="footer-alphajosh__col footer-alphajosh__col--menu">
+        <h3 class="footer-alphajosh__col-title">
+          {{ section.settings.menu_2_heading | default: 'Important Links' }}
+        </h3>
+        <ul class="footer-alphajosh__nav-list">
+          {%- if section.settings.menu_2 != blank and linklists[section.settings.menu_2].links.size > 0 -%}
+            {%- for link in linklists[section.settings.menu_2].links -%}
+              <li>
+                <a href="{{ link.url }}" class="footer-alphajosh__nav-link">
+                  {{ link.title }}
+                </a>
+              </li>
+            {%- endfor -%}
+          {%- else -%}
+            <li><a href="/pages/about-us" class="footer-alphajosh__nav-link">ABOUT US</a></li>
+            <li><a href="/blogs/news" class="footer-alphajosh__nav-link">BLOG</a></li>
+            <li><a href="/pages/media" class="footer-alphajosh__nav-link">MEDIA</a></li>
+            <li><a href="/pages/contact" class="footer-alphajosh__nav-link">CONTACT US</a></li>
+          {%- endif -%}
+        </ul>
+      </div>
+
+      <!-- Column 4: Newsletter & Socials -->
+      <div class="footer-alphajosh__col footer-alphajosh__col--newsletter">
+        <h3 class="footer-alphajosh__col-title footer-alphajosh__col-title--newsletter">
+          {{ section.settings.newsletter_heading | default: 'JOIN OUR MAILING LIST' }}
+        </h3>
+
+        <div class="footer-alphajosh__newsletter-box">
+          {% form 'customer', class: 'footer-alphajosh__form' %}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <div class="footer-alphajosh__input-wrapper">
+              <input
+                id="NewsletterForm--{{ section.id }}"
+                type="email"
+                name="contact[email]"
+                class="footer-alphajosh__input"
+                value="{{ form.email }}"
+                aria-required="true"
+                autocorrect="off"
+                autocapitalize="off"
+                autocomplete="email"
+                placeholder="{{ section.settings.newsletter_placeholder | default: 'Enter Email' }}"
+                required
+              >
+              <button type="submit" class="footer-alphajosh__submit-btn" name="commit" aria-label="Subscribe">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="4" y1="12" x2="20" y2="12"></line>
+                  <polyline points="14 6 20 12 14 18"></polyline>
+                </svg>
+              </button>
+            </div>
+            {%- if form.errors -%}
+              <small class="footer-alphajosh__form-message footer-alphajosh__form-message--error">
+                {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}
+              </small>
+            {%- endif -%}
+            {%- if form.posted_successfully? -%}
+              <p class="footer-alphajosh__form-message footer-alphajosh__form-message--success">
+                Thank you for subscribing!
+              </p>
+            {%- endif -%}
+          {% endform %}
+        </div>
+
+        <!-- Follow Us Section -->
+        <div class="footer-alphajosh__socials-wrap">
+          <h3 class="footer-alphajosh__col-title footer-alphajosh__col-title--socials">
+            {{ section.settings.social_heading | default: 'FOLLOW US' }}
+          </h3>
+          <div class="footer-alphajosh__social-icons">
+            
+            <!-- Instagram -->
+            {%- assign insta_url = section.settings.instagram_link | default: settings.social_instagram_link -%}
+            {%- if insta_url != blank -%}
+              <a href="{{ insta_url }}" target="_blank" rel="noopener" class="footer-alphajosh__social-icon footer-alphajosh__social-icon--instagram" aria-label="Instagram">
+                {%- if section.settings.icon_instagram != blank -%}
+                  <img src="{{ section.settings.icon_instagram | image_url: width: 68 }}" alt="Instagram" width="34" height="34" class="footer-alphajosh__custom-icon" loading="lazy">
+                {%- else -%}
+                  <svg width="34" height="34" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <radialGradient id="instaGrad" cx="30%" cy="107%" r="130%">
+                        <stop offset="0%" stop-color="#fdf497"/>
+                        <stop offset="5%" stop-color="#fdf497"/>
+                        <stop offset="45%" stop-color="#fd5949"/>
+                        <stop offset="60%" stop-color="#d6249f"/>
+                        <stop offset="90%" stop-color="#285AEB"/>
+                      </radialGradient>
+                    </defs>
+                    <rect width="36" height="36" rx="8" fill="url(#instaGrad)"/>
+                    <rect x="7.5" y="7.5" width="21" height="21" rx="5.5" fill="none" stroke="#FFFFFF" stroke-width="2.2"/>
+                    <circle cx="18" cy="18" r="4.8" fill="none" stroke="#FFFFFF" stroke-width="2.2"/>
+                    <circle cx="23.2" cy="12.8" r="1.3" fill="#FFFFFF"/>
+                  </svg>
+                {%- endif -%}
+              </a>
+            {%- endif -%}
+
+            <!-- Facebook -->
+            {%- assign fb_url = section.settings.facebook_link | default: settings.social_facebook_link -%}
+            {%- if fb_url != blank -%}
+              <a href="{{ fb_url }}" target="_blank" rel="noopener" class="footer-alphajosh__social-icon footer-alphajosh__social-icon--facebook" aria-label="Facebook">
+                {%- if section.settings.icon_facebook != blank -%}
+                  <img src="{{ section.settings.icon_facebook | image_url: width: 68 }}" alt="Facebook" width="34" height="34" class="footer-alphajosh__custom-icon" loading="lazy">
+                {%- else -%}
+                  <svg width="34" height="34" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="36" height="36" rx="8" fill="#1877F2"/>
+                    <path d="M22.5 19H19V30H14V19H12V14.5H14V11.5C14 8.5 15.8 7 18.5 7H22V11.5H20C19.2 11.5 19 12 19 12.8V14.5H22.5L22.5 19Z" fill="#FFFFFF"/>
+                  </svg>
+                {%- endif -%}
+              </a>
+            {%- endif -%}
+
+            <!-- YouTube -->
+            {%- assign yt_url = section.settings.youtube_link | default: settings.social_youtube_link -%}
+            {%- if yt_url != blank -%}
+              <a href="{{ yt_url }}" target="_blank" rel="noopener" class="footer-alphajosh__social-icon footer-alphajosh__social-icon--youtube" aria-label="YouTube">
+                {%- if section.settings.icon_youtube != blank -%}
+                  <img src="{{ section.settings.icon_youtube | image_url: width: 68 }}" alt="YouTube" width="34" height="34" class="footer-alphajosh__custom-icon" loading="lazy">
+                {%- else -%}
+                  <svg width="34" height="34" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="36" height="36" rx="8" fill="#FF0000"/>
+                    <path d="M28 13.5C27.8 12.5 27 11.8 26 11.6C24.4 11.2 18 11.2 18 11.2C18 11.2 11.6 11.2 10 11.6C9 11.8 8.2 12.5 8 13.5C7.6 15.1 7.6 18 7.6 18C7.6 18 7.6 20.9 8 22.5C8.2 23.5 9 24.2 10 24.4C11.6 24.8 18 24.8 18 24.8C18 24.8 24.4 24.8 26 24.4C27 24.2 27.8 23.5 28 22.5C28.4 20.9 28.4 18 28.4 18C28.4 18 28.4 15.1 28 13.5Z" fill="#FF0000"/>
+                    <polygon points="15.5,14 22,18 15.5,22" fill="#FFFFFF"/>
+                  </svg>
+                {%- endif -%}
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Middle Row: Contacts (Left), Also Available On (Shifted Right under Shop), We Accept (Right under Newsletter) -->
+    <div class="footer-alphajosh__middle-grid">
+      
+      <!-- Col 1: Contact Details (Phone & Email) -->
+      <div class="footer-alphajosh__contact-details">
+        {%- if section.settings.phone != blank -%}
+          <a href="tel:{{ section.settings.phone | replace: ' ', '' | replace: '-', '' }}" class="footer-alphajosh__contact-item">
+            {{ section.settings.phone }}
+          </a>
+        {%- endif -%}
+
+        {%- if section.settings.email != blank -%}
+          <a href="mailto:{{ section.settings.email }}" class="footer-alphajosh__contact-item">
+            {{ section.settings.email }}
+          </a>
+        {%- endif -%}
+      </div>
+
+      <!-- Col 2 & 3: Also Available On (Customizable Images or Vector Badges) -->
+      <div class="footer-alphajosh__badges-available">
+        <span class="footer-alphajosh__badges-label">{{ section.settings.available_label | default: 'Also Available On:' }}</span>
+        <div class="footer-alphajosh__badges-list">
+          
+          <!-- Amazon.in -->
+          <div class="footer-alphajosh__badge footer-alphajosh__badge--amazon" title="Amazon.in">
+            {%- if section.settings.badge_amazon != blank -%}
+              <img src="{{ section.settings.badge_amazon | image_url: height: 60 }}" alt="Amazon" height="{{ section.settings.badges_height | default: 26 }}" class="footer-alphajosh__uploaded-badge" loading="lazy">
+            {%- else -%}
+              <svg width="90" height="28" viewBox="0 0 115 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <text x="0" y="21" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="22" fill="#111111" letter-spacing="-0.5">amazon<tspan font-size="15" font-weight="400" fill="#444444">.in</tspan></text>
+                <path d="M4 27C28 35 68 34 82 26" stroke="#FF9900" stroke-width="3" stroke-linecap="round"/>
+                <path d="M78 23L84 26L80 30" fill="#FF9900"/>
+              </svg>
+            {%- endif -%}
+          </div>
+
+          <!-- Blinkit -->
+          <div class="footer-alphajosh__badge footer-alphajosh__badge--blinkit" title="Blinkit">
+            {%- if section.settings.badge_blinkit != blank -%}
+              <img src="{{ section.settings.badge_blinkit | image_url: height: 60 }}" alt="Blinkit" height="{{ section.settings.badges_height | default: 26 }}" class="footer-alphajosh__uploaded-badge" loading="lazy">
+            {%- else -%}
+              <div class="blinkit-pill">
+                <span class="blinkit-text">blink<span class="blinkit-it">it</span></span>
+              </div>
+            {%- endif -%}
+          </div>
+
+          <!-- Flipkart -->
+          <div class="footer-alphajosh__badge footer-alphajosh__badge--flipkart" title="Flipkart">
+            {%- if section.settings.badge_flipkart != blank -%}
+              <img src="{{ section.settings.badge_flipkart | image_url: height: 60 }}" alt="Flipkart" height="{{ section.settings.badges_height | default: 26 }}" class="footer-alphajosh__uploaded-badge" loading="lazy">
+            {%- else -%}
+              <span class="flipkart-brand">Flipkart</span>
+              <svg class="flipkart-icon" width="16" height="18" viewBox="0 0 20 22" fill="none">
+                <path d="M3 6H17L15 20H5L3 6Z" fill="#F8E71C"/>
+                <path d="M7 6V4C7 2.3 8.3 1 10 1C11.7 1 13 2.3 13 4V6" stroke="#2874F0" stroke-width="2"/>
+                <path d="M10 9V15M7 12H13" stroke="#2874F0" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            {%- endif -%}
+          </div>
+
+          <!-- JioMart -->
+          <div class="footer-alphajosh__badge footer-alphajosh__badge--jiomart" title="JioMart">
+            {%- if section.settings.badge_jiomart != blank -%}
+              <img src="{{ section.settings.badge_jiomart | image_url: height: 60 }}" alt="JioMart" height="{{ section.settings.badges_height | default: 26 }}" class="footer-alphajosh__uploaded-badge" loading="lazy">
+            {%- else -%}
+              <div class="jiomart-pill">
+                <span class="jiomart-circle">Jio</span>
+                <span class="jiomart-text">Mart</span>
+              </div>
+            {%- endif -%}
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Col 4: We Accept (Customizable Images or Vector Icons) -->
+      <div class="footer-alphajosh__badges-accept">
+        <span class="footer-alphajosh__badges-label">{{ section.settings.accept_label | default: 'We Accept :' }}</span>
+        <div class="footer-alphajosh__badges-list">
+          
+          <!-- Amazon Pay -->
+          <div class="footer-alphajosh__badge-pay" title="Amazon Pay">
+            {%- if section.settings.pay_amazon != blank -%}
+              <img src="{{ section.settings.pay_amazon | image_url: height: 60 }}" alt="Amazon Pay" height="{{ section.settings.payment_badges_height | default: 24 }}" class="footer-alphajosh__uploaded-badge" loading="lazy">
+            {%- else -%}
+              <svg width="68" height="24" viewBox="0 0 95 30" fill="none">
+                <text x="0" y="18" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="15" fill="#232F3E">amazon</text>
+                <text x="54" y="18" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="400" font-size="13" fill="#666666">pay</text>
+                <path d="M3 24C20 29 45 28 54 22" stroke="#FF9900" stroke-width="2.4" stroke-linecap="round"/>
+              </svg>
+            {%- endif -%}
+          </div>
+
+          <!-- BHIM UPI -->
+          <div class="footer-alphajosh__badge-pay" title="BHIM UPI">
+            {%- if section.settings.pay_upi != blank -%}
+              <img src="{{ section.settings.pay_upi | image_url: height: 60 }}" alt="BHIM UPI" height="{{ section.settings.payment_badges_height | default: 24 }}" class="footer-alphajosh__uploaded-badge" loading="lazy">
+            {%- else -%}
+              <svg width="50" height="24" viewBox="0 0 70 32" fill="none">
+                <path d="M4 6L20 6L14 26L-2 26Z" fill="#007934" opacity="0.9"/>
+                <path d="M16 6L32 6L26 26L10 26Z" fill="#008C44"/>
+                <path d="M28 6L44 6L38 26L22 26Z" fill="#F37021"/>
+                <text x="46" y="15" font-family="'Arial Black', sans-serif" font-size="10" font-weight="900" fill="#2F3542">BHIM</text>
+                <text x="46" y="27" font-family="'Arial Black', sans-serif" font-size="12" font-weight="900" fill="#007934">UPI</text>
+              </svg>
+            {%- endif -%}
+          </div>
+
+          <!-- Google Pay (GPay) -->
+          <div class="footer-alphajosh__badge-pay" title="Google Pay">
+            {%- if section.settings.pay_gpay != blank -%}
+              <img src="{{ section.settings.pay_gpay | image_url: height: 60 }}" alt="Google Pay" height="{{ section.settings.payment_badges_height | default: 24 }}" class="footer-alphajosh__uploaded-badge" loading="lazy">
+            {%- else -%}
+              <svg width="42" height="24" viewBox="0 0 54 30" fill="none">
+                <path d="M13 15C13 9.5 17.5 5 23 5C26 5 28.5 6.2 30.3 7.9L27 11.2C26 10.2 24.7 9.5 23 9.5C20 9.5 17.5 12 17.5 15C17.5 18 20 20.5 23 20.5C25.3 20.5 26.7 19.2 27.3 17.5H23V13.2H31.5C31.7 14 31.8 14.8 31.8 15.8C31.8 20.8 28.5 25 23 25C17.5 25 13 20.5 13 15Z" fill="#4285F4"/>
+                <path d="M4.5 8C7.5 5.5 11.5 5.5 14.5 8L10.5 14L6.5 11Z" fill="#EA4335"/>
+                <path d="M6.5 11L10.5 14L6.5 21C4.5 18 4.5 14 6.5 11Z" fill="#FBBC05"/>
+                <path d="M6.5 21L10.5 14L14.5 17C11.5 20 7.5 20 6.5 21Z" fill="#34A853"/>
+                <text x="35" y="21" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="bold" font-size="15" fill="#5F6368">Pay</text>
+              </svg>
+            {%- endif -%}
+          </div>
+
+          <!-- RuPay -->
+          <div class="footer-alphajosh__badge-pay" title="RuPay">
+            {%- if section.settings.pay_rupay != blank -%}
+              <img src="{{ section.settings.pay_rupay | image_url: height: 60 }}" alt="RuPay" height="{{ section.settings.payment_badges_height | default: 24 }}" class="footer-alphajosh__uploaded-badge" loading="lazy">
+            {%- else -%}
+              <svg width="58" height="24" viewBox="0 0 75 28" fill="none">
+                <text x="0" y="20" font-family="'Arial Black', sans-serif" font-size="17" font-weight="900" font-style="italic" fill="#0B2B64">RuPay</text>
+                <path d="M57 6L67 14L57 22Z" fill="#007934"/>
+                <path d="M63 6L73 14L63 22Z" fill="#F37021"/>
+              </svg>
+            {%- endif -%}
+          </div>
+
+          <!-- VISA -->
+          <div class="footer-alphajosh__badge-pay" title="VISA">
+            {%- if section.settings.pay_visa != blank -%}
+              <img src="{{ section.settings.pay_visa | image_url: height: 60 }}" alt="VISA" height="{{ section.settings.payment_badges_height | default: 24 }}" class="footer-alphajosh__uploaded-badge" loading="lazy">
+            {%- else -%}
+              <svg width="54" height="24" viewBox="0 0 70 26" fill="none">
+                <text x="2" y="21" font-family="'Trebuchet MS', Arial, sans-serif" font-size="24" font-weight="bold" font-style="italic" fill="#1A1F71" letter-spacing="1">VISA</text>
+              </svg>
+            {%- endif -%}
+          </div>
+
+          <!-- Mastercard -->
+          <div class="footer-alphajosh__badge-pay" title="Mastercard">
+            {%- if section.settings.pay_mastercard != blank -%}
+              <img src="{{ section.settings.pay_mastercard | image_url: height: 60 }}" alt="Mastercard" height="{{ section.settings.payment_badges_height | default: 24 }}" class="footer-alphajosh__uploaded-badge" loading="lazy">
+            {%- else -%}
+              <svg width="40" height="24" viewBox="0 0 46 28" fill="none">
+                <circle cx="16" cy="14" r="12" fill="#EB001B"/>
+                <circle cx="30" cy="14" r="12" fill="#F79E1B" fill-opacity="0.88"/>
+              </svg>
+            {%- endif -%}
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Policy Links Row (4 distributed links matching the 4 columns) -->
+    <div class="footer-alphajosh__policies-grid">
+      {%- if section.settings.policies_menu != blank and linklists[section.settings.policies_menu].links.size > 0 -%}
+        {%- for link in linklists[section.settings.policies_menu].links -%}
+          <div class="footer-alphajosh__policy-col">
+            <a href="{{ link.url }}" class="footer-alphajosh__policy-link">{{ link.title }}</a>
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <div class="footer-alphajosh__policy-col">
+          <a href="/policies/privacy-policy" class="footer-alphajosh__policy-link">Privacy Policy</a>
+        </div>
+        <div class="footer-alphajosh__policy-col">
+          <a href="/policies/terms-of-service" class="footer-alphajosh__policy-link">Terms of Service</a>
+        </div>
+        <div class="footer-alphajosh__policy-col">
+          <a href="/policies/shipping-policy" class="footer-alphajosh__policy-link">Shipping Policy</a>
+        </div>
+        <div class="footer-alphajosh__policy-col footer-alphajosh__policy-col--right">
+          <a href="/policies/refund-policy" class="footer-alphajosh__policy-link">Cancellation Policy</a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <!-- Bottom Full-Width Dark Green Bar -->
+  <div class="footer-alphajosh__bottom-bar">
+    <div class="footer-alphajosh__bottom-content">
+      <p class="footer-alphajosh__copyright">
+        &copy; {{ 'now' | date: "%Y" }} {{ section.settings.copyright_text | default: 'Loire Pharmaceuticals LLP. All rights reserved.' }}
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer-alphajosh {
+    background-color: var(--footer-bg, #F6F4ED);
+    color: var(--footer-text, #1E251E);
+    width: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    padding-top: {{ section.settings.padding_top | default: 50 }}px;
+    padding-bottom: 0px;
+  }
+
+  .footer-alphajosh__container {
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* Top 4 Columns Grid */
+  .footer-alphajosh__top-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1.15fr 1.45fr;
+    gap: 30px 40px;
+    align-items: flex-start;
+  }
+
+  /* Column 1: Brand */
+  .footer-alphajosh__col--brand {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer-alphajosh__logo-wrap {
+    margin-bottom: 18px;
+  }
+
+  .footer-alphajosh__logo-img {
+    height: 48px;
+    width: auto;
+    max-width: 180px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .footer-alphajosh__brand-text {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--footer-text, #1E251E);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+    display: inline-block;
+  }
+
+  .footer-alphajosh__address {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--footer-text, #1E251E);
+    opacity: 0.9;
+    white-space: pre-line;
+  }
+
+  /* Column Titles */
+  .footer-alphajosh__col-title {
+    font-size: 1.08rem;
+    font-weight: 700;
+    color: var(--footer-text, #1E251E);
+    margin: 0 0 22px 0;
+    line-height: 1.2;
+    letter-spacing: 0px;
+  }
+
+  .footer-alphajosh__col-title--newsletter {
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    font-size: 1.02rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .footer-alphajosh__col-title--socials {
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    font-size: 0.98rem;
+    font-weight: 700;
+    margin-top: 24px;
+    margin-bottom: 12px;
+  }
+
+  /* Nav Links */
+  .footer-alphajosh__nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+  }
+
+  .footer-alphajosh__nav-link {
+    color: var(--footer-text, #1E251E);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.9;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    display: inline-block;
+  }
+
+  .footer-alphajosh__nav-link:hover {
+    opacity: 1;
+    transform: translateX(2px);
+  }
+
+  /* Newsletter Box */
+  .footer-alphajosh__newsletter-box {
+    margin-bottom: 6px;
+  }
+
+  .footer-alphajosh__form {
+    width: 100%;
+  }
+
+  .footer-alphajosh__input-wrapper {
+    display: flex;
+    align-items: stretch;
+    background: #FFFFFF;
+    border: 1px solid #949494;
+    border-radius: 1px;
+    overflow: hidden;
+    max-width: 390px;
+    height: 42px;
+  }
+
+  .footer-alphajosh__input {
+    flex: 1;
+    border: none;
+    background: #FFFFFF;
+    padding: 8px 14px;
+    font-size: 0.92rem;
+    color: #333333;
+    outline: none;
+    font-family: inherit;
+  }
+
+  .footer-alphajosh__input::placeholder {
+    color: #767676;
+    font-style: italic;
+    font-size: 0.88rem;
+  }
+
+  .footer-alphajosh__submit-btn {
+    background-color: #8FB1A5;
+    border: none;
+    color: #FFFFFF;
+    padding: 0 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+  }
+
+  .footer-alphajosh__submit-btn:hover {
+    background-color: #7ba093;
+  }
+
+  .footer-alphajosh__form-message {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    display: block;
+  }
+
+  .footer-alphajosh__form-message--error {
+    color: #D32F2F;
+  }
+
+  .footer-alphajosh__form-message--success {
+    color: #2E7D32;
+    font-weight: 500;
+  }
+
+  /* Social Icons */
+  .footer-alphajosh__social-icons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .footer-alphajosh__social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .footer-alphajosh__custom-icon {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+    border-radius: 8px;
+    display: block;
+  }
+
+  .footer-alphajosh__social-icon:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+  }
+
+  /* Middle Grid: Contact (Col 1), Also Available (Col 2 & 3), We Accept (Col 4) */
+  .footer-alphajosh__middle-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 2.15fr 1.45fr;
+    gap: 20px 40px;
+    align-items: center;
+    margin-top: 35px;
+    padding-top: 15px;
+  }
+
+  .footer-alphajosh__contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .footer-alphajosh__contact-item {
+    font-size: 0.92rem;
+    color: var(--footer-text, #1E251E);
+    text-decoration: none;
+    font-weight: 500;
+    line-height: 1.4;
+    transition: opacity 0.2s ease, color 0.2s ease;
+  }
+
+  .footer-alphajosh__contact-item:hover {
+    color: #1b3a2b;
+    text-decoration: underline;
+  }
+
+  /* Also Available On Group */
+  .footer-alphajosh__badges-available {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  /* We Accept Group */
+  .footer-alphajosh__badges-accept {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .footer-alphajosh__badges-label {
+    font-size: 0.94rem;
+    font-weight: 600;
+    color: var(--footer-text, #1E251E);
+    white-space: nowrap;
+  }
+
+  .footer-alphajosh__badges-list {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .footer-alphajosh__uploaded-badge {
+    height: auto;
+    max-height: 32px;
+    width: auto;
+    object-fit: contain;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  /* Badges: Blinkit */
+  .blinkit-pill {
+    background-color: #F8CB46;
+    padding: 3px 12px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    height: 26px;
+  }
+
+  .blinkit-text {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 900;
+    font-size: 14px;
+    color: #000000;
+    letter-spacing: -0.5px;
+  }
+
+  .blinkit-it {
+    color: #0C831F;
+  }
+
+  /* Badges: Flipkart */
+  .footer-alphajosh__badge--flipkart {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .flipkart-brand {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-style: italic;
+    font-weight: 900;
+    font-size: 16px;
+    color: #2874F0;
+    letter-spacing: -0.5px;
+  }
+
+  /* Badges: JioMart */
+  .jiomart-pill {
+    display: inline-flex;
+    align-items: center;
+    background: #0078AD;
+    padding: 2px 10px;
+    border-radius: 14px;
+    gap: 4px;
+    height: 25px;
+  }
+
+  .jiomart-circle {
+    font-family: sans-serif;
+    font-weight: 900;
+    font-size: 10px;
+    color: #FFFFFF;
+    background: #E01E37;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .jiomart-text {
+    font-family: sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    color: #FFFFFF;
+  }
+
+  /* Payment Badges */
+  .footer-alphajosh__badge-pay {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Bottom Policy Links Grid (Aligned under 4 columns) */
+  .footer-alphajosh__policies-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1.15fr 1.45fr;
+    gap: 16px 40px;
+    align-items: center;
+    margin-top: 36px;
+    margin-bottom: 24px;
+  }
+
+  .footer-alphajosh__policy-col {
+    display: flex;
+    align-items: center;
+  }
+
+  .footer-alphajosh__policy-col--right {
+    justify-content: flex-end;
+  }
+
+  .footer-alphajosh__policy-link {
+    color: var(--footer-text, #1E251E);
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 500;
+    transition: opacity 0.2s ease, text-decoration 0.2s ease;
+  }
+
+  .footer-alphajosh__policy-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Bottom Full Width Dark Bar */
+  .footer-alphajosh__bottom-bar {
+    background-color: var(--footer-bottom-bg, #183B2B);
+    color: var(--footer-bottom-text, #FFFFFF);
+    width: 100%;
+    padding: 13px 20px;
+    text-align: center;
+  }
+
+  .footer-alphajosh__bottom-content {
+    max-width: 1360px;
+    margin: 0 auto;
+  }
+
+  .footer-alphajosh__copyright {
+    margin: 0;
+    font-size: 0.88rem;
+    font-weight: 400;
+    opacity: 0.95;
+    letter-spacing: 0.2px;
+  }
+
+  /* Responsive Breakpoints */
+  @media screen and (max-width: 1024px) {
+    .footer-alphajosh__top-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 36px 30px;
+    }
+    .footer-alphajosh__middle-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .footer-alphajosh__policies-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px 20px;
+    }
+    .footer-alphajosh__policy-col--right {
+      justify-content: flex-start;
+    }
+  }
+
+  @media screen and (max-width: 640px) {
+    .footer-alphajosh {
+      padding-top: 32px;
+    }
+    .footer-alphajosh__container {
+      padding: 0 20px;
+    }
+    .footer-alphajosh__top-grid {
+      grid-template-columns: 1fr;
+      gap: 26px;
+    }
+    .footer-alphajosh__input-wrapper {
+      max-width: 100%;
+    }
+    .footer-alphajosh__middle-grid {
+      margin-top: 24px;
+      gap: 16px;
+    }
+    .footer-alphajosh__badges-available,
+    .footer-alphajosh__badges-accept {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .footer-alphajosh__policies-grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 22px;
+      margin-bottom: 18px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Brand & Contact"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Brand Logo (Leave blank to use theme logo)"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 60,
+      "max": 240,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo Width",
+      "default": 140
+    },
+    {
+      "type": "textarea",
+      "id": "address",
+      "label": "Address",
+      "default": "500, 5th Floor, Plot NP-B-9,\nITL Twin Tower, Pitampura,\nNew Delhi - 110038"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone Number",
+      "default": "+91 9650081651"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email Address",
+      "default": "support@alphajoshh.com"
+    },
+    {
+      "type": "header",
+      "content": "Navigation Menus"
+    },
+    {
+      "type": "text",
+      "id": "menu_1_heading",
+      "label": "Column 2 Heading",
+      "default": "Shop"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_1",
+      "label": "Column 2 Menu"
+    },
+    {
+      "type": "text",
+      "id": "menu_2_heading",
+      "label": "Column 3 Heading",
+      "default": "Important Links"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_2",
+      "label": "Column 3 Menu"
+    },
+    {
+      "type": "header",
+      "content": "Newsletter & Socials"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Newsletter Heading",
+      "default": "JOIN OUR MAILING LIST"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Newsletter Placeholder",
+      "default": "Enter Email"
+    },
+    {
+      "type": "text",
+      "id": "social_heading",
+      "label": "Social Heading",
+      "default": "FOLLOW US"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_instagram",
+      "label": "Custom Instagram Icon (Optional)"
+    },
+    {
+      "type": "url",
+      "id": "instagram_link",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_facebook",
+      "label": "Custom Facebook Icon (Optional)"
+    },
+    {
+      "type": "url",
+      "id": "facebook_link",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_youtube",
+      "label": "Custom YouTube Icon (Optional)"
+    },
+    {
+      "type": "url",
+      "id": "youtube_link",
+      "label": "YouTube URL"
+    },
+    {
+      "type": "header",
+      "content": "Marketplace Badges ('Also Available On')"
+    },
+    {
+      "type": "text",
+      "id": "available_label",
+      "label": "Marketplaces Label",
+      "default": "Also Available On:"
+    },
+    {
+      "type": "range",
+      "id": "badges_height",
+      "min": 18,
+      "max": 45,
+      "step": 1,
+      "unit": "px",
+      "label": "Uploaded Badges Height",
+      "default": 26
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_amazon",
+      "label": "Amazon Logo / Badge (Optional)"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_blinkit",
+      "label": "Blinkit Logo / Badge (Optional)"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_flipkart",
+      "label": "Flipkart Logo / Badge (Optional)"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_jiomart",
+      "label": "JioMart Logo / Badge (Optional)"
+    },
+    {
+      "type": "header",
+      "content": "Payment Method Badges ('We Accept')"
+    },
+    {
+      "type": "text",
+      "id": "accept_label",
+      "label": "Payment Methods Label",
+      "default": "We Accept :"
+    },
+    {
+      "type": "range",
+      "id": "payment_badges_height",
+      "min": 18,
+      "max": 45,
+      "step": 1,
+      "unit": "px",
+      "label": "Payment Badges Height",
+      "default": 24
+    },
+    {
+      "type": "image_picker",
+      "id": "pay_amazon",
+      "label": "Amazon Pay Logo (Optional)"
+    },
+    {
+      "type": "image_picker",
+      "id": "pay_upi",
+      "label": "BHIM UPI Logo (Optional)"
+    },
+    {
+      "type": "image_picker",
+      "id": "pay_gpay",
+      "label": "Google Pay Logo (Optional)"
+    },
+    {
+      "type": "image_picker",
+      "id": "pay_rupay",
+      "label": "RuPay Logo (Optional)"
+    },
+    {
+      "type": "image_picker",
+      "id": "pay_visa",
+      "label": "VISA Logo (Optional)"
+    },
+    {
+      "type": "image_picker",
+      "id": "pay_mastercard",
+      "label": "Mastercard Logo (Optional)"
+    },
+    {
+      "type": "header",
+      "content": "Policy Links"
+    },
+    {
+      "type": "link_list",
+      "id": "policies_menu",
+      "label": "Policies Menu (Optional)"
+    },
+    {
+      "type": "header",
+      "content": "Bottom Copyright Bar"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright Company Name",
+      "default": "Loire Pharmaceuticals LLP. All rights reserved."
+    },
+    {
+      "type": "header",
+      "content": "Colors & Spacing"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Main Footer Background",
+      "default": "#F6F4ED"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#1E251E"
+    },
+    {
+      "type": "color",
+      "id": "bottom_bar_bg",
+      "label": "Bottom Bar Background",
+      "default": "#183B2B"
+    },
+    {
+      "type": "color",
+      "id": "bottom_bar_text",
+      "label": "Bottom Bar Text Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 50
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer"
+    }
+  ]
+}
+{% endschema %}

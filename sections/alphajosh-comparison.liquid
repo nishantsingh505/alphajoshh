@@ -1,0 +1,134 @@
+{% schema %}
+{
+  "name": "Alphajosh Comparison",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "The Clear Choice"
+    },
+    {
+      "type": "text",
+      "id": "heading_white",
+      "label": "Heading (White Part)",
+      "default": "Alphajoshh vs"
+    },
+    {
+      "type": "text",
+      "id": "heading_gold",
+      "label": "Heading (Gold Part)",
+      "default": "Other Brands"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "See why 10,000+ men choose Alphajoshh for authentic, premium Shilajit."
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Choose Premium Quality"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "comparison_row",
+      "name": "Comparison Row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "feature_name",
+          "label": "Feature Name",
+          "default": "Fulvic Acid Content"
+        },
+        {
+          "type": "text",
+          "id": "alpha_value",
+          "label": "Alphajoshh Value",
+          "default": "85%+ (Lab Verified)"
+        },
+        {
+          "type": "text",
+          "id": "other_value",
+          "label": "Other Brands Value",
+          "default": "Unknown/Unverified"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Alphajosh Comparison",
+      "blocks": [
+        { "type": "comparison_row" },
+        { "type": "comparison_row" },
+        { "type": "comparison_row" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<section class="aj-comp-section">
+  <div class="aj-container">
+    <div class="aj-header">
+      <span class="aj-badge">{{ section.settings.subheading }}</span>
+      <h2>{{ section.settings.heading_white }} <span>{{ section.settings.heading_gold }}</span></h2>
+      <p>{{ section.settings.description }}</p>
+    </div>
+
+    <div class="aj-table-wrapper">
+      <table class="aj-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th class="highlight">Alphajoshh</th>
+            <th>Other Brands</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for block in section.blocks %}
+            <tr {{ block.shopify_attributes }}>
+              <td>{{ block.settings.feature_name }}</td>
+              <td class="highlight"><span class="check">✔</span> {{ block.settings.alpha_value }}</td>
+              <td><span class="cross">✘</span> {{ block.settings.other_value }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    {% if section.settings.button_text != blank %}
+    <div class="aj-footer">
+      <a href="{{ section.settings.button_link }}" class="aj-btn">{{ section.settings.button_text }}</a>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  /* Styling same as before for consistent look */
+  .aj-comp-section { background-color: #000; color: #fff; padding: 60px 20px; font-family: 'Inter', sans-serif; }
+  .aj-container { max-width: 1000px; margin: 0 auto; text-align: center; }
+  .aj-badge { background: rgba(255,165,0,0.1); border: 1px solid #a37332; color: #f3ae4b; padding: 5px 15px; border-radius: 20px; font-size: 12px; }
+  .aj-header h2 { font-size: 32px; margin: 20px 0 10px; font-weight: bold; }
+  .aj-header h2 span { color: #f3ae4b; }
+  .aj-header p { color: #888; margin-bottom: 40px; }
+  .aj-table-wrapper { overflow-x: auto; border-radius: 12px; border: 1px solid #222; }
+  .aj-table { width: 100%; border-collapse: collapse; background: #0a0a0a; }
+  .aj-table th, .aj-table td { padding: 20px; text-align: left; border-bottom: 1px solid #1a1a1a; font-size: 14px; }
+  .aj-table th { color: #888; text-transform: uppercase; letter-spacing: 1px; font-size: 12px; }
+  .highlight { background: rgba(243, 174, 75, 0.03); color: #f3ae4b; border-left: 1px solid #332211; border-right: 1px solid #332211; }
+  .check { color: #f3ae4b; font-weight: bold; }
+  .cross { color: #666; font-weight: bold; }
+  .aj-btn { display: inline-block; background: linear-gradient(180deg, #f3ae4b 0%, #a37332 100%); color: #000; padding: 16px 45px; border-radius: 8px; text-decoration: none; font-weight: bold; margin-top: 40px; }
+  @media (max-width: 600px) { .aj-table th, .aj-table td { padding: 12px; font-size: 12px; } }
+</style>

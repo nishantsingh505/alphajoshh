@@ -1,0 +1,312 @@
+{
+  "sections": {
+    "hero_banner": {
+      "type": "collection-hero-banner",
+      "blocks": {
+        "cat_shilajit": {
+          "type": "category_pill",
+          "settings": {
+            "title": "Himalayan Shilajit",
+            "filter_tag": "shilajit",
+            "icon": "🏔️",
+            "badge_tag": "#1"
+          }
+        },
+        "cat_capsule": {
+          "type": "category_pill",
+          "settings": {
+            "title": "Vitality Capsules",
+            "filter_tag": "capsule",
+            "icon": "⚡",
+            "badge_tag": ""
+          }
+        },
+        "cat_oil": {
+          "type": "category_pill",
+          "settings": {
+            "title": "Performance Oil",
+            "filter_tag": "oil",
+            "icon": "💧",
+            "badge_tag": ""
+          }
+        },
+        "cat_combo": {
+          "type": "category_pill",
+          "settings": {
+            "title": "Power Combos",
+            "filter_tag": "combo",
+            "icon": "💎",
+            "badge_tag": "SAVE 20%"
+          }
+        }
+      },
+      "block_order": [
+        "cat_shilajit",
+        "cat_capsule",
+        "cat_oil",
+        "cat_combo"
+      ],
+      "settings": {
+        "bg_color": "#0a0a0a",
+        "text_color": "#ffffff",
+        "badge": "✦ 100% PURE HIMALAYAN AYURVEDA",
+        "heading_prefix": "Explore",
+        "heading_highlight": "All Formulations",
+        "heading_suffix": "& Combos",
+        "description": "Clinically standardized Ayurvedic extracts formulated to restore male vigor, stamina, and peak vitality naturally.",
+        "show_trust_strip": true,
+        "padding_top": 45,
+        "padding_bottom": 40
+      }
+    },
+    "products_grid": {
+      "type": "collection-products-grid",
+      "settings": {
+        "bg_color": "#f8f9fa",
+        "padding_top": 35,
+        "padding_bottom": 60
+      }
+    },
+    "golden_marquee": {
+      "type": "home-golden-marquee",
+      "blocks": {
+        "item_1": {
+          "type": "text_item",
+          "settings": {
+            "icon": "✦",
+            "text": "100% NATURAL AYURVEDA"
+          }
+        },
+        "item_2": {
+          "type": "text_item",
+          "settings": {
+            "icon": "🔬",
+            "text": "CLINICALLY TESTED EXTRACTS"
+          }
+        },
+        "item_3": {
+          "type": "text_item",
+          "settings": {
+            "icon": "🛡️",
+            "text": "ZERO SIDE EFFECTS"
+          }
+        },
+        "item_4": {
+          "type": "text_item",
+          "settings": {
+            "icon": "🔒",
+            "text": "100% DISCREET PACKAGING"
+          }
+        },
+        "item_5": {
+          "type": "text_item",
+          "settings": {
+            "icon": "👨‍⚕️",
+            "text": "DOCTOR RECOMMENDED"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4",
+        "item_5"
+      ],
+      "settings": {
+        "bg_color": "#c5a059",
+        "text_color": "#000000",
+        "speed": 25
+      }
+    },
+    "brand_science": {
+      "type": "home-brand-science",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "🌿",
+            "title": "100% Ayurvedic",
+            "subtitle": "Natural botanical extracts"
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "🔬",
+            "title": "Clinically Tested",
+            "subtitle": "Standardized active herbs"
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "🛡️",
+            "title": "Zero Side Effects",
+            "subtitle": "No heavy metals or additives"
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "icon": "📦",
+            "title": "Free Discreet Shipping",
+            "subtitle": "Plain unmarked delivery"
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "feature_4"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/WhatsApp_Image_2026-09-04_at_15.28.13.jpg",
+        "big_stat_number": "150+",
+        "heading": "Powerful Ayurvedic Ingredients Formulated For Real Results",
+        "description": "Alpha Joshh brings together ancient Himalayan botanicals and modern scientific refinement to restore male vitality, confidence, and endurance naturally.",
+        "button_text": "Read our story",
+        "button_link": "/pages/about-us",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "discreet_consultation": {
+      "type": "home-discreet-consultation",
+      "blocks": {
+        "pt_1": {
+          "type": "point",
+          "settings": {
+            "icon": "🔒",
+            "title": "100% Discreet Packaging",
+            "description": "Plain box with zero brand markings"
+          }
+        },
+        "pt_2": {
+          "type": "point",
+          "settings": {
+            "icon": "👨‍⚕️",
+            "title": "Free Online Consultation",
+            "description": "Speak with certified Ayurvedic vaidyas"
+          }
+        },
+        "pt_3": {
+          "type": "point",
+          "settings": {
+            "icon": "💬",
+            "title": "Confidential Support",
+            "description": "Private 24/7 WhatsApp care"
+          }
+        },
+        "pt_4": {
+          "type": "point",
+          "settings": {
+            "icon": "📦",
+            "title": "No Product Name on Box",
+            "description": "Complete privacy guaranteed"
+          }
+        },
+        "pt_5": {
+          "type": "point",
+          "settings": {
+            "icon": "🌿",
+            "title": "Certified Ayurvedic",
+            "description": "Lab tested and GMP certified pure herbs"
+          }
+        },
+        "pt_6": {
+          "type": "point",
+          "settings": {
+            "icon": "⚡",
+            "title": "Fast & Tracked Delivery",
+            "description": "Live SMS and WhatsApp tracking"
+          }
+        }
+      },
+      "block_order": [
+        "pt_1",
+        "pt_2",
+        "pt_3",
+        "pt_4",
+        "pt_5",
+        "pt_6"
+      ],
+      "settings": {
+        "bg_color": "#000000",
+        "text_color": "#ffffff",
+        "heading": "Still Afraid to Talk About It?",
+        "subheading": "Your privacy and comfort are our #1 priority. Connect safely and discreetly.",
+        "show_chat_btn": true,
+        "chat_btn_text": "Chat with Wellness Advisor (Private)",
+        "chat_btn_link": "https://wa.me/919650081651",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "collection_faq": {
+      "type": "collection-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How soon can I expect visible results?",
+            "answer": "Most men notice improvements in sustained daily energy and stamina within 7 to 14 days of consistent usage. For deep vitality restoration, a continuous course of 60–90 days is recommended."
+          }
+        },
+        "faq_2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Will anyone know what is inside the parcel? (Discreet Delivery)",
+            "answer": "Absolutely not. All orders are packed in 100% plain, unmarked, tamper-evident boxes with zero product names or brand mentions on the outer label. Your complete privacy is guaranteed."
+          }
+        },
+        "faq_3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I take Shilajit Resin, T-MAX Capsules, and Oil together?",
+            "answer": "Yes! In fact, they are specifically formulated to work synergistically. Shilajit enhances cellular ATP energy and mineral absorption, T-MAX capsules optimize stamina and vigor internally, and the Performance Oil supports local micro-circulation externally."
+          }
+        },
+        "faq_4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Are there any side effects or habit-forming ingredients?",
+            "answer": "Zero side effects. Alpha Joshh formulations use 100% pure standardized Ayurvedic herbs that are heavy-metal tested, AYUSH-compliant, and free from synthetic chemicals, steroids, or habit-forming substances."
+          }
+        },
+        "faq_5": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do I use Alpha Joshh Pure Shilajit Resin?",
+            "answer": "Take a pea-sized amount (300mg–500mg) using the spoon provided and dissolve it in lukewarm water or warm milk once daily after breakfast or dinner."
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5"
+      ],
+      "settings": {
+        "bg_color": "#ffffff",
+        "badge": "CLEAR ANSWERS",
+        "heading": "Frequently Asked Questions",
+        "subheading": "Everything you need to know about Alpha Joshh formulations, safety, and discreet delivery.",
+        "show_contact_prompt": true,
+        "padding_top": 50,
+        "padding_bottom": 60
+      }
+    }
+  },
+  "order": [
+    "hero_banner",
+    "products_grid",
+    "golden_marquee",
+    "brand_science",
+    "discreet_consultation",
+    "collection_faq"
+  ]
+}

@@ -1,0 +1,359 @@
+<section class="home-privacy-promise" style="background-color: {{ section.settings.bg_color }}; color: {{ section.settings.text_color }};">
+  <div class="page-width">
+    <div class="privacy-promise-container text-center">
+      <h2 class="privacy-heading">{{ section.settings.heading }}</h2>
+      {% if section.settings.subheading != blank %}
+        <p class="privacy-subheading">{{ section.settings.subheading }}</p>
+      {% endif %}
+
+      <div class="privacy-video-wrapper">
+        {% if section.settings.video_url != blank %}
+          <div class="video-container" id="privacyVideo-{{ section.id }}">
+            <video class="privacy-video-element" playsinline poster="{{ section.settings.video_poster | img_url: '1000x' }}" preload="none">
+              <source src="{{ section.settings.video_url }}" type="video/mp4">
+            </video>
+            <button class="video-play-btn" aria-label="Play Video">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="#000000"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            </button>
+          </div>
+        {% else %}
+          <div class="privacy-video-placeholder">
+            <button class="video-play-btn" aria-label="Play Video">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="#000000"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            </button>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="privacy-badges-row">
+        {% for block in section.blocks %}
+          <div class="privacy-badge-pill" {{ block.shopify_attributes }}>
+            <span class="badge-icon">{{ block.settings.icon | default: '🔒' }}</span>
+            <span class="badge-label">{{ block.settings.label }}</span>
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if section.settings.cta_text != blank %}
+        <div class="privacy-cta-wrapper">
+          <a href="{{ section.settings.cta_link | default: '/collections/all' }}" class="btn-privacy-order">
+            {{ section.settings.cta_text }}
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+.home-privacy-promise {
+  padding-top: {{ section.settings.padding_top }}px;
+  padding-bottom: {{ section.settings.padding_bottom }}px;
+}
+
+.privacy-promise-container {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.privacy-heading {
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0 0 12px 0;
+}
+
+.privacy-subheading {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0 0 32px 0;
+}
+
+.privacy-video-wrapper {
+  width: 100%;
+  max-width: 720px;
+  height: 380px;
+  margin: 0 auto 32px;
+  background: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.privacy-video-element {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.privacy-video-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid rgba(212, 175, 55, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.video-play-btn:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: #d4af37;
+  border-color: #d4af37;
+}
+
+.privacy-badges-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.privacy-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #111111;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  padding: 10px 18px;
+  border-radius: 30px;
+  color: #d4af37;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.privacy-badge-pill .badge-label {
+  color: #ffffff;
+}
+
+.privacy-cta-wrapper {
+  margin-top: 10px;
+}
+
+.btn-privacy-order {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #b3131b;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 15px 44px;
+  border-radius: 30px;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(179, 19, 27, 0.45);
+  transition: all 0.3s ease;
+}
+
+.btn-privacy-order:hover {
+  background: #d91b24;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(179, 19, 27, 0.6);
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .privacy-video-wrapper {
+    height: 240px;
+  }
+
+  .privacy-badges-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .privacy-badge-pill {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .btn-privacy-order {
+    width: 100%;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const container = document.getElementById('privacyVideo-{{ section.id }}');
+  if (!container) return;
+  const video = container.querySelector('video');
+  const playBtn = container.querySelector('.video-play-btn');
+  if (!video || !playBtn) return;
+
+  playBtn.addEventListener('click', function() {
+    if (video.paused) {
+      video.play();
+      playBtn.style.opacity = '0';
+      video.setAttribute('controls', 'true');
+    } else {
+      video.pause();
+      playBtn.style.opacity = '1';
+    }
+  });
+
+  video.addEventListener('pause', function() {
+    playBtn.style.opacity = '1';
+  });
+  video.addEventListener('play', function() {
+    playBtn.style.opacity = '0';
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Privacy Is Our Promise",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "YOUR PRIVACY IS OUR PROMISE"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Direct MP4 Video Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "video_poster",
+      "label": "Video Poster Thumbnail"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Button Text",
+      "default": "ORDER DISCREETLY"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Link"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Privacy Badge",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Emoji / Icon",
+          "default": "🔒"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Badge Text",
+          "default": "100% Discreet Delivery"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Privacy Is Our Promise",
+      "blocks": [
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "🔒",
+            "label": "100% Discreet Delivery"
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "📦",
+            "label": "Plain Unmarked Box"
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "🛡️",
+            "label": "Zero Brand Mentions"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

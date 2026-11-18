@@ -1,0 +1,1041 @@
+{% comment %}
+  Wellness Advisor Private Consultation Intake Modal
+  Collects 6-step consultation answers and submits data directly to Google Sheets
+{% endcomment %}
+
+<div id="wellnessAdvisorModal" class="wa-modal-overlay" aria-hidden="true" style="display: none;">
+  <div class="wa-modal-backdrop" onclick="closeWellnessModal()"></div>
+  
+  <div class="wa-modal-dialog">
+    
+    <!-- Modal Header -->
+    <div class="wa-modal-header">
+      <div class="wa-header-brand">
+        <span class="wa-brand-badge">🔒 100% PRIVATE & CONFIDENTIAL</span>
+        <h3 class="wa-header-title">💬 Consultation with Wellness Advisor</h3>
+      </div>
+      <button type="button" class="wa-modal-close" onclick="closeWellnessModal()" aria-label="Close modal">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+
+    <!-- Progress Indicator (Hidden on Success) -->
+    <div class="wa-progress-wrap" id="waProgressWrap">
+      <div class="wa-progress-bar">
+        <div class="wa-progress-fill" id="waProgressFill" style="width: 16.6%;"></div>
+      </div>
+      <div class="wa-step-indicator" id="waStepIndicator">Step 1 of 6</div>
+    </div>
+
+    <!-- Modal Form Body -->
+    <form id="wellnessAdvisorForm" onsubmit="handleWellnessFormSubmit(event)">
+      
+      <!-- STEP 1: Name -->
+      <div class="wa-step-pane active" data-step="1">
+        <div class="wa-step-header">
+          <span class="wa-step-num">1</span>
+          <h4 class="wa-question-title">What’s your name?</h4>
+          <p class="wa-question-sub">So our Wellness Advisor knows who they’re speaking with.</p>
+        </div>
+        <div class="wa-input-group">
+          <input type="text" id="wa_input_name" class="wa-text-input" placeholder="Enter your full name" required autocomplete="name">
+        </div>
+        <div class="wa-step-nav">
+          <button type="button" class="wa-btn-next" onclick="nextWellnessStep(1)">Next →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Problem -->
+      <div class="wa-step-pane" data-step="2">
+        <div class="wa-step-header">
+          <span class="wa-step-num">2</span>
+          <h4 class="wa-question-title">What problem are you dealing with?</h4>
+          <p class="wa-question-sub">Select the primary health concern you want to address.</p>
+        </div>
+        <div class="wa-options-grid">
+          <label class="wa-option-card">
+            <input type="radio" name="wa_problem" value="Men’s Performance & Stamina" checked>
+            <div class="wa-card-box">
+              <span class="wa-card-icon">⚡</span>
+              <span class="wa-card-label">Men’s Performance & Stamina</span>
+            </div>
+          </label>
+
+          <label class="wa-option-card">
+            <input type="radio" name="wa_problem" value="Energy & Vitality">
+            <div class="wa-card-box">
+              <span class="wa-card-icon">🔋</span>
+              <span class="wa-card-label">Energy & Vitality</span>
+            </div>
+          </label>
+
+          <label class="wa-option-card">
+            <input type="radio" name="wa_problem" value="Weight Management">
+            <div class="wa-card-box">
+              <span class="wa-card-icon">⚖️</span>
+              <span class="wa-card-label">Weight Management</span>
+            </div>
+          </label>
+
+          <label class="wa-option-card">
+            <input type="radio" name="wa_problem" value="Digestive Wellness">
+            <div class="wa-card-box">
+              <span class="wa-card-icon">🌿</span>
+              <span class="wa-card-label">Digestive Wellness</span>
+            </div>
+          </label>
+
+          <label class="wa-option-card">
+            <input type="radio" name="wa_problem" value="Hair & Skin Wellness">
+            <div class="wa-card-box">
+              <span class="wa-card-icon">✨</span>
+              <span class="wa-card-label">Hair & Skin Wellness</span>
+            </div>
+          </label>
+
+          <label class="wa-option-card">
+            <input type="radio" name="wa_problem" value="Women’s Wellness">
+            <div class="wa-card-box">
+              <span class="wa-card-icon">🌸</span>
+              <span class="wa-card-label">Women’s Wellness</span>
+            </div>
+          </label>
+
+          <label class="wa-option-card">
+            <input type="radio" name="wa_problem" value="Other">
+            <div class="wa-card-box">
+              <span class="wa-card-icon">💬</span>
+              <span class="wa-card-label">Other Concerns</span>
+            </div>
+          </label>
+        </div>
+        <div class="wa-step-nav wa-nav-dual">
+          <button type="button" class="wa-btn-prev" onclick="prevWellnessStep(2)">← Back</button>
+          <button type="button" class="wa-btn-next" onclick="nextWellnessStep(2)">Next →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Age -->
+      <div class="wa-step-pane" data-step="3">
+        <div class="wa-step-header">
+          <span class="wa-step-num">3</span>
+          <h4 class="wa-question-title">What’s your age?</h4>
+          <p class="wa-question-sub">Helps us understand your basic wellness needs.</p>
+        </div>
+        <div class="wa-options-grid wa-options-grid-compact">
+          <label class="wa-option-card">
+            <input type="radio" name="wa_age" value="Under 25">
+            <div class="wa-card-box">
+              <span class="wa-card-label">Under 25</span>
+            </div>
+          </label>
+
+          <label class="wa-option-card">
+            <input type="radio" name="wa_age" value="25 – 35" checked>
+            <div class="wa-card-box">
+              <span class="wa-card-label">25 – 35</span>
+            </div>
+          </label>
+
+          <label class="wa-option-card">
+            <input type="radio" name="wa_age" value="36 – 45">
+            <div class="wa-card-box">
+              <span class="wa-card-label">36 – 45</span>
+            </div>
+          </label>
+
+          <label class="wa-option-card">
+            <input type="radio" name="wa_age" value="46 – 55">
+            <div class="wa-card-box">
+              <span class="wa-card-label">46 – 55</span>
+            </div>
+          </label>
+
+          <label class="wa-option-card">
+            <input type="radio" name="wa_age" value="55+">
+            <div class="wa-card-box">
+              <span class="wa-card-label">55+</span>
+            </div>
+          </label>
+        </div>
+        <div class="wa-step-nav wa-nav-dual">
+          <button type="button" class="wa-btn-prev" onclick="prevWellnessStep(3)">← Back</button>
+          <button type="button" class="wa-btn-next" onclick="nextWellnessStep(3)">Next →</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Looking to Achieve -->
+      <div class="wa-step-pane" data-step="4">
+        <div class="wa-step-header">
+          <span class="wa-step-num">4</span>
+          <h4 class="wa-question-title">What are you looking to achieve?</h4>
+          <p class="wa-question-sub">Select your primary health and performance goal.</p>
+        </div>
+        <div class="wa-options-grid">
+          <label class="wa-option-card">
+            <input type="radio" name="wa_goal" value="Better performance" checked>
+            <div class="wa-card-box">
+              <span class="wa-card-icon">🏆</span>
+              <span class="wa-card-label">Better performance</span>
+            </div>
+          </label>
+
+          <label class="wa-option-card">
+            <input type="radio" name="wa_goal" value="Improve stamina & energy">
+            <div class="wa-card-box">
+              <span class="wa-card-icon">⚡</span>
+              <span class="wa-card-label">Improve stamina & energy</span>
+            </div>
+          </label>
+
+          <label class="wa-option-card">
+            <input type="radio" name="wa_goal" value="Manage weight">
+            <div class="wa-card-box">
+              <span class="wa-card-icon">⚖️</span>
+              <span class="wa-card-label">Manage weight</span>
+            </div>
+          </label>
+
+          <label class="wa-option-card">
+            <input type="radio" name="wa_goal" value="Improve overall wellness">
+            <div class="wa-card-box">
+              <span class="wa-card-icon">🌿</span>
+              <span class="wa-card-label">Improve overall wellness</span>
+            </div>
+          </label>
+
+          <label class="wa-option-card">
+            <input type="radio" name="wa_goal" value="Other">
+            <div class="wa-card-box">
+              <span class="wa-card-icon">💬</span>
+              <span class="wa-card-label">Other goals</span>
+            </div>
+          </label>
+        </div>
+        <div class="wa-step-nav wa-nav-dual">
+          <button type="button" class="wa-btn-prev" onclick="prevWellnessStep(4)">← Back</button>
+          <button type="button" class="wa-btn-next" onclick="nextWellnessStep(4)">Next →</button>
+        </div>
+      </div>
+
+      <!-- STEP 5: Previous Products Used -->
+      <div class="wa-step-pane" data-step="5">
+        <div class="wa-step-header">
+          <span class="wa-step-num">5</span>
+          <h4 class="wa-question-title">Have you used any wellness products for this before?</h4>
+          <p class="wa-question-sub">Helps our doctor tailor the right dosage and potency.</p>
+        </div>
+        <div class="wa-options-grid wa-options-grid-compact">
+          <label class="wa-option-card">
+            <input type="radio" name="wa_previous_use" value="Yes" checked>
+            <div class="wa-card-box">
+              <span class="wa-card-icon">✅</span>
+              <span class="wa-card-label">Yes</span>
+            </div>
+          </label>
+
+          <label class="wa-option-card">
+            <input type="radio" name="wa_previous_use" value="No">
+            <div class="wa-card-box">
+              <span class="wa-card-icon">❌</span>
+              <span class="wa-card-label">No</span>
+            </div>
+          </label>
+
+          <label class="wa-option-card">
+            <input type="radio" name="wa_previous_use" value="Not sure">
+            <div class="wa-card-box">
+              <span class="wa-card-icon">❓</span>
+              <span class="wa-card-label">Not sure</span>
+            </div>
+          </label>
+        </div>
+        <div class="wa-step-nav wa-nav-dual">
+          <button type="button" class="wa-btn-prev" onclick="prevWellnessStep(5)">← Back</button>
+          <button type="button" class="wa-btn-next" onclick="nextWellnessStep(5)">Next →</button>
+        </div>
+      </div>
+
+      <!-- STEP 6: Contact details -->
+      <div class="wa-step-pane" data-step="6">
+        <div class="wa-step-header">
+          <span class="wa-step-num">6</span>
+          <h4 class="wa-question-title">How can we contact you?</h4>
+          <p class="wa-question-sub">Enter your WhatsApp / Mobile Number or Email for your private consultation.</p>
+        </div>
+        <div class="wa-input-group">
+          <label for="wa_input_contact" class="wa-input-label">WhatsApp / Mobile Number or Email</label>
+          <input type="text" id="wa_input_contact" class="wa-text-input" placeholder="+91 98765 43210 / yourname@email.com" required>
+        </div>
+
+        <div class="wa-summary-box">
+          <div class="wa-summary-item">
+            <span class="wa-sum-label">🔒 Privacy Guarantee:</span>
+            <span class="wa-sum-val">Your information is strictly protected and never shared.</span>
+          </div>
+        </div>
+
+        <div class="wa-step-nav wa-nav-dual">
+          <button type="button" class="wa-btn-prev" onclick="prevWellnessStep(6)">← Back</button>
+          <button type="submit" class="wa-btn-submit" id="waBtnSubmit">
+            <span class="btn-submit-text">Submit for Free Consultation ✓</span>
+            <span class="btn-submit-spinner" style="display: none;">
+              <svg class="wa-spinner" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="10" stroke-dasharray="32" stroke-linecap="round"></circle></svg>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- SUCCESS SCREEN -->
+      <div class="wa-step-pane" id="waSuccessPane">
+        <div class="wa-success-content text-center">
+          <div class="wa-success-icon-wrap">
+            <span class="wa-check-icon">✓</span>
+          </div>
+          <h3 class="wa-success-title">Consultation Request Received!</h3>
+          <p class="wa-success-msg" id="waSuccessGreeting">
+            Thank you! Our Certified Ayurvedic Vaidya / Wellness Advisor has received your details.
+          </p>
+          
+          <div class="wa-success-details-card">
+            <div class="wa-details-row">
+              <span class="wa-det-label">👤 Name:</span>
+              <strong id="waResName">-</strong>
+            </div>
+            <div class="wa-details-row">
+              <span class="wa-det-label">⚡ Concern:</span>
+              <strong id="waResConcern">-</strong>
+            </div>
+            <div class="wa-details-row">
+              <span class="wa-det-label">🎯 Goal:</span>
+              <strong id="waResGoal">-</strong>
+            </div>
+            <div class="wa-details-row">
+              <span class="wa-det-label">📞 Contact:</span>
+              <strong id="waResContact">-</strong>
+            </div>
+          </div>
+
+          <p class="wa-success-followup">
+            Our wellness advisor will review your profile and reach out to you within <strong>15–30 minutes</strong> with a personalized formulation recommendation.
+          </p>
+
+          <button type="button" class="wa-btn-close-final" onclick="closeWellnessModal()">
+            Done & Continue Browsing
+          </button>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+
+<style>
+/* Modal Overlay & Backdrop */
+.wa-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.wa-modal-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.wa-modal-dialog {
+  position: relative;
+  width: 100%;
+  max-width: 540px;
+  background: #111111;
+  color: #ffffff;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.15);
+  padding: 24px;
+  z-index: 2;
+  box-sizing: border-box;
+  animation: waModalFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  max-height: 90vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+@keyframes waModalFadeIn {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Header */
+.wa-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  gap: 12px;
+}
+
+.wa-brand-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #059669;
+  background: rgba(5, 150, 105, 0.15);
+  border: 1px solid rgba(5, 150, 105, 0.35);
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 6px;
+}
+
+.wa-header-title {
+  font-family: var(--font-heading--family, serif);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.2px;
+}
+
+.wa-modal-close {
+  background: #222222;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #9ca3af;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.wa-modal-close:hover {
+  background: #333333;
+  color: #ffffff;
+  transform: rotate(90deg);
+}
+
+/* Progress bar */
+.wa-progress-wrap {
+  margin-bottom: 22px;
+}
+
+.wa-progress-bar {
+  width: 100%;
+  height: 6px;
+  background: #262626;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.wa-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #d4af37, #f5d77f);
+  border-radius: 10px;
+  transition: width 0.35s ease;
+}
+
+.wa-step-indicator {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #d4af37;
+  text-align: right;
+  letter-spacing: 0.5px;
+}
+
+/* Step Panes */
+.wa-step-pane {
+  display: none;
+  animation: waPaneFade 0.25s ease;
+}
+
+.wa-step-pane.active {
+  display: block;
+}
+
+@keyframes waPaneFade {
+  from { opacity: 0; transform: translateX(8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.wa-step-header {
+  margin-bottom: 18px;
+}
+
+.wa-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #d4af37;
+  color: #000000;
+  font-size: 0.8rem;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.wa-question-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 4px 0;
+  line-height: 1.3;
+}
+
+.wa-question-sub {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Inputs */
+.wa-input-group {
+  margin-bottom: 20px;
+}
+
+.wa-input-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #d4af37;
+  margin-bottom: 6px;
+}
+
+.wa-text-input {
+  width: 100%;
+  background: #1c1c1c;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 0.95rem;
+  color: #ffffff;
+  box-sizing: border-box;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.wa-text-input:focus {
+  border-color: #d4af37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25);
+  background: #222222;
+}
+
+/* Options Grid */
+.wa-options-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.wa-options-grid-compact {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.wa-option-card {
+  position: relative;
+  cursor: pointer;
+  display: block;
+}
+
+.wa-option-card input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.wa-card-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.wa-option-card:hover .wa-card-box {
+  background: #242424;
+  border-color: rgba(212, 175, 55, 0.4);
+}
+
+.wa-option-card input:checked + .wa-card-box {
+  background: rgba(212, 175, 55, 0.15);
+  border-color: #d4af37;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.25);
+}
+
+.wa-card-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.wa-card-label {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* Navigation Buttons */
+.wa-step-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.wa-nav-dual {
+  justify-content: space-between;
+}
+
+.wa-btn-prev {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 11px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.wa-btn-prev:hover {
+  background: #222222;
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.wa-btn-next {
+  background: linear-gradient(135deg, #e5c07b 0%, #d4af37 100%);
+  color: #000000;
+  border: none;
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  padding: 12px 28px;
+  border-radius: 25px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.35);
+  transition: all 0.2s ease;
+}
+
+.wa-btn-next:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(212, 175, 55, 0.5);
+}
+
+.wa-btn-submit {
+  flex-grow: 1;
+  background: #059669;
+  color: #ffffff;
+  border: none;
+  font-size: 0.92rem;
+  font-weight: 800;
+  padding: 13px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(5, 150, 105, 0.4);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wa-btn-submit:hover {
+  background: #047857;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(5, 150, 105, 0.6);
+}
+
+.wa-spinner {
+  animation: waSpin 0.8s linear infinite;
+}
+
+@keyframes waSpin {
+  100% { transform: rotate(360deg); }
+}
+
+/* Summary Box */
+.wa-summary-box {
+  background: #181818;
+  border: 1px dashed rgba(212, 175, 55, 0.3);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+}
+
+.wa-sum-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #059669;
+  margin-right: 4px;
+}
+
+.wa-sum-val {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+/* Success Screen Styles */
+.wa-success-content {
+  padding: 10px 0 10px;
+  text-align: center;
+}
+
+.wa-success-icon-wrap {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(5, 150, 105, 0.15);
+  border: 2px solid #059669;
+  color: #059669;
+  font-size: 2rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  box-shadow: 0 0 20px rgba(5, 150, 105, 0.3);
+}
+
+.wa-success-title {
+  font-family: var(--font-heading--family, serif);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+}
+
+.wa-success-msg {
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.5;
+  margin: 0 0 20px 0;
+}
+
+.wa-success-details-card {
+  background: #181818;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 14px;
+  padding: 14px 18px;
+  text-align: left;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wa-details-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 6px;
+}
+
+.wa-details-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.wa-det-label {
+  color: #9ca3af;
+  font-weight: 600;
+}
+
+.wa-details-row strong {
+  color: #d4af37;
+  font-weight: 700;
+}
+
+.wa-success-followup {
+  font-size: 0.84rem;
+  color: #9ca3af;
+  line-height: 1.5;
+  margin: 0 0 22px 0;
+}
+
+.wa-success-followup strong {
+  color: #ffffff;
+}
+
+.wa-btn-close-final {
+  width: 100%;
+  background: linear-gradient(135deg, #e5c07b 0%, #d4af37 100%);
+  color: #000000;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 800;
+  padding: 13px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.35);
+  transition: all 0.2s ease;
+}
+
+.wa-btn-close-final:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+}
+
+@media (max-width: 480px) {
+  .wa-modal-dialog {
+    padding: 18px 16px;
+    border-radius: 16px;
+  }
+
+  .wa-header-title {
+    font-size: 1.1rem;
+  }
+
+  .wa-question-title {
+    font-size: 1rem;
+  }
+
+  .wa-question-sub {
+    font-size: 0.78rem;
+  }
+
+  .wa-card-box {
+    padding: 10px 12px;
+  }
+
+  .wa-card-label {
+    font-size: 0.8rem;
+  }
+
+  .wa-options-grid-compact {
+    grid-template-columns: 1fr;
+  }
+
+  .wa-btn-next,
+  .wa-btn-prev {
+    font-size: 0.8rem;
+    padding: 10px 18px;
+  }
+
+  .wa-btn-submit {
+    font-size: 0.82rem;
+    padding: 12px 14px;
+  }
+}
+</style>
+
+<script>
+(function() {
+  var currentStep = 1;
+  var totalSteps = 6;
+
+  // Google Sheets Webhook endpoint (Can be replaced with your Google Apps Script Web App URL)
+  window.ALPHA_JOSH_SHEETS_ENDPOINT = "https://script.google.com/macros/s/AKfycbyaNQt4imTHMKcGVgsknH4_lRMm0DT6Dp0KYwN3jyQwNnUpXfOl8YDumSxHCoVeZeR07w/exec";
+
+  window.openWellnessModal = function(e) {
+    if (e) e.preventDefault();
+    var modal = document.getElementById('wellnessAdvisorModal');
+    if (!modal) return;
+    modal.style.display = 'flex';
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    
+    // Reset to step 1
+    document.getElementById('waProgressWrap').style.display = 'block';
+    document.getElementById('waSuccessPane').classList.remove('active');
+    document.getElementById('wellnessAdvisorForm').reset();
+    showWellnessStep(1);
+  };
+
+  window.closeWellnessModal = function() {
+    var modal = document.getElementById('wellnessAdvisorModal');
+    if (!modal) return;
+    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  };
+
+  window.showWellnessStep = function(step) {
+    currentStep = step;
+    var panes = document.querySelectorAll('.wa-step-pane');
+    panes.forEach(function(pane) {
+      pane.classList.remove('active');
+      if (parseInt(pane.getAttribute('data-step')) === step) {
+        pane.classList.add('active');
+      }
+    });
+
+    var progressPercent = (step / totalSteps) * 100;
+    var fill = document.getElementById('waProgressFill');
+    if (fill) fill.style.width = progressPercent + '%';
+
+    var indicator = document.getElementById('waStepIndicator');
+    if (indicator) indicator.textContent = 'Step ' + step + ' of ' + totalSteps;
+
+    // Focus input if available
+    var activePane = document.querySelector('.wa-step-pane[data-step="' + step + '"]');
+    if (activePane) {
+      var input = activePane.querySelector('input[type="text"]');
+      if (input) setTimeout(function() { input.focus(); }, 100);
+    }
+  };
+
+  window.nextWellnessStep = function(fromStep) {
+    if (fromStep === 1) {
+      var nameInput = document.getElementById('wa_input_name');
+      if (!nameInput.value.trim()) {
+        nameInput.focus();
+        nameInput.style.borderColor = '#dc2626';
+        return;
+      }
+      nameInput.style.borderColor = '';
+    }
+
+    if (fromStep < totalSteps) {
+      showWellnessStep(fromStep + 1);
+    }
+  };
+
+  window.prevWellnessStep = function(fromStep) {
+    if (fromStep > 1) {
+      showWellnessStep(fromStep - 1);
+    }
+  };
+
+  window.handleWellnessFormSubmit = function(event) {
+    event.preventDefault();
+    
+    var btn = document.getElementById('waBtnSubmit');
+    var textSpan = btn.querySelector('.btn-submit-text');
+    var spinner = btn.querySelector('.btn-submit-spinner');
+
+    var name = (document.getElementById('wa_input_name')?.value || '').trim() || 'Guest';
+    var problem = document.querySelector('input[name="wa_problem"]:checked')?.value || 'General Vitality';
+    var age = document.querySelector('input[name="wa_age"]:checked')?.value || 'Not specified';
+    var goal = document.querySelector('input[name="wa_goal"]:checked')?.value || 'Improve wellness';
+    var previousUse = document.querySelector('input[name="wa_previous_use"]:checked')?.value || 'Not sure';
+    var contact = (document.getElementById('wa_input_contact')?.value || '').trim();
+
+    if (!contact) {
+      var contactInput = document.getElementById('wa_input_contact');
+      contactInput.focus();
+      contactInput.style.borderColor = '#dc2626';
+      return;
+    }
+
+    if (textSpan) textSpan.style.display = 'none';
+    if (spinner) spinner.style.display = 'inline-block';
+    btn.disabled = true;
+
+    // Prepare lead payload for Google Sheets
+    var payload = {
+      Timestamp: new Date().toISOString(),
+      Date_Local: new Date().toLocaleString(),
+      Name: name,
+      Problem: problem,
+      Age_Group: age,
+      Goal: goal,
+      Previous_Products_Used: previousUse,
+      Contact: contact,
+      Page_URL: window.location.href,
+      Source: 'Wellness Advisor Consultation Form'
+    };
+
+    var formData = new FormData();
+    for (var key in payload) {
+      formData.append(key, payload[key]);
+    }
+
+    // Submit to Google Sheets
+    fetch(window.ALPHA_JOSH_SHEETS_ENDPOINT, {
+      method: 'POST',
+      mode: 'no-cors', // Standard for Google Apps Script Web App
+      body: formData
+    })
+    .then(function() {
+      showSuccessScreen(name, problem, goal, contact);
+    })
+    .catch(function(err) {
+      console.warn('Sheets submission sent with fallback:', err);
+      // Display success to user even if no-cors opaque response
+      showSuccessScreen(name, problem, goal, contact);
+    })
+    .finally(function() {
+      if (textSpan) textSpan.style.display = 'inline-block';
+      if (spinner) spinner.style.display = 'none';
+      btn.disabled = false;
+    });
+  };
+
+  function showSuccessScreen(name, problem, goal, contact) {
+    // Hide progress bar
+    document.getElementById('waProgressWrap').style.display = 'none';
+
+    // Hide all step panes
+    document.querySelectorAll('.wa-step-pane').forEach(function(pane) {
+      pane.classList.remove('active');
+    });
+
+    // Populate result details
+    var resName = document.getElementById('waResName');
+    var resConcern = document.getElementById('waResConcern');
+    var resGoal = document.getElementById('waResGoal');
+    var resContact = document.getElementById('waResContact');
+    var resGreeting = document.getElementById('waSuccessGreeting');
+
+    if (resName) resName.textContent = name;
+    if (resConcern) resConcern.textContent = problem;
+    if (resGoal) resGoal.textContent = goal;
+    if (resContact) resContact.textContent = contact;
+    if (resGreeting) {
+      resGreeting.textContent = "Thank you, " + name + "! Our Certified Ayurvedic Vaidya / Wellness Advisor has received your details.";
+    }
+
+    // Show success pane
+    var successPane = document.getElementById('waSuccessPane');
+    if (successPane) successPane.classList.add('active');
+  }
+
+  // Bind click event to all advisor chat links across the site
+  document.addEventListener('DOMContentLoaded', function() {
+    function bindChatButtons() {
+      var buttons = document.querySelectorAll('a[href*="wa.me/919650081651"], .btn-discreet-chat, .col-faq-wa-btn, .chat-advisor-btn');
+      buttons.forEach(function(btn) {
+        if (!btn.hasAttribute('data-wa-modal-bound')) {
+          btn.setAttribute('data-wa-modal-bound', 'true');
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            openWellnessModal(e);
+          });
+        }
+      });
+    }
+
+    bindChatButtons();
+    setTimeout(bindChatButtons, 1000);
+  });
+})();
+</script>

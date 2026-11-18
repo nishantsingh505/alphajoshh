@@ -1,0 +1,258 @@
+<section class="home-why-different page-width" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  {% if section.settings.heading != blank %}
+    <div class="section-header text-center">
+      <h2 class="section-title">
+        {{ section.settings.heading_prefix }}
+        <span class="gold-accent">{{ section.settings.heading_highlight }}</span>
+        {{ section.settings.heading_suffix }}
+      </h2>
+      {% if section.settings.subheading != blank %}
+        <p class="section-subtitle">{{ section.settings.subheading }}</p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="why-different-grid">
+    {% for block in section.blocks %}
+      <div class="why-card" {{ block.shopify_attributes }}>
+        <div class="why-icon-wrap">
+          {% if block.settings.icon_image != blank %}
+            <img src="{{ block.settings.icon_image | img_url: '100x100' }}" alt="{{ block.settings.title | escape }}" loading="lazy">
+          {% else %}
+            <span class="why-emoji-icon">{{ block.settings.icon_emoji | default: '✨' }}</span>
+          {% endif %}
+        </div>
+        <h3 class="why-card-title">{{ block.settings.title }}</h3>
+        {% if block.settings.description != blank %}
+          <p class="why-card-desc">{{ block.settings.description }}</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<style>
+.home-why-different {
+  color: #111111;
+}
+
+.home-why-different .section-header {
+  margin-bottom: 40px;
+}
+
+.home-why-different .section-title {
+  font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+  font-weight: 800;
+  color: #1a1a1a;
+  letter-spacing: -0.01em;
+  margin: 0 0 10px 0;
+}
+
+.home-why-different .gold-accent {
+  color: #b8860b;
+}
+
+.home-why-different .section-subtitle {
+  font-size: 1rem;
+  color: #666666;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.why-different-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.why-card {
+  background: #f5f0e8;
+  border-radius: 16px;
+  padding: 32px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #e8e0d4;
+  transition: all 0.3s ease;
+}
+
+.why-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+  border-color: #d4af37;
+}
+
+.why-icon-wrap {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.why-icon-wrap img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.why-emoji-icon {
+  font-size: 1.8rem;
+}
+
+.why-card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #111111;
+  margin: 0 0 10px 0;
+  line-height: 1.3;
+}
+
+.why-card-desc {
+  font-size: 0.85rem;
+  color: #666666;
+  margin: 0;
+  line-height: 1.5;
+}
+
+@media (max-width: 992px) {
+  .why-different-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  .why-different-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Why Product Is Different",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading_prefix",
+      "label": "Heading Prefix",
+      "default": "Why"
+    },
+    {
+      "type": "text",
+      "id": "heading_highlight",
+      "label": "Heading Highlight (Gold)",
+      "default": "Formula 41"
+    },
+    {
+      "type": "text",
+      "id": "heading_suffix",
+      "label": "Heading Suffix",
+      "default": "is Different?"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "The gold standard in natural male vitality & strength formulations."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Column",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon Image"
+        },
+        {
+          "type": "text",
+          "id": "icon_emoji",
+          "label": "Or Icon Emoji",
+          "default": "🌿"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "High Potency Extracts"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Standardized active botanical extracts for maximum absorption and potency."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Why Product Is Different",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "icon_emoji": "🌿",
+            "title": "High Potency Extracts",
+            "description": "Standardized active botanical extracts for rapid bio-availability."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon_emoji": "👨‍⚕️",
+            "title": "Doctor Formulated",
+            "description": "Developed by experienced Ayurvedic vaidyas & modern research scientists."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon_emoji": "⚡",
+            "title": "Synergistic Combination",
+            "description": "Herbs that work cohesively to support sustained energy and stamina."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon_emoji": "🛡️",
+            "title": "Safe For Daily Use",
+            "description": "100% heavy-metal tested with zero habit forming substances or side effects."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
