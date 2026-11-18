@@ -36,7 +36,7 @@
         "faq_4": {
           "type": "faq_item",
           "settings": {
-            "question": "Are all Alpha Joshhformulas 100% Ayurvedic & lab-tested?",
+            "question": "Are all Alpha Joshh formulas 100% Ayurvedic & lab-tested?",
             "answer": "Yes. Every formulation is 100% Ayurvedic, manufactured in a certified GMP facility, Ayush-approved, and rigorously third-party laboratory tested for purity and heavy metals."
           }
         },
@@ -58,7 +58,7 @@
       "settings": {
         "color_scheme_mode": "light",
         "badge_text": "24/7 DEDICATED SUPPORT",
-        "heading": "Get in Touch with Alpha Josh",
+        "heading": "Get in Touch with Alpha Joshh",
         "subheading": "Have questions about our Ayurvedic formulas, tracking your order, or need personalized wellness guidance? Our dedicated support team is here to assist you.",
         "whatsapp_enabled": true,
         "whatsapp_label": "Chat on WhatsApp",
@@ -78,7 +78,7 @@
         "address_company": "Loire Pharmaceuticals LLP",
         "address_maps_link": "https://maps.google.com/?q=ITL+Twin+Tower+Pitampura+Delhi",
         "form_title": "Send Us a Message",
-        "form_subtitle": "Fill out the form below and an Alpha Joshhwellness specialist will get back to you shortly.",
+        "form_subtitle": "Fill out the form below and an Alpha Joshh wellness specialist will get back to you shortly.",
         "form_button_label": "SEND MESSAGE",
         "privacy_note": "100% Confidential. Your details will never be shared with third parties.",
         "show_business_hours": true,

@@ -207,15 +207,7 @@
               {%- endif -%}
             </div>
 
-            <!-- Arrow Navigation -->
-            {%- if current_product.media.size > 1 -%}
-              <button type="button" class="f41-nav-btn f41-nav-prev" id="f41-prev-{{ section.id }}" aria-label="Previous image">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-              </button>
-              <button type="button" class="f41-nav-btn f41-nav-next" id="f41-next-{{ section.id }}" aria-label="Next image">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </button>
-            {%- endif -%}
+            <!-- Navigation arrows removed -->
           </div>
         </div>
 
@@ -653,12 +645,6 @@
           </div>
         {%- endif -%}
 
-        {%- if floating_show_buynow -%}
-          <button type="button" class="f41-floating-buynow-btn" id="f41-floating-buynow-{{ section.id }}" {% unless current_variant.available %}disabled{% endunless %}>
-            <span>{{ floating_buynow_text }}</span>
-          </button>
-        {%- endif -%}
-
         <button type="button" class="f41-floating-atc-btn" id="f41-floating-atc-btn-{{ section.id }}" {% unless current_variant.available %}disabled{% endunless %}>
           <svg class="f41-floating-atc-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
@@ -774,73 +760,73 @@
     width: 100%;
     aspect-ratio: 1 / 1;
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background: #ffffff;
+    user-select: none;
+    -webkit-user-select: none;
   }
 
   .f41-slides-track {
     display: flex;
+    flex-direction: row;
     width: 100%;
     height: 100%;
     position: relative;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    cursor: grab;
+    touch-action: pan-y pinch-zoom;
+  }
+
+  .f41-slides-track::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  .f41-slides-track.is-dragging {
+    cursor: grabbing;
+    scroll-snap-type: none;
+    scroll-behavior: auto;
   }
 
   .f41-slide {
-    position: absolute;
-    inset: 0;
+    flex: 0 0 100%;
     width: 100%;
+    min-width: 100%;
+    max-width: 100%;
     height: 100%;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.35s ease;
+    position: relative;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  .f41-slide.is-active {
+    box-sizing: border-box;
     opacity: 1;
     visibility: visible;
-    z-index: 2;
   }
 
   .f41-main-img {
     max-width: 100%;
     max-height: 100%;
-    width: auto;
-    height: auto;
-    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
     margin: auto;
+    pointer-events: none;
+    -webkit-user-drag: none;
+    user-select: none;
   }
 
   .f41-nav-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: rgba(45, 45, 45, 0.85);
-    color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 10;
-    transition: background 0.2s, transform 0.2s;
+    display: none !important;
   }
-
-  .f41-nav-btn:hover {
-    background: #111111;
-    transform: translateY(-50%) scale(1.08);
-  }
-
-  .f41-nav-prev { left: 12px; }
-  .f41-nav-next { right: 12px; }
 
   .f41-thumbnails-row {
     display: flex;
@@ -854,7 +840,7 @@
     width: 74px;
     height: 74px;
     flex-shrink: 0;
-    border-radius: 12px;
+    border-radius: 8px;
     overflow: hidden;
     background: #181818;
     border: 2px solid transparent;
@@ -881,7 +867,7 @@
     background: #141414;
     border: 1px solid #242424;
     border-radius: 16px;
-    padding: 5px;
+    padding: 5px 2px;
     margin-top: 24px;
     display: flex;
     flex-direction: column;
@@ -915,8 +901,8 @@
 
   .f41-trust-features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 8px;
     text-align: center;
   }
 
@@ -1220,7 +1206,7 @@
     padding: 2.5px 8px;
     border-radius: 999px;
     font-size: 8px;
-    font-weight: 900;
+    font-weight: 600;
     letter-spacing: 0.4px;
     text-transform: uppercase;
     white-space: nowrap;
@@ -1248,7 +1234,7 @@
 
   .f41-pack-title {
     font-size: 13px;
-    font-weight: 800;
+    font-weight: 600;
     color: #ffffff;
     line-height: 1.2;
     letter-spacing: -0.2px;
@@ -1257,7 +1243,7 @@
 
   .f41-pack-price {
     font-size: 15px;
-    font-weight: 900;
+    font-weight: 700;
     color: #ffffff;
     line-height: 1.2;
     margin-bottom: 3px;
@@ -1278,7 +1264,7 @@
   .f41-pack-save-badge {
     display: inline-block;
     font-size: 9.5px;
-    font-weight: 800;
+    font-weight: 600;
     color: #22c55e;
     background: rgba(34, 197, 94, 0.12);
     border: 1px solid rgba(34, 197, 94, 0.25);
@@ -1289,7 +1275,7 @@
 
   .f41-pack-gift-badge {
     font-size: 8.5px;
-    font-weight: 800;
+    font-weight: 700;
     color: #f59e0b;
     margin-top: 3px;
     letter-spacing: 0.3px;
@@ -1873,6 +1859,7 @@
       min-width: 0 !important;
       overflow-x: hidden !important;
       box-sizing: border-box !important;
+      gap:8px;
     }
 
     .f41-gallery-card {
@@ -1919,6 +1906,12 @@
       line-height: 1.25;
       margin-top: 2px;
     }
+
+    .f41-live-price-wrapper {
+    margin: 10px 0 0px;
+    padding: 10px 6px;
+    }
+
     .f41-tagline {
       font-size: 12.5px;
       margin-top: 4px;
@@ -1979,7 +1972,7 @@
 
     .f41-pack-title {
       font-size: 11px;
-      font-weight: 800;
+      font-weight: 600;
       line-height: 1.2;
       margin-bottom: 2px;
       white-space: nowrap;
@@ -1987,7 +1980,7 @@
 
     .f41-pack-price {
       font-size: 12.5px;
-      font-weight: 900;
+      font-weight: 600;
       line-height: 1.2;
       margin-bottom: 2px;
       white-space: nowrap;
@@ -2000,14 +1993,14 @@
 
     .f41-pack-save-badge {
       font-size: 8.5px;
-      font-weight: 800;
+      font-weight: 600;
       padding: 1px 3px;
       line-height: 1.2;
     }
 
     .f41-pack-gift-badge {
       font-size: 7px;
-      font-weight: 800;
+      font-weight: 700;
       margin-top: 2px;
     }
 
@@ -2609,19 +2602,29 @@
       }
     }
 
-    // Gallery Slider
+    // Gallery Slider (Slidable with Touch & Mouse Swipe)
+    let goToSlide = function(idx) {};
     if (track) {
       const slides = track.querySelectorAll('.f41-slide');
       const thumbs = thumbsContainer ? thumbsContainer.querySelectorAll('.f41-thumb-item') : [];
       let currentIndex = 0;
+      let isMouseDown = false;
+      let startX = 0;
+      let scrollStartLeft = 0;
+      let isDragging = false;
+      let isProgrammaticScroll = false;
+      let scrollEndTimer = null;
 
-      function goToSlide(index) {
-        if (index < 0) index = slides.length - 1;
-        if (index >= slides.length) index = 0;
+      function updateActiveUI(index) {
         currentIndex = index;
-
         slides.forEach((s, idx) => s.classList.toggle('is-active', idx === currentIndex));
-        thumbs.forEach((t, idx) => t.classList.toggle('is-active', idx === currentIndex));
+        thumbs.forEach((t, idx) => {
+          const isActive = idx === currentIndex;
+          t.classList.toggle('is-active', isActive);
+          if (isActive && thumbsContainer) {
+            t.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          }
+        });
         const floatThumb = document.getElementById('f41-floating-thumb-' + sId);
         if (floatThumb && slides[currentIndex]) {
           const activeImg = slides[currentIndex].querySelector('img');
@@ -2629,12 +2632,101 @@
         }
       }
 
-      if (prevBtn) prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
-      if (nextBtn) nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
+      goToSlide = function(index, smooth = true) {
+        if (slides.length === 0) return;
+        if (index < 0) index = 0;
+        if (index >= slides.length) index = slides.length - 1;
+        currentIndex = index;
 
+        const width = track.clientWidth || track.offsetWidth;
+        if (width > 0) {
+          isProgrammaticScroll = true;
+          track.scrollTo({
+            left: index * width,
+            behavior: smooth ? 'smooth' : 'auto'
+          });
+          clearTimeout(scrollEndTimer);
+          scrollEndTimer = setTimeout(() => {
+            isProgrammaticScroll = false;
+          }, 350);
+        }
+        updateActiveUI(index);
+      };
+
+      // Real-time sync on touch swipe / scroll
+      track.addEventListener('scroll', () => {
+        if (isDragging || isProgrammaticScroll) return;
+        const width = track.clientWidth || track.offsetWidth;
+        if (width > 0) {
+          const activeIdx = Math.round(track.scrollLeft / width);
+          if (activeIdx >= 0 && activeIdx < slides.length && activeIdx !== currentIndex) {
+            updateActiveUI(activeIdx);
+          }
+        }
+      }, { passive: true });
+
+      // Thumbnail click
       thumbs.forEach((thumb, idx) => {
-        thumb.addEventListener('click', () => goToSlide(idx));
+        thumb.addEventListener('click', (e) => {
+          e.preventDefault();
+          goToSlide(idx);
+        });
       });
+
+      // Desktop Mouse Drag / Swipe
+      if (slides.length > 1) {
+        track.addEventListener('mousedown', (e) => {
+          if (e.button !== 0) return; // left click only
+          isMouseDown = true;
+          isDragging = false;
+          startX = e.pageX;
+          scrollStartLeft = track.scrollLeft;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+          if (!isMouseDown) return;
+          const diffX = e.pageX - startX;
+          if (Math.abs(diffX) > 6) {
+            isDragging = true;
+            track.classList.add('is-dragging');
+            track.style.scrollSnapType = 'none';
+            track.style.scrollBehavior = 'auto';
+            track.scrollLeft = scrollStartLeft - diffX;
+          }
+        });
+
+        const handleMouseEnd = (e) => {
+          if (!isMouseDown) return;
+          isMouseDown = false;
+          track.classList.remove('is-dragging');
+          track.style.scrollSnapType = 'x mandatory';
+          track.style.scrollBehavior = 'smooth';
+
+          if (isDragging) {
+            const width = track.clientWidth || track.offsetWidth;
+            const diffX = e.pageX - startX;
+            const threshold = Math.min(width * 0.15, 50);
+            if (diffX < -threshold && currentIndex < slides.length - 1) {
+              goToSlide(currentIndex + 1);
+            } else if (diffX > threshold && currentIndex > 0) {
+              goToSlide(currentIndex - 1);
+            } else {
+              goToSlide(currentIndex);
+            }
+            isDragging = false;
+          }
+        };
+
+        window.addEventListener('mouseup', handleMouseEnd);
+
+        // Keep alignment on window resize / orientation change
+        window.addEventListener('resize', () => {
+          const width = track.clientWidth || track.offsetWidth;
+          if (width > 0) {
+            track.scrollTo({ left: currentIndex * width, behavior: 'auto' });
+          }
+        }, { passive: true });
+      }
     }
 
     // Pack Selector Interaction
@@ -2745,14 +2837,7 @@
           if (matchingSlide) {
             const idx = parseInt(matchingSlide.getAttribute('data-index'), 10);
             if (!isNaN(idx)) {
-              track.querySelectorAll('.f41-slide').forEach((s, i) => s.classList.toggle('is-active', i === idx));
-              if (thumbsContainer) {
-                thumbsContainer.querySelectorAll('.f41-thumb-item').forEach((t, i) => t.classList.toggle('is-active', i === idx));
-              }
-              if (floatThumb) {
-                const sImg = matchingSlide.querySelector('img');
-                if (sImg && sImg.src) floatThumb.src = sImg.src;
-              }
+              goToSlide(idx);
             }
           }
         }

@@ -9,12 +9,9 @@
       <div class="privacy-video-wrapper">
         {% if section.settings.video_url != blank %}
           <div class="video-container" id="privacyVideo-{{ section.id }}">
-            <video class="privacy-video-element" playsinline poster="{{ section.settings.video_poster | img_url: '1000x' }}" preload="none">
+            <img class="privacy-video-element" playsinline src="{{ section.settings.video_poster | img_url: '1000x' }}" preload="none">
               <source src="{{ section.settings.video_url }}" type="video/mp4">
-            </video>
-            <button class="video-play-btn" aria-label="Play Video">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="#000000"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-            </button>
+            </img>
           </div>
         {% else %}
           <div class="privacy-video-placeholder">
@@ -197,6 +194,9 @@
   .privacy-badges-row {
     flex-direction: column;
     gap: 10px;
+  }
+  .privacy-heading {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
   }
 
   .privacy-badge-pill {
