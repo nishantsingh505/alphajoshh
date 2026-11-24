@@ -1,0 +1,159 @@
+{% comment %}
+  Trusted Banner Strip Section
+  Placed at the top of product templates
+{% endcomment %}
+
+{% render 'trusted-banner-strip' %}
+
+{% schema %}
+{
+  "name": "Trusted Banner Strip",
+  "tag": "section",
+  "class": "section-trusted-banner-strip",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Trusted by"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Main Heading",
+      "default": "10 Lakhs+ Happy Men"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Banner Link (Optional)"
+    },
+    {
+      "type": "header",
+      "content": "Customer Avatar Images Customization"
+    },
+    {
+      "type": "paragraph",
+      "content": "Customize the 5 avatars below with your own customer photos, or leave blank to use the default happy men avatars. You can also add Avatar blocks below for more or fewer avatars."
+    },
+    {
+      "type": "image_picker",
+      "id": "avatar_1",
+      "label": "Avatar 1 Photo"
+    },
+    {
+      "type": "image_picker",
+      "id": "avatar_2",
+      "label": "Avatar 2 Photo"
+    },
+    {
+      "type": "image_picker",
+      "id": "avatar_3",
+      "label": "Avatar 3 Photo"
+    },
+    {
+      "type": "image_picker",
+      "id": "avatar_4",
+      "label": "Avatar 4 Photo"
+    },
+    {
+      "type": "image_picker",
+      "id": "avatar_5",
+      "label": "Avatar 5 Photo"
+    },
+    {
+      "type": "image_picker",
+      "id": "avatars_image",
+      "label": "Or: Single Combined Graphic (Optional Override)"
+    },
+    {
+      "type": "header",
+      "content": "Appearance & Layout"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full Width Strip",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_border_bottom",
+      "label": "Show Bottom Border",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Bottom Border Color",
+      "default": "#e8e8e8"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 4,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 4,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Margin Bottom",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "avatar",
+      "name": "Customer Avatar",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Customer Image"
+        },
+        {
+          "type": "text",
+          "id": "alt_text",
+          "label": "Alt Text",
+          "default": "Happy Customer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trusted Banner Strip"
+    }
+  ]
+}
+{% endschema %}

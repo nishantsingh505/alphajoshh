@@ -9,9 +9,29 @@
  */
 {
   "sections": {
+    "trusted_banner_strip": {
+      "type": "trusted-banner-strip",
+      "settings": {
+        "subheading": "Trusted by",
+        "heading": "10 Lakhs+ Happy Men",
+        "link_url": "",
+        "avatars_image": "shopify://shop_images/image_8e44a42d-2106-4d7a-a77e-0bd9dc548ce4.png",
+        "bg_color": "#ffffff",
+        "text_color": "#000000",
+        "full_width": true,
+        "show_border_bottom": false,
+        "border_color": "#e8e8e8",
+        "padding_top": 14,
+        "padding_bottom": 14,
+        "margin_bottom": 0
+      }
+    },
     "main": {
       "type": "formula-product-hero",
       "settings": {
+        "show_top_trust_strip": false,
+        "top_trust_subheading": "Trusted by",
+        "top_trust_heading": "10 Lakhs+ Happy Men",
         "show_floating_badges": true,
         "badge_1_text": "Discreet Packaging",
         "badge_2_text": "100% Ayurvedic & Pure",
@@ -43,7 +63,12 @@
         "trust_strip_3": "Easy Returns",
         "show_upsell_section": true,
         "upsell_heading": "PAIR IT WITH:",
-        "upsell_products": []
+        "upsell_products": [],
+        "enable_floating_atc": true,
+        "floating_atc_show_buynow": true,
+        "floating_atc_show_qty": true,
+        "floating_atc_btn_text": "ADD TO CART",
+        "floating_buynow_btn_text": "BUY NOW"
       }
     },
     "video_reels_GzXgjN": {
@@ -381,6 +406,7 @@
     }
   },
   "order": [
+    "trusted_banner_strip",
     "main",
     "video_reels_GzXgjN",
     "fast_delivery",

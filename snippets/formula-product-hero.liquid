@@ -142,6 +142,9 @@
 -%}
 
 <div class="f41-product-hero" id="f41-hero-{{ section.id }}">
+  {%- if section.settings.show_top_trust_strip -%}
+    {% render 'trusted-banner-strip' %}
+  {%- endif -%}
   <div class="f41-container">
     <div class="f41-grid">
       

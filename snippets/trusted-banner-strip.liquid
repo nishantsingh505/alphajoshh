@@ -1,0 +1,331 @@
+{% comment %}
+  Trusted Banner Strip Snippet
+  White strip banner displayed on top of product page templates
+  "Trusted by 10 Lakhs+ Happy Men" with customizable customer avatars
+{% endcomment %}
+
+{%- liquid
+  assign subheading = section.settings.subheading | default: section.settings.top_trust_subheading | default: 'Trusted by'
+  assign heading = section.settings.heading | default: section.settings.top_trust_heading | default: '10 Lakhs+ Happy Men'
+  assign avatar_composite = section.settings.avatars_image | default: section.settings.top_trust_avatars
+  assign bg_color = section.settings.bg_color | default: '#ffffff'
+  assign text_color = section.settings.text_color | default: '#000000'
+  assign full_width = section.settings.full_width
+  if full_width == nil
+    assign full_width = true
+  endif
+  assign show_border = section.settings.show_border_bottom | default: false
+  assign border_color = section.settings.border_color | default: '#e8e8e8'
+  assign pad_top = section.settings.padding_top | default: 14
+  assign pad_bottom = section.settings.padding_bottom | default: 14
+  assign mar_bottom = section.settings.margin_bottom | default: 0
+  assign link_url = section.settings.link_url
+-%}
+
+<div class="t-banner-strip-wrap {% if full_width %}t-banner-strip--full{% else %}t-banner-strip--boxed{% endif %}"
+     id="t-banner-strip-{{ section.id | default: 'hero-top' }}"
+     style="--tbs-bg: {{ bg_color }}; --tbs-text: {{ text_color }}; --tbs-border: {{ border_color }}; --tbs-pt: {{ pad_top }}px; --tbs-pb: {{ pad_bottom }}px; --tbs-mb: {{ mar_bottom }}px;">
+  <div class="t-banner-strip-container">
+    {%- if link_url != blank -%}
+      <a href="{{ link_url }}" class="t-banner-strip-inner t-banner-strip-link">
+    {%- else -%}
+      <div class="t-banner-strip-inner">
+    {%- endif -%}
+
+      <!-- Text: Subheading + Heading -->
+      <div class="t-banner-strip-text">
+        {%- if subheading != blank -%}
+          <span class="t-banner-strip-sub">{{ subheading }}</span>
+        {%- endif -%}
+        {%- if heading != blank -%}
+          <h2 class="t-banner-strip-title">{{ heading }}</h2>
+        {%- endif -%}
+      </div>
+
+      <!-- Customer Avatars (Customizable via Blocks, Individual Settings, or Composite Image) -->
+      <div class="t-banner-strip-avatars" aria-label="Customer Avatars">
+        {%- if section.blocks.size > 0 -%}
+          <!-- 1. Custom Blocks Mode -->
+          <div class="t-banner-avatars-stack">
+            {%- for block in section.blocks -%}
+              <div class="t-banner-avatar-item" {{ block.shopify_attributes }}>
+                {%- if block.settings.image != blank -%}
+                  {{ block.settings.image | image_url: width: 140 | image_tag: 
+                    class: 't-banner-avatar-img',
+                    alt: block.settings.alt_text | default: 'Happy Customer',
+                    loading: 'eager',
+                    width: 44,
+                    height: 44
+                  }}
+                {%- else -%}
+                  {%- assign fallback_idx = forloop.index | modulo: 5 -%}
+                  {%- if fallback_idx == 0 %}{% assign fallback_idx = 5 %}{% endif -%}
+                  {%- assign fallback_file = 'avatar-man-' | append: fallback_idx | append: '.png' -%}
+                  <img src="{{ fallback_file | asset_url }}"
+                       alt="Happy Customer"
+                       class="t-banner-avatar-img"
+                       loading="eager"
+                       width="44"
+                       height="44">
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          </div>
+
+        {%- elsif section.settings.avatar_1 != blank or section.settings.avatar_2 != blank or section.settings.avatar_3 != blank or section.settings.avatar_4 != blank or section.settings.avatar_5 != blank or section.settings.top_trust_avatar_1 != blank or section.settings.top_trust_avatar_2 != blank or section.settings.top_trust_avatar_3 != blank or section.settings.top_trust_avatar_4 != blank or section.settings.top_trust_avatar_5 != blank -%}
+          <!-- 2. Individual Avatar Settings Mode (Avatar 1 to 5) -->
+          <div class="t-banner-avatars-stack">
+            {%- for i in (1..5) -%}
+              {%- assign av_key = 'avatar_' | append: i -%}
+              {%- assign top_av_key = 'top_trust_avatar_' | append: i -%}
+              {%- assign av_img = section.settings[av_key] | default: section.settings[top_av_key] -%}
+              <div class="t-banner-avatar-item">
+                {%- if av_img != blank -%}
+                  {{ av_img | image_url: width: 140 | image_tag: 
+                    class: 't-banner-avatar-img',
+                    alt: 'Happy Customer',
+                    loading: 'eager',
+                    width: 44,
+                    height: 44
+                  }}
+                {%- else -%}
+                  {%- assign fallback_file = 'avatar-man-' | append: i | append: '.png' -%}
+                  <img src="{{ fallback_file | asset_url }}"
+                       alt="Happy Customer"
+                       class="t-banner-avatar-img"
+                       loading="eager"
+                       width="44"
+                       height="44">
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          </div>
+
+        {%- elsif avatar_composite != blank -%}
+          <!-- 3. Single Custom Composite Image -->
+          {{ avatar_composite | image_url: width: 600 | image_tag: 
+            class: 't-banner-strip-img',
+            alt: heading,
+            loading: 'eager',
+            width: 175,
+            height: 45
+          }}
+
+        {%- else -%}
+          <!-- 4. Default 5 Overlapping Circular Avatars -->
+          <div class="t-banner-avatars-stack">
+            {%- for i in (1..5) -%}
+              {%- assign fallback_file = 'avatar-man-' | append: i | append: '.png' -%}
+              <div class="t-banner-avatar-item">
+                <img src="{{ fallback_file | asset_url }}"
+                     alt="Happy Customer"
+                     class="t-banner-avatar-img"
+                     loading="eager"
+                     width="44"
+                     height="44">
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+    {%- if link_url != blank -%}
+      </a>
+    {%- else -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<style>
+  #t-banner-strip-{{ section.id | default: 'hero-top' }} {
+    background-color: var(--tbs-bg, #ffffff);
+    margin-bottom: var(--tbs-mb, 0px);
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 10;
+    {% if show_border %}
+      border-bottom: 1px solid var(--tbs-border, #e8e8e8);
+    {% endif %}
+  }
+
+  #t-banner-strip-{{ section.id | default: 'hero-top' }}.t-banner-strip--boxed {
+    max-width: 1360px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 12px;
+  }
+
+  #t-banner-strip-{{ section.id | default: 'hero-top' }} .t-banner-strip-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: var(--tbs-pt, 14px) 20px var(--tbs-pb, 14px);
+    box-sizing: border-box;
+  }
+
+  #t-banner-strip-{{ section.id | default: 'hero-top' }} .t-banner-strip-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+    text-decoration: none;
+    color: var(--tbs-text, #000000);
+  }
+
+  #t-banner-strip-{{ section.id | default: 'hero-top' }} .t-banner-strip-link:hover {
+    opacity: 0.95;
+  }
+
+  #t-banner-strip-{{ section.id | default: 'hero-top' }} .t-banner-strip-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.15;
+  }
+
+  #t-banner-strip-{{ section.id | default: 'hero-top' }} .t-banner-strip-sub {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--tbs-text, #000000);
+    opacity: 0.92;
+    letter-spacing: -0.1px;
+    margin: 0 0 2px 0;
+    line-height: 1.2;
+    display: block;
+    font-family: inherit;
+  }
+
+  #t-banner-strip-{{ section.id | default: 'hero-top' }} .t-banner-strip-title {
+    font-size: 22px;
+    font-weight: 850;
+    color: var(--tbs-text, #000000);
+    letter-spacing: -0.4px;
+    line-height: 1.2;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    font-family: inherit;
+  }
+
+  #t-banner-strip-{{ section.id | default: 'hero-top' }} .t-banner-strip-avatars {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* Stack of individual circular avatars */
+  #t-banner-strip-{{ section.id | default: 'hero-top' }} .t-banner-avatars-stack {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  #t-banner-strip-{{ section.id | default: 'hero-top' }} .t-banner-avatar-item {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1.8px solid #111111;
+    overflow: hidden;
+    margin-left: -11px;
+    background-color: #f0f0f0;
+    flex-shrink: 0;
+    position: relative;
+    box-sizing: border-box;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    transition: transform 0.2s ease;
+  }
+
+  #t-banner-strip-{{ section.id | default: 'hero-top' }} .t-banner-avatar-item:first-child {
+    margin-left: 0;
+  }
+
+  #t-banner-strip-{{ section.id | default: 'hero-top' }} .t-banner-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 50%;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  /* Single composite image mode fallback */
+  #t-banner-strip-{{ section.id | default: 'hero-top' }} .t-banner-strip-img {
+    display: block;
+    height: 44px;
+    width: auto;
+    max-width: 200px;
+    object-fit: contain;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  @media screen and (max-width: 768px) {
+    #t-banner-strip-{{ section.id | default: 'hero-top' }} .t-banner-strip-inner {
+      gap: 20px;
+    }
+    #t-banner-strip-{{ section.id | default: 'hero-top' }} .t-banner-strip-sub {
+      font-size: 12.5px;
+    }
+    #t-banner-strip-{{ section.id | default: 'hero-top' }} .t-banner-strip-title {
+      font-size: 19px;
+    }
+    #t-banner-strip-{{ section.id | default: 'hero-top' }} .t-banner-avatar-item {
+      width: 40px;
+      height: 40px;
+      margin-left: -10px;
+    }
+    #t-banner-strip-{{ section.id | default: 'hero-top' }} .t-banner-strip-img {
+      height: 40px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    #t-banner-strip-{{ section.id | default: 'hero-top' }} .t-banner-strip-container {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+    #t-banner-strip-{{ section.id | default: 'hero-top' }} .t-banner-strip-inner {
+      gap: 12px;
+    }
+    #t-banner-strip-{{ section.id | default: 'hero-top' }} .t-banner-strip-sub {
+      font-size: 11.5px;
+      margin-bottom: 1px;
+    }
+    #t-banner-strip-{{ section.id | default: 'hero-top' }} .t-banner-strip-title {
+      font-size: 16px;
+      letter-spacing: -0.3px;
+    }
+    #t-banner-strip-{{ section.id | default: 'hero-top' }} .t-banner-avatar-item {
+      width: 35px;
+      height: 35px;
+      margin-left: -9px;
+    }
+    #t-banner-strip-{{ section.id | default: 'hero-top' }} .t-banner-strip-img {
+      height: 35px;
+    }
+  }
+
+  @media screen and (max-width: 350px) {
+    #t-banner-strip-{{ section.id | default: 'hero-top' }} .t-banner-strip-title {
+      font-size: 14.5px;
+    }
+    #t-banner-strip-{{ section.id | default: 'hero-top' }} .t-banner-avatar-item {
+      width: 31px;
+      height: 31px;
+      margin-left: -8px;
+    }
+    #t-banner-strip-{{ section.id | default: 'hero-top' }} .t-banner-strip-img {
+      height: 32px;
+    }
+    #t-banner-strip-{{ section.id | default: 'hero-top' }} .t-banner-strip-inner {
+      gap: 8px;
+    }
+  }
+</style>

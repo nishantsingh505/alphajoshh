@@ -9,6 +9,10 @@
  */
 {
   "sections": {
+    "trusted_banner_strip": {
+      "type": "trusted-banner-strip",
+      "settings": {}
+    },
     "main": {
       "type": "formula-product-hero",
       "settings": {
@@ -334,6 +338,7 @@
     }
   },
   "order": [
+    "trusted_banner_strip",
     "main",
     "video_reels_Wc9ANf",
     "fast_delivery",
